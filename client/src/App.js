@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
+import {Sidebar} from './Components/Sidebar';
+import './App.css'
 const api_base = 'http://localhost:3001';
+
 
 function App() {
 	const [students, setStudents] = useState([]);
@@ -25,23 +28,11 @@ function App() {
 
 
 	return (
-    <>
-		<div className="App">
-			
-    <h1>Student List</h1>
-          	{ students.map(student => (
-            <div key={student._id}>
-              
-						  <p>Student first name:  {student.firstname}</p>
-              <p>Student last name:  {student.lastname}</p>
-              <p>Student email:  {student.email}</p>
-            <div className="delete-student" onClick={() => deleteStudent(student._id)}>x</div>
 
-            </div>    
-						
-        ))}
+		<div className="App">
+			<Sidebar />
     </div>
-    </>
+
 	);
 }
 export default App;

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 
-const studentsSchema = new Schema({
+const teachersSchema = new Schema({
   firstname:{
     type: String,
     required: true
@@ -21,13 +21,13 @@ const studentsSchema = new Schema({
   quizzes:[
     {
       type:mongoose.Schema.Types.ObjectId,
-      ref:"quiz"
+      ref:"Quiz"
     }
   ],
-  teachers:[
+  students:[
     {
       type:mongoose.Schema.Types.ObjectId,
-      ref:"Teachers"
+      ref:"Student"
     }
   ],
   data:{
@@ -36,4 +36,4 @@ const studentsSchema = new Schema({
   }
 })
 
-module.exports = mongoose.model('Student', studentsSchema)
+module.exports = mongoose.model('Teacher', teachersSchema)

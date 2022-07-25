@@ -1,27 +1,35 @@
 const mongoose = require('mongoose')
 
 
-const studentsSchema = new Schema({
-  firstname:{
+const QuizScheama =  new mongoose.Schema({
+  category:{
+    type:String,
+    required:true
+  },
+  title:{
+    type:String,
+    required: true
+  },
+  one:{
     type: String,
     required: true
   },
-  lastname:{
+  two:{
     type:String,
     required:true
   },
-  email: {
+  three: {
     type:String,
     required:true
   },
-  password:{
+  four:{
     type:String,
     required:true
   },
-  quizzes:[
+  students:[
     {
       type:mongoose.Schema.Types.ObjectId,
-      ref:"quiz"
+      ref:"Students"
     }
   ],
   teachers:[
@@ -36,4 +44,4 @@ const studentsSchema = new Schema({
   }
 })
 
-module.exports = mongoose.model('Student', studentsSchema)
+module.exports = mongoose.model('Quiz', QuizScheama)
