@@ -39,6 +39,31 @@ app.post('/student/new', (req, res) => {
   res.json(student)
 })
 
+app.delete('/student/delete/:id', async (req, res) => {
+	const result = await Students.findByIdAndDelete(req.params.id);
+
+	res.json({result});
+});
+
+app.get('/student/complete/:id', async (req, res) => {
+	const student = await Students.findById(req.params.id);
+
+	student.complete = !student.complete;
+
+	student.save();
+
+	res.json(todo);
+})
+
+app.put('/student/update/:id', async (req, res) => {
+	const student = await Students.findById(req.params.id);
+
+	student.text = req.body.text;
+
+	student.save();
+
+	res.json(student);
+});
 
 
 app.listen(3001, () => {
