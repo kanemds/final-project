@@ -1,0 +1,25 @@
+GET http://localhost:3001/students
+
+###
+
+POST http://localhost:3001/student/new
+Content-Type: application/json 
+
+{
+  "firstname":"asdfa",
+  "lastname":"Asdf",
+  "email":"asd@daf.com",
+  "password": "Dadsa"
+}
+
+###
+
+POST http://localhost:3001/student/new
+Content-Type: application/json 
+
+{
+  "firstname":"123123123",
+  "lastname":"Asdasdff",
+  "email":"asd@daf.com",
+  "password": "Dadsaasdfad"
+}
