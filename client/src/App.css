@@ -23,6 +23,7 @@ body {
   display: flex;
   position: fixed;
   opacity: .8;
+  
 }
 
 .SidebarList {
@@ -30,6 +31,7 @@ body {
   padding: 0;
   width: 100%;
   margin-top: 200px;
+  
 }
 
 .Sidebar .row {
@@ -42,27 +44,36 @@ body {
   flex-direction: row;
   justify-content:center;
   align-items: center;
+    text-decoration: none;
 }
+
+li a {
+  text-decoration: none;
+}
+
+
 
 .SidebarList .row:hover {
   cursor: pointer;
   color: black;
 }
 
-.SidebarList #active {
+.SidebarList li[data-active="true"] {
   background-color: black;
 }
 
-.SidebarList #active:hover {
+.SidebarList li[data-active="true"]:hover {
   color: white;
 }
 
 .row #icon {
   flex:30%;
   display:grid;
-  place-items:center
+  place-items:center;
+  color:  white;
 }
 
 .row #title {
   flex: 70%;
+  color:  white;
 }
