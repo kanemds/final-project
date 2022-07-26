@@ -8,7 +8,7 @@ body {
   padding: 0;
 }
 
-.home, .quiz, .students, .groups, .reports, .account, .logout {
+.home, .exam, .students, .groups, .reports, .account, .logout {
   display: flex;
   height: 90vh;
   align-items: center;

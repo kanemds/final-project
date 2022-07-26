@@ -1,39 +1,37 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import {Sidebar} from './Components/Sidebar';
+import {Sidebar} from './components/Sidebar';
 import './App.css'
-import Home from './Components/page/Home';
-import  Quiz  from './Components/page/Quiz';
-import  Students  from './Components/page/Students';
-import  Groups  from './Components/page/Groups';
-import  Reports  from './Components/page/Reports';
-import  Account  from './Components/page/Account';
-import  Logout  from './Components/page/Logout';
-
-const api_base = 'http://localhost:3001';
+import Home from 'components/page/Home';
+import  Exam  from 'components/page/Exam/Exam';
+import  Students  from 'components/page/Students';
+import  Groups  from 'components/page/Groups';
+import  Reports  from 'components/page/Reports';
+import  Account  from 'components/page/Account';
+import  Logout  from 'components/page/Logout';
 
 
 function App() {
-	const [students, setStudents] = useState([]);
+	// const [students, setStudents] = useState([]);
 
 	
 
-	useEffect(() => {
-		GetStudents();
-	}, []);
+	// useEffect(() => {
+	// 	GetStudents();
+	// }, []);
 
-	const GetStudents = () => {
-		fetch(api_base + '/Students')
-			.then(res => res.json())
-			.then(data => setStudents(data))
-			.catch((err) => console.error("Error: ", err));
-	}
+	// const GetStudents = () => {
+	// 	fetch(api_base + '/Students')
+	// 		.then(res => res.json())
+	// 		.then(data => setStudents(data))
+	// 		.catch((err) => console.error("Error: ", err));
+	// }
 
-  const deleteStudent = async id => {
-		const data = await fetch(api_base + '/student/delete/' + id, { method: "DELETE" }).then(res => res.json());
+  // const deleteStudent = async id => {
+	// 	const data = await fetch(api_base + '/student/delete/' + id, { method: "DELETE" }).then(res => res.json());
 
-		setStudents(students => students.filter(student => student._id !== data.result._id));
-	}
+	// 	setStudents(students => students.filter(student => student._id !== data.result._id));
+	// }
 
 
 	return (
@@ -42,7 +40,7 @@ function App() {
 				<Sidebar />
 				<Routes>
 					<Route path="/home" element={ <Home />} />
-					<Route path="/quiz" element={ <Quiz />} />
+					<Route path="/exam" element={ <Exam />} />
 					<Route path="/students" element={ <Students />} />
 					<Route path="/groups" element={ <Groups />} />
 					<Route path="/reports" element={ <Reports />} />

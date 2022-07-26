@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
-
-const studentsSchema = new Schema({
+const studentsSchema = new mongoose.Schema({
   firstname:{
     type: String,
     required: true
@@ -27,7 +26,7 @@ const studentsSchema = new Schema({
   teachers:[
     {
       type:mongoose.Schema.Types.ObjectId,
-      ref:"Teachers"
+      ref:"Teacher"
     }
   ],
   data:{

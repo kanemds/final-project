@@ -23,3 +23,13 @@ Content-Type: application/json
   "email":"asd@daf.com",
   "password": "Dadsaasdfad"
 }
+
+###
+
+POST http://localhost:3001/exam/create
+Content-Type: application/json 
+
+{
+  "name": "math",
+  "title": "math",
+}

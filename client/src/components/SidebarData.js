@@ -16,9 +16,9 @@ export const SidebarData = [
     link: "/home"
   },
   {
-    title:"Quiz",
+    title:"Exam",
     icon: <QuizIcon />,
-    link: "/quiz"
+    link: "/exam"
   },
   {
     title:"Students",
