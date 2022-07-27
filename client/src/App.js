@@ -7,8 +7,9 @@ import  Exams  from 'components/page/Exams/Exams';
 import  Students  from 'components/page/Students';
 import  Groups  from 'components/page/Groups';
 import  Reports  from 'components/page/Reports';
-import  Account  from 'components/page/Account';
+import  Account  from 'components/page/account/Account';
 import  Logout  from 'components/page/Logout';
+import Billing from 'components/page/account/Billing';
 import ExamQuestions from 'components/page/Exams/Questions/ExamQuestions';
 import ExamQuestionsNew from 'components/page/Exams/Questions/ExamQuestionsNew';
 import ExamPools from 'components/page/Exams/Pools/ExamPools';
@@ -17,34 +18,17 @@ import ExamScheduler from 'components/page/Exams/Scheduler/ExamScheduler';
 import Root from 'Root';
 import ExamContainer from 'ExamContainer';
 
+
 function App() {
-	// const [students, setStudents] = useState([]);
-
 	
-
-	// useEffect(() => {
-	// 	GetStudents();
-	// }, []);
-
-	// const GetStudents = () => {
-	// 	fetch(api_base + '/Students')
-	// 		.then(res => res.json())
-	// 		.then(data => setStudents(data))
-	// 		.catch((err) => console.error("Error: ", err));
-	// }
-
-  // const deleteStudent = async id => {
-	// 	const data = await fetch(api_base + '/student/delete/' + id, { method: "DELETE" }).then(res => res.json());
-
-	// 	setStudents(students => students.filter(student => student._id !== data.result._id));
-	// }
 
 
 	return (
 		<>
 			<Router>
 				<Routes>
-					<Route element={ <Root />} >
+		
+				    <Route element={ <Root />} >
 						<Route path="/home" element={ <Home />} />
 						<Route path="/exams" element={ <Exams />} />
 						<Route element={ <ExamContainer />} >
@@ -59,7 +43,9 @@ function App() {
 						<Route path="/reports" element={ <Reports />} />
 						<Route path="/account" element={ <Account />} />
 						<Route path="/logout" element={ <Logout />} />
+            <Route path='/account/billing' element={ <Billing /> } />
 					</Route>
+
 				</Routes>
 			</Router>
 		</>

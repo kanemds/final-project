@@ -8,22 +8,21 @@ body {
   padding: 0;
 }
 
-.home, .exam, .students, .groups, .reports, .account, .logout {
-  display: flex;
+.home, .exam, .students, .groups, .reports, .account, .logout, .billing {
   height: 90vh;
   align-items: center;
   justify-content: center;
-  padding-left: 220px;
+  margin-left: 240px;
 } 
 
 .Sidebar {
   height:100vh;
   width:220px;
   background-color: gray;
-  display: flex;
+  display: inline-block;
   position: fixed;
   opacity: .8;
-  
+  top: 0%;
 }
 
 .SidebarList {
@@ -44,7 +43,7 @@ body {
   flex-direction: row;
   justify-content:center;
   align-items: center;
-    text-decoration: none;
+  text-decoration: none;
 }
 
 li a {
