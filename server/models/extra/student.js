@@ -17,10 +17,10 @@ const studentsSchema = new mongoose.Schema({
     type:String,
     required:true
   },
-  quizzes:[
+  exams:[
     {
       type:mongoose.Schema.Types.ObjectId,
-      ref:"quiz"
+      ref:"Exam"
     }
   ],
   teachers:[

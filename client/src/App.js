@@ -7,31 +7,13 @@ import  Exam  from 'components/page/Exam/Exam';
 import  Students  from 'components/page/Students';
 import  Groups  from 'components/page/Groups';
 import  Reports  from 'components/page/Reports';
-import  Account  from 'components/page/Account';
+import  Account  from 'components/page/account/Account';
 import  Logout  from 'components/page/Logout';
+import Billing from 'components/page/account/Billing';
 
 
 function App() {
-	// const [students, setStudents] = useState([]);
-
 	
-
-	// useEffect(() => {
-	// 	GetStudents();
-	// }, []);
-
-	// const GetStudents = () => {
-	// 	fetch(api_base + '/Students')
-	// 		.then(res => res.json())
-	// 		.then(data => setStudents(data))
-	// 		.catch((err) => console.error("Error: ", err));
-	// }
-
-  // const deleteStudent = async id => {
-	// 	const data = await fetch(api_base + '/student/delete/' + id, { method: "DELETE" }).then(res => res.json());
-
-	// 	setStudents(students => students.filter(student => student._id !== data.result._id));
-	// }
 
 
 	return (
@@ -45,6 +27,7 @@ function App() {
 					<Route path="/groups" element={ <Groups />} />
 					<Route path="/reports" element={ <Reports />} />
 					<Route path="/account" element={ <Account />} />
+					<Route path='/account/billing' element={ <Billing /> } />
 					<Route path="/logout" element={ <Logout />} />
 			
 				</Routes>

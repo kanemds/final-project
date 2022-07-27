@@ -33,3 +33,13 @@ Content-Type: application/json
   "name": "math",
   "title": "math",
 }
+
+### 
+POST http://localhost:3001/account
+Content-Type: application/json 
+
+      {
+        "plan":"basic",
+        "price":59,
+        "term": "month"
+      }
