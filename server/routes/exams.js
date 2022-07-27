@@ -1,30 +1,36 @@
 const express = require('express')
 const router = express.Router()
-const Exam = require('../models/exam')
+const Exams = require('../models/exams')
 const Question = require('../models/question')
 const Answer = require('../models/answer')
 
 const ObjectId = require('mongodb').ObjectId;
 
 router.post('/new', (req, res) => {
-  console.log(req.body)
-  const exam = new Exam ({
+  const exam = new Exams ({
     name: req.body.name,
     questions: req.body.questions
   })
   exam.save()
-    .then(data => {      
-      res.json(data)
-    })
+    .then(data =>     
+      res.json(data))
     .catch(error => {
       res.json(error)
     })
   }
 )
 
+router.get('/', (req, res) => {
+  Exams.find()
+  .then(data => {
+    res.send(data);
+  }).catch(error => {
+    res.json(error);
+  });
+})
+
 router.get('/:id', (req, res) => {
-  console.log(req.params)
-  const doc = Exam.aggregate([
+  const doc = Exams.aggregate([
     { $match: { _id: ObjectId(req.params.id) }},
     { $limit: 1 },
     {
