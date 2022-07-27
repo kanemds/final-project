@@ -18,4 +18,4 @@ const ExamScheama =  new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Exam', ExamScheama)
+module.exports = mongoose.model('Exams', ExamScheama)

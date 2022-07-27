@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const exam = require('./exam')
+const exams = require('./exams')
 const questions = require('./questions')
 const answers = require('./answers')
 
 router.use('/questions', questions)
-router.use('/exam', exam)
+router.use('/exams', exams)
 router.use('/answers', answers)
 
 module.exports = router
