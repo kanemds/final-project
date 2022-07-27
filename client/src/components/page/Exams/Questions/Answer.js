@@ -4,17 +4,25 @@ import TextField from "@mui/material/TextField";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
-import { Radio } from "@mui/material";
+import { Button, Radio } from "@mui/material";
 
-const Answers = ({selected, radioId, handleChange, answer, setAnswer}) => {
+const Answer = ({setSelected, setDeleted, selected, answerId, handleChange, answer, setAnswer}) => {
 
   return (
     <>
       <List>
         <ListItem alignItems="center">
+          <Button onClick={() => {
+            setDeleted(prev => ({...prev, [answerId]: true}));
+            if (answerId === selected) {
+              setSelected("");
+            }
+          }}>
+            <span className="iconify" data-icon="mdi:trash-can-outline" data-width="25"></span>
+          </Button>
           <Radio
-            checked={selected === radioId}
-            onChange={() => handleChange(radioId)}
+            checked={selected === answerId}
+            onChange={() => handleChange(answerId)}
             name="radio-buttons"
             inputProps={{ "aria-label": "primary checkbox" }}
           />
@@ -22,7 +30,7 @@ const Answers = ({selected, radioId, handleChange, answer, setAnswer}) => {
             fullWidth
             value={answer}
             onChange={(event) => {
-              setAnswer(radioId, event.target.value)}}
+              setAnswer(answerId, event.target.value)}}
             label="Type your choice here."
           />
         </ListItem>
@@ -31,4 +39,4 @@ const Answers = ({selected, radioId, handleChange, answer, setAnswer}) => {
   );
 }
 
-export default Answers;
+export default Answer;
