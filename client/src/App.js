@@ -4,7 +4,7 @@ import { Sidebar } from "./components/Sidebar";
 import "./App.css";
 import Home from "components/page/Home";
 import Exams from "components/page/Exams/Exams";
-import Students from "components/page/Students";
+import Students from "components/page/students/components/Students";
 import Groups from "components/page/Groups";
 import Reports from "components/page/Reports";
 import Account from "components/page/account/Account";
@@ -17,6 +17,7 @@ import ExamProperties from "components/page/Exams/Porperties/ExamProperties";
 import ExamScheduler from "components/page/Exams/Scheduler/ExamScheduler";
 import Root from "Root";
 import ExamContainer from "ExamContainer";
+import { UserList } from "components/page/students/components/userlist";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
               <Route path="/exams/:id/scheduler" element={<ExamScheduler />} />
             </Route>
             <Route path="/students" element={<Students />} />
+            <Route path="/userlist" element={<UserList />} />
             <Route path="/groups" element={<Groups />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/account" element={<Account />} />

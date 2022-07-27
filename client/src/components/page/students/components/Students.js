@@ -6,8 +6,8 @@ import { v4 as uuid } from "uuid";
 
 export default function Students() {
   const [name, setName] = useState("");
-  const { Students } = useContext(GlobalContext);
-  const history = useNavigate();
+  const { addUser } = useContext(GlobalContext);
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -15,8 +15,8 @@ export default function Students() {
       id: uuid(),
       name,
     };
-    Students(newUser);
-    history.push("/");
+    addUser(newUser);
+    navigate("/userlist");
   };
 
   const onChange = (e) => {

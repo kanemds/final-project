@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const students = require("../models/students");
-const student = require("../models/extra/student");
+const students = require("../models/extra/student");
 
 const ObjectId = require("mongodb").ObjectId;
 
