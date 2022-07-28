@@ -30,17 +30,22 @@ const QuestionForm = () => {
         />
         {answers.map((answer, index) => {
           return (
-            <div style={{display: "flex", flexDirection: "rows"}}>
+            <div key={index + 1} style={{display: "flex", flexDirection: "rows"}}>
               <h4>{letters[index]}</h4>
-              <Answer key={index + 1} setSelected={setSelected} handleChange={handleChange} selected={selected} answerId={index} answer={answer} setAnswers={setAnswers} />
+              <Answer setSelected={setSelected} handleChange={handleChange} selected={selected} answerId={index} answer={answer} setAnswers={setAnswers} />
           </div>
           )})}
         <Button onClick={() => setAnswers(prev => {
           const newPrev = [];
           prev.forEach((ans, i) => {
-            if (i === prev.length - 1 && ans === "All of the Above") {
-              newPrev.push("");
-              newPrev.push("All of the Above");
+            if (i === prev.length - 1) {
+              if (ans === "All of the Above") {
+                newPrev.push("");
+                newPrev.push("All of the Above");
+              } else {
+                newPrev.push(ans);
+                newPrev.push("");
+              }
             } else {
               newPrev.push(ans);
             }
