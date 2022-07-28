@@ -39,14 +39,6 @@ router.post('/:id/edit', (req, res) => {
   }).catch((err) => console.log(err))  
 })
 
-router.get('/', (req, res) => {
-  Exams.find()
-  .then(data => {
-    res.send(data);
-  }).catch(error => {
-    res.json(error);
-  });
-})
 
 router.get('/:id', (req, res) => {
   const doc = Exams.aggregate([
@@ -74,6 +66,15 @@ router.get('/:id', (req, res) => {
     console.log(result)
     res.json(result[0])
   })
+})
+
+router.get('/', (req, res) => {
+  Exams.find()
+  .then(data => {
+    res.send(data);
+  }).catch(error => {
+    res.json(error);
+  });
 })
 
 module.exports = router

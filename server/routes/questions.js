@@ -5,15 +5,13 @@ const Question = require('../models/question')
 const Answer = require('../models/answer')
 
 
-
-
 router.get('/', (req, res) => {
   Questioins.find()
-  .then(data => {
-    res.send(data);
-  }).catch(error => {
-    res.json(error);
-  });
+    .then(data => {
+      res.send(data);
+    }).catch(error => {
+      res.json(error);
+    });
 })
 
 router.post('/new', (req, res) => {
