@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 
 router.post('/new', (req, res) => {
   if (req.body.answers.length < 0) {
-    res.status(500)
+    res.status(400)
     return
   }
 
@@ -25,14 +25,22 @@ router.post('/new', (req, res) => {
     answers: req.body.answers,
     correctAnswer: req.body.correctAnswer
   })
-
   question.save()
-    .then(data => {      
-      res.json(data)
-    })
-    .catch(error => {
-      res.json(error)
-    })
+  .then(q => res.json(q))
+  .catch(e => res.json(e))
+
 })
+
+// router.post('/addanswers', (req, res) => {
+//   let exam = await Exams.findOneAndUpdate(req.body.examId, 
+//     {answers: req.body.ansArr, correctAnswer: req.body.corAns});
+//   exam.save()
+//     .then(data =>     
+//       res.json(data))
+//     .catch(error => {
+//       res.json(error)
+//     })
+//   }
+// )
 
 module.exports = router
