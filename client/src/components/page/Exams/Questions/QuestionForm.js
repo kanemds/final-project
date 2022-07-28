@@ -29,12 +29,29 @@ const QuestionForm = () => {
           label="Type your question here."
         />
         {answers.map((answer, index) => {
-          return <div style={{display: "flex", flexDirection: "rows"}}>
-            <h4>{letters[index]}</h4>
-            <Answer key={index + 1} setSelected={setSelected} handleChange={handleChange} selected={selected} answerId={index} answer={answer} setAnswers={setAnswers} />
+          return (
+            <div style={{display: "flex", flexDirection: "rows"}}>
+              <h4>{letters[index]}</h4>
+              <Answer key={index + 1} setSelected={setSelected} handleChange={handleChange} selected={selected} answerId={index} answer={answer} setAnswers={setAnswers} />
           </div>
-        }
-        )}
+          )})}
+        <Button onClick={() => setAnswers(prev => {
+          const newPrev = [];
+          prev.forEach((ans, i) => {
+            if (i === prev.length - 1 && ans === "All of the Above") {
+              newPrev.push("");
+              newPrev.push("All of the Above");
+            } else {
+              newPrev.push(ans);
+            }
+          });
+          return newPrev;
+        })} disabled={answers.length >= 6}>Add Choice</Button>
+        <Button onClick={() => setAnswers(prev => {
+          const newPrev = [...prev];
+          newPrev.push("All of the Above");
+          return newPrev;
+        })} disabled={answers.length >= 6}>Add {letters[answers.length]}: All of the Above</Button>
         <Button component={Link} to={cancelLink}>Cancel</Button>
         <Button onClick={() => alert(`${selected} - ${question} - ${answers}`)}>Save</Button>
       </div>

@@ -6,7 +6,7 @@ import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import { Button, Radio } from "@mui/material";
 
-const Answer = ({setSelected, setDeleted, selected, answerId, handleChange, answer, setAnswers}) => {
+const Answer = ({setSelected, selected, answerId, handleChange, answer, setAnswers}) => {
 
   return (
     <>
