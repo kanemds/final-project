@@ -44,8 +44,7 @@ const SaveButton = ( { question, answers, correctAnswerIndex}) => {
             questions: questionId 
           })
         })
-        .then(() => {
-     
+        .then(() => {     
           navigate(`/exams/${examId}/questions`)
         }).catch((err) => {
           throw err
