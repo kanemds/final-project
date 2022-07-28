@@ -25,14 +25,28 @@ const Information = ({info, setInfo}) => {
 				</Typography>
 				<TextField /> */}
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					Passing Score %
+					Passing Score
 				</Typography>
-				<TextField value={info.passScore} onChange={(event) => setInfo(prev => ({...prev, passScore: event.target.value}))}/>
+				<TextField type="number" inputProps={{ inputmode: 'numeric', min: 0, max: 100}} value={info.passScore} 
+					onChange={(event) => setInfo(prev => {
+						const val = event.target.value;				
+						const score = val === "" ? val : Number(val);
+						if (score > 100) {
+							return {...prev, passScore: 100};
+						}
+						if (score < 0) {
+							return {...prev, passScore: 0};
+						}
+						return {...prev, passScore: score};
+				})}/>
+				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+					%
+				</Typography>
 			</div>
 			<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					General Exam Instructions
-				</Typography>
-				<TextField value={info.instruction} onChange={(event) => setInfo(prev => ({...prev, instruction: event.target.value}))}/>
+					General Exam Instructions ({1750 - info.instruction.length} characters remaining)
+			</Typography>
+			<TextField   inputProps={{ maxLength: 1750 }} value={info.instruction} onChange={(event) => setInfo(prev => ({...prev, instruction: event.target.value}))}/>
     </>
   )
 }
