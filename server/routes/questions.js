@@ -4,9 +4,19 @@ const Exams = require('../models/exams')
 const Question = require('../models/question')
 const Answer = require('../models/answer')
 
-router.post('/new', (req, res) => {
-  console.log(req.body)
 
+
+
+router.get('/', (req, res) => {
+  Questioins.find()
+  .then(data => {
+    res.send(data);
+  }).catch(error => {
+    res.json(error);
+  });
+})
+
+router.post('/new', (req, res) => {
   if (req.body.answers.length < 0) {
     res.status(500)
     return

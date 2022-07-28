@@ -20,6 +20,25 @@ router.post('/new', (req, res) => {
   }
 )
 
+router.post('/:id/edit', (req, res) => {
+  Exams.findOneAndUpdate(
+    {
+      _id: req.params.id
+    }, 
+    { 
+      $push: {
+        "questions": req.body.questions
+      }
+    }, {
+      // return doc after update is applied
+      new: true,
+      upsert: true 
+    }
+  ).exec().then((data) => {
+    res.json(data)
+  }).catch((err) => console.log(err))  
+})
+
 router.get('/', (req, res) => {
   Exams.find()
   .then(data => {

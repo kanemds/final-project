@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 
 import { api_base } from 'config'
 import Answers from './Answers';
+import SaveButton from './SaveButton';
 
 const QuestionForm = () => {
   const [selected, setSelected] = React.useState(0);
@@ -36,7 +37,9 @@ const QuestionForm = () => {
             <Answers handleChange={handleChange} selected={selected} radioId={index} answer={answer} setAnswer={setAnswer} />
           )}
           <Button>Cancel</Button>
-          <Button onClick={() => alert(`${selected} - ${question} - ${answers}`)}>Save</Button>
+          {/* <Button onClick={() => alert(`${selected} - ${question} - ${answers}`)}>Save</Button> */}
+          {/* <Button ><SaveButton answers={ examId, questionId, answersId  }/></Button> */}
+          <Button ><SaveButton question={question} answers={answers} correctAnswerIndex={selected}/></Button>
         </div>
 	  </>
   )

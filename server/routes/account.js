@@ -3,7 +3,16 @@ const express = require('express')
 const router = express.Router()
 const Plan = require('../models/plan')
 
-router.post('/', (req, res) => {
+router.get('/billing', (req, res) => {
+  Plan.find()
+  .then(data => {
+    res.send(data);
+  }).catch(error => {
+    res.json(error);
+  });
+})
+
+router.post('/billing', (req, res) => {
   const plan = new Plan ({
     plan: req.body.plan,
     price:req.body.price,
@@ -17,6 +26,13 @@ router.post('/', (req, res) => {
       res.json(error)
     })
 })
+
+
+
+
+
+
+
 
 module.exports = router
 

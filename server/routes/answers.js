@@ -5,7 +5,6 @@ const Question = require('../models/question')
 const Answer = require('../models/answer')
 
 router.post('/new', (req, res) => {
-  console.log(req.body)
   const answer = new Answer ({
     content: req.body.content
   })
