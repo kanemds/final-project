@@ -7,11 +7,15 @@ import Typography from "@mui/material/Typography";
 import { Button, Radio } from "@mui/material";
 
 const Answer = ({setSelected, selected, answerId, handleChange, answer, setAnswers}) => {
-
   return (
     <>
       <List>
-        <ListItem alignItems="center">
+        <ListItem>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Enter Your Choice ({1000 - answer.length} characters remaining)
+          </Typography>
+        </ListItem>
+        <ListItem>
           <TextField
             fullWidth
             value={answer}
@@ -21,7 +25,6 @@ const Answer = ({setSelected, selected, answerId, handleChange, answer, setAnswe
                 newPrev[answerId] = event.target.value;
                 return newPrev;
               })}}
-            label="Type your choice here."
           />
           <Radio
             checked={selected === answerId}

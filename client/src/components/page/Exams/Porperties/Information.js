@@ -44,9 +44,9 @@ const Information = ({info, setInfo}) => {
 				</Typography>
 			</div>
 			<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					General Exam Instructions
-				</Typography>
-				<TextField value={info.instruction} onChange={(event) => setInfo(prev => ({...prev, instruction: event.target.value}))}/>
+					General Exam Instructions ({1750 - info.instruction.length} characters remaining)
+			</Typography>
+			<TextField   inputProps={{ maxLength: 1750 }} value={info.instruction} onChange={(event) => setInfo(prev => ({...prev, instruction: event.target.value}))}/>
     </>
   )
 }
