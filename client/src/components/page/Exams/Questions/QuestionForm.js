@@ -12,17 +12,12 @@ const QuestionForm = () => {
   const [selected, setSelected] = React.useState("");
   const [question, setQuestion] = React.useState("");
   const [answers, setAnswers] = React.useState(['','','','']);
-  const [deleted, setDeleted] = React.useState({});
-  const handleChange = (id) => {
-    setSelected(id);
+  const handleChange = (answerId) => {
+    setSelected(answerId);
   };
-  const setAnswer = (answerId, answer) => {
-    const newAnswers = [...answers];
-    newAnswers[answerId] = answer;
-    setAnswers(newAnswers);
-  }
   const {id} = useParams();
   const cancelLink = `/exams/${id}/questions`;
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
   return (
     <>
       <div style={{display: "flex", flexDirection: "column"}}>
@@ -34,9 +29,10 @@ const QuestionForm = () => {
           label="Type your question here."
         />
         {answers.map((answer, index) => {
-          if (!deleted[index]) {
-            return <Answer setSelected={setSelected} setDeleted={setDeleted} key={index + 1} handleChange={handleChange} selected={selected} answerId={index} answer={answer} setAnswer={setAnswer} />
-          }
+          return <div style={{display: "flex", flexDirection: "rows"}}>
+            <h4>{letters[index]}</h4>
+            <Answer key={index + 1} setSelected={setSelected} handleChange={handleChange} selected={selected} answerId={index} answer={answer} setAnswers={setAnswers} />
+          </div>
         }
         )}
         <Button component={Link} to={cancelLink}>Cancel</Button>
