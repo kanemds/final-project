@@ -11,6 +11,10 @@ const PlanScheama =  new mongoose.Schema({
   },
   term: {
     type:String
+  },
+  created:{
+    type:Date,
+    default: Date.now
   }
 })
 

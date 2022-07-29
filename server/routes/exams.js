@@ -8,8 +8,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 router.post('/new', (req, res) => {
   const exam = new Exams ({
-    name: req.body.name,
-    questions: req.body.questions
+    name: req.body.name
   })
   exam.save()
     .then(data =>     
@@ -20,14 +19,25 @@ router.post('/new', (req, res) => {
   }
 )
 
-router.get('/', (req, res) => {
-  Exams.find()
-  .then(data => {
-    res.send(data);
-  }).catch(error => {
-    res.json(error);
-  });
+router.post('/:id/edit', (req, res) => {
+  Exams.findOneAndUpdate(
+    {
+      _id: req.params.id
+    }, 
+    { 
+      $push: {
+        "questions": req.body.questions
+      }
+    }, {
+      // return doc after update is applied
+      new: true,
+      upsert: true 
+    }
+  ).exec().then((data) => {
+    res.json(data)
+  }).catch((err) => console.log(err))  
 })
+
 
 router.get('/:id', (req, res) => {
   const doc = Exams.aggregate([
@@ -55,6 +65,15 @@ router.get('/:id', (req, res) => {
     console.log(result)
     res.json(result[0])
   })
+})
+
+router.get('/', (req, res) => {
+  Exams.find()
+  .then(data => {
+    res.send(data);
+  }).catch(error => {
+    res.json(error);
+  });
 })
 
 module.exports = router

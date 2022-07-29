@@ -27,39 +27,22 @@ export default function BasicModel() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
+  const navigateNewStudent = () => {
+    navigate("/students/new");
+  };
   return (
     <div>
-      <Button onClick={handleOpen}>Add Student</Button>
-      <Model
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="Model-Model-title"
-        aria-describedby="Model-Model-description"
+      <Button onClick={navigateNewStudent}>Add Student</Button>
+
+      <Button
+        onClick={() =>
+          axios.post(`${api_base}/Students`, { name }).then((Student) => {
+            navigate(`/Students/${Student.data._id}`);
+          })
+        }
       >
-        <Box sx={style}>
-          <Typography id="Model-Model-title" variant="h6" component="h2">
-            Name{" "}
-            <textarea
-              value={name}
-              onChange={(event) => nameState((_prev) => event.target.value)}
-              rows="1"
-              cols="30"
-            ></textarea>
-          </Typography>
-          <Typography id="Model-Model-description" sx={{ mt: 2 }}>
-            ()
-          </Typography>
-          <Button
-            onClick={() =>
-              axios.post(`${api_base}/Students`, { name }).then((Student) => {
-                navigate(`/Students/${Student.data._id}`);
-              })
-            }
-          >
-            Add Student
-          </Button>
-        </Box>
-      </Model>
+        Add Student
+      </Button>
     </div>
   );
 }

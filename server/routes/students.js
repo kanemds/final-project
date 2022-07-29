@@ -5,10 +5,12 @@ const students = require("../models/extra/student");
 const ObjectId = require("mongodb").ObjectId;
 
 router.post("/new", (req, res) => {
-  console.log(req.body);
   const student = new student({
-    name: req.body.name,
-    name: req.body.name,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    exam: req.body.exam,
+    teachers: req.body.teachers,
   });
   student
     .save()
@@ -21,7 +23,6 @@ router.post("/new", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  console.log(req.params);
   const doc = students
     .aggregate([
       { $match: { _id: ObjectId(req.params.id) } },
@@ -45,7 +46,6 @@ router.get("/:id", (req, res) => {
     ])
     .exec()
     .then((result) => {
-      console.log(result);
       res.json(result[0]);
     });
 });

@@ -26,3 +26,5 @@ app.use(cors());
 const routes = require("./routes/routes");
 
 app.use("/", routes);
+
+app.use("/", routes);

@@ -1,14 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const Exams = require('../models/exams')
-const Question = require('../models/question')
-const Answer = require('../models/answer')
+const Feedback = require('../models/feedback')
 
 router.post('/new', (req, res) => {
-  const answer = new Answer ({
-    content: req.body.content
+  const feedback = new Feedback ({
+    pass: req.body.pass,
+    fail: req.body.fail
   })
-  answer.save()
+  feedback.save()
     .then(data => {      
       res.json(data)
     })

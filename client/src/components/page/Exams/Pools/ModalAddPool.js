@@ -5,8 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
-import { useNavigate, useParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 import { api_base } from 'config'
 
@@ -24,13 +23,13 @@ const style = {
 
 export default function BasicModal() {
   const [open, setOpen] = React.useState(false);
+  const [name, nameState] = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
-  let {id} = useParams();
   return (
     <div>
-      <Button onClick={handleOpen}>Add Question</Button>
+      <Button onClick={handleOpen}>Add Exam</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -39,13 +38,18 @@ export default function BasicModal() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            <Button onClick={() => {
-                navigate(`/exams/${id}/questions/new`);
-            }}>Multiple Choice
-            </Button>
+          Pool Name <textarea value={name} onChange={(event) => nameState(_prev => event.target.value)} rows="1" cols="30"></textarea>
           </Typography>
+          <Button onClick={() => 
+          axios.post(`${api_base}/exams/new`, {name})
+          .then(exam => {
+            navigate(`/exams/${exam.data._id}/questions`);
+              }
+            )}>Create</Button>
         </Box>
       </Modal>
     </div>
   );
 }
+
+// talk to kanem about questions and pools tables
