@@ -8,8 +8,11 @@ import Typography from '@mui/material/Typography';
 import axios from 'axios';
 
 import { api_base } from 'config'
-import Answer from './Answer';
+
+import Answers from './Answers';
+import SaveButton from './SaveButton';
 import AllAbove from './AllAbove';
+
 
 const QuestionForm = () => {
   const [selected, setSelected] = React.useState("");
@@ -32,6 +35,7 @@ const QuestionForm = () => {
   };
   return (
     <>
+
       <div style={{display: "flex", flexDirection: "column"}}>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					Enter Your Question ({4000 - question.length} characters remaining)
@@ -66,7 +70,7 @@ const QuestionForm = () => {
         }} disabled={answers.length >= 6}>Add Choice</Button>
         <AllAbove letter={letters[answers.length - 1]} checked={checked} setChecked={setChecked} setAboveSelected={setAboveSelected}/>
         <Button component={Link} to={cancelLink}>Cancel</Button>
-        <Button onClick={() => {}}>Save</Button>
+         <Button ><SaveButton question={question} answers={answers} correctAnswerIndex={selected}/></Button>
       </div>
 	  </>
   )
