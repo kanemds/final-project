@@ -30,11 +30,11 @@ export const SidebarData = [
     icon: <GrouopsIcon />,
     link: "/groups"
   },
-  {
-    title:"Reports",
-    icon: <ReportsIcon />,
-    link: "/reports"
-  },
+  // {
+  //   title:"Reports",
+  //   icon: <ReportsIcon />,
+  //   link: "/reports"
+  // },
   {
     title:"Account",
     icon: <AccountIcon />,

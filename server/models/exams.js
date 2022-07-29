@@ -5,10 +5,10 @@ const ExamScheama = new mongoose.Schema({
     type:String,
     required:true
   },
-  pools:[
+  questions:[
     {
       type:mongoose.Schema.Types.ObjectId,
-      ref:"Pool"
+      ref:"Question"
     }
   ],
   created:{

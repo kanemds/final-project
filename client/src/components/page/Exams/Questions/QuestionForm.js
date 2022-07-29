@@ -9,7 +9,7 @@ import axios from 'axios';
 
 import { api_base } from 'config'
 
-import Answers from './Answers';
+import Answer from './Answer';
 import SaveButton from './SaveButton';
 import AllAbove from './AllAbove';
 
