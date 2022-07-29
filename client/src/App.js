@@ -18,6 +18,7 @@ import ExamScheduler from "components/page/Exams/Scheduler/ExamScheduler";
 import Root from "Root";
 import ExamContainer from "ExamContainer";
 import { UserList } from "components/page/students/components/userlist";
+import editStudents from "components/page/students/components/editstudent";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
             </Route>
             <Route path="/students" element={<Students />} />
             <Route path="/userlist" element={<UserList />} />
+            <Route path="/editstudent" element={<editStudents />} />
             <Route path="/groups" element={<Groups />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/account" element={<Account />} />
