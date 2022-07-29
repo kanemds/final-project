@@ -6,6 +6,8 @@ const questions = require('./questions')
 const answers = require('./answers')
 const plan = require('./account')
 const stripe = require('./stripe')
+const property = require('./property')
+const feedback = require('./feedback')
 
 router.use('/questions', questions)
 router.use('/exams', exams)
@@ -13,5 +15,8 @@ router.use('/pools', pools)
 router.use('/answers', answers)
 router.use('/account', plan)
 router.use('/stripe', stripe)
+router.use('/property', property)
+router.use('/feedback', feedback)
+
 module.exports = router
 
