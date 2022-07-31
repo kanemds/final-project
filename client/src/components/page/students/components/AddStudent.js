@@ -65,13 +65,13 @@ export default function BasicModal() {
         <Button
           onClick={() =>
             axios
-              .post(`${api_base}/student/new`, { firstName, lastName, email })
-              .then((student) => {
-                navigate(`/student${Student.data._id}`);
+              .post(`${api_base}/students/new`, { firstName, lastName, email })
+              .then((response) => {
+                navigate(`/userlist`);
               })
           }
         >
-          Add
+          Add Student
         </Button>
       </Box>
     </div>

@@ -45,8 +45,8 @@ function App() {
             </Route>
             <Route path="/students" element={<Students />} />
             <Route path="/userlist" element={<UserList />} />
-            <Route path="students/new" element={<AddStudent />} />
-
+            <Route path="/students/new" element={<AddStudent />} />
+            <Route path="/students/:id" element={<UserList />} />
             <Route path="/groups" element={<Groups />} />
             {/* <Route path="/reports" element={<Reports />} /> */}
             <Route path="/account" element={<Account />} />
