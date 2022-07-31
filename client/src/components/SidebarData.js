@@ -11,22 +11,30 @@ export const SidebarData = [
   {
     title: "Home",
     icon: <HomeIcon />,
+
     link: "/teacher/home",
+
   },
   {
     title: "Exams",
     icon: <QuizIcon />,
+
     link: "/teacher/exams",
+
   },
   {
     title: "Students",
     icon: <StudentIcon />,
+
     link: "/teacher/students",
+
   },
   {
     title: "Groups",
     icon: <GrouopsIcon />,
+
     link: "/teacher/groups",
+
   },
   // {
   //   title:"Reports",
@@ -36,11 +44,15 @@ export const SidebarData = [
   {
     title: "Account",
     icon: <AccountIcon />,
+
     link: "/teacher/account",
+
   },
   {
     title: "Logout",
     icon: <LogoutIcon />,
+
     link: "/",
+
   },
 ];

@@ -29,7 +29,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+
           <Route path="*" element={<NotFound />} />
+
 
           {/* teacher routes */}
           <Route element={<Root />}>
