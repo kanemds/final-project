@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { GlobalContext } from "../context/GlobalState";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { v4 as uuid } from "uuid";
 
 export const EditUser = (props) => {
   const { editUser, users } = useContext(GlobalContext);
@@ -9,7 +10,7 @@ export const EditUser = (props) => {
     id: "",
     name: "",
   });
-  const history = useHistory();
+  const history = useNavigate();
   const currentUserId = props.match.params.id;
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export const EditUser = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     editUser(selectedUser);
-    history.push("/");
+    history("/userlist");
   };
 
   return (
