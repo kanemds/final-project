@@ -46,7 +46,7 @@ export default function BasicModal() {
           <Button onClick={() => 
           axios.post(`${api_base}/exams/new`, {name})
           .then(exam => {
-            navigate(`/exams/${exam.data._id}/questions`);
+            navigate(`/teacher/exams/${exam.data._id}/questions`);
               }
             )}>Create</Button>
         </Box>

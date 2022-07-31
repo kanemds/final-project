@@ -1,9 +1,15 @@
+:root {
+  --main-bg-color: #f3f2f0;
+}
+
 .App {
  width: 100vw;
  height: 100vh;
 }
 
-body {
+body
+ {
+  background-color: var(--main-bg-color);
   margin:0;
   padding: 0;
 }
@@ -14,6 +20,45 @@ body {
   justify-content: center;
 } 
 
+div .selector .button {
+  
+  background-color: hsl(211, 23%, 42%);
+  margin: .1rem;
+  color: var(--main-bg-color);
+  border-radius: .3;
+  border: 10px solid var(--main-bg-color);
+}
+
+.selector .MuiButtonBase-root {
+  background-color: hsl(211, 23%, 42%);
+  color: white;
+  opacity: 1;
+}
+.selector .Mui-selected {
+  background: #ffffff;
+  color: black;
+}
+
+.selector .MuiTabs-indicator {
+  background-color: black;
+}
+
+.selector .button:focus {
+  color: hsl(211, 23%, 42%);
+  background-color: white;
+  border-color: white;
+  z-index: 1;
+  height: 100%;
+}
+
+.exam-container {
+  background-color: white;
+}
+
+
+
+
+
 ul, li {
   margin: 0;
 }
@@ -21,6 +66,11 @@ ul, li {
 #root {
   display: flex;
 }
+
+div .form {
+  background-color: var(--main-bg-color);
+}
+
 
 .exam {
   height: 100%;
@@ -32,9 +82,9 @@ ul, li {
 
 .Sidebar {
   width: 150px;
-  background-color: #3e5a78;
+  background-color: hsl(211, 23%, 42%);
   display: inline-block;
-  opacity: .8;
+
   top: 0%;
   min-height: 100vh;
   position: relative;
@@ -59,6 +109,8 @@ ul, li {
   align-items: center;
   text-decoration: none;
 }
+
+
 
 li a {
   text-decoration: none;
@@ -96,7 +148,7 @@ li a {
 @media screen and (min-height: 768px){
   .SidebarList .row:last-child {
     position: absolute;
-    bottom: 0;
+    bottom: 50px;
   } 
 }
 
