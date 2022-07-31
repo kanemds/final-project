@@ -18,6 +18,6 @@ router.use("/account", plan);
 router.use("/stripe", stripe);
 router.use("/property", property);
 router.use("/feedback", feedback);
-router.use("/students", students);
+router.use("/students", student);
 
 module.exports = router;
