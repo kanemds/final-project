@@ -2,7 +2,7 @@ import React from 'react'
 
 const Logout = () => {
   return (
-    <div className='logout'>Logout</div>
+    <div>Logout</div>
   )
 }
 

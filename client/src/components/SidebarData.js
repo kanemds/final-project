@@ -13,37 +13,37 @@ export const SidebarData = [
   {
     title:"Home",
     icon: <HomeIcon />,
-    link: "/home"
+    link: "/teacher/home"
   },
   {
     title:"Exams",
     icon: <QuizIcon />,
-    link: "/exams"
+    link: "/teacher/exams"
   },
   {
     title:"Students",
     icon: <StudentIcon />,
-    link: "/students"
+    link: "/teacher/students"
   },
   {
     title:"Groups",
     icon: <GrouopsIcon />,
-    link: "/groups"
+    link: "/teacher/groups"
   },
-  {
-    title:"Reports",
-    icon: <ReportsIcon />,
-    link: "/reports"
-  },
+  // {
+  //   title:"Reports",
+  //   icon: <ReportsIcon />,
+  //   link: "/reports"
+  // },
   {
     title:"Account",
     icon: <AccountIcon />,
-    link: "/account"
+    link: "/teacher/account"
   },
   {
     title:"Logout",
     icon: <LogoutIcon />,
-    link: "/logout"
+    link: "/"
   },
 
 ]

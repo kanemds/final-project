@@ -6,12 +6,13 @@ import { useParams, Link } from 'react-router-dom';
 import TextField from "@mui/material/TextField";
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
-
+import Box from '@mui/material/Box';
 import { api_base } from 'config'
 
-import Answers from './Answers';
+import Answer from './Answer';
 import SaveButton from './SaveButton';
 import AllAbove from './AllAbove';
+import { padding } from '@mui/system';
 
 
 const QuestionForm = () => {
@@ -35,7 +36,15 @@ const QuestionForm = () => {
   };
   return (
     <>
-
+       <Box
+      sx={{
+        width:"auto",
+        height: "100vh",
+        backgroundColor: 'white',
+        padding: "1rem",
+        borderRadius:.3
+      }}
+    >
       <div style={{display: "flex", flexDirection: "column"}}>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					Enter Your Question ({4000 - question.length} characters remaining)
@@ -72,6 +81,7 @@ const QuestionForm = () => {
         <Button component={Link} to={cancelLink}>Cancel</Button>
          <Button ><SaveButton question={question} answers={answers} correctAnswerIndex={selected}/></Button>
       </div>
+      </Box>
 	  </>
   )
 }

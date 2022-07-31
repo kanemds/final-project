@@ -40,7 +40,7 @@ export default function BasicModal() {
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             <Button onClick={() => {
-                navigate(`/exams/${id}/questions/new`);
+                navigate(`/teacher/exams/${id}/questions/new`);
             }}>Multiple Choice
             </Button>
           </Typography>
