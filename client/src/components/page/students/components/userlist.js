@@ -2,10 +2,15 @@ import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import { Link } from "react-router-dom";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
+import axios from "axios";
 
 export const UserList = () => {
   const { users, removeUser } = useContext(GlobalContext);
-
+  async function getUsers() {
+    const response = await axios.get("/userlist");
+    console.log(response.data);
+  }
+  getUsers();
   return (
     <ListGroup className="mt-4">
       {users.length > 0 ? (

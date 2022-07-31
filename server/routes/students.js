@@ -1,19 +1,35 @@
+const { request } = require("express");
 const express = require("express");
-const router = express.Router();
-const students = require("../models/students");
 const student = require("../models/extra/student");
+const router = express.Router();
+const students = require("../models/extra/student");
 
 const ObjectId = require("mongodb").ObjectId;
 
 router.post("/new", (req, res) => {
-  const student = new student({
-    name: req.body.name,
-    name: req.body.name,
+  console.log("request", req.body);
+  const student = new students({
+    firstname: req.body.firstName,
+    lastname: req.body.lastName,
+    email: req.body.email,
+    exam: req.body.exam,
+    teachers: req.body.teachers,
   });
   student
     .save()
     .then((data) => {
       res.json(data);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+});
+
+router.get("/students/new", (req, res) => {
+  student
+    .find()
+    .then((data) => {
+      res.send(data);
     })
     .catch((error) => {
       res.json(error);
