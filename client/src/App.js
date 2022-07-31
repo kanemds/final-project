@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Sidebar } from "./components/Sidebar";
 import "./App.css";
-import Home from "components/page/Home";
+import Home from "components/page/home/Home";
 import Exams from "components/page/Exams/Exams";
 import Students from "components/page/students/components/Students";
 import Groups from "components/page/Groups";
@@ -21,39 +19,60 @@ import { UserList } from "components/page/students/components/userlist";
 import CheckoutSuccess from "components/page/account/billing/CheckoutSuccess";
 import NotFound from "components/NotFound";
 import AddStudent from "components/page/students/components/AddStudent";
+import Teacher from "components/page/home/teacher/Teacher";
+import StudentRoot from "components/studentPage/StudentRoot";
+import Student from "components/studentPage/Student";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+
+          {/* teacher routes */}
           <Route element={<Root />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="/exams" element={<Exams />} />
+            <Route path="/teacher/exams" element={<Exams />} />
             <Route element={<ExamContainer />}>
               <Route
-                path="/exams/:id/questions/new"
+                path="/teacher/exams/:id/questions/new"
                 element={<ExamQuestionsNew />}
               />
-              <Route path="/exams/:id/questions" element={<ExamQuestions />} />
-              <Route path="/exams/:id/pools" element={<ExamPools />} />
               <Route
-                path="/exams/:id/properties"
+                path="/teacher/exams/:id/questions"
+                element={<ExamQuestions />}
+              />
+              <Route path="/teacher/exams/:id/pools" element={<ExamPools />} />
+              <Route
+                path="/teacher/exams/:id/properties"
                 element={<ExamProperties />}
               />
-              <Route path="/exams/:id/scheduler" element={<ExamScheduler />} />
+              <Route
+                path="/teacher/exams/:id/scheduler"
+                element={<ExamScheduler />}
+              />
             </Route>
-            <Route path="/students" element={<Students />} />
-            <Route path="/userlist" element={<UserList />} />
-            <Route path="/students/new" element={<AddStudent />} />
-            <Route path="/students/:id" element={<UserList />} />
-            <Route path="/groups" element={<Groups />} />
+            <Route path="/teacher/students" element={<Students />} />
+
+            <Route path="/teacher/groups" element={<Groups />} />
             {/* <Route path="/reports" element={<Reports />} /> */}
-            <Route path="/account" element={<Account />} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/account/billing" element={<Billing />} />
-            <Route path="/checkout-success" element={<CheckoutSuccess />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/teacher/account" element={<Account />} />
+            <Route path="/teacher/logout" element={<Logout />} />
+            <Route path="/teacher/account/billing" element={<Billing />} />
+            <Route
+              path="/teacher/checkout-success"
+              element={<CheckoutSuccess />}
+            />
+            <Route path="/teacher/home" element={<Teacher />} />
+          </Route>
+
+          {/* student route */}
+
+          <Route>
+            <Route element={<StudentRoot />}>
+              <Route path="/student/home" element={<Student />} />
+            </Route>
           </Route>
         </Routes>
       </Router>

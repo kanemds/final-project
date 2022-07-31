@@ -11,7 +11,7 @@ const ExamProperties = () => {
   const {id} = useParams();
   const [info, setInfo] = useState({name: "", passScore: "", instruction: ""});
   const [postInfo, setPostInfo] = useState("");
-  const cancelLink = `/exams/${id}/questions`;
+  const cancelLink = `teacher/exams/${id}/questions`;
   return (
     <>
       <h3>Exam Properties</h3>
