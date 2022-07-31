@@ -1,3 +1,4 @@
+
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -16,12 +17,13 @@ import { borderBottom } from "@mui/system";
 const Exams = () => {
   const exams = useExams();
   const BoxShadowDiv = styled("div")(
+
     ({ theme }) => `
     margin: ${theme.spacing(2)};
     padding: ${theme.spacing(2)};
     border: 1px solid black;
-    box-shadow: ${theme.shadows[12]};
-  `
+    box-shadow: ${theme.shadows[12]};`
+
   );
   return (
     <>
@@ -36,6 +38,7 @@ const Exams = () => {
             margin: 1,
             "&:hover": {
               boxShadow: "0 2px 5px 1px",
+
               cursor: "pointer",
             },
           }}
@@ -49,6 +52,7 @@ const Exams = () => {
                   textDecoration: "none",
                   color: "black",
                   fontWeight: "bold",
+
                 }}
               >
                 Exam: {exam.name}
@@ -61,12 +65,14 @@ const Exams = () => {
               Passing Score: ??
             </Typography>
             <Typography sx={{ fontSize: 14 }} gutterBottom>
+
               Last Edit: {new Date(exam.created).toLocaleDateString("en-US")}
             </Typography>
           </CardContent>
           <CardActions></CardActions>
         </Card>
       ))}
+
     </>
   );
 };

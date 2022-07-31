@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "components/page/home/Home";
@@ -18,10 +19,12 @@ import ExamContainer from "ExamContainer";
 import { UserList } from "components/page/students/components/userlist";
 import CheckoutSuccess from "components/page/account/billing/CheckoutSuccess";
 import NotFound from "components/NotFound";
+
 import AddStudent from "components/page/students/components/AddStudent";
 import Teacher from "components/page/home/teacher/Teacher";
 import StudentRoot from "components/studentPage/StudentRoot";
 import Student from "components/studentPage/Student";
+
 
 function App() {
   return (
@@ -29,7 +32,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+
           <Route path="*" element={<NotFound />} />
+
 
           {/* teacher routes */}
           <Route element={<Root />}>
@@ -39,6 +44,7 @@ function App() {
                 path="/teacher/exams/:id/questions/new"
                 element={<ExamQuestionsNew />}
               />
+
               <Route
                 path="/teacher/exams/:id/questions"
                 element={<ExamQuestions />}
@@ -55,11 +61,13 @@ function App() {
             </Route>
             <Route path="/teacher/students" element={<Students />} />
 
+
             <Route path="/teacher/groups" element={<Groups />} />
             {/* <Route path="/reports" element={<Reports />} /> */}
             <Route path="/teacher/account" element={<Account />} />
             <Route path="/teacher/logout" element={<Logout />} />
             <Route path="/teacher/account/billing" element={<Billing />} />
+
             <Route
               path="/teacher/checkout-success"
               element={<CheckoutSuccess />}
@@ -73,7 +81,11 @@ function App() {
             <Route element={<StudentRoot />}>
               <Route path="/student/home" element={<Student />} />
             </Route>
+
           </Route>
+         
+         
+         
         </Routes>
       </Router>
     </>

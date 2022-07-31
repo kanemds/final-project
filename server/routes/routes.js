@@ -1,3 +1,4 @@
+
 const express = require("express");
 const router = express.Router();
 const exams = require("./exams");
@@ -22,6 +23,5 @@ router.use("/feedback", feedback);
 router.use("/teacher", teacher);
 router.use("/student", student);
 
-module.exports = router;
 
 module.exports = router;
