@@ -35,7 +35,7 @@
   color: #000;
 }
 
-.show-counter .countdown {
+.show-counter .countdown .show {
   line-height: 1.25rem;
   padding: 0 0.75rem 0 0.75rem;
   align-items: center;
