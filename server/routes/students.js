@@ -12,8 +12,8 @@ router.post("/new", (req, res) => {
     firstname: req.body.firstName,
     lastname: req.body.lastName,
     email: req.body.email,
-    exam: req.body.exam,
-    teachers: req.body.teachers,
+    // exam: req.body.exam,
+    // teachers: req.body.teachers,
   });
   student
     .save()
@@ -25,7 +25,7 @@ router.post("/new", (req, res) => {
     });
 });
 
-router.get("/students/new", (req, res) => {
+router.get("/userlist", (req, res) => {
   student
     .find()
     .then((data) => {

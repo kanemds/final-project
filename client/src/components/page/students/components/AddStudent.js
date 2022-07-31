@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { UserList } from "./userlist";
 import { api_base } from "config";
 import Student from "./Students";
 import { Email } from "@mui/icons-material";
@@ -65,9 +65,13 @@ export default function BasicModal() {
         <Button
           onClick={() =>
             axios
-              .post(`${api_base}/students/new`, { firstName, lastName, email })
+              .post(`${api_base}/students/new`, {
+                firstName,
+                lastName,
+                email,
+              })
               .then((response) => {
-                navigate(`/userlist`);
+                navigate(`/teacher/userlist`);
               })
           }
         >

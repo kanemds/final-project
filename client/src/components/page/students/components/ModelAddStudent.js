@@ -28,7 +28,7 @@ export default function BasicModel() {
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
   const navigateNewStudent = () => {
-    navigate("/students/new");
+    navigate("/teacher/students/new");
   };
   return (
     <div>
@@ -36,8 +36,8 @@ export default function BasicModel() {
 
       <Button
         onClick={() =>
-          axios.post(`${api_base}/Students`, { name }).then((Student) => {
-            navigate(`/Students/${Student.data._id}`);
+          axios.post(`${api_base}/students`, { name }).then((student) => {
+            navigate(`/teacher/students/${student.data._id}`);
           })
         }
       >

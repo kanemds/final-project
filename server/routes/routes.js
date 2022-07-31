@@ -9,7 +9,7 @@ const stripe = require("./stripe");
 const property = require("./property");
 const feedback = require("./feedback");
 const teacher = require("./teacher");
-const student = require("./students");
+const students = require("./students");
 
 router.use("/questions", questions);
 router.use("/exams", exams);
@@ -20,8 +20,6 @@ router.use("/stripe", stripe);
 router.use("/property", property);
 router.use("/feedback", feedback);
 router.use("/teacher", teacher);
-router.use("/student", student);
-
-module.exports = router;
+router.use("/students", students);
 
 module.exports = router;
