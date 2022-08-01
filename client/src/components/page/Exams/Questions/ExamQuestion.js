@@ -14,6 +14,7 @@ import { api_base } from 'config';
 const ExamQuestion = ({question}) => {
   return (
     <div style={{display:"flex", flexDirection:"row", justifyContent:"space-around"}}>
+      <h3>{question.order}</h3>
 			<span>{question.content}</span>
       <span>{question.catName}</span>
     </div>

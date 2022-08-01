@@ -25,7 +25,7 @@ const QuestionForm = () => {
   const [catSelected, setCatSelected] = React.useState("");
   const [catsOptions, setCatsOptions] = useState([]);
   let navigate = useNavigate();
-  const {id} = useParams();
+  const {id, questionOrder} = useParams();
 	useEffect(() => {
     const getCategories = async () => {
       const cats = await axios.get(`${api_base}/categories/${id}`);
@@ -49,13 +49,14 @@ const QuestionForm = () => {
         corAns = ansData.data._id;
       }
     }
-    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, answers: ansArr, correctAnswer: corAns});
-    console.log(questionData, '#####')
+    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, answers: ansArr, correctAnswer: corAns, questionOrder: Number(questionOrder)});
+    // console.log(questionData, '#####')
     let categoryId = catsOptions[0]._id;
     if (checkedCat && catSelected) {
       categoryId = catSelected;
     }
     const catData = await axios.post(`${api_base}/categories/edit`, {categoryId, questionId: questionData.data._id, id});
+    // console.log(catData, 'CATdATA###')
     navigate(`/exams/${id}/questions/${questionData.data._id}`);
   };
   return (

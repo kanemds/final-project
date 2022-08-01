@@ -10,7 +10,7 @@ import { api_base } from 'config'
 import QuestionForm from './QuestionForm/QuestionForm';
 
 const ExamQuestionsNew = () => {
-  const {id} = useParams();
+  const {id, questionOrder} = useParams();
 //   const [mode, modeState] = useState("Show Questions");
   return (
     <>

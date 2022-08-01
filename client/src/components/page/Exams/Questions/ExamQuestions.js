@@ -25,7 +25,7 @@ const ExamQuestions = () => {
   }, []);
   return (
     <>
-        <BasicModal />
+        <BasicModal questionOrder={questions.length + 1} />
         {questions.length > 0 && questions.map((ques, i) => {
           return <ExamQuestion key={i + 1} question={ques} />
         })}

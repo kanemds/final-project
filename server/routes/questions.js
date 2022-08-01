@@ -24,7 +24,8 @@ router.post('/new', async (req, res) => {
   const question = new Question({
     content: req.body.content,
     answers: req.body.answers,
-    correctAnswer: req.body.correctAnswer
+    correctAnswer: req.body.correctAnswer,
+    order: req.body.questionOrder
   })
   const questionDoc = await question.save();
   res.send(questionDoc);

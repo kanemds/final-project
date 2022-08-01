@@ -15,6 +15,10 @@ const QuestionScheama =  new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Answer"
   },
+  order: {
+    type: Number,
+    required: true
+  },
   created:{
     type: Date,
     default: Date.now

@@ -22,7 +22,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function BasicModal({questionOrder}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -40,7 +40,7 @@ export default function BasicModal() {
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             <Button onClick={() => {
-                navigate(`/exams/${id}/questions/new`);
+                navigate(`/exams/${id}/questions/new/${questionOrder}`);
             }}>Multiple Choice
             </Button>
           </Typography>
