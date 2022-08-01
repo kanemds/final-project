@@ -34,7 +34,7 @@ function App() {
               
               <Route path="/exams/:id/questions/new/:questionOrder" element={<ExamQuestionsNew />} />
               <Route path="/exams/:id/questions" element={<ExamQuestions />} />
-              <Route path="/exams/:id/questions/:questionid" element={<QuestionOperations />} />
+              <Route path="/exams/:id/questions/:categoryId/:questionId" element={<QuestionOperations />} />
               <Route path="/exams/:id/categories" element={<ExamCategories />} />
               <Route
                 path="/exams/:id/properties"

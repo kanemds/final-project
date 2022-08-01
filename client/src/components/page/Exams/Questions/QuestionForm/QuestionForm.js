@@ -57,7 +57,7 @@ const QuestionForm = () => {
     }
     const catData = await axios.post(`${api_base}/categories/edit`, {categoryId, questionId: questionData.data._id, id});
     // console.log(catData, 'CATdATA###')
-    navigate(`/exams/${id}/questions/${questionData.data._id}`);
+    navigate(`/exams/${id}/questions/${categoryId}/${questionData.data._id}`);
   };
   return (
     <>

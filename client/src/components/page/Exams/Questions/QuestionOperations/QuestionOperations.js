@@ -10,19 +10,30 @@ import ListItemText from '@mui/material/ListItemText';
 import axios from 'axios';
 
 import { api_base } from 'config';
+import Header from './Header';
 
 const QuestionOperations = () => {
-	// const [question, setQuestion] = useState();
-	// useEffect(() => {
-  //   const getQuestion = async () => {
-  //     const ques = await axios.get(`${api_base}/questions/${questionId}`);
-  //     setCatsOptions(_prev => ques.data);
-  //   }
-  //   getQuestion();
-  // }, []);
+  let {id, categoryId, questionId} = useParams();
+	const [question, setQuestion] = useState({});
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+	useEffect(() => {
+    const getQuestion = async () => {
+      const questionData = await axios.get(`${api_base}/questions/${categoryId}/${questionId}`);
+      console.log(questionData.data[0], '####')
+      setQuestion(_prev => questionData.data[0]);
+    }
+    getQuestion();
+  }, []);
   return (
     <>
-			QuestionOperations
+      <Header />
+      {question.content}
+      {question.answers?.map((ans, i) => {
+        return <div key={i + 1} style={{display:'flex', justifyContent:'space-around'}}>
+          <span>{letters[i]}</span>
+          <span>{ans.content}</span>
+        </div>
+      })}
 		</>
   )
 }

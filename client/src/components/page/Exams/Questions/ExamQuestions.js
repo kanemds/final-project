@@ -18,7 +18,7 @@ const ExamQuestions = () => {
   const [questions, setQuestions] = useState([]);
   useEffect(() => {
     const getQuestions = async () => {
-      const questionsData = await axios.get(`${api_base}/questions/${id}`);
+      const questionsData = await axios.get(`${api_base}/questions/exams/${id}`);
       setQuestions(_prev => questionsData.data);
     }
     getQuestions();
