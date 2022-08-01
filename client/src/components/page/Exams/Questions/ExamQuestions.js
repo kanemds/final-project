@@ -7,45 +7,28 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import BasicModal from './ModalAddQuestion';
+import BasicModal from './QuestionForm/ModalAddQuestion';
+import axios from 'axios';
 
 import { api_base } from 'config';
-import '../../../../App.css';
-import useExam from '../useExam';
+import ExamQuestion from './ExamQuestion';
 
 const ExamQuestions = () => {
-  const { exam } = useExam()
-  const questions = exam.questions && exam.questions.map((q) => {
-    const answers = q.answers && q.answers.map((a) => {
-      const correctAnswer = q.correctAnswer === a._id ? "Correct answer." : ""
-      return (
-        <ListItem key={a._id}>
-          <ListItemButton>
-            <ListItemText primary={a.content} secondary={correctAnswer}/>
-          </ListItemButton>
-        </ListItem>
-      )
-    })
-    return (<>
-      <ListItem key={q._id}>
-        <ListItemButton>
-          <ListItemText primary={q.content} />
-        </ListItemButton>
-      </ListItem>
-        <List sx={{ pl: 4 }}>
-        { answers }
-      </List></>
-    )
-  })
-
+  let {id} = useParams();
+  const [questions, setQuestions] = useState([]);
+  useEffect(() => {
+    const getQuestions = async () => {
+      const questionsData = await axios.get(`${api_base}/questions/${id}`);
+      setQuestions(_prev => questionsData.data);
+    }
+    getQuestions();
+  }, []);
   return (
     <>
         <BasicModal />
-        Exam Questions List
-
-        <List>
-          { questions}
-        </List>
+        {questions.length > 0 && questions.map((ques, i) => {
+          return <ExamQuestion key={i + 1} question={ques} />
+        })}
     </>
   )
 }

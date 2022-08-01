@@ -1,32 +1,47 @@
 const express = require('express')
 const router = express.Router()
-const Exams = require('../models/exams')
+const Exam = require('../models/exam')
+const Category = require('../models/category')
 const Question = require('../models/question')
 const Answer = require('../models/answer')
 
 const ObjectId = require('mongodb').ObjectId;
 
-router.post('/new', (req, res) => {
-  const exam = new Exams ({
+router.post('/new', async (req, res) => {
+  const examNew = new Exam({
     name: req.body.name
-  })
-  exam.save()
-    .then(data =>     
-      res.json(data))
-    .catch(error => {
-      res.json(error)
-    })
+  });
+  const exam = await examNew.save();
+  const categoryNew = new Category({
+    content: 'No Category Assigned'
+  });
+  const category = await categoryNew.save();
+  const examDoc = await Exam.findOneAndUpdate(
+    {
+      _id: exam._id
+    },
+    {
+      $push: {
+        "categories": category._id
+      }
+    },
+    {
+      new: true,
+      upsert: true
+    }
+  )
+  res.send(examDoc);
   }
 )
 
 router.post('/:id/edit', (req, res) => {
-  Exams.findOneAndUpdate(
+  Exam.findOneAndUpdate(
     {
       _id: req.params.id
     }, 
     { 
       $push: {
-        "questions": req.body.questions
+        "categories": req.body.category
       }
     }, {
       // return doc after update is applied
@@ -38,9 +53,17 @@ router.post('/:id/edit', (req, res) => {
   }).catch((err) => console.log(err))  
 })
 
+router.get('/', (req, res) => {
+  Exam.find()
+  .then(data => {
+    res.send(data);
+  }).catch(error => {
+    res.json(error);
+  });
+})
 
 router.get('/:id', (req, res) => {
-  const doc = Exams.aggregate([
+  const doc = Exam.aggregate([
     { $match: { _id: ObjectId(req.params.id) }},
     { $limit: 1 },
     {
@@ -62,18 +85,8 @@ router.get('/:id', (req, res) => {
       }
     }
   ]).exec().then((result) => {
-    console.log(result)
     res.json(result[0])
   })
-})
-
-router.get('/', (req, res) => {
-  Exams.find()
-  .then(data => {
-    res.send(data);
-  }).catch(error => {
-    res.json(error);
-  });
 })
 
 module.exports = router

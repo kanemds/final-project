@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { api_base } from 'config'
 
@@ -21,15 +21,16 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({setExamsState}) {
+export default function BasicModal({setCategories}) {
   const [open, setOpen] = React.useState(false);
-  const [name, nameState] = useState("");
+  const [content, setContent] = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
+  let {id} = useParams();
   return (
     <div>
-      <Button onClick={handleOpen}>Add Exam</Button>
+      <Button onClick={handleOpen}>Add Category</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -38,20 +39,20 @@ export default function BasicModal({setExamsState}) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-          Name <textarea value={name} onChange={(event) => nameState(_prev => event.target.value)} rows="1" cols="30"></textarea>
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Categories
+          Category Name <textarea value={content} onChange={(event) => setContent(_prev => event.target.value)} rows="1" cols="30"></textarea>
           </Typography>
           <Button 
             onClick={async() => {
-              const exam = await axios.post(`${api_base}/exams/new`, {name});
-              setExamsState(prev => {
+              const categoryDoc = await axios.post(`${api_base}/categories/new`, {content});
+              const category = categoryDoc.data;
+              const exam = await axios.post(`${api_base}/exams/${id}/edit`, {category});
+              setCategories(prev => {
                 const newPrev = [...prev];
-                newPrev.push(exam);
+                newPrev.push(category);
                 return newPrev;
-              })
-              navigate(`/exams/${exam.data._id}/questions`);
+              });
+              handleClose();
+              setContent(_prev => "");
             }
           }>Create</Button>
         </Box>

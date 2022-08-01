@@ -4,10 +4,10 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 
-import BasicModal from './ModalAddQuestion';
+import BasicModal from './QuestionForm/ModalAddQuestion';
 
 import { api_base } from 'config'
-import QuestionForm from './QuestionForm';
+import QuestionForm from './QuestionForm/QuestionForm';
 
 const ExamQuestionsNew = () => {
   const {id} = useParams();

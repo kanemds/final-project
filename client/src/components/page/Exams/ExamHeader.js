@@ -17,8 +17,8 @@ const ExamHeader = () => {
         navigate(`/exams/${id}/questions`);
       }}>Questions</Button>
       <Button onClick={() => {
-        navigate(`/exams/${id}/pools`);
-      }}>Pools</Button>
+        navigate(`/exams/${id}/categories`);
+      }}>Categories</Button>
       <Button onClick={() => {
         navigate(`/exams/${id}/properties`);
       }}>Properties</Button>

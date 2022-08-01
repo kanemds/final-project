@@ -12,13 +12,14 @@ import Logout from "components/page/Logout";
 import Billing from "components/page/account/billing/Billing";
 import ExamQuestions from "components/page/Exams/Questions/ExamQuestions";
 import ExamQuestionsNew from "components/page/Exams/Questions/ExamQuestionsNew";
-import ExamPools from "components/page/Exams/Pools/ExamPools";
+import ExamCategories from "components/page/Exams/Categories/ExamCategories";
 import ExamProperties from "components/page/Exams/Porperties/ExamProperties";
 import ExamScheduler from "components/page/Exams/Scheduler/ExamScheduler";
 import Root from "Root";
 import ExamContainer from "ExamContainer";
 import CheckoutSuccess from "components/page/account/billing/CheckoutSuccess";
 import NotFound from "components/NotFound";
+import QuestionOperations from "components/page/Exams/Questions/QuestionOperations/QuestionOperations";
 
 
 function App() {
@@ -31,12 +32,10 @@ function App() {
             <Route path="/exams" element={<Exams />} />
             <Route element={<ExamContainer />}>
               
-              <Route
-                path="/exams/:id/questions/new"
-                element={<ExamQuestionsNew />}
-              />
+              <Route path="/exams/:id/questions/new" element={<ExamQuestionsNew />} />
               <Route path="/exams/:id/questions" element={<ExamQuestions />} />
-              <Route path="/exams/:id/pools" element={<ExamPools />} />
+              <Route path="/exams/:id/questions/:questionid" element={<QuestionOperations />} />
+              <Route path="/exams/:id/categories" element={<ExamCategories />} />
               <Route
                 path="/exams/:id/properties"
                 element={<ExamProperties />}

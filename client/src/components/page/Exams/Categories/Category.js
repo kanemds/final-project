@@ -4,19 +4,15 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 
-import BasicModal from '../Questions/ModalAddQuestion';
-
-
 import { api_base } from 'config'
 
-const ExamPools = () => {
+const Category = ({category, setCategories}) => {
 //   const {id} = useParams();
-//   const [mode, modeState] = useState("Show Questions");
   return (
-    <>
-      Exam Pools
-    </>
+    <div>
+      {category.content}
+    </div>
   )
 }
 
-export default ExamPools;
+export default Category;

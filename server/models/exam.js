@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 
-const PoolSchema = new mongoose.Schema({
-  content:{
+const ExamScheama = new mongoose.Schema({
+  name:{
     type:String,
     required:true
   },
-  questions:[
+  categories:[
     {
       type:mongoose.Schema.Types.ObjectId,
-      ref:"Question"
+      ref:"Category"
     }
   ],
   created:{
@@ -17,4 +17,4 @@ const PoolSchema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Pool', PoolSchema)
+module.exports = mongoose.model('Exam', ExamScheama)

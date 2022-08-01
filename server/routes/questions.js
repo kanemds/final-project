@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const Exams = require('../models/exams')
+const Exam = require('../models/exam')
 const Question = require('../models/question')
 const Answer = require('../models/answer')
 
+const ObjectId = require('mongodb').ObjectId;
 
 router.get('/', (req, res) => {
   Questioins.find()
@@ -14,7 +15,7 @@ router.get('/', (req, res) => {
     });
 })
 
-router.post('/new', (req, res) => {
+router.post('/new', async (req, res) => {
   if (req.body.answers.length < 0) {
     res.status(400)
     return
@@ -25,22 +26,61 @@ router.post('/new', (req, res) => {
     answers: req.body.answers,
     correctAnswer: req.body.correctAnswer
   })
-  question.save()
-  .then(q => res.json(q))
-  .catch(e => res.json(e))
-
+  const questionDoc = await question.save();
+  res.send(questionDoc);
 })
 
-// router.post('/addanswers', (req, res) => {
-//   let exam = await Exams.findOneAndUpdate(req.body.examId, 
+// router.post('/edit', async(req, res) => {
+//   let exam = await Exam.findOneAndUpdate(req.body.id, 
 //     {answers: req.body.ansArr, correctAnswer: req.body.corAns});
 //   exam.save()
-//     .then(data =>     
-//       res.json(data))
+//     .then(data => {
+//       console.log(data, 'quesitons/edit data##########')  
+//       res.json(data)
+//     })
 //     .catch(error => {
 //       res.json(error)
 //     })
 //   }
 // )
+
+router.get('/:id', (req, res) => {
+  const doc = Exam.aggregate([
+    { $match: { _id: ObjectId(req.params.id) }},
+    { $limit: 1 },
+    {
+      $lookup: {
+        from: "categories",
+        localField: "categories",
+        foreignField: "_id",
+        as: "categories",
+        pipeline: [
+          {
+            $lookup: {
+              from: "questions",
+              localField: "questions",
+              foreignField: "_id",
+              as: "questions",
+              pipeline: [
+                {
+                  $lookup: {
+                    from: "answers",
+                    localField: "answers",
+                    foreignField: "_id",
+                    as: "answers"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]).exec().then((result) => {
+    const questions = result[0].categories.map(c => c.questions.map((ques => ({...ques, catId: c._id, catName: c.content})))).flat();
+    console.log(questions, 'questions#######')
+    res.json(questions);
+  })
+})
 
 module.exports = router

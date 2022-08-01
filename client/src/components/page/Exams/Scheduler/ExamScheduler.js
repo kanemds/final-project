@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 
-import BasicModal from '../Questions/ModalAddQuestion';
+import BasicModal from '../Questions/QuestionForm/ModalAddQuestion';
 
 import { api_base } from 'config'
 
