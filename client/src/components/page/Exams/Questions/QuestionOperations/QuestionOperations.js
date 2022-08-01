@@ -14,26 +14,48 @@ import Header from './Header';
 
 const QuestionOperations = () => {
   let {id, categoryId, questionId} = useParams();
-	const [question, setQuestion] = useState({});
+	const [questions, setQuestions] = useState({});
   const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
 	useEffect(() => {
     const getQuestion = async () => {
-      const questionData = await axios.get(`${api_base}/questions/${categoryId}/${questionId}`);
-      console.log(questionData.data[0], '####')
-      setQuestion(_prev => questionData.data[0]);
+      const questionsData = await axios.get(`${api_base}/questions/exams/${id}`);
+      let nextOrder;
+      let prevOrder;
+      const currentState = {};
+      for(const que of questionsData.data) {
+        if (que._id === questionId) {
+          currentState.current = que;
+          nextOrder = que.order + 1;
+          prevOrder = que.order - 1;
+          break;
+        }
+      }
+      for(const que of questionsData.data) {
+        if (que.order === nextOrder) {
+          currentState.next = que;
+        } else if (que.order === prevOrder) {
+          currentState.prev = que;
+        }  
+      }
+      setQuestions(currentState);
     }
     getQuestion();
-  }, []);
+  }, questionId);
   return (
     <>
-      <Header />
-      {question.content}
-      {question.answers?.map((ans, i) => {
-        return <div key={i + 1} style={{display:'flex', justifyContent:'space-around'}}>
-          <span>{letters[i]}</span>
-          <span>{ans.content}</span>
-        </div>
-      })}
+      {
+        questions.current && 
+        <>
+          <Header questions={questions} setQuestions={setQuestions} />
+          <div style={{display:'flex', flexDirection:'column'}}>
+            <span>Points: 2 Category: {questions.current.catName}</span>
+            <span>Question {questions.current.order}: {questions.current.content}?</span>
+          </div>
+          {questions.current.answers?.map((ans, i) => {
+            return <span key={i + 1}>{letters[i]}. {ans.content}</span>
+          })}
+        </>
+      }
 		</>
   )
 }

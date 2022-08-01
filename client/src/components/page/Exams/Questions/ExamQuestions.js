@@ -19,7 +19,13 @@ const ExamQuestions = () => {
   useEffect(() => {
     const getQuestions = async () => {
       const questionsData = await axios.get(`${api_base}/questions/exams/${id}`);
-      setQuestions(_prev => questionsData.data);
+      setQuestions(_prev => {
+        const orderedQuestions = [];
+        questionsData.data.forEach(que => {
+          orderedQuestions[que.order - 1] = que;
+        });
+        return orderedQuestions;
+      });
     }
     getQuestions();
   }, []);
