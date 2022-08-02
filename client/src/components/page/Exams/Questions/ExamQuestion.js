@@ -7,7 +7,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import BasicModal from './QuestionForm/ModalAddQuestion';
+import BasicModal from './ModalAddQuestion';
 import Link from '@mui/material/Link';
 
 import { api_base } from 'config';

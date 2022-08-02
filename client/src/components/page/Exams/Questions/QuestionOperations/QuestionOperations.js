@@ -40,7 +40,7 @@ const QuestionOperations = () => {
       setQuestions(currentState);
     }
     getQuestion();
-  }, questionId);
+  }, [questionId]);
   return (
     <>
       {

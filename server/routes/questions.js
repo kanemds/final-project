@@ -80,40 +80,38 @@ router.get('/exams/:id', (req, res) => {
     }
   ]).exec().then((result) => {
     const questions = result[0].categories.map(c => c.questions.map((ques => ({...ques, catId: c._id, catName: c.content})))).flat();
-    console.log(questions, 'questions#######')
+    // console.log(questions, 'questions#######')
     res.json(questions);
   })
 })
 
-// router.get('/:categoryId/:questionId', (req, res) => {
-//   const doc = Category.aggregate([
-//     { $match: { _id: ObjectId(req.params.categoryId) }},
-//     { $limit: 1 },
-//     {
-//       $lookup: {
-//         from: "questions",
-//         localField: "questions",
-//         foreignField: "_id",
-//         as: "questions",
-//         pipeline: [
-//           { $match: { _id: ObjectId(req.params.questionId) }},
-//           {
-//             $lookup: {
-//               from: "answers",
-//               localField: "answers",
-//               foreignField: "_id",
-//               as: "answers"
-//             }
-//           }
-//         ]
-//       }
-//     }
-//   ]).exec().then((result) => {
-//     // console.log(result, 'result####')
-//     const questions = result.map(c => c.questions.map((ques => ({...ques, catId: c._id, catName: c.content})))).flat();
-//     // console.log(question, 'question#######')
-//     res.json(questions);
-//   })
-// })
+router.get('/:categoryId/:questionId', (req, res) => {
+  const doc = Category.aggregate([
+    { $match: { _id: ObjectId(req.params.categoryId) }},
+    { $limit: 1 },
+    {
+      $lookup: {
+        from: "questions",
+        localField: "questions",
+        foreignField: "_id",
+        as: "questions",
+        pipeline: [
+          { $match: { _id: ObjectId(req.params.questionId) }},
+          {
+            $lookup: {
+              from: "answers",
+              localField: "answers",
+              foreignField: "_id",
+              as: "answers"
+            }
+          }
+        ]
+      }
+    }
+  ]).exec().then((result) => {
+    const question = result.map(c => c.questions.map((ques => ({...ques, catId: c._id, catName: c.content})))).flat();
+    res.json(question);
+  })
+})
 
 module.exports = router

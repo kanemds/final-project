@@ -11,15 +11,14 @@ import { useNavigate } from "react-router-dom";
 
 import { api_base } from 'config'
 
-const Header = ({questions, setQuestions}) => {
+const Header = ({questions}) => {
     let navigate = useNavigate();
     const {id, questionOrder} = useParams();
-    console.log(questions, 'questions in Header####')
   return (
     <div style={{display:"flex", justifyContent:"space-around"}}>
       <div>
         <Button onClick={() => {
-          // navigate(`/exams/${id}/questions`);
+          navigate(`/exams/${id}/categories/${questions.current.catId}/questions/${questions.current._id}/edit`);
         }}>Edit</Button>
         <Button onClick={() => {
           // navigate(`/exams/${id}/categories`);
@@ -33,13 +32,11 @@ const Header = ({questions, setQuestions}) => {
       </div>
       <ButtonGroup variant="contained" aria-label="outlined primary button group">
         <Button disabled={!questions.prev} onClick={() => {
-          // setQuestions(_prev => {});
           navigate(`/exams/${id}/questions/${questions.prev._id}`);
         }}>
           <ArrowBackIosIcon />
         </Button>
         <Button disabled={!questions.next} onClick={() => {
-          // setQuestions(_prev => {});
           navigate(`/exams/${id}/questions/${questions.next._id}`);
         }}>
           <ArrowForwardIosIcon />

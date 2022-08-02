@@ -13,7 +13,8 @@ const QuestionScheama =  new mongoose.Schema({
   ],
   correctAnswer:{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Answer"
+    ref: "Answer",
+    required: true
   },
   order: {
     type: Number,

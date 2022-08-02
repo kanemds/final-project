@@ -20,6 +20,7 @@ import ExamContainer from "ExamContainer";
 import CheckoutSuccess from "components/page/account/billing/CheckoutSuccess";
 import NotFound from "components/NotFound";
 import QuestionOperations from "components/page/Exams/Questions/QuestionOperations/QuestionOperations";
+import QuestionEdit from "components/page/Exams/Questions/QuestionOperations/QuestionEdit";
 
 
 function App() {
@@ -30,16 +31,13 @@ function App() {
           <Route element={<Root />}>
             <Route path="/home" element={<Home />} />
             <Route path="/exams" element={<Exams />} />
-            <Route element={<ExamContainer />}>
-              
+            <Route element={<ExamContainer />}>           
               <Route path="/exams/:id/questions/new/:questionOrder" element={<ExamQuestionsNew />} />
               <Route path="/exams/:id/questions" element={<ExamQuestions />} />
               <Route path="/exams/:id/questions/:questionId" element={<QuestionOperations />} />
+              <Route path="/exams/:id/categories/:categoryId/questions/:questionId/edit" element={<QuestionEdit />} />
               <Route path="/exams/:id/categories" element={<ExamCategories />} />
-              <Route
-                path="/exams/:id/properties"
-                element={<ExamProperties />}
-              />
+              <Route path="/exams/:id/properties" element={<ExamProperties />} />
               <Route path="/exams/:id/scheduler" element={<ExamScheduler />} />
             </Route>
             <Route path="/students" element={<Students />} />

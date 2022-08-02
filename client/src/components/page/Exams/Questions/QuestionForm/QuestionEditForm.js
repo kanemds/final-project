@@ -15,7 +15,7 @@ import AllAbove from './AllAbove';
 import IncludeinCat from './IncludeinCat';
 
 
-const QuestionForm = () => {
+const QuestionEditForm = () => {
   const [selected, setSelected] = React.useState("");
   const [question, setQuestion] = React.useState("");
   const [answers, setAnswers] = React.useState(['','','','']);
@@ -25,46 +25,44 @@ const QuestionForm = () => {
   const [catSelected, setCatSelected] = React.useState("");
   const [catsOptions, setCatsOptions] = useState([]);
   let navigate = useNavigate();
-  const {id, questionOrder} = useParams();
+  const {id, categoryId, questionId} = useParams();
 	useEffect(() => {
-    const getCategories = async () => {
-      const cats = await axios.get(`${api_base}/categories/${id}`);
-      setCatsOptions(_prev => cats.data.categories);
+    const getQuestion = async () => {
+      const cats = await axios.get(`${api_base}/questions/${categoryId}/${questionId}`);
+      console.log(cats.data, 'cats.data####')
+      // setCatsOptions(_prev => cats.data.categories);
     }
-    getCategories();
+    getQuestion();
   }, []);
-  const cancelLink = `/exams/${id}/questions`;
-  const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
-  const handleChange = (answerId) => {
-    setSelected(answerId);
-  };
-  const save = async () => {
-    const ansArr = [];
-    let corAns;
-    for (let i = 0; i < answers.length; i++) {
-      let content = answers[i];
-      if (checkedAllAbove && i === answers.length - 1) {
-        content = aboveSelected;
-      }
-      const ansData = await axios.post(`${api_base}/answers/new`, {content});
-      ansArr.push(ansData.data._id);
-      if (i === selected) {
-        corAns = ansData.data._id;
-      }
-    }
-    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, answers: ansArr, correctAnswer: corAns, questionOrder: Number(questionOrder)});
-    // console.log(questionData, '#####')
-    let categoryId = catsOptions[0]._id;
-    if (checkedCat && catSelected) {
-      categoryId = catSelected;
-    }
-    const catData = await axios.post(`${api_base}/categories/edit`, {categoryId, questionId: questionData.data._id, id});
-    // console.log(catData, 'CATdATA###')
-    navigate(`/exams/${id}/questions/${questionData.data._id}`);
-  };
+  // const cancelLink = `/exams/${id}/questions`;
+  // const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+  // const handleChange = (answerId) => {
+  //   setSelected(answerId);
+  // };
+  // const save = async () => {
+  //   const ansArr = [];
+  //   let corAns;
+  //   for (let i = 0; i < answers.length; i++) {
+  //     const content = answers[i];
+  //     const ansData = await axios.post(`${api_base}/answers/new`, {content});
+  //     ansArr.push(ansData.data._id);
+  //     if (i === selected) {
+  //       corAns = ansData.data._id;
+  //     }
+  //   }
+  //   const questionData = await axios.post(`${api_base}/questions/new`, {content: question, answers: ansArr, correctAnswer: corAns, questionOrder: Number(questionOrder)});
+  //   // console.log(questionData, '#####')
+  //   let categoryId = catsOptions[0]._id;
+  //   if (checkedCat && catSelected) {
+  //     categoryId = catSelected;
+  //   }
+  //   const catData = await axios.post(`${api_base}/categories/edit`, {categoryId, questionId: questionData.data._id, id});
+  //   // console.log(catData, 'CATdATA###')
+  //   navigate(`/exams/${id}/questions/${questionData.data._id}`);
+  // };
   return (
     <>
-      <div style={{display: "flex", flexDirection: "column"}}>
+      {/* <div style={{display: "flex", flexDirection: "column"}}>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					Enter Your Question ({4000 - question.length} characters remaining)
 				</Typography>
@@ -102,12 +100,13 @@ const QuestionForm = () => {
          <Button onClick={async () => await save()}>
           Save
         </Button>
-      </div>
+      </div> */}
+      hihihi
 	  </>
   )
 }
 
-export default QuestionForm;
+export default QuestionEditForm;
 
 //next questions list shows, after save, where to go
 // then add a new cat
