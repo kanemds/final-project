@@ -6,7 +6,7 @@ import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import { Button, Radio } from "@mui/material";
 
-const Answer = ({setSelected, selected, answerId, handleChange, answer, setAnswers}) => {
+const Answer = ({setSelected, selected, answerId, handleChange, answer, answers, setAnswers, checkedAllAbove, setCheckedAllAbove}) => {
   return (
     <>
       <List>
@@ -33,6 +33,9 @@ const Answer = ({setSelected, selected, answerId, handleChange, answer, setAnswe
             inputProps={{ "aria-label": "primary checkbox" }}
           />
           <Button onClick={() => {
+            if (checkedAllAbove && answerId === answers.length - 1) {
+              setCheckedAllAbove(_prev => false);
+            }
             setAnswers(prev => {
               let newPrev = [];
               prev.forEach((ans, i) => {
@@ -42,7 +45,6 @@ const Answer = ({setSelected, selected, answerId, handleChange, answer, setAnswe
               });
               return newPrev;
             })
-            // setDeleted(answerId);
             if (answerId === selected) {
               setSelected("");
             } else if (answerId < selected) {

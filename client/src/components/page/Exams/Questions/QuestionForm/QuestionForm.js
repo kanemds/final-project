@@ -42,10 +42,7 @@ const QuestionForm = () => {
     const ansArr = [];
     let corAns;
     for (let i = 0; i < answers.length; i++) {
-      let content = answers[i];
-      if (checkedAllAbove && i === answers.length - 1) {
-        content = aboveSelected;
-      }
+      const content = answers[i];
       const ansData = await axios.post(`${api_base}/answers/new`, {content});
       ansArr.push(ansData.data._id);
       if (i === selected) {
@@ -81,7 +78,7 @@ const QuestionForm = () => {
           return (
             <div key={index + 1} style={{display: "flex", flexDirection: "row"}}>
               <h4>{letters[index]}</h4>
-              <Answer setSelected={setSelected} handleChange={handleChange} selected={selected} answerId={index} answer={answer} setAnswers={setAnswers} />
+              <Answer setSelected={setSelected} handleChange={handleChange} selected={selected} answerId={index} answer={answer} answers={answers} setAnswers={setAnswers} checkedAllAbove={checkedAllAbove} setCheckedAllAbove={setCheckedAllAbove} />
             </div>
           )})}
         <Button onClick={() => {
@@ -96,7 +93,7 @@ const QuestionForm = () => {
             return newPrev;
           })
         }} disabled={answers.length >= 6}>Add Choice</Button>
-        <AllAbove letter={letters[answers.length - 1]} checkedAllAbove={checkedAllAbove} setCheckedAllAbove={setCheckedAllAbove} setAboveSelected={setAboveSelected}/>
+        <AllAbove letter={letters[answers.length - 1]} checkedAllAbove={checkedAllAbove} setCheckedAllAbove={setCheckedAllAbove} aboveSelected={aboveSelected} setAboveSelected={setAboveSelected} setAnswers={setAnswers} />
         <IncludeinCat catsOptions={catsOptions} setCatsOptions={setCatsOptions} checkedCat={checkedCat} setCheckedCat={setCheckedCat} catSelected={catSelected} setCatSelected={setCatSelected} />
         <Button component={Link} to={cancelLink}>Cancel</Button>
          <Button onClick={async () => await save()}>
@@ -108,6 +105,3 @@ const QuestionForm = () => {
 }
 
 export default QuestionForm;
-
-//next questions list shows, after save, where to go
-// then add a new cat
