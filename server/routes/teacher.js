@@ -17,6 +17,25 @@ router.post("/new", (req, res) => {
       res.json(error);
     });
 });
+
+router.put("/student/:id", (req, res) => {
+  console.log("did we get here?");
+  student
+    .updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        $set: req.body,
+      }
+    )
+    .exec()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => console.log(err));
+});
+
 router.delete("/teacher/student/:id", (req, res) => {
   student
     .findOneAndDelete({
@@ -38,11 +57,6 @@ router.post("/:id/edit", (req, res) => {
       $push: {
         teacher: req.body.teacher,
       },
-    },
-    {
-      // return doc after update is applied
-      new: true,
-      upsert: true,
     }
   )
     .exec()

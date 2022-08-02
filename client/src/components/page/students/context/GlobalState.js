@@ -30,10 +30,12 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
-  const editUser = (user) => {
+  const editUser = (id) => {
+    axios.put(`teacher/student/${id}`).then(() => window.location.reload());
+
     dispatch({
       type: "EDIT_USER",
-      payload: user,
+      payload: id,
     });
   };
 
@@ -51,6 +53,7 @@ export const GlobalProvider = ({ children }) => {
         removeUser,
         addUser,
         getUser,
+        editUser,
       }}
     >
       {children}

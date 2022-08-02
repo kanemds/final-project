@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import useStudent from "./useStudent";
 import { GlobalContext } from "../context/GlobalState";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import axios from "axios";
 import { api_base } from "config";
@@ -13,10 +13,11 @@ import BasicModal from "./ModelAddStudent";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import { EditUser } from "./editstudent";
 
 const Students = () => {
   const { removeUser } = useContext(GlobalContext);
+  const { editUser } = useContext(GlobalContext);
+  const navigate = useNavigate();
   const student = useStudent();
   const BoxShadowDiv = styled("div")(
     ({ theme }) => `
@@ -57,11 +58,15 @@ box-shadow: ${theme.shadows[12]};`
                 {item.firstname} {item.lastname} {item.email}
               </Link>
             </Typography>
-            <Link to={`/edit`}>
-              <Button sx={{ fontSize: 20 }} gutterBottom>
-                Edit
-              </Button>
-            </Link>
+            <Button
+              onClick={() =>
+                navigate("/teacher/students/edit", { state: item })
+              }
+              sx={{ fontSize: 20 }}
+              gutterBottom
+            >
+              Edit
+            </Button>
             <Button
               onClick={() => removeUser(item._id)}
               sx={{ fontSize: 20 }}

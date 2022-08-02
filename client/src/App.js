@@ -22,6 +22,7 @@ import AddStudent from "components/page/students/components/AddStudent";
 import Teacher from "components/page/home/teacher/Teacher";
 import StudentRoot from "components/studentPage/StudentRoot";
 import Student from "components/studentPage/Student";
+import EditStudent from "components/page/students/components/EditStudent";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
             <Route path="/teacher/students" element={<Students />} />
             <Route path="/teacher/userlist" element={<UserList />} />
             <Route path="/teacher/students/new" element={<AddStudent />} />
+            <Route path="/teacher/students/edit" element={<EditStudent />} />
 
             <Route path="/teacher/groups" element={<Groups />} />
             {/* <Route path="/reports" element={<Reports />} /> */}
