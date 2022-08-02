@@ -15,6 +15,7 @@ export const GlobalProvider = ({ children }) => {
 
   // Actions
   const removeUser = (id) => {
+    console.log("did we get here?", id);
     dispatch({
       type: "REMOVE_STUDENT",
       payload: id,

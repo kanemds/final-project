@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
-
+import axios from "axios";
 // Initial State
 const initialState = {
   users: [],
@@ -15,6 +15,8 @@ export const GlobalProvider = ({ children }) => {
 
   // Actions
   const removeUser = (id) => {
+    axios.delete(`teacher/student/${id}`).then(() => window.location.reload());
+
     dispatch({
       type: "REMOVE_STUDENT",
       payload: id,

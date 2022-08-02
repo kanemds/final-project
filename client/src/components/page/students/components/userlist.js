@@ -4,6 +4,25 @@ import { Link } from "react-router-dom";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
 import axios from "axios";
 import { api_base } from "config";
+import useStudent from "./useStudent";
+
+const Students = () => {
+  const student = useStudent();
+  return (
+    <>
+      {student.map((item) => {
+        return (
+          <div key={student._id}>
+            <h1>
+              {" "}
+              {item.firstname}, {item.lastname}
+            </h1>
+          </div>
+        );
+      })}
+    </>
+  );
+};
 
 export const UserList = () => {
   const { removeUser } = useContext(GlobalContext);
@@ -16,8 +35,6 @@ export const UserList = () => {
   useEffect(() => {
     getUsers();
   }, []);
-
-  console.log("did we get here?");
 
   return (
     <ListGroup className="mt-4">

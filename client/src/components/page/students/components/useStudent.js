@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { api_base } from "config";
-
 function useStudent(props) {
-  const [Student, setStudent] = useState([]);
+  const [student, setStudent] = useState([]);
+  console.log(student);
   useEffect(() => {
-    const fetchStudent = async () => {
-      const url = `${api_base}/students`;
+    const fetchteacher = async () => {
+      const url = `${api_base}/student/students/new`;
       const res = await fetch(url);
       setStudent(await res.json());
     };
-    fetchStudent();
+    fetchteacher();
   }, []);
-
-  if (Student === null) {
+  if (student === null) {
     return "Loading...";
   }
-  return Student ? Student : "";
+  return student ? student : "";
 }
 export default useStudent;
