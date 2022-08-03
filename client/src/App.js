@@ -4,7 +4,8 @@ import Home from "components/page/home/Home";
 import Exams from "components/page/Exams/Exams";
 import Students from "components/page/students/components/Students";
 import Groups from "components/page/Groups";
-import Reports from "components/page/Reports";
+import Courses from "components/page/courses/TeacherCourses";
+
 import Account from "components/page/account/Account";
 import Logout from "components/page/Logout";
 import Billing from "components/page/account/billing/Billing";
@@ -23,8 +24,16 @@ import Teacher from "components/page/home/teacher/Teacher";
 import StudentRoot from "components/studentPage/StudentRoot";
 import Student from "components/studentPage/Student";
 import EditStudent from "components/page/students/components/EditStudent";
+import StudentHomePage from "components/studentPage/home/StudentHomePage";
+import ExamStudentPage from "components/studentPage/examsStudentPage/ExamStudentPage";
+import StudentCourses from "components/studentPage/StudentCourses/StudentCourses";
+import { useContext } from "react";
+import { LoginContext } from "Contexts/LoginContext";
+import { useState } from "react";
 
 function App() {
+  const clients = useContext(LoginContext);
+
   return (
     <>
       <Router>
@@ -58,9 +67,9 @@ function App() {
             <Route path="/teacher/userlist" element={<UserList />} />
             <Route path="/teacher/students/new" element={<AddStudent />} />
             <Route path="/teacher/students/edit" element={<EditStudent />} />
+            <Route path="/teacher/courses" element={<Courses />} />
 
             <Route path="/teacher/groups" element={<Groups />} />
-            {/* <Route path="/reports" element={<Reports />} /> */}
             <Route path="/teacher/account" element={<Account />} />
             <Route path="/teacher/logout" element={<Logout />} />
             <Route path="/teacher/account/billing" element={<Billing />} />

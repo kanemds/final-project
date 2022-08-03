@@ -65,7 +65,7 @@ box-shadow: ${theme.shadows[12]};`
               sx={{ fontSize: 20 }}
               gutterBottom
             >
-              Edit
+              Edit Student Account
             </Button>
             <Button
               onClick={() => removeUser(item._id)}

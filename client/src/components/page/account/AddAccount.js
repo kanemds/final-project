@@ -5,12 +5,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserList } from "./userlist";
 import { api_base } from "config";
 import Student from "./Students";
 import { Email } from "@mui/icons-material";
-import { MenuItem, FormControl, Select, InputLabel } from "@mui/material";
+import useAccount from ".useAccount";
 
 const style = {
   position: "absolute",
@@ -29,22 +29,10 @@ export default function BasicModal() {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const location = useLocation();
-  const [id, setId] = useState("");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
-  useEffect(() => {
-    if (location.state) {
-      console.log("here", location);
-
-      setFirstName(location.state.firstname);
-      setLastName(location.state.lastname);
-      setEmail(location.state.email);
-      setId(location.state._id);
-    }
-  }, [location.state]);
   return (
     <div>
       <Box sx={style}>
@@ -75,34 +63,20 @@ export default function BasicModal() {
             cols="30"
           ></textarea>
         </Typography>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Courses</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={id}
-            label="Course"
-            onChange={setId}
-          >
-            <MenuItem value={10}>Course 1</MenuItem>
-            <MenuItem value={20}>Course 2</MenuItem>
-            <MenuItem value={30}>course 2</MenuItem>
-          </Select>
-        </FormControl>
         <Button
           onClick={() =>
             axios
-              .put(`${api_base}/teacher/student/${id}`, {
+              .post(`${api_base}/account/new`, {
                 firstname,
                 lastname,
                 email,
               })
               .then((response) => {
-                navigate(`/teacher/students`);
+                navigate(`/teacher/account`);
               })
           }
         >
-          Edit Student Account
+          Add Account
         </Button>
       </Box>
     </div>

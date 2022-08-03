@@ -79,6 +79,14 @@ div .form {
   padding: 0 30px;
 }
 
+.dropdown-menu {
+  background-color: white;
+  border-color:  hsl(211, 23%, 42%);
+  color: blue;
+  opacity: 1;
+  position:relative
+}
+
 
 .Sidebar {
   width: 150px;
