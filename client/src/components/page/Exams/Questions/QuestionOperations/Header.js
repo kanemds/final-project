@@ -8,12 +8,21 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 import { api_base } from 'config'
 
 const Header = ({questions}) => {
     let navigate = useNavigate();
-    const {id, questionOrder} = useParams();
+    const {id, questionOrder, categoryId, questionId} = useParams();
+    const deleteFunc = async () => {
+      await axios.post(`${api_base}/exams/${id}/deleteQuestion`, {questionId});
+      await axios.post(`${api_base}/categories/deleteQuestion`, {categoryId, questionId});
+      await axios.post(`${api_base}/questions/delete`, {questionId});
+      for (const answer of questions.current.answers) {
+        await axios.post(`${api_base}/answers/delete`, {answerId: answer._id});
+      }
+    };
   return (
     <div style={{display:"flex", justifyContent:"space-around"}}>
       <div>
@@ -26,8 +35,9 @@ const Header = ({questions}) => {
         <Button onClick={() => {
           // navigate(`/exams/${id}/properties`);
         }}>Add Question</Button>
-        <Button onClick={() => {
-          // navigate(`/exams/${id}/scheduler`);
+        <Button onClick={async() => {
+          await deleteFunc();
+          navigate(`/exams/${id}/questions`);
         }}>Delete</Button>
       </div>
       <ButtonGroup variant="contained" aria-label="outlined primary button group">

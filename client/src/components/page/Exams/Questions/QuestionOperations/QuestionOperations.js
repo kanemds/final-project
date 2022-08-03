@@ -18,7 +18,6 @@ const QuestionOperations = () => {
   const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
 	useEffect(() => {
     const getQuestion = async () => {
-      console.log('########')
       const questionsData = await axios.get(`${api_base}/questions/exams/${id}`);
       const questions = questionsData.data;
       const currentState = {

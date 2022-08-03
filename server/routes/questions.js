@@ -41,6 +41,18 @@ router.post('/delete', async (req, res) => {
   res.send(doc);
 })
 
+router.post('/:questionId/markDelete', async (req, res) => {
+  const doc = await Question.findOneAndUpdate(
+    {
+      _id: req.params.questionId
+    },
+    {
+      deleted: true
+    }
+  );
+  res.send(doc);
+})
+
 // router.get('/exams/:id', (req, res) => {
 //   const doc = Exam.aggregate([
 //     { $match: { _id: ObjectId(req.params.id) }},
@@ -92,6 +104,9 @@ router.get('/exams/:id', async (req, res) => {
         as: "questions",
         pipeline: [
           {
+            $match: { deleted: false }
+          },
+          {
             $lookup: {
               from: "answers",
               localField: "answers",
@@ -108,6 +123,7 @@ router.get('/exams/:id', async (req, res) => {
     const catId = ques.category;
     questions.push({...ques, category: await Category.findById(catId)});
   }
+  console.log(questions, '#####')
   res.send(questions);
 })
 
