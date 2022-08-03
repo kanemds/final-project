@@ -32,7 +32,7 @@ router.post('/deleteQuestion', async (req, res) => {
   res.send(doc);
 })
 
-router.post('/edit', async (req, res) => {
+router.post('/question/push', async (req, res) => {
   const doc = await Category.findOneAndUpdate(
     {
       _id: req.body.categoryId

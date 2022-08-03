@@ -19,13 +19,7 @@ const ExamQuestions = () => {
   useEffect(() => {
     const getQuestions = async () => {
       const questionsData = await axios.get(`${api_base}/questions/exams/${id}`);
-      setQuestions(_prev => {
-        const orderedQuestions = [];
-        questionsData.data.forEach(que => {
-          orderedQuestions[que.order - 1] = que;
-        });
-        return orderedQuestions;
-      });
+      setQuestions(_prev => questionsData.data);
     }
     getQuestions();
   }, []);
@@ -33,7 +27,7 @@ const ExamQuestions = () => {
     <>
         <BasicModal questionOrder={questions.length + 1} />
         {questions.length > 0 && questions.map((ques, i) => {
-          return <ExamQuestion key={i + 1} question={ques} />
+          return <ExamQuestion key={i + 1} questionOrder={i + 1} question={ques} />
         })}
     </>
   )

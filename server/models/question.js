@@ -16,8 +16,9 @@ const QuestionScheama =  new mongoose.Schema({
     ref: "Answer",
     required: true
   },
-  order: {
-    type: Number,
+  category:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
     required: true
   },
   created:{

@@ -45,7 +45,7 @@ export default function BasicModal({setCategories}) {
             onClick={async() => {
               const categoryDoc = await axios.post(`${api_base}/categories/new`, {content});
               const category = categoryDoc.data;
-              const exam = await axios.post(`${api_base}/exams/${id}/edit`, {category});
+              const exam = await axios.post(`${api_base}/exams/${id}/categories/push`, {category});
               setCategories(prev => {
                 const newPrev = [...prev];
                 newPrev.push(category);

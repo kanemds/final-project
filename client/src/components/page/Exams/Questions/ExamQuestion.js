@@ -12,13 +12,13 @@ import Link from '@mui/material/Link';
 
 import { api_base } from 'config';
 
-const ExamQuestion = ({question}) => {
+const ExamQuestion = ({questionOrder, question}) => {
   let {id} = useParams();
   return (
     <div style={{display:"flex", flexDirection:"row", justifyContent:"space-around"}}>
-      <h3>{question.order}</h3>
-      <Link href={`${api_base}/exams/${id}/questions/${question._id}`}>{question.content}</Link>
-      <span>{question.catName}</span>
+      <h3>{questionOrder}</h3>
+      <Link href={`${api_base}/exams/${id}/questions/${question._id}/${questionOrder}`}>{question.content}</Link>
+      <span>{question.category.content}</span>
     </div>
   )
 }

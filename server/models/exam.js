@@ -11,6 +11,12 @@ const ExamScheama = new mongoose.Schema({
       ref:"Category"
     }
   ],
+  questions:[
+    {
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"Question"
+    }
+  ],
   created:{
     type:Date,
     default: Date.now

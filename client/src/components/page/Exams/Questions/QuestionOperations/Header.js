@@ -18,7 +18,7 @@ const Header = ({questions}) => {
     <div style={{display:"flex", justifyContent:"space-around"}}>
       <div>
         <Button onClick={() => {
-          navigate(`/exams/${id}/categories/${questions.current.catId}/questions/${questions.current._id}/edit`);
+          navigate(`/exams/${id}/categories/${questions.current.category._id}/questions/${questions.current._id}/edit/${questionOrder}`);
         }}>Edit</Button>
         <Button onClick={() => {
           // navigate(`/exams/${id}/categories`);
@@ -32,12 +32,12 @@ const Header = ({questions}) => {
       </div>
       <ButtonGroup variant="contained" aria-label="outlined primary button group">
         <Button disabled={!questions.prev} onClick={() => {
-          navigate(`/exams/${id}/questions/${questions.prev._id}`);
+          navigate(`/exams/${id}/questions/${questions.prev._id}/${Number(questionOrder) - 1}`);
         }}>
           <ArrowBackIosIcon />
         </Button>
         <Button disabled={!questions.next} onClick={() => {
-          navigate(`/exams/${id}/questions/${questions.next._id}`);
+          navigate(`/exams/${id}/questions/${questions.next._id}/${Number(questionOrder) + 1}`);
         }}>
           <ArrowForwardIosIcon />
         </Button>

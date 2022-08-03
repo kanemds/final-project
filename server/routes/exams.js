@@ -34,7 +34,7 @@ router.post('/new', async (req, res) => {
   }
 )
 
-router.post('/:id/edit', (req, res) => {
+router.post('/:id/categories/push', (req, res) => {
   Exam.findOneAndUpdate(
     {
       _id: req.params.id
@@ -51,6 +51,40 @@ router.post('/:id/edit', (req, res) => {
   ).exec().then((data) => {
     res.json(data)
   }).catch((err) => console.log(err))  
+})
+
+router.post('/:id/question/push', (req, res) => {
+  Exam.findOneAndUpdate(
+    {
+      _id: req.params.id
+    }, 
+    { 
+      $push: {
+        "questions": req.body.question
+      }
+    }, {
+      // return doc after update is applied
+      new: true,
+      upsert: true 
+    }
+  ).exec().then((data) => {
+    res.json(data)
+  }).catch((err) => console.log(err))  
+})
+
+router.post('/:id/deleteQuestion', async (req, res) => {
+  const doc = await Category.findOneAndUpdate(
+    { _id: req.params.id }, 
+    {
+      $pull: { questions: req.body.questionId }
+    },
+    {
+      // return doc after update is applied
+      new: true,
+      upsert: true 
+    }
+  );
+  res.send(doc);
 })
 
 router.get('/', (req, res) => {

@@ -26,7 +26,7 @@ router.post('/new', async (req, res) => {
     content: req.body.content,
     answers: req.body.answers,
     correctAnswer: req.body.correctAnswer,
-    order: req.body.questionOrder
+    category: req.body.category
   })
   const questionDoc = await question.save();
   res.send(questionDoc);
@@ -41,57 +41,74 @@ router.post('/delete', async (req, res) => {
   res.send(doc);
 })
 
-// router.post('/edit', async(req, res) => {
-//   let exam = await Exam.findOneAndUpdate(req.body.id, 
-//     {answers: req.body.ansArr, correctAnswer: req.body.corAns});
-//   exam.save()
-//     .then(data => {
-//       console.log(data, 'quesitons/edit data##########')  
-//       res.json(data)
-//     })
-//     .catch(error => {
-//       res.json(error)
-//     })
-//   }
-// )
+// router.get('/exams/:id', (req, res) => {
+//   const doc = Exam.aggregate([
+//     { $match: { _id: ObjectId(req.params.id) }},
+//     { $limit: 1 },
+//     {
+//       $lookup: {
+//         from: "categories",
+//         localField: "categories",
+//         foreignField: "_id",
+//         as: "categories",
+//         pipeline: [
+//           {
+//             $lookup: {
+//               from: "questions",
+//               localField: "questions",
+//               foreignField: "_id",
+//               as: "questions",
+//               pipeline: [
+//                 {
+//                   $lookup: {
+//                     from: "answers",
+//                     localField: "answers",
+//                     foreignField: "_id",
+//                     as: "answers"
+//                   }
+//                 }
+//               ]
+//             }
+//           }
+//         ]
+//       }
+//     }
+//   ]).exec().then((result) => {
+//     const questions = result[0].categories.map(c => c.questions.map((ques => ({...ques, catId: c._id, catName: c.content})))).flat();
+//     // console.log(questions, 'questions#######')
+//     res.json(questions);
+//   })
+// })
 
-router.get('/exams/:id', (req, res) => {
-  const doc = Exam.aggregate([
+router.get('/exams/:id', async (req, res) => {
+  const questionsData = await Exam.aggregate([
     { $match: { _id: ObjectId(req.params.id) }},
     { $limit: 1 },
     {
       $lookup: {
-        from: "categories",
-        localField: "categories",
+        from: "questions",
+        localField: "questions",
         foreignField: "_id",
-        as: "categories",
+        as: "questions",
         pipeline: [
           {
             $lookup: {
-              from: "questions",
-              localField: "questions",
+              from: "answers",
+              localField: "answers",
               foreignField: "_id",
-              as: "questions",
-              pipeline: [
-                {
-                  $lookup: {
-                    from: "answers",
-                    localField: "answers",
-                    foreignField: "_id",
-                    as: "answers"
-                  }
-                }
-              ]
+              as: "answers"
             }
           }
         ]
       }
     }
-  ]).exec().then((result) => {
-    const questions = result[0].categories.map(c => c.questions.map((ques => ({...ques, catId: c._id, catName: c.content})))).flat();
-    // console.log(questions, 'questions#######')
-    res.json(questions);
-  })
+  ]);
+  const questions = [];
+  for (const ques of questionsData[0].questions) {
+    const catId = ques.category;
+    questions.push({...ques, category: await Category.findById(catId)});
+  }
+  res.send(questions);
 })
 
 router.get('/:categoryId/:questionId', (req, res) => {

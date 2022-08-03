@@ -25,7 +25,7 @@ const QuestionEditForm = () => {
   const [catSelected, setCatSelected] = React.useState("");
   const [catsOptions, setCatsOptions] = useState([]);
   let navigate = useNavigate();
-  const {id, categoryId, questionId} = useParams();
+  const {id, categoryId, questionId, questionOrder} = useParams();
   let correctAnswerPos;
 	useEffect(() => {
     const getQuestion = async () => {
@@ -71,26 +71,25 @@ const QuestionEditForm = () => {
         corAns = ansData.data._id;
       }
     }
-    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, answers: ansArr, correctAnswer: corAns, questionOrder: oldQuestion.order});
-    // console.log(questionData, '#####')
     let catId = catsOptions[0]._id;
     if (checkedCat && catSelected) {
       catId = catSelected;
     }
-    const catData = await axios.post(`${api_base}/categories/edit`, {categoryId: catId, questionId: questionData.data._id, id});
-    // console.log(catData, 'CATdATA###')
+    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, answers: ansArr, correctAnswer: corAns, category: catId});
+    console.log(questionData, 'questionData######')
+    await axios.post(`${api_base}/categories/question/push`, {categoryId: catId, questionId: questionData.data._id});
+    await axios.post(`${api_base}/exams/${id}/question/push`, {question: questionData.data});
 
     // saving new question records done
     // delete old question records starts: delete starts after saving so that if saving fails, we can go back to the old question
 
+    await axios.post(`${api_base}/exams/${id}/deleteQuestion`, {questionId: oldQuestion._id});
     await axios.post(`${api_base}/categories/deleteQuestion`, {categoryId: oldQuestion.catId, questionId: oldQuestion._id});
     await axios.post(`${api_base}/questions/delete`, {questionId: oldQuestion._id});
-    console.log('here questionsdone')
     for (const answer of oldQuestion.answers) {
       await axios.post(`${api_base}/answers/delete`, {answerId: answer._id});
     }
-    console.log('here answerdone')
-    navigate(`/exams/${id}/questions/${questionData.data._id}`);
+    navigate(`/exams/${id}/questions/${questionData.data._id}/${questionOrder}`);
   };
   return (
     <>
