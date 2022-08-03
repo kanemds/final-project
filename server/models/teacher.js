@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const slugify = require('slugify')
+
 
 const TeacherSchema = new mongoose.Schema({
   firstname: {
@@ -11,6 +11,10 @@ const TeacherSchema = new mongoose.Schema({
     required: true
   },
   email: {
+    type: String,
+    required: true
+  },
+  user: {
     type: String,
     required: true
   },
@@ -29,21 +33,6 @@ const TeacherSchema = new mongoose.Schema({
   data: {
     type: Date,
     default: Date.now
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true
-  }
-})
-
-TeacherSchema.pre('validate', function () {
-  const name = this.firstname + this.lastname
-  if (name) {
-    this.slug = slugify(name, {
-      lower: true,
-      strict: true
-    })
   }
 })
 

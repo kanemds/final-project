@@ -3,8 +3,7 @@ import "./App.css";
 import Home from "components/page/home/Home";
 import Exams from "components/page/Exams/Exams";
 import Students from "components/page/students/components/Students";
-import Courses from "components/page/Courses";
-import Reports from "components/page/Reports";
+import Courses from "components/page/courses/TeacherCourses"
 import Account from "components/page/account/Account";
 import Logout from "components/page/Logout";
 import Billing from "components/page/account/billing/Billing";

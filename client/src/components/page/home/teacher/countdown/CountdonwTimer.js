@@ -7,22 +7,18 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
   return (
     <div className="show-counter">
 
-      <div
-        className="countdown-link"
-      >
-        <div>
-          <h3>Trails will end in</h3>
-        </div>
-        <div className="countdown-link">
-          <DateTimeDisplay value={days} type={'Days'} isDanger={days <= 3} />
-          <p>:</p>
-          <DateTimeDisplay value={hours} type={'Hours'} isDanger={false} />
-          <p>:</p>
-          <DateTimeDisplay value={minutes} type={'Mins'} isDanger={false} />
-          <p>:</p>
-          <DateTimeDisplay value={seconds} type={'Seconds'} isDanger={false} />
-        </div>
+
+      <div className="countdown-link">
+        Your trail will end in :
+        <DateTimeDisplay value={days} type={'Days'} isDanger={days <= 3} />
+
+        <DateTimeDisplay value={hours} type={'Hours'} isDanger={false} />
+
+        <DateTimeDisplay value={minutes} type={'Mins'} isDanger={false} />
+
+        {/* <DateTimeDisplay value={seconds} type={'Seconds'} isDanger={false} /> */}
       </div>
+
     </div >
   );
 };
@@ -50,7 +46,6 @@ const CountdownTimer = ({ targetDate }) => {
         minutes={minutes}
         seconds={seconds}
       />
-
     );
   }
 };

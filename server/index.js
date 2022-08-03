@@ -5,6 +5,7 @@ const session = require('express-session')
 const MongodbSession = require('connect-mongodb-session')(session)
 const app = express();
 const StudentModel = require("./models/extra/student")
+const TeacherModel = require("./models/teacher")
 const mongoose = require("mongoose");
 
 mongoose
@@ -68,6 +69,17 @@ app.post('/student/login', async (req, res) => {
   }
   req.session.user = user;
   res.json(student)
+})
+
+app.post('/teacher/login', async (req, res) => {
+  const { user } = req.body
+
+  let teacher = await TeacherModel.findOne({ user })
+  if (!teacher) {
+    return res.redirect('/')
+  }
+  req.session.user = user;
+  res.json(teacher)
 })
 
 const routes = require("./routes/routes");

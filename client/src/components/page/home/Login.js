@@ -9,6 +9,10 @@ import Modal from '@mui/material/Modal';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 import { api_base } from 'config'
 // import useStudentHomePage from 'components/studentPage/home/useStudentHomePage';
@@ -27,11 +31,19 @@ const style = {
 
 export default function Login({ open, handleClose }) {
   let navigate = useNavigate();
-  const { students, userId, setUserId } = useContext(LoginContext)
+
+  const [role, setRole] = React.useState('');
+
+  const handleChangeRole = (event) => {
+    setRole(event.target.value);
+  };
+
+
+  const { students, userId, setUserId, teachers } = useContext(LoginContext)
 
   const [loginName, setLoginName] = useState(null)
 
-
+  const teacher = teachers.find((item) => item.user === userId) || teachers[0]
   const student = students.find((item) => item.user === userId) || students[0]
 
   const handleChange = (e) => {
@@ -57,11 +69,27 @@ export default function Login({ open, handleClose }) {
         <Box component="form" sx={{
           ...style,
           width: '80%', maxWidth: '400px',
-          '& .MuiTextField-root': { m: 1, width: '20ch' }
+          '& .MuiTextField-root': { m: 1, width: '45ch' }
         }}
           noValidate
           autoComplete="off"
         >
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Please select your role</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={role}
+                label="Role"
+                onChange={handleChangeRole}
+              >
+                <MenuItem value={teacher}>Teacher</MenuItem>
+                <MenuItem value={student}>Student</MenuItem>
+
+              </Select>
+            </FormControl>
+          </Box>
 
           <TextField
             required
@@ -72,13 +100,24 @@ export default function Login({ open, handleClose }) {
             onSubmit={login}
           />
           <br />
-          <Button onClick={() =>
-            axios.post(`${api_base}/student/login`, { user: loginName }, { withCredentials: true })
-              .then((data) => {
-                sessionStorage.setItem('user', data.data._id)
-                setUserId(data.data._id)
-                navigate(`/student/home`)
-              })
+          <Button onClick={() => {
+            if (role === teacher && loginName) {
+              axios.post(`${api_base}/teacher/login`, { user: loginName }, { withCredentials: true })
+                .then((data) => {
+                  sessionStorage.setItem('user', data.data._id)
+                  setUserId(data.data._id)
+                  navigate(`/teacher/home`)
+                })
+            }
+            if (role === student && loginName) {
+              axios.post(`${api_base}/student/login`, { user: loginName }, { withCredentials: true })
+                .then((data) => {
+                  sessionStorage.setItem('user', data.data._id)
+                  setUserId(data.data._id)
+                  navigate(`/student/home`)
+                })
+            }
+          }
           }>
             Log in
           </Button>

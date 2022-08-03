@@ -11,8 +11,8 @@ import Login from './Login'
 import "./Home.css"
 
 
-const Home = ({ clients }) => {
-  const users = clients.students
+const Home = () => {
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -20,6 +20,7 @@ const Home = ({ clients }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
   const Img = styled('img')({
     margin: 'auto',
     maxWidth: '100%',
@@ -30,7 +31,6 @@ const Home = ({ clients }) => {
   return (
     <React.Fragment >
       <Login
-        users={users}
         open={open}
         handleClose={handleClose}
       />
@@ -57,6 +57,10 @@ const Home = ({ clients }) => {
               <Button variant="contained" href="/">
                 Apply Now
               </Button>
+
+              <Button variant="contained" onClick={handleOpen}>
+                Log in
+              </Button>
             </div>
           </div>
         </div>
@@ -71,16 +75,19 @@ const Home = ({ clients }) => {
             </Grid>
 
             <Grid item xs>
-              <Typography gutterBottom variant="subtitle1" component="div">
+
+              {/* <Typography gutterBottom variant="subtitle1" component="div">
                 <Button variant="contained">
                   Log in as Teacher
                 </Button>
               </Typography>
+
               <Typography variant="body2" gutterBottom>
                 <Button variant="contained" onClick={handleOpen}>
                   Log in as Student
                 </Button>
-              </Typography>
+              </Typography> */}
+
             </Grid>
             <div>
             </div>
