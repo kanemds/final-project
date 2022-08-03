@@ -14,8 +14,8 @@ import Answer from './Answer';
 import AllAbove from './AllAbove';
 import IncludeinCat from './IncludeinCat';
 
-
 const QuestionEditForm = () => {
+  const [oldQuestion, setOldQuestion] = useState({});
   const [selected, setSelected] = React.useState("");
   const [question, setQuestion] = React.useState("");
   const [answers, setAnswers] = React.useState([]);
@@ -26,7 +26,6 @@ const QuestionEditForm = () => {
   const [catsOptions, setCatsOptions] = useState([]);
   let navigate = useNavigate();
   const {id, categoryId, questionId} = useParams();
-  let questionOrder;
   let correctAnswerPos;
 	useEffect(() => {
     const getQuestion = async () => {
@@ -34,7 +33,7 @@ const QuestionEditForm = () => {
       setCatsOptions(_prev => cats.data.categories);
       const questionData = await axios.get(`${api_base}/questions/${categoryId}/${questionId}`);
       const currentQuestion = questionData.data[0];
-      questionOrder = currentQuestion.order;
+      setOldQuestion(_prev => currentQuestion);
       setQuestion(_prev => currentQuestion.content);
       const answersContent = currentQuestion.answers.map((ansObj, i) => {
         if (ansObj._id === currentQuestion.correctAnswer) {
@@ -52,7 +51,7 @@ const QuestionEditForm = () => {
       const categoryContent = currentQuestion.catName;
       if (categoryContent !== 'No Category Assigned') {
         setCheckedCat(_prev => true);
-        setCatSelected(_prev => categoryContent);
+        setCatSelected(_prev => currentQuestion.catId);
       }
     }
     getQuestion();
@@ -66,24 +65,32 @@ const QuestionEditForm = () => {
     let corAns;
     for (let i = 0; i < answers.length; i++) {
       const content = answers[i];
-      //edit
-      // const ansData = await axios.post(`${api_base}/answers/new`, {content});
+      const ansData = await axios.post(`${api_base}/answers/new`, {content});
       ansArr.push(ansData.data._id);
       if (i === selected) {
         corAns = ansData.data._id;
       }
     }
-    // edit
-    // const questionData = await axios.post(`${api_base}/questions/new`, {content: question, answers: ansArr, correctAnswer: corAns, questionOrder: Number(questionOrder)});
+    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, answers: ansArr, correctAnswer: corAns, questionOrder: oldQuestion.order});
     // console.log(questionData, '#####')
-    let categoryId = catsOptions[0]._id;
+    let catId = catsOptions[0]._id;
     if (checkedCat && catSelected) {
-      categoryId = catSelected;
+      catId = catSelected;
     }
-    //edit
-    // const catData = await axios.post(`${api_base}/categories/edit`, {categoryId, questionId: questionData.data._id, id});
+    const catData = await axios.post(`${api_base}/categories/edit`, {categoryId: catId, questionId: questionData.data._id, id});
     // console.log(catData, 'CATdATA###')
-    navigate(`/exams/${id}/questions/${questionId}`);
+
+    // saving new question records done
+    // delete old question records starts: delete starts after saving so that if saving fails, we can go back to the old question
+
+    await axios.post(`${api_base}/categories/deleteQuestion`, {categoryId: oldQuestion.catId, questionId: oldQuestion._id});
+    await axios.post(`${api_base}/questions/delete`, {questionId: oldQuestion._id});
+    console.log('here questionsdone')
+    for (const answer of oldQuestion.answers) {
+      await axios.post(`${api_base}/answers/delete`, {answerId: answer._id});
+    }
+    console.log('here answerdone')
+    navigate(`/exams/${id}/questions/${questionData.data._id}`);
   };
   return (
     <>

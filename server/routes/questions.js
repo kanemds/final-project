@@ -32,6 +32,15 @@ router.post('/new', async (req, res) => {
   res.send(questionDoc);
 })
 
+router.post('/delete', async (req, res) => {
+  const doc = await Question.findOneAndDelete(
+    {
+      _id: req.body.questionId
+    }
+  );
+  res.send(doc);
+})
+
 // router.post('/edit', async(req, res) => {
 //   let exam = await Exam.findOneAndUpdate(req.body.id, 
 //     {answers: req.body.ansArr, correctAnswer: req.body.corAns});

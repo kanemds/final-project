@@ -17,4 +17,22 @@ router.post('/new', (req, res) => {
     })
 })
 
+router.post('/delete', async (req, res) => {
+  const doc = await Answer.findOneAndDelete(
+    {
+      _id: req.body.answerId
+    }
+  );
+  res.send(doc);
+})
+
+router.get('/', (req, res) => {
+  Exam.find()
+  .then(data => {
+    res.send(data);
+  }).catch(error => {
+    res.json(error);
+  });
+})
+
 module.exports = router

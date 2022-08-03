@@ -17,6 +17,21 @@ router.post('/new', async(req, res) => {
   res.send(catDoc);
 })
 
+router.post('/deleteQuestion', async (req, res) => {
+  const doc = await Category.findOneAndUpdate(
+    { _id: req.body.categoryId }, 
+    {
+      $pull: { questions: req.body.questionId }
+    },
+    {
+      // return doc after update is applied
+      new: true,
+      upsert: true 
+    }
+  );
+  res.send(doc);
+})
+
 router.post('/edit', async (req, res) => {
   const doc = await Category.findOneAndUpdate(
     {
