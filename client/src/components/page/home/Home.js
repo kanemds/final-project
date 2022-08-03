@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
@@ -6,11 +6,20 @@ import home from './home.jpg'
 import bottom from './bottom.jpg'
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
+import Login from './Login'
+
 import "./Home.css"
 
-import { useNavigate } from 'react-router-dom';
+
 const Home = () => {
-  const navigate = useNavigate()
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const Img = styled('img')({
     margin: 'auto',
@@ -21,6 +30,10 @@ const Home = () => {
 
   return (
     <React.Fragment >
+      <Login
+        open={open}
+        handleClose={handleClose}
+      />
       <div className="homgpage" style={{ position: 'relative' }}>
         <div className="home-img-container" style={{
           display: 'block',
@@ -37,16 +50,16 @@ const Home = () => {
             height: '50vh',
             backgroundPosition: 'center',
           }}>
-            <div className="banner-text" style={{
-
-            }}>
-
-
+            <div className="banner-text" >
 
               <h1>Nothing can stop us from Learning</h1>
 
-              <Button variant="contained" href="/Home">
+              <Button variant="contained" href="/">
                 Apply Now
+              </Button>
+
+              <Button variant="contained" onClick={handleOpen}>
+                Log in
               </Button>
             </div>
           </div>
@@ -62,23 +75,24 @@ const Home = () => {
             </Grid>
 
             <Grid item xs>
-              <Typography gutterBottom variant="subtitle1" component="div">
-                <Button variant="contained" onClick={() => navigate(`/teacher/home`)}>
+
+              {/* <Typography gutterBottom variant="subtitle1" component="div">
+                <Button variant="contained">
                   Log in as Teacher
                 </Button>
               </Typography>
+
               <Typography variant="body2" gutterBottom>
-                <Button variant="contained" onClick={() => navigate(`/student/home`)}>
+                <Button variant="contained" onClick={handleOpen}>
                   Log in as Student
                 </Button>
-              </Typography>
+              </Typography> */}
 
             </Grid>
             <div>
             </div>
           </Grid>
         </div>
-
       </div>
     </React.Fragment >
   )

@@ -24,12 +24,12 @@ const style = {
 export default function BasicModal() {
   const [open, setOpen] = React.useState(false);
   const [name, nameState] = useState("");
-  const handleOpen = () => setOpen(true);
+
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
   return (
     <div>
-      <Button onClick={handleOpen}>Add Exam</Button>
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -38,17 +38,17 @@ export default function BasicModal() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-          Name <textarea value={name} onChange={(event) => nameState(_prev => event.target.value)} rows="1" cols="30"></textarea>
+            Name <textarea value={name} onChange={(event) => nameState(_prev => event.target.value)} rows="1" cols="30"></textarea>
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Categories
           </Typography>
-          <Button onClick={() => 
-          axios.post(`${api_base}/exams/new`, {name})
-          .then(exam => {
-            navigate(`/teacher/exams/${exam.data._id}/questions`);
+          <Button onClick={() =>
+            axios.post(`${api_base}/exams/new`, { name })
+              .then(exam => {
+                navigate(`/teacher/exams/${exam.data._id}/questions`);
               }
-            )}>Create</Button>
+              )}>Create</Button>
         </Box>
       </Modal>
     </div>

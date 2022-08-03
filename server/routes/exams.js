@@ -72,6 +72,15 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.get('/', (req, res) => {
+  Exams.find()
+    .then(data => {
+      res.send(data);
+    }).catch(error => {
+      res.json(error);
+    });
+})
+
 router.get("/students/id", (req, res) => {
   student
     .find()

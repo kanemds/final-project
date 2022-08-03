@@ -3,7 +3,6 @@ import "./App.css";
 import Home from "components/page/home/Home";
 import Exams from "components/page/Exams/Exams";
 import Students from "components/page/students/components/Students";
-import Groups from "components/page/Groups";
 import Courses from "components/page/courses/TeacherCourses";
 
 import Account from "components/page/account/Account";
@@ -35,61 +34,70 @@ function App() {
   const clients = useContext(LoginContext);
 
   return (
-    <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<NotFound />} />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home clients={clients} />} />
 
-          {/* teacher routes */}
-          <Route element={<Root />}>
-            <Route path="/teacher/exams" element={<Exams />} />
-            <Route element={<ExamContainer />}>
-              <Route
-                path="/teacher/exams/:id/questions/new"
-                element={<ExamQuestionsNew />}
-              />
-              <Route
-                path="/teacher/exams/:id/questions"
-                element={<ExamQuestions />}
-              />
-              <Route path="/teacher/exams/:id/pools" element={<ExamPools />} />
-              <Route
-                path="/teacher/exams/:id/properties"
-                element={<ExamProperties />}
-              />
-              <Route
-                path="/teacher/exams/:id/scheduler"
-                element={<ExamScheduler />}
-              />
-            </Route>
-            <Route path="/teacher/students" element={<Students />} />
-            <Route path="/teacher/userlist" element={<UserList />} />
-            <Route path="/teacher/students/new" element={<AddStudent />} />
-            <Route path="/teacher/students/edit" element={<EditStudent />} />
-            <Route path="/teacher/courses" element={<Courses />} />
+        <Route path="*" element={<NotFound />} />
 
-            <Route path="/teacher/groups" element={<Groups />} />
-            <Route path="/teacher/account" element={<Account />} />
-            <Route path="/teacher/logout" element={<Logout />} />
-            <Route path="/teacher/account/billing" element={<Billing />} />
+        {/* teacher routes */}
+        <Route element={<Root />}>
+          <Route path="/teacher/exams" element={<Exams />} />
+          <Route element={<ExamContainer />}>
             <Route
-              path="/teacher/checkout-success"
-              element={<CheckoutSuccess />}
+              path="/teacher/exams/:id/questions/new"
+              element={<ExamQuestionsNew />}
             />
-            <Route path="/teacher/home" element={<Teacher />} />
+            <Route
+              path="/teacher/exams/:id/questions"
+              element={<ExamQuestions />}
+            />
+            <Route path="/teacher/exams/:id/pools" element={<ExamPools />} />
+            <Route
+              path="/teacher/exams/:id/properties"
+              element={<ExamProperties />}
+            />
+            <Route
+              path="/teacher/exams/:id/scheduler"
+              element={<ExamScheduler />}
+            />
           </Route>
+          <Route path="/teacher/students" element={<Students />} />
+          <Route path="/teacher/students" element={<Students />} />
+          <Route path="/teacher/userlist" element={<UserList />} />
+          <Route path="/teacher/students/new" element={<AddStudent />} />
+          <Route path="/teacher/students/edit" element={<EditStudent />} />
+          <Route path="/teacher/courses" element={<Courses />} />
 
-          {/* student route */}
+          <Route path="/teacher/courses" element={<Courses />} />
+          {/* <Route path="/reports" element={<Reports />} /> */}
+          <Route path="/teacher/account" element={<Account />} />
+          <Route path="/teacher/logout" element={<Logout />} />
+          <Route path="/teacher/account/billing" element={<Billing />} />
+          <Route
+            path="/teacher/checkout-success"
+            element={<CheckoutSuccess />}
+          />
+          <Route path="/teacher/home" element={<Teacher />} />
+        </Route>
 
-          <Route>
-            <Route element={<StudentRoot />}>
-              <Route path="/student/home" element={<Student />} />
-            </Route>
+        {/* student route */}
+
+        <Route>
+          <Route element={<StudentRoot clients={clients} />}>
+            <Route path="/student/home" element={<StudentHomePage />} />
+            <Route
+              path="/student/exams"
+              element={<ExamStudentPage clients={clients} />}
+            />
+            <Route
+              path="/student/courses"
+              element={<StudentCourses clients={clients} />}
+            />
           </Route>
-        </Routes>
-      </Router>
-    </>
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 export default App;

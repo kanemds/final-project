@@ -1,16 +1,16 @@
 const { request } = require("express");
 const express = require("express");
-const student = require("../models/extra/student");
 const Student = require("../models/extra/student");
 const router = express.Router();
+
 const ObjectId = require("mongodb").ObjectId;
 
 router.post("/new", (req, res) => {
-  console.log("request", req.body);
   const student = new Student({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     email: req.body.email,
+    user: req.body.user,
     exam: req.body.exam,
     teachers: req.body.teachers,
   });

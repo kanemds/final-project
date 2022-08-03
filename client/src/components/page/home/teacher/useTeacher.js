@@ -5,7 +5,6 @@ import { ConstructionOutlined } from '@mui/icons-material';
 
 function useTeacher(props) {
   const [teacher, setTeacher] = useState([]);
-  console.log(teacher)
   useEffect(() => {
     const fetchteacher = async () => {
       const url = `${api_base}/teacher`;

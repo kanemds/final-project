@@ -1,27 +1,28 @@
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import React, { useState, useEffect } from "react";
-import { shadows } from "@mui/system";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import React, { useState, useEffect } from 'react'
+import { shadows } from '@mui/system';
 import { styled } from "@mui/material/styles";
 
-import BasicModal from "./ModalAddExam";
-import { Link } from "react-router-dom";
-import { api_base } from "config";
-import useExams from "./useExams";
-import { borderBottom } from "@mui/system";
+import BasicModal from './ModalAddExam';
+import { Link } from 'react-router-dom'
+import { api_base } from 'config'
+import useExams from './useExams'
+import { borderBottom } from '@mui/system';
 
 const Exams = () => {
+
   const exams = useExams();
-  const BoxShadowDiv = styled("div")(
+  const BoxShadowDiv = styled('div')(
     ({ theme }) => `
     margin: ${theme.spacing(2)};
     padding: ${theme.spacing(2)};
     border: 1px solid black;
     box-shadow: ${theme.shadows[12]};
-  `
+  `,
   );
   return (
     <>
@@ -36,19 +37,18 @@ const Exams = () => {
             margin: 1,
             "&:hover": {
               boxShadow: "0 2px 5px 1px",
-              cursor: "pointer",
-            },
+              cursor: "pointer"
+            }
           }}
         >
-          <CardContent>
+          <CardContent >
             <Typography sx={{ fontSize: 24 }} gutterBottom>
-              <Link
-                to={`/teacher/exams/${exam._id}/questions`}
+              <Link to={`/teacher/exams/${exam._id}/questions`}
                 key={exam.name}
                 style={{
-                  textDecoration: "none",
+                  textDecoration: 'none',
                   color: "black",
-                  fontWeight: "bold",
+                  fontWeight: 'bold'
                 }}
               >
                 Exam: {exam.name}
@@ -61,14 +61,16 @@ const Exams = () => {
               Passing Score: ??
             </Typography>
             <Typography sx={{ fontSize: 14 }} gutterBottom>
-              Last Edit: {new Date(exam.created).toLocaleDateString("en-US")}
+
+              Last Edit: {new Date(exam.created).toLocaleDateString('en-US')}
             </Typography>
           </CardContent>
-          <CardActions></CardActions>
+          <CardActions>
+          </CardActions>
         </Card>
       ))}
     </>
-  );
-};
+  )
+}
 
-export default Exams;
+export default Exams

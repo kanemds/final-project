@@ -2,32 +2,36 @@ const mongoose = require('mongoose')
 
 
 const TeacherSchema = new mongoose.Schema({
-  firstname:{
+  firstname: {
     type: String,
     required: true
   },
-  lastname:{
-    type:String,
-    required:true
+  lastname: {
+    type: String,
+    required: true
   },
   email: {
-    type:String,
-    required:true
+    type: String,
+    required: true
   },
-  exams:[
+  user: {
+    type: String,
+    required: true
+  },
+  exams: [
     {
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"Quiz"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Quiz"
     }
   ],
-  students:[
+  students: [
     {
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"Student"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student"
     }
   ],
-  data:{
-    type:Date,
+  data: {
+    type: Date,
     default: Date.now
   }
 })

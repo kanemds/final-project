@@ -9,8 +9,8 @@ const stripe = require("./stripe");
 const property = require("./property");
 const feedback = require("./feedback");
 const teacher = require("./teacher");
-const students = require("./students");
-const account = require("./account");
+const student = require("./students");
+const course = require("./courses");
 
 router.use("/questions", questions);
 router.use("/exams", exams);
@@ -21,6 +21,6 @@ router.use("/stripe", stripe);
 router.use("/property", property);
 router.use("/feedback", feedback);
 router.use("/teacher", teacher);
-router.use("/student", students);
+router.use("/student", student);
 router.use("/account", account);
 module.exports = router;
