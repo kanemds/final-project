@@ -7,7 +7,7 @@ import { LoginContext } from 'Contexts/LoginContext'
 
 
 const StudentHomePage = () => {
-  const exams = useExams()
+  const { exams } = useExams()
   console.log(exams)
   const courses = useCourses()
   const { students, userId, setUserId } = useContext(LoginContext)

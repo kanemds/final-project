@@ -6,24 +6,22 @@ import Typography from '@mui/material/Typography';
 import React, { useState, useEffect } from 'react'
 import { shadows } from '@mui/system';
 import { styled } from "@mui/material/styles";
-
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import BasicModal from './ModalAddExam';
 import { Link } from 'react-router-dom'
 import { api_base } from 'config'
 import useExams from './useExams'
 import { borderBottom } from '@mui/system';
-
+import { pink } from '@mui/material/colors';
+import { blue } from '@mui/material/colors';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import axios from 'axios';
 const Exams = () => {
 
-  const exams = useExams();
-  const BoxShadowDiv = styled('div')(
-    ({ theme }) => `
-    margin: ${theme.spacing(2)};
-    padding: ${theme.spacing(2)};
-    border: 1px solid black;
-    box-shadow: ${theme.shadows[12]};
-  `,
-  );
+  const { exams, removeExam } = useExams();
+
+
+
   return (
     <>
       <h1>Exam Manager</h1>
@@ -64,6 +62,8 @@ const Exams = () => {
 
               Last Edit: {new Date(exam.created).toLocaleDateString('en-US')}
             </Typography>
+            <HighlightOffIcon fontSize="large" sx={{ color: pink[500] }} onClick={() => { removeExam(exam._id) }} />
+            <BorderColorIcon fontSize="large" sx={{ color: blue[500] }} />
           </CardContent>
           <CardActions>
           </CardActions>

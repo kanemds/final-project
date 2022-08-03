@@ -6,7 +6,7 @@ import useTeacherCourses from './useTeacherCourses'
 
 const TeacherCourses = () => {
 
-  const exams = useExams()
+  const { exams } = useExams()
   const courses = useTeacherCourses()
   const { userId, teachers } = useContext(LoginContext)
   console.log(userId)

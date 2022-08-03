@@ -92,4 +92,13 @@ router.get("/students/id", (req, res) => {
     });
 });
 
+router.delete('/:id', (req, res) => {
+  Exams.findByIdAndDelete(req.params.id, (err) => {
+    if (err) {
+      return res.json({ err: "Exam not found" })
+    }
+    return res.status(202).send()
+  })
+})
+
 module.exports = router;

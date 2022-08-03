@@ -9,7 +9,7 @@ import { LoginContext } from 'Contexts/LoginContext'
 
 const ExamStudentPage = () => {
   const students = useStudentHomePage()
-  const exams = useExams()
+  const { exams } = useExams()
   const { userId } = useContext(LoginContext)
 
   const student = students.find((item) => item._id === userId)
