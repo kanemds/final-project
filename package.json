@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "muicss": "^0.10.3"
+    "muicss": "^0.10.3",
+    "slugify": "^1.6.5"
   }
 }

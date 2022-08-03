@@ -1,15 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const ObjectId = require('mongodb').ObjectId;
-const Teacher = require('../models/teacher')
+const Course = require('../models/course')
 
 router.post('/new', (req, res) => {
-  const teacher = new Teacher({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email
+  const course = new Course({
+    name: req.body.name
   })
-  teacher.save()
+  course.save()
     .then(data =>
       res.json(data))
     .catch(error => {
@@ -19,13 +17,13 @@ router.post('/new', (req, res) => {
 )
 
 router.post('/:id/edit', (req, res) => {
-  Teacher.findOneAndUpdate(
+  Course.findOneAndUpdate(
     {
       _id: req.params.id
     },
     {
       $push: {
-        "teacher": req.body.teacher
+        "course": req.body.course
       }
     }, {
     // return doc after update is applied
@@ -39,15 +37,15 @@ router.post('/:id/edit', (req, res) => {
 
 
 router.get('/:id', (req, res) => {
-  const doc = Teacher.aggregate([
+  const doc = Course.aggregate([
     { $match: { _id: ObjectId(req.params.id) } },
     { $limit: 1 },
     {
       $lookup: {
-        from: "exams",
-        localField: "exams",
+        from: "teachers",
+        localField: "teachers",
         foreignField: "_id",
-        as: "exams",
+        as: "teachers",
         pipeline: [
           {
             $lookup: {
@@ -55,6 +53,16 @@ router.get('/:id', (req, res) => {
               localField: "students",
               foreignField: "_id",
               as: "students"
+            }
+          }
+        ],
+        pipeline: [
+          {
+            $lookup: {
+              from: "exams",
+              localField: "exams",
+              foreignField: "_id",
+              as: "exams"
             }
           }
         ]
@@ -67,7 +75,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-  Teacher.find()
+  Course.find()
     .then(data => {
       res.send(data);
     }).catch(error => {

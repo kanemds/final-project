@@ -11,6 +11,7 @@ const property = require("./property");
 const feedback = require("./feedback");
 const teacher = require("./teacher");
 const student = require("./students");
+const course = require("./courses");
 
 router.use("/questions", questions);
 router.use("/exams", exams);
@@ -22,5 +23,6 @@ router.use("/property", property);
 router.use("/feedback", feedback);
 router.use("/teacher", teacher);
 router.use("/student", student);
+router.use('/course', course)
 
 module.exports = router;
