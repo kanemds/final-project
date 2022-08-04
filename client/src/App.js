@@ -21,7 +21,6 @@ import NotFound from "components/NotFound";
 import AddStudent from "components/page/students/components/AddStudent";
 import Teacher from "components/page/home/teacher/Teacher";
 import StudentRoot from "components/studentPage/StudentRoot";
-import Student from "components/studentPage/Student";
 import EditStudent from "components/page/students/components/EditStudent";
 import StudentHomePage from "components/studentPage/home/StudentHomePage";
 import ExamStudentPage from "components/studentPage/examsStudentPage/ExamStudentPage";
@@ -29,9 +28,12 @@ import StudentCourses from "components/studentPage/StudentCourses/StudentCourses
 import { useContext } from "react";
 import { LoginContext } from "Contexts/LoginContext";
 import { useState } from "react";
+import useTeacherCourses from "components/page/courses/useTeacherCourses";
 
 function App() {
   const clients = useContext(LoginContext);
+
+  const courses = useTeacherCourses();
 
   return (
     <Router>
@@ -63,14 +65,16 @@ function App() {
             />
           </Route>
           <Route path="/teacher/students" element={<Students />} />
-          <Route path="/teacher/students" element={<Students />} />
           <Route path="/teacher/userlist" element={<UserList />} />
           <Route path="/teacher/students/new" element={<AddStudent />} />
-          <Route path="/teacher/students/edit" element={<EditStudent />} />
-          <Route path="/teacher/courses" element={<Courses />} />
-
-          <Route path="/teacher/courses" element={<Courses />} />
-          {/* <Route path="/reports" element={<Reports />} /> */}
+          <Route
+            path="/teacher/students/edit"
+            element={<EditStudent courses={courses} />}
+          />
+          <Route
+            path="/teacher/courses"
+            element={<Courses courses={courses} />}
+          />
           <Route path="/teacher/account" element={<Account />} />
           <Route path="/teacher/logout" element={<Logout />} />
           <Route path="/teacher/account/billing" element={<Billing />} />

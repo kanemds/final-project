@@ -20,7 +20,7 @@ router.post("/new", (req, res) => {
       res.json(data);
     })
     .catch((error) => {
-      res.json(error);
+      res.status(500).json(error);
     });
 });
 

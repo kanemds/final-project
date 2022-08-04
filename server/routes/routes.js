@@ -11,6 +11,7 @@ const feedback = require("./feedback");
 const teacher = require("./teacher");
 const student = require("./students");
 const course = require("./courses");
+const account = require("./account");
 
 router.use("/questions", questions);
 router.use("/exams", exams);
@@ -23,4 +24,5 @@ router.use("/feedback", feedback);
 router.use("/teacher", teacher);
 router.use("/student", student);
 router.use("/account", account);
+router.use("/courses", course);
 module.exports = router;

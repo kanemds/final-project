@@ -29,7 +29,7 @@ export default function BasicModal() {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
-
+  const [user, setUser] = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
@@ -63,6 +63,15 @@ export default function BasicModal() {
             cols="30"
           ></textarea>
         </Typography>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          User{" "}
+          <textarea
+            value={user}
+            onChange={(event) => setUser((_prev) => event.target.value)}
+            rows="1"
+            cols="30"
+          ></textarea>
+        </Typography>
         <Button
           onClick={() =>
             axios
@@ -70,6 +79,7 @@ export default function BasicModal() {
                 firstname,
                 lastname,
                 email,
+                user,
               })
               .then((response) => {
                 navigate(`/teacher/students`);

@@ -8,7 +8,7 @@ function useCourses(props) {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const url = `${api_base}/course`;
+      const url = `${api_base}/courses`;
       const res = await fetch(url, {
         credentials: "include",
       });
@@ -24,10 +24,10 @@ function useCourses(props) {
   const data =
     courses &&
     courses.filter((course) => {
-      console.log(course.teachers);
+      console.log("identify this one!", course.teachers, course);
       const exist = course.teachers.find((id) => id === userId);
 
-      if (exist) {
+      if (true) {
         return true;
       }
       return false;

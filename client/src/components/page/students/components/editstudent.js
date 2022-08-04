@@ -9,8 +9,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { UserList } from "./userlist";
 import { api_base } from "config";
 import Student from "./Students";
-import { Email } from "@mui/icons-material";
+import { CropSquareSharp, Email, GolfCourseSharp } from "@mui/icons-material";
 import { MenuItem, FormControl, Select, InputLabel } from "@mui/material";
+import useStudent from "./useStudent";
+import TeacherCoursesShow from "components/page/courses/TeacherCoursesShow";
+import TeacherCourses from "components/page/courses/TeacherCourses";
 
 const style = {
   position: "absolute",
@@ -24,7 +27,8 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function BasicModal({ courses }) {
+  console.log(courses);
   const [open, setOpen] = React.useState(false);
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -37,8 +41,6 @@ export default function BasicModal() {
   let navigate = useNavigate();
   useEffect(() => {
     if (location.state) {
-      console.log("here", location);
-
       setFirstName(location.state.firstname);
       setLastName(location.state.lastname);
       setEmail(location.state.email);
@@ -80,13 +82,13 @@ export default function BasicModal() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={id}
+            value={courses}
             label="Course"
-            onChange={setId}
+            onChange={TeacherCoursesShow}
           >
-            <MenuItem value={10}>Course 1</MenuItem>
-            <MenuItem value={20}>Course 2</MenuItem>
-            <MenuItem value={30}>course 2</MenuItem>
+            {courses.map((course) => (
+              <MenuItem value={course.name}>{course.name}</MenuItem>
+            ))}
           </Select>
         </FormControl>
         <Button

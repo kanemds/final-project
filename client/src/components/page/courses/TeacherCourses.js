@@ -4,9 +4,8 @@ import { LoginContext } from "Contexts/LoginContext";
 import TeacherCoursesShow from "./TeacherCoursesShow";
 import useTeacherCourses from "./useTeacherCourses";
 
-const TeacherCourses = () => {
+const TeacherCourses = ({ courses }) => {
   const exams = useExams();
-  const courses = useTeacherCourses();
   const { userId, teachers } = useContext(LoginContext);
   console.log(userId);
   const teacher = teachers.find((item) => item._id === userId);

@@ -4,10 +4,11 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { LoginContext } from "Contexts/LoginContext";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 const TeacherCoursesShow = (props) => {
   const { courses } = props;
-
+  console.log("courses", courses);
   const { students } = useContext(LoginContext);
 
   return (
