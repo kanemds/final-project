@@ -25,4 +25,5 @@ router.use("/teacher", teacher);
 router.use("/student", student);
 router.use('/course', course)
 
+
 module.exports = router;
