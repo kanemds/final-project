@@ -7,7 +7,7 @@ function useExams(props) {
 
   const fetchExams = async () => {
     const url = `${api_base}/exams`;
-    const res = await fetch(url);
+    const res = await fetch(url, { credentials: 'include' });
     setExams(await res.json());
   }
 

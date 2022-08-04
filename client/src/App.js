@@ -26,6 +26,7 @@ import StudentCourses from "components/studentPage/StudentCourses/StudentCourses
 import { useContext } from "react";
 import { LoginContext } from "Contexts/LoginContext";
 import { useState } from "react";
+import EditCourse from "components/page/courses/EditCourse";
 
 
 function App() {
@@ -66,7 +67,7 @@ function App() {
             />
           </Route>
           <Route path="/teacher/students" element={<Students />} />
-
+          <Route path="/teacher/courses/:id/edit" element={<EditCourse />} />
           <Route path="/teacher/courses" element={<Courses />} />
           {/* <Route path="/reports" element={<Reports />} /> */}
           <Route path="/teacher/account" element={<Account />} />

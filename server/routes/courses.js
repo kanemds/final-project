@@ -4,12 +4,15 @@ const ObjectId = require('mongodb').ObjectId;
 const Course = require('../models/course')
 
 router.post('/new', (req, res) => {
+  const teacherId = req.session.teacherId
   const course = new Course({
-    name: req.body.name
+    name: req.body.name,
+    teachers: [teacherId]
   })
   course.save()
     .then(data =>
       res.json(data))
+    .then()
     .catch(error => {
       res.json(error)
     })
@@ -23,7 +26,7 @@ router.post('/:id/edit', (req, res) => {
     },
     {
       $push: {
-        "course": req.body.course
+        name: req.body.name
       }
     }, {
     // return doc after update is applied
@@ -81,6 +84,34 @@ router.get('/', (req, res) => {
     }).catch(error => {
       res.json(error);
     });
+})
+
+router.patch('/update/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+    const options = { new: true };
+
+    const result = await Course.findByIdAndUpdate(
+      id, updatedData, options
+    )
+
+    res.send(result)
+  }
+  catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+})
+
+
+
+router.delete('/:id', (req, res) => {
+  Course.findByIdAndDelete(req.params.id, (err) => {
+    if (err) {
+      return res.json({ err: "Course not found" })
+    }
+    return res.status(202).send()
+  })
 })
 
 module.exports = router
