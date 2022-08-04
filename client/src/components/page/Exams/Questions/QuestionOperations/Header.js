@@ -33,7 +33,7 @@ const Header = ({questions}) => {
           // navigate(`/exams/${id}/categories`);
         }}>Copy Question</Button>
         <Button onClick={() => {
-          // navigate(`/exams/${id}/properties`);
+          navigate(`/exams/${id}/questions/new/${Number(questions.questionsCt) + 1}`);
         }}>Add Question</Button>
         <Button onClick={async() => {
           await deleteFunc();

@@ -54,16 +54,13 @@ const QuestionForm = () => {
       categoryId = catSelected;
     }
     const questionData = await axios.post(`${api_base}/questions/new`, {content: question, answers: ansArr, correctAnswer: corAns, category: categoryId});
-    await axios.post(`${api_base}/categories/question/push`, {categoryId, questionId: questionData.data._id});
-    await axios.post(`${api_base}/exams/${id}/question/push`, {question: questionData.data});
+    const one = await axios.post(`${api_base}/categories/question/push`, {categoryId, questionId: questionData.data._id});
+    const two = await axios.post(`${api_base}/exams/${id}/question/push`, {question: questionData.data});
     navigate(`/exams/${id}/questions/${questionData.data._id}/${questionOrder}`);
   };
   return (
     <>
       <div style={{display: "flex", flexDirection: "column"}}>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					Question {questionOrder}
-				</Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					Enter Your Question ({4000 - question.length} characters remaining)
 				</Typography>

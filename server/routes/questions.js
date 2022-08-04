@@ -104,9 +104,6 @@ router.get('/exams/:id', async (req, res) => {
         as: "questions",
         pipeline: [
           {
-            $match: { deleted: false }
-          },
-          {
             $lookup: {
               from: "answers",
               localField: "answers",

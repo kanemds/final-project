@@ -23,11 +23,13 @@ const QuestionOperations = () => {
       const currentState = {
         prev: questions[questionOrder - 2],
         current: questions[questionOrder - 1],
-        next: questions[questionOrder]
+        next: questions[questionOrder],
+        questionsCt: questions.length
       };
       setQuestionsState(currentState);
     }
     getQuestion();
+    console.log(questionsState, 'questionsState#####')
   }, [questionId]);
   return (
     <>

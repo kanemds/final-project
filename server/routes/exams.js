@@ -68,6 +68,7 @@ router.post('/:id/question/push', (req, res) => {
       upsert: true 
     }
   ).exec().then((data) => {
+    console.log(data, 'data########')
     res.json(data)
   }).catch((err) => console.log(err))  
 })
