@@ -6,6 +6,7 @@ import GrouopsIcon from "@mui/icons-material/PeopleAltRounded";
 import ReportsIcon from "@mui/icons-material/EqualizerSharp";
 import AccountIcon from "@mui/icons-material/ManageAccountsSharp";
 import LogoutIcon from "@mui/icons-material/ExitToAppRounded";
+import CoursesIcon from '@mui/icons-material/AutoStories';
 
 export const SidebarData = [
   {
@@ -13,6 +14,15 @@ export const SidebarData = [
     icon: <HomeIcon />,
 
     link: "/teacher/home",
+
+
+  },
+  {
+    title: "Courses",
+    icon: <CoursesIcon />,
+
+    link: "/teacher/courses",
+
 
   },
   {
@@ -29,13 +39,7 @@ export const SidebarData = [
     link: "/teacher/students",
 
   },
-  {
-    title: "Groups",
-    icon: <GrouopsIcon />,
 
-    link: "/teacher/groups",
-
-  },
   // {
   //   title:"Reports",
   //   icon: <ReportsIcon />,

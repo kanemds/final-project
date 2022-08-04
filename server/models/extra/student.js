@@ -13,6 +13,10 @@ const studentsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  user: {
+    type: String,
+    required: true
+  },
   exam: [
     {
       type: mongoose.Schema.Types.ObjectId,

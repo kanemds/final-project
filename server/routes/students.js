@@ -1,17 +1,17 @@
 const { request } = require("express");
 const express = require("express");
-const student = require("../models/extra/student");
+const Student = require("../models/extra/student");
 const router = express.Router();
-const students = require("../models/extra/student");
+
 
 const ObjectId = require("mongodb").ObjectId;
 
 router.post("/new", (req, res) => {
-  console.log("request", req.body);
-  const student = new students({
-    firstname: req.body.firstName,
-    lastname: req.body.lastName,
+  const student = new Student({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     email: req.body.email,
+    user: req.body.user,
     exam: req.body.exam,
     teachers: req.body.teachers,
   });
@@ -26,7 +26,7 @@ router.post("/new", (req, res) => {
 });
 
 router.get("/students/new", (req, res) => {
-  student
+  Student
     .find()
     .then((data) => {
       res.send(data);
@@ -37,7 +37,7 @@ router.get("/students/new", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  const doc = students
+  const doc = Student
     .aggregate([
       { $match: { _id: ObjectId(req.params.id) } },
       { $limit: 1 },

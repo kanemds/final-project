@@ -3,7 +3,10 @@ import React, { useState, useEffect } from 'react'
 import { Outlet } from "react-router-dom";
 import StudentSidebar from './StudentSidebar';
 
-const  StudentRoot = () => {
+const  StudentRoot = ({value}) => {
+
+  
+
   return (
     <>
         <StudentSidebar />   

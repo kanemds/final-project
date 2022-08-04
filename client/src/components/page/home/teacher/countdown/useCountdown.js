@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const useCountdown = (targetDate) => {
-  const countDownDate = new Date(targetDate).getTime();
+  const countDownDate = new Date(sessionStorage.getItem('countDownDate')).getTime();
 
   const [countDown, setCountDown] = useState(
     countDownDate - new Date().getTime()
@@ -10,7 +10,7 @@ const useCountdown = (targetDate) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCountDown(countDownDate - new Date().getTime());
-    }, 1000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [countDownDate]);

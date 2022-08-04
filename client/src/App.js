@@ -4,8 +4,7 @@ import "./App.css";
 import Home from "components/page/home/Home";
 import Exams from "components/page/Exams/Exams";
 import Students from "components/page/students/components/Students";
-import Groups from "components/page/Groups";
-import Reports from "components/page/Reports";
+import Courses from "components/page/courses/TeacherCourses"
 import Account from "components/page/account/Account";
 import Logout from "components/page/Logout";
 import Billing from "components/page/account/billing/Billing";
@@ -23,10 +22,21 @@ import NotFound from "components/NotFound";
 import AddStudent from "components/page/students/components/AddStudent";
 import Teacher from "components/page/home/teacher/Teacher";
 import StudentRoot from "components/studentPage/StudentRoot";
-import Student from "components/studentPage/Student";
+import StudentHomePage from "components/studentPage/home/StudentHomePage";
+import ExamStudentPage from "components/studentPage/examsStudentPage/ExamStudentPage";
+import StudentCourses from "components/studentPage/StudentCourses/StudentCourses";
+import { useContext } from "react";
+import { LoginContext } from "Contexts/LoginContext";
+import { useState } from "react";
+import EditCourse from "components/page/courses/EditCourse";
+
 
 
 function App() {
+
+  const clients = useContext(LoginContext)
+  // const [userId, setUserId] = useState("")
+
   return (
     <>
       <Router>
@@ -69,26 +79,51 @@ function App() {
             <Route path="/teacher/account/billing" element={<Billing />} />
 
             <Route
-              path="/teacher/checkout-success"
-              element={<CheckoutSuccess />}
+              path="/teacher/exams/:id/questions/new"
+              element={<ExamQuestionsNew />}
             />
-            <Route path="/teacher/home" element={<Teacher />} />
+            <Route
+              path="/teacher/exams/:id/questions"
+              element={<ExamQuestions />}
+            />
+            <Route path="/teacher/exams/:id/pools" element={<ExamPools />} />
+            <Route
+              path="/teacher/exams/:id/properties"
+              element={<ExamProperties />}
+            />
+            <Route
+              path="/teacher/exams/:id/scheduler"
+              element={<ExamScheduler />}
+            />
           </Route>
+          <Route path="/teacher/students" element={<Students />} />
+          <Route path="/teacher/courses/:id/edit" element={<EditCourse />} />
+          <Route path="/teacher/courses" element={<Courses />} />
+          {/* <Route path="/reports" element={<Reports />} /> */}
+          <Route path="/teacher/account" element={<Account />} />
+          <Route path="/teacher/logout" element={<Logout />} />
+          <Route path="/teacher/account/billing" element={<Billing />} />
+          <Route
+            path="/teacher/checkout-success"
+            element={<CheckoutSuccess />}
+          />
+          <Route path="/teacher/home" element={<Teacher />} />
+        </Route>
 
-          {/* student route */}
+        {/* student route */}
 
-          <Route>
-            <Route element={<StudentRoot />}>
-              <Route path="/student/home" element={<Student />} />
-            </Route>
 
+        <Route>
+          <Route element={<StudentRoot clients={clients} />}>
+            <Route path="/student/home" element={<StudentHomePage />} />
+            <Route path="/student/exams" element={<ExamStudentPage clients={clients} />} />
+            <Route path="/student/courses" element={<StudentCourses clients={clients} />} />
           </Route>
-         
-         
-         
-        </Routes>
-      </Router>
-    </>
+        </Route>
+      </Routes>
+    </Router>
+
+
   );
 }
 export default App;
