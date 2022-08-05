@@ -7,11 +7,6 @@ import { useParams } from 'react-router-dom';
 import { api_base } from 'config'
 
 export default function QuesitonsFilters({questions}) {
-  // const { data } = useDemoData({
-  //   dataSet: 'Employee',
-  //   visibleFields: VISIBLE_FIELDS,
-  //   rowLength: 100,
-  // });
   let {id} = useParams();
   const columns = [
     {field: 'order', headerName: 'Order', flex: 1}, // flex

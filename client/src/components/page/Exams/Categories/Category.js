@@ -66,14 +66,9 @@ const Category = ({category, setCategories}) => {
       {category.content !== 'No Category Assigned' && 
       <>
         <BorderColorIcon fontSize="large" sx={{ color: blue[500] }}
-          onClick={() => {
-            navigate(`/exams/${id}/categories/${category._id}/edit`);
-            }
-          }
-        />
+          onClick={() => navigate(`/exams/${id}/categories/${category._id}/edit`)} />
         <HighlightOffIcon fontSize="large" sx={{ color: pink[500] }}
-          onClick={async () => await remove()} 
-        />
+          onClick={async () => await remove()} />
       </>
       }
     </CardContent>

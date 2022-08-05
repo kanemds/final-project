@@ -6,9 +6,10 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import BasicModal from './ModalAddCategory';
-import Category from './Category';
+// import Category from './Category';
 
 import { api_base } from 'config'
+import CategoriesFilters from './CategoriesFilters';
 
 const ExamCategories = () => {
   const {id} = useParams();
@@ -24,7 +25,8 @@ const ExamCategories = () => {
   return (
     <>
       <BasicModal setCategories={setCategories}/>
-      {categories.length > 0 && categories.map((cat, i) => <Category key={i + 1} category={cat} setCategories={setCategories} />)}
+      <CategoriesFilters categories={categories} setCategories={setCategories}/>
+      {/* {categories.length > 0 && categories.map((cat, i) => <Category key={i + 1} category={cat} setCategories={setCategories} />)} */}
     </>
   )
 }

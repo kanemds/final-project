@@ -7,12 +7,12 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import BasicModal from './ModalAddQuestion';
 import axios from 'axios';
 
 import { api_base } from 'config';
 // import ExamQuestion from './ExamQuestion';
-import QuesitonsFilters from './QuestionOperations/QuestionsFilters';
+import BasicModal from './ModalAddQuestion';
+import QuesitonsFilters from './QuestionsFilters';
 
 const ExamQuestions = () => {
   let {id} = useParams();
