@@ -88,4 +88,17 @@ router.get("/", (req, res) => {
     });
 });
 
+router.put("/teacher/courses/:id", (req, res) => {
+  console.log("did we get here?", req, "response", res);
+  student
+    .updateOne({
+      _id: req.params.id,
+    })
+    .exec()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => console.log(err));
+});
+
 module.exports = router;

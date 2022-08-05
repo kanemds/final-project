@@ -15,7 +15,10 @@ const studentsSchema = new mongoose.Schema({
   },
   user: {
     type: String,
-    required: true
+    required: true,
+  },
+  course: {
+    type: String,
   },
   exam: [
     {

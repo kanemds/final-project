@@ -28,13 +28,13 @@ const style = {
 };
 
 export default function BasicModal({ courses }) {
-  console.log(courses);
   const [open, setOpen] = React.useState(false);
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const location = useLocation();
   const [id, setId] = useState("");
+  const [course, setCourse] = useState("");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -45,6 +45,7 @@ export default function BasicModal({ courses }) {
       setLastName(location.state.lastname);
       setEmail(location.state.email);
       setId(location.state._id);
+      // setCourse(location.state.course);
     }
   }, [location.state]);
   return (
@@ -82,12 +83,25 @@ export default function BasicModal({ courses }) {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={courses}
+            value={course}
             label="Course"
-            onChange={TeacherCoursesShow}
           >
             {courses.map((course) => (
-              <MenuItem value={course.name}>{course.name}</MenuItem>
+              <MenuItem
+                id={course.id}
+                value={course.name}
+                onClick={() =>
+                  axios
+                    .put(`${api_base}/teacher/student/${id}`, {
+                      course,
+                    })
+                    .then((response) => {
+                      navigate(`/teacher/students`);
+                    })
+                }
+              >
+                {course.name}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

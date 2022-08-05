@@ -11,8 +11,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import BasicModal from "./ModelAddStudent";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import Divider from "@mui/material/Divider";
+import Box from "@mui/material/Box";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
 
 const Students = () => {
   const { removeUser } = useContext(GlobalContext);
@@ -58,6 +61,8 @@ box-shadow: ${theme.shadows[12]};`
                 {item.firstname} {item.lastname} {item.email}
               </Link>
             </Typography>
+            <Divider variant="middle" />
+            <Box sx={{ m: 2 }}></Box>
             <Button
               onClick={() =>
                 navigate("/teacher/students/edit", { state: item })
@@ -74,8 +79,13 @@ box-shadow: ${theme.shadows[12]};`
             >
               Delete
             </Button>
+
+            <Divider variant="middle" />
+            <Box sx={{ m: 2 }}></Box>
+            <ListItemButton component="a" href="#simple-list">
+              <ListItemText primary="{course.name}" />
+            </ListItemButton>
           </CardContent>
-          <CardActions></CardActions>
         </Card>
       ))}
     </>

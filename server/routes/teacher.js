@@ -19,7 +19,6 @@ router.post("/new", (req, res) => {
 });
 
 router.put("/student/:id", (req, res) => {
-  console.log("did we get here?");
   student
     .updateOne(
       {
@@ -105,5 +104,17 @@ router.get("/", (req, res) => {
       res.json(error);
     });
 });
+
+// router.put("/courses/:id", (req, res) => {
+//   student
+//     .updateOne({
+//       _id: req.params.id,
+//     })
+//     .exec()
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => console.log(err));
+// });
 
 module.exports = router;
