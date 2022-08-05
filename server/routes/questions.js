@@ -24,6 +24,7 @@ router.post('/new', async (req, res) => {
 
   const question = new Question({
     content: req.body.content,
+    points: req.body.points,
     answers: req.body.answers,
     correctAnswer: req.body.correctAnswer,
     category: req.body.category
@@ -120,7 +121,6 @@ router.get('/exams/:id', async (req, res) => {
     const catId = ques.category;
     questions.push({...ques, category: await Category.findById(catId)});
   }
-  console.log(questions, '#####')
   res.send(questions);
 })
 

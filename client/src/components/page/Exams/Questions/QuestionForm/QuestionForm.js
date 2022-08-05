@@ -17,6 +17,7 @@ import IncludeinCat from './IncludeinCat';
 
 const QuestionForm = () => {
   const [selected, setSelected] = React.useState("");
+  const [points, setPoints] = useState("");
   const [question, setQuestion] = React.useState("");
   const [answers, setAnswers] = React.useState(['','','','']);
   const [checkedAllAbove, setCheckedAllAbove] = useState(false);
@@ -53,7 +54,7 @@ const QuestionForm = () => {
     if (checkedCat && catSelected) {
       categoryId = catSelected;
     }
-    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, answers: ansArr, correctAnswer: corAns, category: categoryId});
+    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, points ,answers: ansArr, correctAnswer: corAns, category: categoryId});
     const one = await axios.post(`${api_base}/categories/question/push`, {categoryId, questionId: questionData.data._id});
     const two = await axios.post(`${api_base}/exams/${id}/question/push`, {question: questionData.data});
     navigate(`/exams/${id}/questions/${questionData.data._id}/${questionOrder}`);
@@ -61,6 +62,18 @@ const QuestionForm = () => {
   return (
     <>
       <div style={{display: "flex", flexDirection: "column"}}>
+      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+					Points
+				</Typography>
+				<TextField type="number" inputProps={{ inputmode: 'numeric', min: 0 }} value={points} 
+					onChange={(event) => setPoints(_prev => {
+						const val = event.target.value;				
+						const points = val === "" ? val : Number(val);
+						if (points < 0) {
+							return 0;
+						}
+						return points;
+				})}/>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					Enter Your Question ({4000 - question.length} characters remaining)
 				</Typography>

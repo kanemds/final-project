@@ -68,7 +68,6 @@ router.post('/:id/question/push', (req, res) => {
       upsert: true 
     }
   ).exec().then((data) => {
-    console.log(data, 'data########')
     res.json(data)
   }).catch((err) => console.log(err))  
 })
@@ -86,6 +85,27 @@ router.post('/:id/deleteQuestion', async (req, res) => {
     }
   );
   res.send(doc);
+})
+
+router.post('/:id/properties', (req, res) => {
+  Exam.findOneAndUpdate(
+    {
+      _id: req.params.id
+    }, 
+    { 
+      name: req.body.name,
+      passScore: req.body.passScore,
+      instructions: req.body.instructions,
+      passFeedback: req.body.passFeedback,
+      failFeedback: req.body.failFeedback
+    }, {
+      // return doc after update is applied
+      new: true,
+      upsert: true 
+    }
+  ).exec().then((data) => {
+    res.json(data)
+  }).catch((err) => console.log(err))  
 })
 
 router.get('/', (req, res) => {

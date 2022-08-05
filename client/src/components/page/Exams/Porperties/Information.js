@@ -14,16 +14,13 @@ const Information = ({info, setInfo}) => {
 //   const {id} = useParams();
 //   const [mode, modeState] = useState("Show Questions");
   return (
+	  // card
     <>
 			<div style={{display: "flex", flexDirection: "row"}}>
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					Exam Name
 				</Typography>
 				<TextField value={info.name} onChange={(event) => setInfo(prev => ({...prev, name: event.target.value}))}/>
-				{/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					Exam Type
-				</Typography>
-				<TextField /> */}
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					Passing Score
 				</Typography>
@@ -44,9 +41,9 @@ const Information = ({info, setInfo}) => {
 				</Typography>
 			</div>
 			<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					General Exam Instructions ({1750 - info.instruction.length} characters remaining)
+					General Exam Instructions ({1750 - info.instructions.length} characters remaining)
 			</Typography>
-			<TextField   inputProps={{ maxLength: 1750 }} value={info.instruction} onChange={(event) => setInfo(prev => ({...prev, instruction: event.target.value}))}/>
+			<TextField   inputProps={{ maxLength: 1750 }} value={info.instructions} onChange={(event) => setInfo(prev => ({...prev, instructions: event.target.value}))}/>
     </>
   )
 }

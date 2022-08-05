@@ -13,6 +13,7 @@ import Billing from "components/page/account/billing/Billing";
 import ExamQuestions from "components/page/Exams/Questions/ExamQuestions";
 import ExamQuestionsNew from "components/page/Exams/Questions/ExamQuestionsNew";
 import ExamCategories from "components/page/Exams/Categories/ExamCategories";
+import CategoryEdit from "components/page/Exams/Categories/CategoryEdit";
 import ExamProperties from "components/page/Exams/Porperties/ExamProperties";
 import ExamScheduler from "components/page/Exams/Scheduler/ExamScheduler";
 import Root from "Root";
@@ -37,6 +38,7 @@ function App() {
               <Route path="/exams/:id/questions/:questionId/:questionOrder" element={<QuestionOperations />} />
               <Route path="/exams/:id/categories/:categoryId/questions/:questionId/edit/:questionOrder" element={<QuestionEdit />} />
               <Route path="/exams/:id/categories" element={<ExamCategories />} />
+              <Route path="/exams/:id/categories/:categoryId/edit" element={<CategoryEdit />} />
               <Route path="/exams/:id/properties" element={<ExamProperties />} />
               <Route path="/exams/:id/scheduler" element={<ExamScheduler />} />
             </Route>

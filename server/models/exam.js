@@ -5,16 +5,28 @@ const ExamScheama = new mongoose.Schema({
     type:String,
     required:true
   },
-  categories:[
-    {
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"Category"
-    }
-  ],
+  passScore:{
+    type:Number
+  },
+  instructions: {
+    type:String
+  },
+  passFeedback: {
+    type:String
+  },
+  failFeedback: {
+    type:String
+  },
   questions:[
     {
       type:mongoose.Schema.Types.ObjectId,
       ref:"Question"
+    }
+  ],
+  categories:[
+    {
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"Category"
     }
   ],
   created:{

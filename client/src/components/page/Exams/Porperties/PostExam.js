@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 
 import { api_base } from 'config'
 
-const PostExam = () => {
+const PostExam = ({postInfo, setPostInfo}) => {
 //   const {id} = useParams();
 //   const [mode, modeState] = useState("Show Questions");
   return (
@@ -18,11 +18,11 @@ const PostExam = () => {
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					Feedback for Passing Grade
 				</Typography>
-				<TextField />
+				<TextField value={postInfo.passFeedback} onChange={(event) => setPostInfo(prev => ({...prev, passFeedback: event.target.value}))} />
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>				
 					Feedback for Failing Grade
 				</Typography>
-				<TextField />
+				<TextField value={postInfo.failFeedback} onChange={(event) => setPostInfo(prev => ({...prev, failFeedback: event.target.value}))}/>
 			</div>
     </>
   )

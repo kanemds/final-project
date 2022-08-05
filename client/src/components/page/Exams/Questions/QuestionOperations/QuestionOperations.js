@@ -29,7 +29,6 @@ const QuestionOperations = () => {
       setQuestionsState(currentState);
     }
     getQuestion();
-    console.log(questionsState, 'questionsState#####')
   }, [questionId]);
   return (
     <>
@@ -38,7 +37,7 @@ const QuestionOperations = () => {
         <>
           <Header questions={questionsState} setQuestions={setQuestionsState} />
           <div style={{display:'flex', flexDirection:'column'}}>
-            <span>Points: 2 Category: {questionsState.current.category.content}</span>
+            <span>Points: {questionsState.current.points} Category: {questionsState.current.category.content}</span>
             <span>Question {questionOrder}: {questionsState.current.content}?</span>
           </div>
           {questionsState.current.answers?.map((ans, i) => {

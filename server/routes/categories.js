@@ -50,6 +50,37 @@ router.post('/question/push', async (req, res) => {
   res.send(doc);
 })
 
+router.post('/category/:categoryId', async (req, res) => {
+  const doc = await Category.findOneAndUpdate(
+    {
+      _id: req.params.categoryId
+    }, 
+    { 
+      content: req.body.content
+    }, {
+      // return doc after update is applied
+      new: true,
+      upsert: true 
+    }
+  )
+  res.send(doc);
+})
+
+router.post('/category/:categoryId/delete', async (req, res) => {
+  const doc = await Category.findOneAndDelete(
+    {
+      _id: req.params.categoryId
+    }
+  )
+  console.log(doc, 'herere')
+  res.send(doc);
+})
+
+router.get('/category/:categoryId', async (req, res) => {
+  const doc = await Category.findById(req.params.categoryId);
+  res.send(doc);
+})
+
 router.get('/:id', (req, res) => {
   const doc = Exam.aggregate([
     { $match: { _id: ObjectId(req.params.id) }},

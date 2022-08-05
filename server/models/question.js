@@ -5,6 +5,10 @@ const QuestionScheama =  new mongoose.Schema({
     type: String,
     required: true
   },
+  points:{
+    type: Number,
+    required: true
+  },
   answers:[
     {
       type: mongoose.Schema.Types.ObjectId,
