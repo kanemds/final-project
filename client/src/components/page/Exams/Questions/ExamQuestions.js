@@ -11,7 +11,8 @@ import BasicModal from './ModalAddQuestion';
 import axios from 'axios';
 
 import { api_base } from 'config';
-import ExamQuestion from './ExamQuestion';
+// import ExamQuestion from './ExamQuestion';
+import QuesitonsFilters from './QuestionOperations/QuestionsFilters';
 
 const ExamQuestions = () => {
   let {id} = useParams();
@@ -25,10 +26,11 @@ const ExamQuestions = () => {
   }, []);
   return (
     <>
-        <BasicModal questionOrder={questions.length + 1} />
-        {questions.length > 0 && questions.map((ques, i) => {
-          return <ExamQuestion key={i + 1} questionOrder={i + 1} question={ques} />
-        })}
+      <BasicModal questionOrder={questions.length + 1} />
+      {questions.length > 0 && <QuesitonsFilters questions={questions} />}
+      {/* {questions.length > 0 && questions.map((ques, i) => {
+        return <ExamQuestion key={i + 1} questionOrder={i + 1} question={ques} />
+      })} */}
     </>
   )
 }

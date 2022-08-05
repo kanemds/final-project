@@ -24,5 +24,3 @@ const ExamQuestion = ({questionOrder, question}) => {
 }
 
 export default ExamQuestion;
-
-// http://localhost:3000/exams/62e830db0ad4b1ffa60b4450/questions/62e830db0ad4b1ffa60b4452/62e837a70ad4b1ffa60b4483
