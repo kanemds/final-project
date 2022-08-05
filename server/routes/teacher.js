@@ -90,7 +90,7 @@ router.get("/:id", (req, res) => {
   ])
     .exec()
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.json(result[0]);
     });
 });

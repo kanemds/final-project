@@ -80,7 +80,7 @@ router.get("/:id", (req, res) => {
   ])
     .exec()
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.json(result[0]);
     });
 });
@@ -88,7 +88,7 @@ router.get("/:id", (req, res) => {
 router.get("/", (req, res) => {
   Course.find()
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       res.send(data);
     })
     .catch((error) => {
@@ -97,7 +97,6 @@ router.get("/", (req, res) => {
 });
 
 router.put("/teacher/courses/:id", (req, res) => {
-  console.log("did we get here?", req, "response", res);
   student
     .updateOne({
       _id: req.params.id,

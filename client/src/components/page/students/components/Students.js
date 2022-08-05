@@ -25,6 +25,19 @@ const Students = () => {
   const student = useStudent();
   const { data } = useTeacherCourses();
 
+  const getCourseName = (currentCourseId) => {
+    let currentCourseName = "";
+    if (currentCourseId) {
+      // if there is a course id then we'll loop through the data to get the course name using courseId
+      for (let course of data) {
+        if (currentCourseId == course._id) {
+          currentCourseName = course.name;
+        }
+      }
+    }
+    return currentCourseName;
+  };
+
   const BoxShadowDiv = styled("div")(
     ({ theme }) => `
 margin: ${theme.spacing(2)};
@@ -32,7 +45,6 @@ padding: ${theme.spacing(2)};
 border: 1px solid black;
 box-shadow: ${theme.shadows[12]};`
   );
-  console.log(student, "student");
   return (
     <>
       <h1>Add Students</h1>
@@ -86,7 +98,7 @@ box-shadow: ${theme.shadows[12]};`
             <Divider variant="middle" />
             <Box sx={{ m: 2 }}></Box>
             <ListItemButton component="a" href="/teacher/courses">
-              <ListItemText primary={data.name} />
+              <ListItemText primary={getCourseName(item.course)} />
             </ListItemButton>
           </CardContent>
         </Card>

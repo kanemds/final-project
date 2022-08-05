@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { api_base } from "config";
 function useStudent(props) {
   const [student, setStudent] = useState([]);
-  console.log(student);
   useEffect(() => {
     const fetchteacher = async () => {
       const url = `${api_base}/student/students/new`;

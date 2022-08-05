@@ -28,7 +28,6 @@ export const UserList = () => {
   const { removeUser } = useContext(GlobalContext);
   async function getUsers() {
     const response = await axios.get(`${api_base}/account/userlist`);
-    console.log(response.data);
     setUsers(response.data);
   }
   const [users, setUsers] = useState([]);

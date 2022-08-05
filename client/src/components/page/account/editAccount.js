@@ -37,8 +37,6 @@ export default function BasicModal() {
   let navigate = useNavigate();
   useEffect(() => {
     if (location.state) {
-      console.log("here", location);
-
       setFirstName(location.state.firstname);
       setLastName(location.state.lastname);
       setEmail(location.state.email);
