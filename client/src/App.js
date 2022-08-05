@@ -27,7 +27,9 @@ import { useContext } from "react";
 import { LoginContext } from "Contexts/LoginContext";
 import { useState } from "react";
 import EditCourse from "components/page/courses/EditCourse";
-
+import CoursesContainer from "./components/page/courses/CoursesContainer"
+import AddExamsToCourse from "components/page/courses/AddExamsToCourse";
+import AddStudentsToCourse from "components/page/courses/AddStudentsToCourse";
 
 function App() {
 
@@ -67,8 +69,14 @@ function App() {
             />
           </Route>
           <Route path="/teacher/students" element={<Students />} />
-          <Route path="/teacher/courses/:id/edit" element={<EditCourse />} />
+          {/* courses page */}
           <Route path="/teacher/courses" element={<Courses />} />
+          <Route element={<CoursesContainer />}>
+            <Route path="/teacher/courses/:id/edit" element={<EditCourse />} />
+            <Route path="/teacher/courses/:id/addexams" element={<AddExamsToCourse />} />
+            <Route path="/teacher/courses/:id/addstudents" element={<AddStudentsToCourse />} />
+          </Route>
+
           {/* <Route path="/reports" element={<Reports />} /> */}
           <Route path="/teacher/account" element={<Account />} />
           <Route path="/teacher/logout" element={<Logout />} />
@@ -90,7 +98,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-    </Router>
+    </Router >
 
   );
 }

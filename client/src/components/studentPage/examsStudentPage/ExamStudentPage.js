@@ -1,31 +1,73 @@
 import React, { useContext } from 'react'
 import StudentExams from './StudentExams'
-import useStudentHomePage from '../home/useStudentHomePage'
-import useExams from 'components/page/Exams/useExams'
-import Courses from '../StudentCourses/StudentCourses'
-import useCourses from '../StudentCourses/useCourse'
 import { LoginContext } from 'Contexts/LoginContext'
+import useCourses from '../StudentCourses/useCourse'
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
 
 const ExamStudentPage = () => {
-  const students = useStudentHomePage()
-  const { exams } = useExams()
-  const { userId } = useContext(LoginContext)
 
-  const student = students.find((item) => item._id === userId)
-  if (!student || !exams) {
+  const data = useCourses()
+
+  const { userId, students } = useContext(LoginContext)
+  console.log(data)
+
+  const exams = data.map(item => item.exams)
+  console.log(exams)
+
+  if (!data) {
     return ''
   }
-  const studentExams = exams.filter((item) => {
-    return student.exam.find((examId) => examId === item._id)
-  })
+
 
   return (
     <>
+      {
+        exams.map((exam) => (
 
-      <div key={student._id}>
-        <StudentExams exams={studentExams} />
-      </div>
+          <Card
+            key={exam._id}
+            sx={{
+              minWidth: 50,
+              margin: 1,
+              "&:hover": {
+                boxShadow: "0 2px 5px 1px",
+                cursor: "pointer"
+              }
+            }}
+          >
+            <CardContent >
+              <Typography sx={{ fontSize: 24 }} gutterBottom>
+                <div
+                  key={exam.name}
+                  style={{
+                    textDecoration: 'none',
+                    color: "black",
+                    fontWeight: 'bold'
+                  }}
+                >
+                  Exam: {exam.name}
+                </div>
+              </Typography>
+              <Typography sx={{ fontSize: 20 }} gutterBottom>
+
+              </Typography>
+              <Typography sx={{ fontSize: 20 }} gutterBottom>
+                Attempt: ??
+              </Typography>
+              <Typography sx={{ fontSize: 14 }} gutterBottom>
+                Time limit ? Hr ? Min
+              </Typography>
+            </CardContent>
+            <CardActions>
+            </CardActions>
+          </Card>
+        ))
+
+      }
     </>
   )
 

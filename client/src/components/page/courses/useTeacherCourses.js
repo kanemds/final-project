@@ -8,7 +8,6 @@ function useTeacherCourses() {
   const { teacherId } = useContext(LoginContext)
 
   const fetchCourses = async () => {
-    console.log('??fetch???')
     const url = `${api_base}/course`;
     const res = await fetch(url, {
       credentials: 'include'
@@ -30,9 +29,10 @@ function useTeacherCourses() {
       console.log(error)
     }
   }
-  const updateCourse = async (id,data, ) => {
+
+  const removeCourse = async (id) => {
     try {
-      await axios.delete(`${api_base}/course/update/${id}`, { withCredentials: true })
+      await axios.delete(`${api_base}/course/${id}`, { withCredentials: true })
       console.log('Item successfully deleted.')
       await fetchCourses()
     } catch (error) {
@@ -40,11 +40,14 @@ function useTeacherCourses() {
     }
   }
 
-
-  const removeCourse = async (id) => {
+  const editCourse = async (id, newDoc) => {
     try {
-      await axios.delete(`${api_base}/course/${id}`, { withCredentials: true })
-      console.log('Item successfully deleted.')
+      await axios.post(
+        `${api_base}/course/${id}/edit`,
+        newDoc,
+        { withCredentials: true }
+      )
+      console.log(newDoc, 'Item successfully edited.')
       await fetchCourses()
     } catch (error) {
       console.log(error)
@@ -63,7 +66,7 @@ function useTeacherCourses() {
     return false
   })
 
-  return { data, removeCourse, addCourse }
+  return { data, removeCourse, addCourse, editCourse }
 }
 
 

@@ -23,7 +23,6 @@ const TeacherCoursesShow = () => {
   const { data, removeCourse, addCourse } = useTeacherCourses()
   const { students } = useContext(LoginContext)
   const navigate = useNavigate()
-  console.log({ data })
   const [open, setOpen] = React.useState(false);
   const [name, nameState] = useState("");
   const handleOpen = () => {
