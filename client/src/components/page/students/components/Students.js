@@ -16,12 +16,15 @@ import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import useTeacherCourses from "components/page/courses/useTeacherCourses";
 
 const Students = () => {
   const { removeUser } = useContext(GlobalContext);
   const { editUser } = useContext(GlobalContext);
   const navigate = useNavigate();
   const student = useStudent();
+  const { data } = useTeacherCourses();
+
   const BoxShadowDiv = styled("div")(
     ({ theme }) => `
 margin: ${theme.spacing(2)};
@@ -29,7 +32,7 @@ padding: ${theme.spacing(2)};
 border: 1px solid black;
 box-shadow: ${theme.shadows[12]};`
   );
-
+  console.log(student, "student");
   return (
     <>
       <h1>Add Students</h1>
@@ -82,8 +85,8 @@ box-shadow: ${theme.shadows[12]};`
 
             <Divider variant="middle" />
             <Box sx={{ m: 2 }}></Box>
-            <ListItemButton component="a" href="#simple-list">
-              <ListItemText primary="{course.name}" />
+            <ListItemButton component="a" href="/teacher/courses">
+              <ListItemText primary={data.name} />
             </ListItemButton>
           </CardContent>
         </Card>
@@ -93,62 +96,3 @@ box-shadow: ${theme.shadows[12]};`
 };
 
 export default Students;
-
-//   return (
-//     <>
-//       {student.map((item) => {
-//         return (
-// <div key={student._id}>
-//   <h1>
-// {" "}
-// {item.firstname}, {item.lastname}, {item.email}
-//   </h1>
-// </div>
-//         );
-//       })}
-//     </>
-//   );
-// };
-
-// export default Students;
-
-// export const UserList = () => {
-//   const { removeUser } = useContext(GlobalContext);
-//   async function getUsers() {
-//     const response = await axios.get(`${api_base}/students/userlist`);
-//     console.log(response.data);
-//     setUsers(response.data);
-//   }
-//   const [users, setUsers] = useState([]);
-//   useEffect(() => {
-//     getUsers();
-//   }, []);
-
-//   return (
-//     <ListGroup className="mt-4">
-//       {users.length > 0 ? (
-//         <>
-//           {users.map((user) => (
-//             <ListGroupItem className="d-flex" key={user.id}>
-//               <strong>{user.name}</strong>
-//               <div className="ml-auto">
-//                 <Link
-//                   to={`/edit/${user.id}`}
-//                   color="warning"
-//                   className="btn btn-warning mr-1"
-//                 >
-//                   Edit
-//                 </Link>
-//                 <Button onClick={() => removeUser(user.id)} color="danger">
-//                   Delete
-//                 </Button>
-//               </div>
-//             </ListGroupItem>
-//           ))}
-//         </>
-//       ) : (
-//         <h4 className="text-center">No Users</h4>
-//       )}
-//     </ListGroup>
-//   );
-// };

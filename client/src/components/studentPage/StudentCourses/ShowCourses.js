@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 
 const ShowCourses = (props) => {
   const { courses } = props
-
   return courses && courses.length > 0 && (
     <>
       {

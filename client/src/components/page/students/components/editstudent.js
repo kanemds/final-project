@@ -14,6 +14,7 @@ import { MenuItem, FormControl, Select, InputLabel } from "@mui/material";
 import useStudent from "./useStudent";
 import TeacherCoursesShow from "components/page/courses/TeacherCoursesShow";
 import TeacherCourses from "components/page/courses/TeacherCourses";
+import useTeacherCourses from "components/page/courses/useTeacherCourses";
 
 const style = {
   position: "absolute",
@@ -35,6 +36,7 @@ export default function BasicModal({ courses }) {
   const location = useLocation();
   const [id, setId] = useState("");
   const [course, setCourse] = useState("");
+  const { data } = useTeacherCourses();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -86,9 +88,10 @@ export default function BasicModal({ courses }) {
             value={course}
             label="Course"
           >
-            {courses.map((course) => (
+            {data.map((course) => (
               <MenuItem
                 id={course.id}
+                key={course.id}
                 value={course.name}
                 onClick={() =>
                   axios

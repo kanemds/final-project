@@ -4,11 +4,10 @@ import { LoginContext } from "Contexts/LoginContext";
 import TeacherCoursesShow from "./TeacherCoursesShow";
 import useTeacherCourses from "./useTeacherCourses";
 
-const TeacherCourses = ({ courses }) => {
+const TeacherCourses = () => {
   const exams = useExams();
-  const { userId, teachers } = useContext(LoginContext);
-  console.log(userId);
-  const teacher = teachers.find((item) => item._id === userId);
+  const { teacherId, teachers } = useContext(LoginContext);
+  const teacher = teachers.find((item) => item._id === teacherId);
 
   if (!teacher || !exams) {
     return "";
@@ -16,9 +15,10 @@ const TeacherCourses = ({ courses }) => {
 
   return (
     <>
+      <h1>Course Categories</h1>
+      <br />
       <div key={teacher._id}>
-        {/* <TeacherCoursesShow courses={courses} /> */}
-        <TeacherCoursesShow courses={courses} />
+        <TeacherCoursesShow />
       </div>
     </>
   );

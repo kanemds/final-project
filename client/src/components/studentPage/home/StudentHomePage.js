@@ -1,17 +1,15 @@
 
 import React, { useContext } from 'react'
-import useStudentHomePage from './useStudentHomePage'
 import useExams from 'components/page/Exams/useExams'
 import useCourses from '../StudentCourses/useCourse'
 import { LoginContext } from 'Contexts/LoginContext'
 
 
 const StudentHomePage = () => {
-  const exams = useExams()
-  console.log(exams)
+  const { exams } = useExams()
   const courses = useCourses()
   const { students, userId, setUserId } = useContext(LoginContext)
-
+  console.log(students)
   const student = students.find((item) => item._id === userId)
 
   if (!student) {

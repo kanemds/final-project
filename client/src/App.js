@@ -29,6 +29,10 @@ import { useContext } from "react";
 import { LoginContext } from "Contexts/LoginContext";
 import { useState } from "react";
 import useTeacherCourses from "components/page/courses/useTeacherCourses";
+import EditCourse from "components/page/courses/EditCourse";
+import CoursesContainer from "./components/page/courses/CoursesContainer";
+import AddExamsToCourse from "components/page/courses/AddExamsToCourse";
+import AddStudentsToCourse from "components/page/courses/AddStudentsToCourse";
 
 function App() {
   const clients = useContext(LoginContext);
@@ -67,14 +71,22 @@ function App() {
           <Route path="/teacher/students" element={<Students />} />
           <Route path="/teacher/userlist" element={<UserList />} />
           <Route path="/teacher/students/new" element={<AddStudent />} />
-          <Route
-            path="/teacher/students/edit"
-            element={<EditStudent courses={courses} />}
-          />
-          <Route
-            path="/teacher/courses"
-            element={<Courses courses={courses} />}
-          />
+          <Route path="/teacher/students/edit" element={<EditStudent />} />
+          {/* courses page */}
+          <Route path="/teacher/courses" element={<Courses />} />
+          <Route element={<CoursesContainer />}>
+            <Route path="/teacher/courses/:id/edit" element={<EditCourse />} />
+            <Route
+              path="/teacher/courses/:id/addexams"
+              element={<AddExamsToCourse />}
+            />
+            <Route
+              path="/teacher/courses/:id/addstudents"
+              element={<AddStudentsToCourse />}
+            />
+          </Route>
+
+          {/* <Route path="/reports" element={<Reports />} /> */}
           <Route path="/teacher/account" element={<Account />} />
           <Route path="/teacher/logout" element={<Logout />} />
           <Route path="/teacher/account/billing" element={<Billing />} />

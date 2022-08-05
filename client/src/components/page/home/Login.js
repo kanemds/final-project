@@ -39,7 +39,7 @@ export default function Login({ open, handleClose }) {
   };
 
 
-  const { students, userId, setUserId, teachers } = useContext(LoginContext)
+  const { students, userId, setUserId, teachers, setTeacherId } = useContext(LoginContext)
 
   const [loginName, setLoginName] = useState(null)
 
@@ -104,8 +104,9 @@ export default function Login({ open, handleClose }) {
             if (role === teacher && loginName) {
               axios.post(`${api_base}/teacher/login`, { user: loginName }, { withCredentials: true })
                 .then((data) => {
-                  sessionStorage.setItem('user', data.data._id)
-                  setUserId(data.data._id)
+                  sessionStorage.setItem('teacherId', data.data._id)
+                  console.log(data.data._id)
+                  setTeacherId(data.data._id)
                   navigate(`/teacher/home`)
                 })
             }

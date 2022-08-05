@@ -55,10 +55,15 @@ app.use(session({
   cookie: {
     sameSite: false,
     secure: false,
-    maxAge: 1000,
+    maxAge: 1000 * 60 * 60 * 24 * 7, // one week
     httpOnly: true,
   },
 }))
+
+app.use((req, res, next) => {
+  console.log(req.session)
+  next()
+})
 
 app.post('/student/login', async (req, res) => {
   const { user } = req.body
@@ -67,7 +72,7 @@ app.post('/student/login', async (req, res) => {
   if (!student) {
     return res.redirect('/')
   }
-  req.session.user = user;
+  req.session.user = student._id;
   res.json(student)
 })
 
@@ -78,7 +83,7 @@ app.post('/teacher/login', async (req, res) => {
   if (!teacher) {
     return res.redirect('/')
   }
-  req.session.user = user;
+  req.session.teacherId = teacher._id;
   res.json(teacher)
 })
 

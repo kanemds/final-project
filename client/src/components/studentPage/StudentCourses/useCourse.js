@@ -4,18 +4,19 @@ import { LoginContext } from 'Contexts/LoginContext';
 
 function useCourses(props) {
   const [courses, setCourses] = useState([]);
+
   const { userId } = useContext(LoginContext)
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const url = `${api_base}/course`;
+      const url = `${api_base}/course/`;
       const res = await fetch(url, {
         credentials: 'include'
       });
       setCourses(await res.json());
     }
     fetchCourses();
-
+    console.log(fetchCourses())
   }, []);
 
   if (courses === null) {
@@ -23,7 +24,6 @@ function useCourses(props) {
   }
 
   const data = courses && courses.filter((course) => {
-    console.log(course.students)
     const exist = course.students.find((id) => id === userId)
 
     if (exist) {
