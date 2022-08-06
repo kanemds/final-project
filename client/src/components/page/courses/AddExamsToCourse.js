@@ -4,7 +4,7 @@ import useExams from '../Exams/useExams'
 import useTeacherCourses from './useTeacherCourses'
 import Checkbox from '@mui/material/Checkbox';
 import { Button } from '@mui/material';
-
+import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -14,14 +14,14 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
-
+import { fontSize, padding } from '@mui/system';
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
 
 const AddExamsToCourse = () => {
   const [selected, setSelected] = useState()
   const { id } = useParams()
   const { data, editCourse } = useTeacherCourses()
   const { exams } = useExams()
-  console.log(exams)
   const selectedHandle = (e) => {
     const id = e.target.value
     const toggle = selected && selected[id] ? false : true
@@ -38,7 +38,6 @@ const AddExamsToCourse = () => {
       return false
     }
     const currentExamIds = currentCourse.exams
-    console.log(currentExamIds)
     return !currentExamIds.includes(item._id.toString())
   })
 
@@ -77,66 +76,78 @@ const AddExamsToCourse = () => {
   return (
     <>
       <h1>Exams</h1>
-      <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        <nav aria-label="main mailbox folders">
-          <List>
+      <br />
+      <div className='checkedBox'>
+        <div className='checkedBox box single'>
+          <h2 className='header'>Current Exams</h2>
+          <div>
+            <nav className='body'>
+              {takingExams && takingExams.map((item) => {
+                const isSelected = selected && selected[item._id] === true ? 'checked' : ''
+                return (
+                  <List sx={{
+                    pt: 1,
+                    pb: 0,
+                    mr: 1,
+                    ml: 1
+                  }}>
+                    <ListItem disablePadding >
+                      <ListItemButton component="a" href="#simple-list">
+                        <ListItemText className='list' primary={item.name} />
+                        <Checkbox value={item._id} checked={isSelected} onChange={selectedHandle} />
+                      </ListItemButton>
+                    </ListItem>
+                  </List>
+                )
+              })}
+            </nav>
+          </div>
+          <h2 className='footer'>Total Exams: {currentCourse.exams.length}</h2>
+        </div>
 
-            <ListItem disablePadding>
-              <ListItemText primary="Current Courses" />
-            </ListItem>
-          </List>
-        </nav>
-        <Divider />
-        <nav aria-label="secondary mailbox folders">
-          {takingExams && takingExams.map((item) => {
-            const isSelected = selected && selected[item._id] === true ? 'checked' : ''
-            return (
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton component="a" href="#simple-list">
-                    <ListItemText primary={item.name} />
-                    <Checkbox value={item._id} checked={isSelected} onChange={selectedHandle} />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            )
-          })}
-        </nav>
-        <Divider />
-        <h2>Total Exams: {currentCourse.exams.length}</h2>
-      </Box>
+        <div className='checkedBox button'>
+          <Button
+            sx={{
 
+              p: 0,
+              '&:hover': {
+                background: 'none'
+              }
+            }}
+            add={selected} onClick={handleEdit}><SyncAltIcon
+              sx={{
 
-      <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        <nav aria-label="main mailbox folders">
-          <List>
+                fontSize: "80px"
+              }} ></SyncAltIcon></Button>
+        </div>
 
-            <ListItem disablePadding>
-              <ListItemText primary="Available Exams" />
-            </ListItem>
-          </List>
-        </nav>
-        <Divider />
-        <nav aria-label="secondary mailbox folders">
-          {otherExams && otherExams.map((item) => {
-            const isSelected = selected && selected[item._id] === true ? 'checked' : ''
-            console.log(selected)
-            return (
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton component="a" href="#simple-list">
-                    <ListItemText primary={item.name} />
-                    <Checkbox value={item._id} checked={isSelected} onChange={selectedHandle} />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            )
-          })}
-        </nav>
-        <Divider />
-        <h2>Total Exams: {otherExams.length}</h2>
-      </Box>
-      <Button add={selected} onClick={handleEdit}>Edit Exams</Button>
+        <div className='checkedBox box single'>
+          <h2 className='header'>Available Exams</h2>
+          <div>
+            <nav className='body'>
+              {otherExams && otherExams.map((item) => {
+                const isSelected = selected && selected[item._id] === true ? 'checked' : ''
+                return (
+                  <List sx={{
+                    pt: 1,
+                    pb: 0,
+                    mr: 1,
+                    ml: 1
+                  }}>
+                    <ListItem disablePadding >
+                      <ListItemButton component="a" href="#simple-list">
+                        <ListItemText className='list' primary={item.name} />
+                        <Checkbox value={item._id} checked={isSelected} onChange={selectedHandle} />
+                      </ListItemButton>
+                    </ListItem>
+                  </List>
+                )
+              })}
+            </nav>
+          </div>
+          <h2 className='footer'>Total Exams: {otherExams.length}</h2>
+        </div>
+      </div>
     </>
   )
 }

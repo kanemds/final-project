@@ -30,6 +30,7 @@ import EditCourse from "components/page/courses/EditCourse";
 import CoursesContainer from "./components/page/courses/CoursesContainer"
 import AddExamsToCourse from "components/page/courses/AddExamsToCourse";
 import AddStudentsToCourse from "components/page/courses/AddStudentsToCourse";
+import StudentExams from "./components/studentPage/examsStudentPage/StudentExams"
 
 function App() {
 
@@ -91,10 +92,11 @@ function App() {
         {/* student route */}
 
         <Route>
-          <Route element={<StudentRoot clients={clients} />}>
+          <Route element={<StudentRoot />}>
             <Route path="/student/home" element={<StudentHomePage />} />
-            <Route path="/student/exams" element={<ExamStudentPage clients={clients} />} />
-            <Route path="/student/courses" element={<StudentCourses clients={clients} />} />
+            <Route path="/student/exams" element={<ExamStudentPage />} />
+            <Route path="/student/exams/t" element={<StudentExams />} />
+            <Route path="/student/courses" element={<StudentCourses />} />
           </Route>
         </Route>
       </Routes>

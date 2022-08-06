@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import useTeacherCourses from './useTeacherCourses'
 import Checkbox from '@mui/material/Checkbox';
 import { Button } from '@mui/material';
-
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -76,66 +76,80 @@ const AddStudentsToCourse = () => {
   return (
     <>
       <h1>Students</h1>
-      <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        <nav aria-label="main mailbox folders">
-          <List>
+      <br />
+      <div className='checkedBox'>
+        <div className='checkedBox box single'>
+          <h2 className='header'>Current Students</h2>
+          <div>
+            <nav className='body'>
+              {currentStudents && currentStudents.map((item) => {
+                const isSelected = selected && selected[item._id] === true ? 'checked' : ''
+                return (
+                  <List sx={{
+                    pt: 1,
+                    pb: 0,
+                    mr: 1,
+                    ml: 1
+                  }}>
+                    <ListItem disablePadding >
+                      <ListItemButton component="a" href="#simple-list">
+                        <ListItemText className='list' primary={`${item.firstname} ${item.lastname}`} />
+                        <Checkbox value={item._id} checked={isSelected} onChange={selectedHandle} />
+                      </ListItemButton>
+                    </ListItem>
+                  </List>
+                )
+              })}
+            </nav>
+          </div>
+          <h2 className='footer'>Total Students: {currentStudents.length}</h2>
+        </div>
 
-            <ListItem disablePadding>
-              <ListItemText primary="Current Students" />
-            </ListItem>
-          </List>
-        </nav>
-        <Divider />
-        <nav aria-label="secondary mailbox folders">
-          {currentStudents && currentStudents.map((item) => {
-            const isSelected = selected && selected[item._id] === true ? 'checked' : ''
-            return (
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton component="a" href="#simple-list">
-                    <ListItemText primary={`${item.firstname} ${item.lastname}`} />
-                    <Checkbox value={item._id} checked={isSelected} onChange={selectedHandle} />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            )
-          })}
-        </nav>
-        <Divider />
-        <h2>Total Students: {currentStudents.length}</h2>
-      </Box>
+        <div className='checkedBox button'>
+          <Button
+            sx={{
+
+              p: 0,
+              '&:hover': {
+                background: 'none'
+              }
+            }}
+            add={selected} onClick={handleEdit}><SyncAltIcon
+              sx={{
+
+                fontSize: "80px"
+              }} ></SyncAltIcon></Button>
+        </div>
+
+        <div className='checkedBox box single'>
+          <h2 className='header'>Other Students</h2>
+          <div>
+            <nav className='body'>
+              {otherStudents && otherStudents.map((item) => {
+                const isSelected = selected && selected[item._id] === true ? 'checked' : ''
+                return (
+                  <List sx={{
+                    pt: 1,
+                    pb: 0,
+                    mr: 1,
+                    ml: 1
+                  }}>
+                    <ListItem disablePadding >
+                      <ListItemButton component="a" href="#simple-list">
+                        <ListItemText className='list' primary={`${item.firstname} ${item.lastname}`} />
+                        <Checkbox value={item._id} checked={isSelected} onChange={selectedHandle} />
+                      </ListItemButton>
+                    </ListItem>
+                  </List>
+                )
+              })}
+            </nav>
+          </div>
+          <h2 className='footer'>Total Students: {otherStudents.length}</h2>
+        </div>
+      </div>
 
 
-      <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        <nav aria-label="main mailbox folders">
-          <List>
-
-            <ListItem disablePadding>
-              <ListItemText primary="Other Students" />
-            </ListItem>
-          </List>
-        </nav>
-        <Divider />
-        <nav aria-label="secondary mailbox folders">
-          {otherStudents && otherStudents.map((item) => {
-            console.log(selected)
-            const isSelected = selected && selected[item._id] === true ? 'checked' : ''
-            return (
-              <List>
-                <ListItem disablePadding>
-                  <ListItemButton component="a" href="#simple-list">
-                    <ListItemText primary={`${item.firstname} ${item.lastname}`} />
-                    <Checkbox value={item._id} checked={isSelected} onChange={selectedHandle} />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            )
-          })}
-        </nav>
-        <Divider />
-        <h2>Total Students: {otherStudents.length}</h2>
-      </Box>
-      <Button add={selected} onClick={handleEdit}>Edit</Button>
     </>
   )
 }
