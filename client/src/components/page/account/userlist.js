@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { GlobalContext } from "./GlobalState";
 import { Link } from "react-router-dom";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
 import axios from "axios";
 import { api_base } from "config";
-import useStudent from "./useStudent";
+import useStudent from "./useAccount";
 
 const Students = () => {
   const student = useStudent();

@@ -29,7 +29,7 @@ router.post("/billing", (req, res) => {
     });
 });
 
-router.post("/new", (req, res) => {
+router.post("/account/new", (req, res) => {
   const account = new account({
     firstname: req.body.firstname,
     lastname: req.body.lastname,

@@ -4,7 +4,7 @@ import Home from "components/page/home/Home";
 import Exams from "components/page/Exams/Exams";
 import Students from "components/page/students/components/Students";
 import Courses from "components/page/courses/TeacherCourses";
-
+import NewAccount from "components/page/account/AddAccount";
 import Account from "components/page/account/Account";
 import Logout from "components/page/Logout";
 import Billing from "components/page/account/billing/Billing";
@@ -88,6 +88,8 @@ function App() {
 
           {/* <Route path="/reports" element={<Reports />} /> */}
           <Route path="/teacher/account" element={<Account />} />
+          <Route path="/teacher/account/new" element={<NewAccount />} />
+
           <Route path="/teacher/logout" element={<Logout />} />
           <Route path="/teacher/account/billing" element={<Billing />} />
           <Route
