@@ -6,11 +6,11 @@ import Link from '@mui/material/Link';
 import { useParams } from 'react-router-dom';
 import { api_base } from 'config'
 
-export default function QuesitonsFilters({questions}) {
+export default function QuestionsFilters({questions, questionsFilterState}) {
   let {id} = useParams();
   const columns = [
     {field: 'order', headerName: 'Order', flex: 1}, // flex
-    {field: 'quesiton', headerName: 'Quesiton', flex: 5, renderCell: (rowData) => {
+    {field: 'question', headerName: 'Question', flex: 5, renderCell: (rowData) => {
       const que = rowData.row;
       return <Link href={`${api_base}/exams/${id}/questions/${que.id}/${que.order}`}>{que.question}</Link>
     }},
@@ -30,7 +30,10 @@ export default function QuesitonsFilters({questions}) {
   });
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid columns={columns} rows={rows} components={{ Toolbar: GridToolbar }} />
+      <DataGrid 
+        columns={columns} rows={rows} components={{ Toolbar: GridToolbar }} 
+        initialState={{filter: questionsFilterState}}
+      />
     </div>
   );
 }

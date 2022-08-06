@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import BasicModal from './ModalAddCategory';
-// import Category from './Category';
+import EmptyCategory from '../img/EmptyCategory.jpg';
 
 import { api_base } from 'config'
 import CategoriesFilters from './CategoriesFilters';
@@ -25,8 +25,8 @@ const ExamCategories = () => {
   return (
     <>
       <BasicModal setCategories={setCategories}/>
-      <CategoriesFilters categories={categories} setCategories={setCategories}/>
-      {/* {categories.length > 0 && categories.map((cat, i) => <Category key={i + 1} category={cat} setCategories={setCategories} />)} */}
+      {categories.length === 1 && <img src={EmptyCategory} />}
+      {categories.length > 1 && <CategoriesFilters categories={categories} setCategories={setCategories} />}
     </>
   )
 }

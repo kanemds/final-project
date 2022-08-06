@@ -3,15 +3,17 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Link from '@mui/material/Link';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { pink } from '@mui/material/colors';
 import { blue } from '@mui/material/colors';
 import axios from 'axios';
 
 // const VISIBLE_FIELDS = ['order', 'quesiton', 'category', 'points', 'created'];
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import { api_base } from 'config'
 
 export default function CategoriesFilters({categories, setCategories}) {
+  const [questionsFilterState, setQuestionsFilterState] = useOutletContext();
   let {id} = useParams();
   const navigate = useNavigate();
   const remove = async (catRow) => {
@@ -34,6 +36,28 @@ export default function CategoriesFilters({categories, setCategories}) {
   const columns = [
     {field: 'name', headerName: 'Name', flex: 3},
     {field: 'questions', headerName: 'Questions', flex: 1},
+    {field: 'viewQuestions', headerName: 'View Questions', flex: 1, renderCell: (rowData) => {
+      const quesRow = rowData.row;
+      console.log(quesRow.name, 'herererer')
+      return <RemoveRedEyeIcon fontSize="large" sx={{ color: pink[500] }}
+      onClick={() => {
+        setQuestionsFilterState(_prev => {
+          return {
+            filterModel: {
+              items: [
+                {
+                  columnField: 'category',
+                  operatorValue: 'contains',
+                  value: quesRow.name
+                }
+              ],
+              linkOperator: "and"
+            }
+          };
+        })
+        navigate(`/exams/${id}/questions`)
+      }} />
+      }},
     {field: 'edit', headerName: 'Edit', flex: 1, renderCell: (rowData) => {
       const catRow = rowData.row;
       if (catRow.name !== 'No Category Assigned') {
@@ -55,6 +79,7 @@ export default function CategoriesFilters({categories, setCategories}) {
       id: cat._id,
       name: cat.content,
       questions: cat.questions.length,
+      view: '',
       edit: '',
       delete: '',
       created: cat.created
