@@ -27,7 +27,8 @@ router.post('/new', async (req, res) => {
     points: req.body.points,
     answers: req.body.answers,
     correctAnswer: req.body.correctAnswer,
-    category: req.body.category
+    category: req.body.category,
+    used: req.body.used
   })
   const questionDoc = await question.save();
   res.send(questionDoc);
@@ -42,13 +43,13 @@ router.post('/delete', async (req, res) => {
   res.send(doc);
 })
 
-router.post('/:questionId/markDelete', async (req, res) => {
+router.post('/:questionId/used', async (req, res) => {
   const doc = await Question.findOneAndUpdate(
     {
       _id: req.params.questionId
     },
     {
-      deleted: true
+      used: req.body.used
     }
   );
   res.send(doc);

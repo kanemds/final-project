@@ -13,6 +13,7 @@ import { api_base } from 'config'
 import Answer from './Answer';
 import AllAbove from './AllAbove';
 import IncludeinCat from './IncludeinCat';
+import Used from './Used';
 
 
 const QuestionForm = () => {
@@ -25,6 +26,7 @@ const QuestionForm = () => {
   const [checkedCat, setCheckedCat] = useState(false);
   const [catSelected, setCatSelected] = React.useState("");
   const [catsOptions, setCatsOptions] = useState([]);
+  const [usedState, setUsedState] = useState(true);
   let navigate = useNavigate();
   const {id, questionOrder} = useParams();
 	useEffect(() => {
@@ -54,9 +56,9 @@ const QuestionForm = () => {
     if (checkedCat && catSelected) {
       categoryId = catSelected;
     }
-    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, points ,answers: ansArr, correctAnswer: corAns, category: categoryId});
-    const one = await axios.post(`${api_base}/categories/question/push`, {categoryId, questionId: questionData.data._id});
-    const two = await axios.post(`${api_base}/exams/${id}/question/push`, {question: questionData.data});
+    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, points ,answers: ansArr, correctAnswer: corAns, category: categoryId, used: usedState});
+    await axios.post(`${api_base}/categories/question/push`, {categoryId, questionId: questionData.data._id});
+    await axios.post(`${api_base}/exams/${id}/question/push`, {question: questionData.data});
     navigate(`/exams/${id}/questions/${questionData.data._id}/${questionOrder}`);
   };
   return (
@@ -107,6 +109,7 @@ const QuestionForm = () => {
         }} disabled={answers.length >= 6}>Add Choice</Button>
         <AllAbove letter={letters[answers.length - 1]} checkedAllAbove={checkedAllAbove} setCheckedAllAbove={setCheckedAllAbove} aboveSelected={aboveSelected} setAboveSelected={setAboveSelected} setAnswers={setAnswers} />
         <IncludeinCat catsOptions={catsOptions} setCatsOptions={setCatsOptions} checkedCat={checkedCat} setCheckedCat={setCheckedCat} catSelected={catSelected} setCatSelected={setCatSelected} />
+        <Used used={usedState} setUsed={setUsedState} />
         <Button component={Link} to={cancelLink}>Cancel</Button>
          <Button onClick={async () => await save()}>
           Save

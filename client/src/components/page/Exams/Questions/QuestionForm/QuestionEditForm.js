@@ -13,6 +13,7 @@ import { api_base } from 'config'
 import Answer from './Answer';
 import AllAbove from './AllAbove';
 import IncludeinCat from './IncludeinCat';
+import Used from './Used';
 
 const QuestionEditForm = () => {
   const [oldQuestion, setOldQuestion] = useState({});
@@ -20,11 +21,12 @@ const QuestionEditForm = () => {
   const [question, setQuestion] = React.useState("");
   const [points, setPoints] = useState("");
   const [answers, setAnswers] = React.useState([]);
-  const [checkedAllAbove, setCheckedAllAbove] = useState(false);
-  const [aboveSelected, setAboveSelected] = React.useState("All of the Above");
-  const [checkedCat, setCheckedCat] = useState(false);
+  const [checkedAllAbove, setCheckedAllAbove] = useState('');
+  const [aboveSelected, setAboveSelected] = React.useState("");
+  const [checkedCat, setCheckedCat] = useState('');
   const [catSelected, setCatSelected] = React.useState("");
   const [catsOptions, setCatsOptions] = useState([]);
+  const [usedState, setUsedState] = useState('');
   let navigate = useNavigate();
   const {id, categoryId, questionId, questionOrder} = useParams();
   let correctAnswerPos;
@@ -55,6 +57,7 @@ const QuestionEditForm = () => {
         setCheckedCat(_prev => true);
         setCatSelected(_prev => currentQuestion.catId);
       }
+      setUsedState(_prev => currentQuestion.used);
     }
     getQuestion();
   }, []);
@@ -77,7 +80,7 @@ const QuestionEditForm = () => {
     if (checkedCat && catSelected) {
       catId = catSelected;
     }
-    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, points, answers: ansArr, correctAnswer: corAns, category: catId});
+    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, points, answers: ansArr, correctAnswer: corAns, category: catId, used: usedState});
     await axios.post(`${api_base}/categories/question/push`, {categoryId: catId, questionId: questionData.data._id});
     await axios.post(`${api_base}/exams/${id}/question/push`, {question: questionData.data});
 
@@ -141,6 +144,7 @@ const QuestionEditForm = () => {
         }} disabled={answers.length >= 6}>Add Choice</Button>
         <AllAbove letter={letters[answers.length - 1]} checkedAllAbove={checkedAllAbove} setCheckedAllAbove={setCheckedAllAbove} aboveSelected={aboveSelected} setAboveSelected={setAboveSelected} setAnswers={setAnswers} />
         <IncludeinCat catsOptions={catsOptions} setCatsOptions={setCatsOptions} checkedCat={checkedCat} setCheckedCat={setCheckedCat} catSelected={catSelected} setCatSelected={setCatSelected} />
+        <Used used={usedState} setUsed={setUsedState} />
         <Button component={Link} to={`/exams/${id}/questions/${oldQuestion._id}/${questionOrder}`}>Cancel</Button>
         <Button onClick={async () => await save()}>
           Update

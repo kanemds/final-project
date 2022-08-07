@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";

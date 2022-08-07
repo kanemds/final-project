@@ -25,6 +25,10 @@ const QuestionScheama =  new mongoose.Schema({
     ref: "Category",
     required: true
   },
+  used:{
+    type: Boolean,
+    default: true
+  },
   created:{
     type: Date,
     default: Date.now
