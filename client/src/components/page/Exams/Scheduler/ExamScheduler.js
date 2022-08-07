@@ -14,6 +14,8 @@ const ExamScheduler = () => {
   return (
     <div>
         Exam Scheduler
+        // add # questions from category
+        // delete # questions from category
 	</div>
   )
 }

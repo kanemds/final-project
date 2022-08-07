@@ -18,7 +18,6 @@ const ExamCategories = () => {
     const getCategories = async () => {
       const cats = await axios.get(`${api_base}/categories/${id}`);
       setCategories(_prev => cats.data.categories);
-      console.log(categories, 'categories')
     }
     getCategories();
   }, []);

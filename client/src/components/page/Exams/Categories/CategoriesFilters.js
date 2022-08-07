@@ -36,9 +36,9 @@ export default function CategoriesFilters({categories, setCategories}) {
   const columns = [
     {field: 'name', headerName: 'Name', flex: 3},
     {field: 'questions', headerName: 'Questions', flex: 1},
+    {field: 'used', headerName: 'Using', flex: 1},
     {field: 'viewQuestions', headerName: 'View Questions', flex: 1, renderCell: (rowData) => {
       const quesRow = rowData.row;
-      console.log(quesRow.name, 'herererer')
       return <RemoveRedEyeIcon fontSize="large" sx={{ color: pink[500] }}
       onClick={() => {
         setQuestionsFilterState(_prev => {
@@ -75,10 +75,20 @@ export default function CategoriesFilters({categories, setCategories}) {
     {field: 'created', headerName: 'Created', flex: 2.5}
   ];
   const rows = categories.map(cat => {
+    const used = (questions) => {
+      let res = 0;
+      questions.forEach(ques => {
+        if (ques.used) {
+          res++;
+        }
+      });
+      return res;
+    };
     return {
       id: cat._id,
       name: cat.content,
       questions: cat.questions.length,
+      used: used(cat.questions),
       view: '',
       edit: '',
       delete: '',

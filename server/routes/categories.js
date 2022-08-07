@@ -90,7 +90,17 @@ router.get('/:id', (req, res) => {
         from: "categories",
         localField: "categories",
         foreignField: "_id",
-        as: "categories"
+        as: "categories",
+        pipeline: [
+          {
+            $lookup: {
+              from: "questions",
+              localField: "questions",
+              foreignField: "_id",
+              as: "questions"
+            }
+          }
+        ]
       }
     }
   ]).exec().then((result) => {
