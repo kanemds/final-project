@@ -12,14 +12,13 @@ import EmptyQuestion from '../img/EmptyQuestion.jpg';
 import axios from 'axios';
 
 import { api_base } from 'config';
-// import ExamQuestion from './ExamQuestion';
 import BasicModal from './ModalAddQuestion';
 import QuestionsFilters from './QuestionsFilters';
 
 const ExamQuestions = () => {
   let {id} = useParams();
   const [questions, setQuestions] = useState([]);
-  const [questionsFilterState, setQuestionsFilterState] = useOutletContext();
+  const {questionsFilterState} = useOutletContext();
   useEffect(() => {
     const getQuestions = async () => {
       const questionsData = await axios.get(`${api_base}/questions/exams/${id}`);

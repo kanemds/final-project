@@ -26,8 +26,11 @@ const ExamHeader = () => {
           navigate(`/exams/${id}/properties`);
         }}>Properties</Button>
         <Button onClick={() => {
-          navigate(`/exams/${id}/scheduler`);
-        }}>Scheduler</Button>
+          navigate(`/exams/${id}/matrix`);
+        }}>Matrix</Button>
+        <Button onClick={() => {
+          navigate(`/exams/${id}/activation`);
+        }}>Activation</Button>
       </ButtonGroup>
 	</>
   )

@@ -8,12 +8,11 @@ import { pink } from '@mui/material/colors';
 import { blue } from '@mui/material/colors';
 import axios from 'axios';
 
-// const VISIBLE_FIELDS = ['order', 'quesiton', 'category', 'points', 'created'];
 import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import { api_base } from 'config'
 
 export default function CategoriesFilters({categories, setCategories}) {
-  const [questionsFilterState, setQuestionsFilterState] = useOutletContext();
+  const {setQuestionsFilterState} = useOutletContext();
   let {id} = useParams();
   const navigate = useNavigate();
   const remove = async (catRow) => {

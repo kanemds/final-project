@@ -6,10 +6,9 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import BasicModal from './ModalAddCategory';
-import EmptyCategory from '../img/EmptyCategory.jpg';
-
-import { api_base } from 'config'
 import CategoriesFilters from './CategoriesFilters';
+import EmptyCategory from '../img/EmptyCategory.jpg';
+import { api_base } from 'config'
 
 const ExamCategories = () => {
   const {id} = useParams();

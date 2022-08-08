@@ -17,6 +17,16 @@ const ExamScheama = new mongoose.Schema({
   failFeedback: {
     type:String
   },
+  activate: {
+    type:Boolean,
+    default: false
+  },
+  activateQuestionsArray: [
+    {
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"Question"
+    }
+  ],
   questions:[
     {
       type:mongoose.Schema.Types.ObjectId,

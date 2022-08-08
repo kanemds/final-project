@@ -154,4 +154,25 @@ router.get('/:categoryId/:questionId', (req, res) => {
   })
 })
 
+router.get('/exams/:examId/used', (req, res) => {
+  const doc = Exam.aggregate([
+    { $match: { _id: ObjectId(req.params.examId) }},
+    { $limit: 1 },
+    {
+      $lookup: {
+        from: "questions",
+        localField: "questions",
+        foreignField: "_id",
+        as: "questions",
+        pipeline: [
+          { $match: { used: true }}
+        ]
+      }
+    }
+  ]).exec().then((result) => {
+    const question = result.map(c => c.questions.map((ques => ({...ques, catId: c._id, catName: c.content})))).flat();
+    res.json(question);
+  })
+})
+
 module.exports = router

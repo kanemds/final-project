@@ -108,6 +108,40 @@ router.post('/:id/properties', (req, res) => {
   }).catch((err) => console.log(err))  
 })
 
+router.post('/:id/activate', (req, res) => {
+  Exam.findOneAndUpdate(
+    {
+      _id: req.params.id
+    }, 
+    { 
+      activate: req.body.activate
+    }, {
+      // return doc after update is applied
+      new: true,
+      upsert: true 
+    }
+  ).exec().then((data) => {
+    res.json(data)
+  }).catch((err) => console.log(err))  
+})
+
+router.post('/:id/activateQuestionsArray', (req, res) => {
+  Exam.findOneAndUpdate(
+    {
+      _id: req.params.id
+    }, 
+    { 
+      activateQuestionsArray: req.body.questions
+    }, {
+      // return doc after update is applied
+      new: true,
+      upsert: true 
+    }
+  ).exec().then((data) => {
+    res.json(data)
+  }).catch((err) => console.log(err))  
+})
+
 router.get('/', (req, res) => {
   Exam.find()
   .then(data => {

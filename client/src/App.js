@@ -15,13 +15,14 @@ import ExamQuestionsNew from "components/page/Exams/Questions/ExamQuestionsNew";
 import ExamCategories from "components/page/Exams/Categories/ExamCategories";
 import CategoryEdit from "components/page/Exams/Categories/CategoryEdit";
 import ExamProperties from "components/page/Exams/Porperties/ExamProperties";
-import ExamScheduler from "components/page/Exams/Scheduler/ExamScheduler";
+import ExamMatrix from "components/page/Exams/Matrix/ExamMatrix";
 import Root from "Root";
 import ExamContainer from "ExamContainer";
 import CheckoutSuccess from "components/page/account/billing/CheckoutSuccess";
 import NotFound from "components/NotFound";
 import QuestionOperations from "components/page/Exams/Questions/QuestionOperations/QuestionOperations";
 import QuestionEdit from "components/page/Exams/Questions/QuestionOperations/QuestionEdit";
+import ExamActivation from "components/page/Exams/Activation/ExamActivation";
 
 
 function App() {
@@ -40,7 +41,8 @@ function App() {
               <Route path="/exams/:id/categories" element={<ExamCategories />} />
               <Route path="/exams/:id/categories/:categoryId/edit" element={<CategoryEdit />} />
               <Route path="/exams/:id/properties" element={<ExamProperties />} />
-              <Route path="/exams/:id/scheduler" element={<ExamScheduler />} />
+              <Route path="/exams/:id/matrix" element={<ExamMatrix />} />
+              <Route path="/exams/:id/activation" element={<ExamActivation />} />
             </Route>
             <Route path="/students" element={<Students />} />
             <Route path="/groups" element={<Groups />} />
