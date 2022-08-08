@@ -50,6 +50,11 @@ router.post('/:questionId/used', async (req, res) => {
     },
     {
       used: req.body.used
+    },
+    {
+      // return doc after update is applied
+      new: true,
+      upsert: true 
     }
   );
   res.send(doc);

@@ -72,8 +72,9 @@ router.post('/:id/question/push', (req, res) => {
   }).catch((err) => console.log(err))  
 })
 
+// bugs
 router.post('/:id/deleteQuestion', async (req, res) => {
-  const doc = await Category.findOneAndUpdate(
+  const doc = await Exam.findOneAndUpdate(
     { _id: req.params.id }, 
     {
       $pull: { questions: req.body.questionId }
