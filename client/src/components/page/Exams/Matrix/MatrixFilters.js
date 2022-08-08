@@ -22,7 +22,7 @@ const MatrixFilters = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const getCategories = async () => {
-      const examData = await axios.get(`${api_base}/categories/${id}`);
+      const examData = await axios.get(`${api_base}/exams/${id}/categories`);
       const examCategories = examData.data.categories;
       setCategories(_prev => examCategories);
       const rows = [];

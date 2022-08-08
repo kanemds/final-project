@@ -15,7 +15,7 @@ const ExamCategories = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const getCategories = async () => {
-      const cats = await axios.get(`${api_base}/categories/${id}`);
+      const cats = await axios.get(`${api_base}/exams/${id}/categories`);
       setCategories(_prev => cats.data.categories);
     }
     getCategories();

@@ -50,7 +50,7 @@ router.post('/question/push', async (req, res) => {
   res.send(doc);
 })
 
-router.post('/category/:categoryId', async (req, res) => {
+router.post('/:categoryId', async (req, res) => {
   const doc = await Category.findOneAndUpdate(
     {
       _id: req.params.categoryId
@@ -66,7 +66,7 @@ router.post('/category/:categoryId', async (req, res) => {
   res.send(doc);
 })
 
-router.post('/category/:categoryId/delete', async (req, res) => {
+router.post('/:categoryId/delete', async (req, res) => {
   const doc = await Category.findOneAndDelete(
     {
       _id: req.params.categoryId
@@ -76,35 +76,37 @@ router.post('/category/:categoryId/delete', async (req, res) => {
   res.send(doc);
 })
 
-router.get('/category/:categoryId', async (req, res) => {
+router.get('/:categoryId', async (req, res) => {
   const doc = await Category.findById(req.params.categoryId);
   res.send(doc);
 })
 
-router.get('/:id', (req, res) => {
-  const doc = Exam.aggregate([
-    { $match: { _id: ObjectId(req.params.id) }},
+router.get('/:categoryId/questions/:questionId', (req, res) => {
+  const doc = Category.aggregate([
+    { $match: { _id: ObjectId(req.params.categoryId) }},
     { $limit: 1 },
     {
       $lookup: {
-        from: "categories",
-        localField: "categories",
+        from: "questions",
+        localField: "questions",
         foreignField: "_id",
-        as: "categories",
+        as: "questions",
         pipeline: [
+          { $match: { _id: ObjectId(req.params.questionId) }},
           {
             $lookup: {
-              from: "questions",
-              localField: "questions",
+              from: "answers",
+              localField: "answers",
               foreignField: "_id",
-              as: "questions"
+              as: "answers"
             }
           }
         ]
       }
     }
   ]).exec().then((result) => {
-    res.send(result[0]);
+    const question = result.map(c => c.questions.map((ques => ({...ques, catId: c._id, catName: c.content})))).flat();
+    res.json(question);
   })
 })
 

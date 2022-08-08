@@ -21,7 +21,7 @@ const ExamQuestions = () => {
   const {questionsFilterState} = useOutletContext();
   useEffect(() => {
     const getQuestions = async () => {
-      const questionsData = await axios.get(`${api_base}/questions/exams/${id}`);
+      const questionsData = await axios.get(`${api_base}/exams/${id}/questions`);
       setQuestions(_prev => questionsData.data);
     }
     getQuestions();

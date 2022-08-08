@@ -16,13 +16,13 @@ const CategoryEdit = () => {
   const {id, categoryId } = useParams();
 	useEffect(() => {
     const getCategory = async () => {
-      const categoryData = await axios.get(`${api_base}/categories/category/${categoryId}`);
+      const categoryData = await axios.get(`${api_base}/categories/${categoryId}`);
       setCategory(_prev => categoryData.data);
     }
     getCategory();
   }, []);
   const save = async () => {
-    await axios.post(`${api_base}/categories/category/${categoryId}`, {content: category.content});
+    await axios.post(`${api_base}/categories/${categoryId}`, {content: category.content});
     navigate(`/exams/${id}/categories`);
   };
   return (

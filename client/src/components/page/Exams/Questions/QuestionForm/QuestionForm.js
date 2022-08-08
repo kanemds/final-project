@@ -67,7 +67,7 @@ const QuestionForm = () => {
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					Points
 				</Typography>
-				<TextField type="number" inputProps={{ inputmode: 'numeric', min: 0 }} value={points} 
+				<TextField type="number" inputProps={{ inputMode: 'numeric', min: 0 }} value={points} 
 					onChange={(event) => setPoints(_prev => {
 						const val = event.target.value;				
 						const points = val === "" ? val : Number(val);

@@ -179,4 +179,122 @@ router.get('/:id', (req, res) => {
   })
 })
 
+router.get('/:id/questions', async (req, res) => {
+  const questionsData = await Exam.aggregate([
+    { $match: { _id: ObjectId(req.params.id) }},
+    { $limit: 1 },
+    {
+      $lookup: {
+        from: "questions",
+        localField: "questions",
+        foreignField: "_id",
+        as: "questions",
+        pipeline: [
+          {
+            $lookup: {
+              from: "answers",
+              localField: "answers",
+              foreignField: "_id",
+              as: "answers"
+            }
+          }
+        ]
+      }
+    }
+  ]);
+  const questions = [];
+  for (const ques of questionsData[0].questions) {
+    const catId = ques.category;
+    questions.push({...ques, category: await Category.findById(catId)});
+  }
+  res.send(questions);
+})
+
+router.get('/:id/categories', (req, res) => {
+  const doc = Exam.aggregate([
+    { $match: { _id: ObjectId(req.params.id) }},
+    { $limit: 1 },
+    {
+      $lookup: {
+        from: "categories",
+        localField: "categories",
+        foreignField: "_id",
+        as: "categories",
+        pipeline: [
+          {
+            $lookup: {
+              from: "questions",
+              localField: "questions",
+              foreignField: "_id",
+              as: "questions"
+            }
+          }
+        ]
+      }
+    }
+  ]).exec().then((result) => {
+    res.send(result[0]);
+  })
+})
+
+router.get('/:examId/questions/used', (req, res) => {
+  const doc = Exam.aggregate([
+    { $match: { _id: ObjectId(req.params.examId) }},
+    { $limit: 1 },
+    {
+      $lookup: {
+        from: "questions",
+        localField: "questions",
+        foreignField: "_id",
+        as: "questions",
+        pipeline: [
+          { $match: { used: true }}
+        ]
+      }
+    }
+  ]).exec().then((result) => {
+    const question = result.map(c => c.questions.map((ques => ({...ques, catId: c._id, catName: c.content})))).flat();
+    res.json(question);
+  })
+})
+
 module.exports = router
+
+// router.get('/exams/:id', (req, res) => {
+//   const doc = Exam.aggregate([
+//     { $match: { _id: ObjectId(req.params.id) }},
+//     { $limit: 1 },
+//     {
+//       $lookup: {
+//         from: "categories",
+//         localField: "categories",
+//         foreignField: "_id",
+//         as: "categories",
+//         pipeline: [
+//           {
+//             $lookup: {
+//               from: "questions",
+//               localField: "questions",
+//               foreignField: "_id",
+//               as: "questions",
+//               pipeline: [
+//                 {
+//                   $lookup: {
+//                     from: "answers",
+//                     localField: "answers",
+//                     foreignField: "_id",
+//                     as: "answers"
+//                   }
+//                 }
+//               ]
+//             }
+//           }
+//         ]
+//       }
+//     }
+//   ]).exec().then((result) => {
+//     const questions = result[0].categories.map(c => c.questions.map((ques => ({...ques, catId: c._id, catName: c.content})))).flat();
+//     // console.log(questions, 'questions#######')
+//     res.json(questions);
+//   })
+// })

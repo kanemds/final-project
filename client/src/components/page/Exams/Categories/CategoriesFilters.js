@@ -29,7 +29,7 @@ export default function CategoriesFilters({categories, setCategories}) {
       }
       return newPrev;
     });
-    await axios.post(`${api_base}/categories/category/${catRow.id}/delete`);
+    await axios.post(`${api_base}/categories/${catRow.id}/delete`);
     navigate(`/exams/${id}/categories`);
   };
   const columns = [

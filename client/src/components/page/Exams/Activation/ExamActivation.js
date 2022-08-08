@@ -21,7 +21,7 @@ const ExamActivation = () => {
 	const {activate, setActivate} = useOutletContext();
   useEffect(() => {
     const getQuestions = async () => {
-      const questionsData = await axios.get(`${api_base}/questions/exams/${id}/used`);
+      const questionsData = await axios.get(`${api_base}/exams/${id}/questions/used`);
       setQuestions(_prev => questionsData.data);
     }
     getQuestions();

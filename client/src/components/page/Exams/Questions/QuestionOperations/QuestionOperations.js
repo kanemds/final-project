@@ -18,7 +18,7 @@ const QuestionOperations = () => {
   const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
 	useEffect(() => {
     const getQuestion = async () => {
-      const questionsData = await axios.get(`${api_base}/questions/exams/${id}`);
+      const questionsData = await axios.get(`${api_base}/exams/${id}/questions`);
       const questions = questionsData.data;
       const currentState = {
         prev: questions[questionOrder - 2],

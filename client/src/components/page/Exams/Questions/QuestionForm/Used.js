@@ -5,10 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 
 import { api_base } from 'config'
-import BasicModal from './ModalAddCategory';
-import CategorySelect from './CategorySelect';
 
-const Used = ({used, setUsed}) => {
+
+const Used = ({usedState, setUsedState}) => {
 	// let {id} = useParams();
     return (
 			<div>
@@ -16,8 +15,8 @@ const Used = ({used, setUsed}) => {
           value="start"
           control={
 					<Switch
-						checked={used}
-						onChange={async() => setUsed(prev => prev ? false : true)}
+						checked={usedState}
+						onChange={() => setUsedState(prev => prev ? false : true)}
 						inputProps={{ 'aria-label': 'controlled' }}
 					/>}
           label='Use In Exam'

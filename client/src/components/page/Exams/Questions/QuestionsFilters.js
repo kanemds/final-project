@@ -46,6 +46,7 @@ export default function QuestionsFilters({questions, questionsFilterState}) {
       </Button>
       <div style={{ height: 400 }}>
         <DataGrid
+          disableSelectionOnClick
           checkboxSelection={checkboxSelection}
           selectionModel={selectionModel}
           onSelectionModelChange={async (ids) => {            
