@@ -20,19 +20,28 @@ router.post('/new', (req, res) => {
 )
 
 router.post('/:id/edit', (req, res) => {
+
+  const newDoc = req.body
+  for (let prop in newDoc) {
+    if (!newDoc[prop]) {
+      delete newDoc[prop];
+      //it will remove fields who are undefined or null 
+    }
+  }
+
+
   Course.findOneAndUpdate(
     {
       _id: req.params.id
     },
+
+    newDoc,
     {
-      $push: {
-        name: req.body.name
-      }
-    }, {
-    // return doc after update is applied
-    new: true,
-    upsert: true
-  }
+      // return doc after update is applied
+      new: true,
+      upsert: true
+    }
+
   ).exec().then((data) => {
     res.json(data)
   }).catch((err) => console.log(err))
@@ -80,28 +89,16 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   Course.find()
     .then(data => {
+
+      console.log(data)
+
+
       res.send(data);
     }).catch(error => {
       res.json(error);
     });
 })
 
-router.patch('/update/:id', async (req, res) => {
-  try {
-    const id = req.params.id;
-    const updatedData = req.body;
-    const options = { new: true };
-
-    const result = await Course.findByIdAndUpdate(
-      id, updatedData, options
-    )
-
-    res.send(result)
-  }
-  catch (error) {
-    res.status(400).json({ message: error.message })
-  }
-})
 
 
 

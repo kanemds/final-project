@@ -6,7 +6,7 @@ const Answer = require('../models/answer')
 
 
 router.get('/', (req, res) => {
-  Questioins.find()
+  Question.find()
     .then(data => {
       res.send(data);
     }).catch(error => {
@@ -26,8 +26,8 @@ router.post('/new', (req, res) => {
     correctAnswer: req.body.correctAnswer
   })
   question.save()
-  .then(q => res.json(q))
-  .catch(e => res.json(e))
+    .then(q => res.json(q))
+    .catch(e => res.json(e))
 
 })
 

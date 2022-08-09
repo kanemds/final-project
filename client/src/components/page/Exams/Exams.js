@@ -6,8 +6,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import React, { useState, useEffect } from 'react'
 import { shadows } from '@mui/system';
-
 import { styled } from "@mui/material/styles";
+
 
 import BasicModal from './ModalAddExam';
 import { Link } from 'react-router-dom'
@@ -21,11 +21,8 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import axios from 'axios';
 const Exams = () => {
 
-
   const { exams, removeExam } = useExams();
   const navigate = useNavigate()
-
-
 
   return (
     <>
@@ -53,7 +50,8 @@ const Exams = () => {
                 style={{
                   textDecoration: 'none',
                   color: "black",
-   fontWeight: 'bold'
+
+                  fontWeight: 'bold'
 
                 }}
               >
