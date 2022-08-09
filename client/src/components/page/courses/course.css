@@ -13,8 +13,7 @@
 .checkedBox .box {
   margin: 0;
   border: 2px solid black;
-  width: 500px;
-  height: 70vh;
+  width: 30%;
   display: flex;
   display: block;
 }
@@ -42,4 +41,22 @@
   border-top: 1px solid black;
   padding-top: 20px;
   padding-left: 10%;
+  max-height: 40px;
+}
+
+@media only screen and (max-width: 800px) and (min-width:375px) {
+  .checkedBox {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+    display: block;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

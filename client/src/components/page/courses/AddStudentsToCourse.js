@@ -146,8 +146,6 @@ const AddStudentsToCourse = () => {
           <h2 className='footer'>Total Students: {otherStudents.length}</h2>
         </div>
       </div>
-
-
     </>
   )
 }

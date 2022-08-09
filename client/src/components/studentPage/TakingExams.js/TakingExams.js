@@ -17,6 +17,7 @@ import { List } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import useScore from 'components/hooks/useScore';
 
+
 const TakingExams = () => {
   const navigate = useNavigate()
   const { userId } = useContext(LoginContext)
@@ -49,7 +50,8 @@ const TakingExams = () => {
         score: 0,
         answers: answers,
         student: userId,
-        exam: id
+        exam: id,
+        submitted: false
       })
     } else {
       editScore(currentScore._id,
@@ -84,52 +86,62 @@ const TakingExams = () => {
 
   return (
     <>
-
-      <Card sx={{ maxWidth: 500 }}>
-        <CardHeader
-          title={exam.name}
-        />
-
-        <CardContent >
-          <ListItem><AlarmIcon /></ListItem>
-          <ListItem>
-            {currentQuestion + 1}. {questions[currentQuestion].content}
-          </ListItem>
-          <Table>
-            {questions[currentQuestion].answers.map((answer, i) => (
-              <TableRow
-                key={answer._id}
-                selected={selected === answer._id || answers[currentQuestion] === answer._id}
-                onClick={() => { selectedHandle(answer._id, currentQuestion) }}
-              >
-                <TableCell>
-                  {`${tags[i]}. ${answer.content}`}
-                </TableCell>
-
-              </TableRow>
-            ))}
-          </Table>
-        </CardContent>
-
-
-        <Box
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center"
+        }}>
+        <Card
           sx={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            p: 1,
-            m: 1,
-            bgcolor: 'background.paper',
-            borderRadius: 1,
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            width: "800px",
+            mt: 28
           }}
         >
-          {currentQuestion <= 0 ? <Button variant="contained" disabled={true}>Previous</Button>
-            : (
-              <Button variant="contained" onClick={lastQuestion}>Previous</Button>
-            )
-          }
-          <Button variant="contained" onClick={nextQuestion}>{nextButtonText}</Button>
-        </Box>
-      </Card>
+
+          <CardContent >
+            <ListItem sx={{ fontSize: "50px" }}>{exam.name}</ListItem>
+            <ListItem><AlarmIcon /></ListItem>
+            <ListItem sx={{ fontSize: "30px" }} >
+              {currentQuestion + 1}. {questions[currentQuestion].content}
+            </ListItem>
+            <Table>
+              {questions[currentQuestion].answers.map((answer, i) => (
+                <TableRow
+                  key={answer._id}
+                  selected={selected === answer._id || answers[currentQuestion] === answer._id}
+                  onClick={() => { selectedHandle(answer._id, currentQuestion) }}
+                >
+                  <TableCell sx={{ fontSize: "20px" }} >
+                    {`${tags[i]}. ${answer.content}`}
+                  </TableCell>
+
+                </TableRow>
+              ))}
+            </Table>
+          </CardContent>
+
+
+          <Box
+            sx={{
+
+              p: 1,
+              m: 1,
+              bgcolor: 'background.paper',
+              borderRadius: 1,
+            }}
+          >
+            {currentQuestion <= 0 ? <Button variant="contained" disabled={true} >Previous</Button>
+              : (
+                <Button variant="contained" onClick={lastQuestion}>Previous</Button>
+              )
+            }
+            <Button variant="contained" onClick={nextQuestion} sx={{ ml: 3 }}>{nextButtonText}</Button>
+          </Box>
+        </Card>
+      </Box>
     </>
   )
 }

@@ -39,43 +39,37 @@ function Row({ item, exams }) {
     return currentExamIds.includes(item._id.toString())
   })
 
-  const getScore = () => {
-    const score = findExams.map(each => getScoreByExamId(each._id))
-    console.log(score)
-
-
-  }
-
-
-
-
-
-
-  console.log(findExams)
-  if (!exams || !getScore) {
+  if (!exams) {
     return ""
   }
 
-
-
-  const startExam = (courseId) => {
-
-
-    // create new score if last known score has passed submission time
-    // get all scores that has a created date
-    // if any score Created date is within last X minutes
-    // then the play button will reuse that "existing" score id
-
-
-
-    // then navigate to new exam
-    navigate(`/student/courses/${courseId}/exam`)
+  const startExam = (examId) => {
+    const score = getScoreByExamId(examId)
+    if (score) {
+      newScore({
+        score: 0,
+        submitted: false
+      }).then(navigate(`/student/courses/${examId}/exam`))
+    } else {
+      editScore(examId).then(navigate(`/student/courses/${examId}/exam`))
+    }
   }
+
+
+  // create new score if last known score has passed submission time
+  // get all scores that has a created date
+  // if any score Created date is within last X minutes
+  // then the play button will reuse that "existing" score id
+  // then navigate to new exam
+
+
+
+
 
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
+        <TableCell >
           <IconButton
             aria-label="expand row"
             size="small"
@@ -149,7 +143,11 @@ export default function CollapsibleTable() {
   const data = useCourses()
   // const { exams } = useExams()
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper}
+      sx={{
+        mt: 6
+      }}
+    >
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
