@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "components/page/home/Home";
@@ -17,15 +18,18 @@ import ExamContainer from "ExamContainer";
 import { UserList } from "components/page/students/components/userlist";
 import CheckoutSuccess from "components/page/account/billing/CheckoutSuccess";
 import NotFound from "components/NotFound";
+
 import AddStudent from "components/page/students/components/AddStudent";
 import Teacher from "components/page/home/teacher/Teacher";
 import StudentRoot from "components/studentPage/StudentRoot";
 import StudentHomePage from "components/studentPage/home/StudentHomePage";
 import ExamStudentPage from "components/studentPage/examsStudentPage/ExamStudentPage";
+
 import { useContext } from "react";
 import { LoginContext } from "Contexts/LoginContext";
 import { useState } from "react";
 import EditCourse from "components/page/courses/EditCourse";
+
 import CoursesContainer from "./components/page/courses/CoursesContainer"
 import AddExamsToCourse from "components/page/courses/AddExamsToCourse";
 import AddStudentsToCourse from "components/page/courses/AddStudentsToCourse";
@@ -33,12 +37,14 @@ import StudentExams from "./components/studentPage/examsStudentPage/StudentExams
 import TakingExams from "components/studentPage/TakingExams.js/TakingExams";
 import DoneExams from "components/studentPage/TakingExams.js/DoneExams";
 
+
 function App() {
 
   const clients = useContext(LoginContext)
   // const [userId, setUserId] = useState("")
 
   return (
+
 
     <Router>
       <Routes>
@@ -77,7 +83,23 @@ function App() {
             <Route path="/teacher/courses/:id/edit" element={<EditCourse />} />
             <Route path="/teacher/courses/:id/addexams" element={<AddExamsToCourse />} />
             <Route path="/teacher/courses/:id/addstudents" element={<AddStudentsToCourse />} />
+
+ 
           </Route>
+          <Route path="/teacher/students" element={<Students />} />
+          <Route path="/teacher/courses/:id/edit" element={<EditCourse />} />
+          <Route path="/teacher/courses" element={<Courses />} />
+          {/* <Route path="/reports" element={<Reports />} /> */}
+          <Route path="/teacher/account" element={<Account />} />
+          <Route path="/teacher/logout" element={<Logout />} />
+          <Route path="/teacher/account/billing" element={<Billing />} />
+          <Route
+            path="/teacher/checkout-success"
+            element={<CheckoutSuccess />}
+          />
+          <Route path="/teacher/home" element={<Teacher />} />
+        </Route>
+
 
           {/* <Route path="/reports" element={<Reports />} /> */}
           <Route path="/teacher/account" element={<Account />} />

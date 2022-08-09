@@ -1,6 +1,7 @@
 .title .name {
   display: flex;
   display: inline;
+
 }
 
 .checkedBox {
@@ -59,4 +60,5 @@
     justify-content: center;
     align-items: center;
   }
+
 }

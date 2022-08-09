@@ -8,6 +8,7 @@ function useTeacherCourses() {
   const { teacherId } = useContext(LoginContext)
 
   const fetchCourses = async () => {
+
     const url = `${api_base}/course`;
     const res = await fetch(url, {
       credentials: 'include'
@@ -16,6 +17,7 @@ function useTeacherCourses() {
   }
 
   useEffect(() => {
+
     fetchCourses()
   }, []);
 
@@ -29,15 +31,18 @@ function useTeacherCourses() {
     }
   }
 
+
   const removeCourse = async (id) => {
     try {
       await axios.delete(`${api_base}/course/${id}`, { withCredentials: true })
+
       console.log('Item successfully deleted.')
       await fetchCourses()
     } catch (error) {
       console.log(error)
     }
   }
+
 
   const editCourse = async (id, newDoc) => {
     try {
@@ -47,6 +52,7 @@ function useTeacherCourses() {
         { withCredentials: true }
       )
       console.log(newDoc, 'Item successfully edited.')
+
       await fetchCourses()
     } catch (error) {
       console.log(error)
@@ -66,6 +72,7 @@ function useTeacherCourses() {
   })
 
   return { data, removeCourse, addCourse, editCourse }
+
 }
 
 

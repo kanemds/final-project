@@ -20,6 +20,7 @@ router.post('/new', (req, res) => {
 )
 
 router.post('/:id/edit', (req, res) => {
+
   const newDoc = req.body
   for (let prop in newDoc) {
     if (!newDoc[prop]) {
@@ -28,16 +29,19 @@ router.post('/:id/edit', (req, res) => {
     }
   }
 
+
   Course.findOneAndUpdate(
     {
       _id: req.params.id
     },
+
     newDoc,
     {
       // return doc after update is applied
       new: true,
       upsert: true
     }
+
   ).exec().then((data) => {
     res.json(data)
   }).catch((err) => console.log(err))
@@ -85,12 +89,16 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   Course.find()
     .then(data => {
+
       console.log(data)
+
+
       res.send(data);
     }).catch(error => {
       res.json(error);
     });
 })
+
 
 
 
