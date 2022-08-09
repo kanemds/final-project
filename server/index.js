@@ -91,7 +91,6 @@ app.post("/teacher/login", async (req, res) => {
   res.json(teacher);
 });
 
-const routes = require("./routes/routes");
 app.use("/", routes);
 
 app.use((req, res, next) => {
