@@ -14,9 +14,14 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import useAccount from "./useAccount";
 
+const removeUser = (id) => {
+  axios
+    .delete(`http://localhost:3001/account/account/${id}`)
+    .then(() => window.location.reload());
+};
+
 const Accounts = () => {
-  const { removeUser } = useContext(GlobalContext);
-  const { editUser } = useContext(GlobalContext);
+  // const { removeUser } = useContext(GlobalContext);
   const navigate = useNavigate();
   const account = useAccount();
   const BoxShadowDiv = styled("div")(

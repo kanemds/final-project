@@ -5,7 +5,7 @@ function useAccount(props) {
   console.log(account);
   useEffect(() => {
     const fetchaccount = async () => {
-      const url = `${api_base}/teacher/account/new`;
+      const url = `${api_base}/account`;
       const res = await fetch(url);
       setAccount(await res.json());
     };

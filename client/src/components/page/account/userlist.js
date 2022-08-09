@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
 import axios from "axios";
 import { api_base } from "config";
-import useStudent from "./useAccount";
+import useAccount from "./useAccount";
 
-const Students = () => {
-  const student = useStudent();
+const Accounts = () => {
+  const account = useAccount();
   return (
     <>
-      {student.map((item) => {
+      {account.map((item) => {
         return (
-          <div key={student._id}>
+          <div key={account._id}>
             <h1>
               {" "}
               {item.firstname}, {item.lastname}

@@ -5,6 +5,7 @@ const router = express.Router();
 
 const ObjectId = require("mongodb").ObjectId;
 
+// this route is working
 router.post("/new", (req, res) => {
   const student = new Student({
     firstname: req.body.firstname,

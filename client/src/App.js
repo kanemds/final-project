@@ -33,6 +33,7 @@ import EditCourse from "components/page/courses/EditCourse";
 import CoursesContainer from "./components/page/courses/CoursesContainer";
 import AddExamsToCourse from "components/page/courses/AddExamsToCourse";
 import AddStudentsToCourse from "components/page/courses/AddStudentsToCourse";
+import EditAccount from "components/page/account/editAccount";
 
 function App() {
   const clients = useContext(LoginContext);
@@ -89,6 +90,7 @@ function App() {
           {/* <Route path="/reports" element={<Reports />} /> */}
           <Route path="/teacher/account" element={<Account />} />
           <Route path="/teacher/account/new" element={<NewAccount />} />
+          <Route path="/teacher/account/edit" element={<EditAccount />} />
 
           <Route path="/teacher/logout" element={<Logout />} />
           <Route path="/teacher/account/billing" element={<Billing />} />

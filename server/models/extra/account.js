@@ -13,6 +13,9 @@ const accountsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  user: {
+    type: String,
+  },
   exam: [
     {
       type: mongoose.Schema.Types.ObjectId,

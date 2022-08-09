@@ -8,9 +8,9 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UserList } from "./userlist";
 import { api_base } from "config";
-import Student from "./Students";
+import Account from "./Account";
 import { Email } from "@mui/icons-material";
-import useStudent from "./useStudent";
+import useAccount from "./useAccount";
 
 const style = {
   position: "absolute",
@@ -74,17 +74,18 @@ export default function BasicModal() {
           ></textarea>
         </Typography>
         <Button
-          onClick={() =>
+          onClick={() => {
+            console.log("Abc");
             axios
-              .put(`${api_base}/teacher/account/${id}`, {
+              .put(`${api_base}/account/account/${id}`, {
                 firstname,
                 lastname,
                 email,
               })
               .then((response) => {
                 navigate(`/teacher/account`);
-              })
-          }
+              });
+          }}
         >
           Edit account
         </Button>

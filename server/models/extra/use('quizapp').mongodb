@@ -1,0 +1,5 @@
+use('quizapp')
+
+db.accounts.insertOne(
+  { "firstname" : "Homer ", "lastname" : "Simpson", "email" : "MrPlow@gmail.com", "user" : "MrPlow","date" : new Date("2014-03-01")}
+);

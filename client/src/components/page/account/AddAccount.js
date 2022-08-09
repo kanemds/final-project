@@ -17,7 +17,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "background.paper",
+  bgcolor: "white",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
@@ -75,10 +75,11 @@ export default function BasicModal() {
         <Button
           onClick={() =>
             axios
-              .post(`${api_base}/account/new`, {
+              .post(`${api_base}/account/teacher/account/new`, {
                 firstname,
                 lastname,
                 email,
+                user,
               })
               .then((response) => {
                 navigate(`/teacher/account`);

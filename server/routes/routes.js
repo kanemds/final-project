@@ -17,7 +17,7 @@ router.use("/questions", questions);
 router.use("/exams", exams);
 router.use("/pools", pools);
 router.use("/answers", answers);
-router.use("/account", plan);
+// router.use("/account", plan);
 router.use("/stripe", stripe);
 router.use("/property", property);
 router.use("/feedback", feedback);

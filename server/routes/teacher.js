@@ -17,7 +17,7 @@ router.post("/new", (req, res) => {
       res.json(error);
     });
 });
-
+// this route is working
 router.put("/student/:id", (req, res) => {
   student
     .updateOne(
@@ -34,7 +34,7 @@ router.put("/student/:id", (req, res) => {
     })
     .catch((err) => console.log(err));
 });
-
+// route working well
 router.delete("/teacher/student/:id", (req, res) => {
   student
     .findOneAndDelete({

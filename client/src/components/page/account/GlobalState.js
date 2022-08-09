@@ -15,7 +15,7 @@ export const GlobalProvider = ({ children }) => {
 
   // Actions
   const removeUser = (id) => {
-    axios.delete(`teacher/account/${id}`).then(() => window.location.reload());
+    axios.delete(`/account/account/${id}`).then(() => window.location.reload());
 
     dispatch({
       type: "REMOVE_ACCOUNT",
@@ -31,7 +31,7 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const editUser = (id) => {
-    axios.put(`teacher/account/${id}`).then(() => window.location.reload());
+    axios.put(`/account/${id}`).then(() => window.location.reload());
 
     dispatch({
       type: "EDIT_USER",
