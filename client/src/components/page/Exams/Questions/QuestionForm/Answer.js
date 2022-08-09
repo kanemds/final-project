@@ -5,6 +5,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import { Button, Radio } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Answer = ({setSelected, selected, answerId, handleChange, answer, answers, setAnswers, checkedAllAbove, setCheckedAllAbove}) => {
   return (
@@ -32,7 +33,7 @@ const Answer = ({setSelected, selected, answerId, handleChange, answer, answers,
             name="radio-buttons"
             inputProps={{ "aria-label": "primary checkbox" }}
           />
-          <Button onClick={() => {
+          <DeleteIcon onClick={() => {
             if (checkedAllAbove && answerId === answers.length - 1) {
               setCheckedAllAbove(_prev => false);
             }
@@ -50,9 +51,7 @@ const Answer = ({setSelected, selected, answerId, handleChange, answer, answers,
             } else if (answerId < selected) {
               setSelected(prev => prev - 1);
             }
-          }}>
-            <span className="iconify" data-icon="mdi:trash-can-outline" data-width="25"></span>
-          </Button>
+          }} />
         </ListItem>
       </List>
     </>

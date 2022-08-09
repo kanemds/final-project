@@ -16,7 +16,8 @@ export default function CategoriesFilters({categories, setCategories}) {
   let {id} = useParams();
   const navigate = useNavigate();
   const remove = async (catRow) => {
-    if (Number(catRow.question) > 0) {
+    console.log(catRow, 'catRowhererererere')
+    if (Number(catRow.questions) > 0) {
       alert('move questions to another category');
       return;
     }

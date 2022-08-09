@@ -33,7 +33,6 @@ const QuestionEditForm = () => {
 	useEffect(() => {
     const getQuestion = async () => {
       const cats = await axios.get(`${api_base}/exams/${id}/categories`);
-      console.log(cats.data.categories, 'hererere')
       setCatsOptions(_prev => cats.data.categories);
       const questionData = await axios.get(`${api_base}/categories/${categoryId}/questions/${questionId}`);
       const currentQuestion = questionData.data[0];
@@ -52,6 +51,8 @@ const QuestionEditForm = () => {
       if (lastAnswerContent === 'All of the Above' || lastAnswerContent === 'None of the Above') {
         setCheckedAllAbove(_prev => true);
         setAboveSelected(_prev => lastAnswerContent);
+      } else {
+        setAboveSelected(_prev => 'All of the Above');
       }
       const categoryContent = currentQuestion.catName;
       if (categoryContent !== 'No Category Assigned') {
@@ -81,16 +82,13 @@ const QuestionEditForm = () => {
     if (checkedCat && catSelected) {
       catId = catSelected;
     }
-    const questionData = await axios.post(`${api_base}/questions/new`, {content: question, points, answers: ansArr, correctAnswer: corAns, category: catId, used: usedState});
-    await axios.post(`${api_base}/categories/question/push`, {categoryId: catId, questionId: questionData.data._id});
-    await axios.post(`${api_base}/exams/${id}/question/push`, {question: questionData.data});
-
-    // saving new question records done
-    // delete old question records starts: delete starts after saving so that if saving fails, we can go back to the old question
-
-    await axios.post(`${api_base}/exams/${id}/deleteQuestion`, {questionId: oldQuestion._id});
-    await axios.post(`${api_base}/categories/deleteQuestion`, {categoryId: oldQuestion.catId, questionId: oldQuestion._id});
-    await axios.post(`${api_base}/questions/delete`, {questionId: oldQuestion._id});
+    const questionData = await axios.post(`${api_base}/questions/${oldQuestion._id}/edit`, {content: question, points, answers: ansArr, correctAnswer: corAns, category: catId, used: usedState});
+    if (oldQuestion.catId !== catId) {
+      // remove from old category
+      await axios.post(`${api_base}/categories/deleteQuestion`, {categoryId: oldQuestion.catId, questionId: oldQuestion._id});
+      // add into new category
+      await axios.post(`${api_base}/categories/question/push`, {categoryId: catId, questionId: questionData.data._id});
+    }
     for (const answer of oldQuestion.answers) {
       await axios.post(`${api_base}/answers/delete`, {answerId: answer._id});
     }
@@ -122,6 +120,9 @@ const QuestionEditForm = () => {
           fullWidth
         />
         {answers.map((answer, index) => {
+          if (index === answers.length - 1 && checkedAllAbove) {
+            answer = aboveSelected;
+          }
           return (
             <div key={index + 1} style={{display: "flex", flexDirection: "row"}}>
               <h4>{letters[index]}</h4>

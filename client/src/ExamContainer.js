@@ -10,19 +10,22 @@ const ExamContainer = () => {
   const {id} = useParams();
   const [questionsFilterState, setQuestionsFilterState] = useState({});
   const [activate, setActivate] = useState(false);
+  const [examName, setExamName] = useState('');
   useEffect(() => {
     const getExam = async () => {
       const examData = await axios.get(`${api_base}/exams/${id}`);
+      setExamName(_prev => examData.data.name);
       setActivate(_prev => examData.data.activate);
     }
     getExam();
   }, []);
   return (
     <>
-      <ExamHeader />
+      <ExamHeader examName={examName} />
       <Outlet context={{
         questionsFilterState, setQuestionsFilterState,
-        activate, setActivate
+        activate, setActivate,
+        setExamName
         }} />
     </>
   )

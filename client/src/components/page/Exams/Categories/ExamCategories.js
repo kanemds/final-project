@@ -23,8 +23,7 @@ const ExamCategories = () => {
   return (
     <>
       <BasicModal setCategories={setCategories}/>
-      {categories.length === 1 && <img src={EmptyCategory} />}
-      {categories.length > 1 && <CategoriesFilters categories={categories} setCategories={setCategories} />}
+      {categories.length > 0 && <CategoriesFilters categories={categories} setCategories={setCategories} />}
     </>
   )
 }

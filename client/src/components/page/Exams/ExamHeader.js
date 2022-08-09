@@ -9,12 +9,12 @@ import { useNavigate } from "react-router-dom";
 
 import { api_base } from 'config'
 
-const ExamHeader = () => {
+const ExamHeader = ({examName}) => {
     let navigate = useNavigate();
     const {id} = useParams();
   return (
     <>
-      <Typography variant="h4">Exam Id {id}</Typography>
+      <Typography variant="h4">{examName}</Typography>
       <ButtonGroup variant="contained" aria-label="outlined primary button group">
         <Button onClick={() => {
           navigate(`/exams/${id}/questions`);

@@ -19,10 +19,12 @@ const ExamQuestions = () => {
   let {id} = useParams();
   const [questions, setQuestions] = useState([]);
   const {questionsFilterState} = useOutletContext();
+  const [load, setLoad] = useState(true);
   useEffect(() => {
     const getQuestions = async () => {
       const questionsData = await axios.get(`${api_base}/exams/${id}/questions`);
       setQuestions(_prev => questionsData.data);
+      setLoad(_prev => false);
     }
     getQuestions();
   }, []);
@@ -30,9 +32,12 @@ const ExamQuestions = () => {
     <>
       <BasicModal questionOrder={questions.length + 1} />
       <Box>
-        {questions.length === 0 && <img src={EmptyQuestion} />}
+        {load && <h1>Loading</h1>}
       </Box>
-      {questions.length > 0 && <QuestionsFilters questions={questions} questionsFilterState={questionsFilterState} />}
+      <Box>
+        {!load && questions.length === 0 && <img src={EmptyQuestion} />}
+      </Box>
+      {!load && questions.length > 0 && <QuestionsFilters questions={questions} questionsFilterState={questionsFilterState} />}
     </>
   )
 }

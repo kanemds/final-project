@@ -24,7 +24,7 @@ const Information = ({info, setInfo}) => {
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					Passing Score
 				</Typography>
-				<TextField type="number" inputProps={{ inputmode: 'numeric', min: 0, max: 100}} value={info.passScore} 
+				<TextField type="number" inputProps={{ inputMode: 'numeric', min: 0, max: 100}} value={info.passScore} 
 					onChange={(event) => setInfo(prev => {
 						const val = event.target.value;				
 						const score = val === "" ? val : Number(val);

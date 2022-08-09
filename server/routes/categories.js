@@ -72,7 +72,6 @@ router.post('/:categoryId/delete', async (req, res) => {
       _id: req.params.categoryId
     }
   )
-  console.log(doc, 'herere')
   res.send(doc);
 })
 

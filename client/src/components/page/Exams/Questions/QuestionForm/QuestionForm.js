@@ -31,7 +31,7 @@ const QuestionForm = () => {
   const {id, questionOrder} = useParams();
 	useEffect(() => {
     const getCategories = async () => {
-      const cats = await axios.get(`${api_base}/categories/${id}`);
+      const cats = await axios.get(`${api_base}/exams/${id}/categories`);
       setCatsOptions(_prev => cats.data.categories);
     }
     getCategories();
@@ -109,7 +109,7 @@ const QuestionForm = () => {
         }} disabled={answers.length >= 6}>Add Choice</Button>
         <AllAbove letter={letters[answers.length - 1]} checkedAllAbove={checkedAllAbove} setCheckedAllAbove={setCheckedAllAbove} aboveSelected={aboveSelected} setAboveSelected={setAboveSelected} setAnswers={setAnswers} />
         <IncludeinCat catsOptions={catsOptions} setCatsOptions={setCatsOptions} checkedCat={checkedCat} setCheckedCat={setCheckedCat} catSelected={catSelected} setCatSelected={setCatSelected} />
-        <Used used={usedState} setUsed={setUsedState} />
+        <Used usedState={usedState} setUsedState={setUsedState} />
         <Button component={Link} to={cancelLink}>Cancel</Button>
          <Button onClick={async () => await save()}>
           Save

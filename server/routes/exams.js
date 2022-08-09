@@ -72,7 +72,6 @@ router.post('/:id/question/push', (req, res) => {
   }).catch((err) => console.log(err))  
 })
 
-// bugs
 router.post('/:id/deleteQuestion', async (req, res) => {
   const doc = await Exam.findOneAndUpdate(
     { _id: req.params.id }, 
@@ -174,6 +173,15 @@ router.get('/:id', (req, res) => {
         ]
       }
     }
+  ]).exec().then((result) => {
+    res.json(result[0])
+  })
+})
+
+router.get('/:id/properties', (req, res) => {
+  const doc = Exam.aggregate([
+    { $match: { _id: ObjectId(req.params.id) }},
+    { $limit: 1 }
   ]).exec().then((result) => {
     res.json(result[0])
   })

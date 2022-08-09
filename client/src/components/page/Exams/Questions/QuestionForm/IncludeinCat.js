@@ -5,10 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 
 import { api_base } from 'config'
-import BasicModal from './ModalAddCategory';
 import CategorySelect from './CategorySelect';
 
-const IncludeinCat = ({catsOptions, setCatsOptions, checkedCat, setCheckedCat, catSelected, setCatSelected}) => {
+const IncludeinCat = ({catsOptions, checkedCat, setCheckedCat, catSelected, setCatSelected}) => {
 	// let {id} = useParams();
     return (
 			<div>
@@ -23,15 +22,7 @@ const IncludeinCat = ({catsOptions, setCatsOptions, checkedCat, setCheckedCat, c
           label='Include This Question In A Category'
           labelPlacement="start"
         />
-				{checkedCat && catsOptions.length > 1 && 
-					<div>
-						<CategorySelect catSelected={catSelected} setCatSelected={setCatSelected} catsOptions={catsOptions} />
-						<div>
-							or
-						</div>
-					</div>	
-				}
-				{checkedCat && <BasicModal />}
+				{checkedCat && catsOptions.length > 1 && <CategorySelect catSelected={catSelected} setCatSelected={setCatSelected} catsOptions={catsOptions} />}
 			</div>
     );
 };

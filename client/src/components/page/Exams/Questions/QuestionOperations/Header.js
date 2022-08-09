@@ -29,9 +29,9 @@ const Header = ({questions}) => {
         <Button onClick={() => {
           navigate(`/exams/${id}/categories/${questions.current.category._id}/questions/${questions.current._id}/edit/${questionOrder}`);
         }}>Edit</Button>
-        <Button onClick={() => {
+        {/* <Button onClick={() => {
           // navigate(`/exams/${id}/categories`);
-        }}>Copy Question</Button>
+        }}>Copy Question</Button> */}
         <Button onClick={() => {
           navigate(`/exams/${id}/questions/new/${Number(questions.questionsCt) + 1}`);
         }}>Add Question</Button>
