@@ -20,7 +20,6 @@ const AddStudentsToCourse = () => {
   const { id } = useParams()
   const { students } = useContext(LoginContext)
   const { data, editCourse } = useTeacherCourses()
-  console.log(students)
   const selectedHandle = (e) => {
     const id = e.target.value
     const toggle = selected && selected[id] ? false : true
@@ -37,7 +36,6 @@ const AddStudentsToCourse = () => {
       return false
     }
     const currentStudentIds = currentCourse.students
-    console.log(currentStudentIds)
     return !currentStudentIds.includes(item._id)
   })
 

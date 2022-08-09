@@ -1,15 +1,24 @@
 const express = require('express')
 const router = express.Router()
-const Exams = require('../models/exams')
-const Question = require('../models/question')
 const Answer = require('../models/answer')
 
+router.get('/', (req, res) => {
+  Answer.find()
+    .then(data => {
+      res.send(data);
+    }).catch(error => {
+      res.json(error);
+    });
+})
+
+
+
 router.post('/new', (req, res) => {
-  const answer = new Answer ({
+  const answer = new Answer({
     content: req.body.content
   })
   answer.save()
-    .then(data => {      
+    .then(data => {
       res.json(data)
     })
     .catch(error => {

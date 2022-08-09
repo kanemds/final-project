@@ -20,11 +20,11 @@ export const StudentSidebarData = [
     icon: <CoursesIcon />,
     link: "/student/courses"
   },
-  {
-    title: "Exams",
-    icon: <QuizIcon />,
-    link: "/student/exams"
-  },
+  // {
+  //   title: "Exams",
+  //   icon: <QuizIcon />,
+  //   link: "/student/exams"
+  // },
   {
     title: "Account",
     icon: <AccountIcon />,

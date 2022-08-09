@@ -31,6 +31,8 @@ import CoursesContainer from "./components/page/courses/CoursesContainer"
 import AddExamsToCourse from "components/page/courses/AddExamsToCourse";
 import AddStudentsToCourse from "components/page/courses/AddStudentsToCourse";
 import StudentExams from "./components/studentPage/examsStudentPage/StudentExams"
+import TakingExams from "components/studentPage/TakingExams.js/TakingExams";
+import DoneExams from "components/studentPage/TakingExams.js/DoneExams";
 
 function App() {
 
@@ -94,9 +96,11 @@ function App() {
         <Route>
           <Route element={<StudentRoot />}>
             <Route path="/student/home" element={<StudentHomePage />} />
-            <Route path="/student/exams" element={<ExamStudentPage />} />
-            <Route path="/student/exams/t" element={<StudentExams />} />
-            <Route path="/student/courses" element={<StudentCourses />} />
+            {/* <Route path="/student/exams/comment out" element={<ExamStudentPage />} /> */}
+            <Route path="/student/courses" element={<StudentExams />} />
+            <Route path="/student/courses/:id/exam" element={<TakingExams />} />
+            <Route path="/student/courses/:id/exam/done" element={<DoneExams />} />
+            {/* <Route path="/student/courses/comment out" element={<StudentCourses />} /> */}
           </Route>
         </Route>
       </Routes>

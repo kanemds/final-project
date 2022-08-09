@@ -1,21 +1,21 @@
 const mongoose = require('mongoose')
 
-const QuestionScheama =  new mongoose.Schema({
-  content:{
+const QuestionScheama = new mongoose.Schema({
+  content: {
     type: String,
     required: true
   },
-  answers:[
+  answers: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Answer"
     }
   ],
-  correctAnswer:{
+  correctAnswer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Answer"
   },
-  created:{
+  created: {
     type: Date,
     default: Date.now
   }

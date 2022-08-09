@@ -16,7 +16,6 @@ function useTeacherCourses() {
   }
 
   useEffect(() => {
-    console.log("mounted")
     fetchCourses()
   }, []);
 

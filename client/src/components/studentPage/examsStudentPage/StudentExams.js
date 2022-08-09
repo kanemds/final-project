@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -15,29 +14,63 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import useCourses from '../StudentCourses/useCourse';
 import useExams from 'components/page/Exams/useExams';
+import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
+import { useNavigate } from 'react-router-dom';
+import { LoginContext } from 'Contexts/LoginContext';
+import { useContext } from 'react';
+import useScore from 'components/hooks/useScore';
+
+function Row({ item, exams }) {
+  const navigate = useNavigate()
+  const { newScore, editScore, scores, getScoreByExamId } = useScore()
 
 
-function Row({ item }) {
   const course = item
 
-  const { exams } = useExams()
   const [open, setOpen] = React.useState(false);
 
   const findExams = exams && exams.filter((item) => {
+
     if (!course) {
       return false
     }
+
     const currentExamIds = course.exams
     return currentExamIds.includes(item._id.toString())
   })
-  console.log(findExams)
-  // const findExams = exams.filter(item => item._id === course.exams.toString())
-  // console.log(findExams)
 
-  if (!exams) {
+  const getScore = () => {
+    const score = findExams.map(each => getScoreByExamId(each._id))
+    console.log(score)
+
+
+  }
+
+
+
+
+
+
+  console.log(findExams)
+  if (!exams || !getScore) {
     return ""
   }
 
+
+
+  const startExam = (courseId) => {
+
+
+    // create new score if last known score has passed submission time
+    // get all scores that has a created date
+    // if any score Created date is within last X minutes
+    // then the play button will reuse that "existing" score id
+
+
+
+    // then navigate to new exam
+    navigate(`/student/courses/${courseId}/exam`)
+  }
 
   return (
     <React.Fragment>
@@ -51,41 +84,53 @@ function Row({ item }) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {course.name}
+        <TableCell align="center" component="th" scope="row">
+          <h2>{course.name}</h2>
         </TableCell>
-        <TableCell align="right">{new Date(course.created).toLocaleDateString('en-US')}</TableCell>
+        <TableCell align="center"  ><h2>{new Date(course.created).toLocaleDateString('en-US')}</h2></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                Exams
+                <h2 >Exams</h2>
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Total Questions</TableCell>
-                    <TableCell>Time Limit</TableCell>
-                    <TableCell align="right">Time Attempt</TableCell>
-                    <TableCell align="right">Highest Score</TableCell>
+                  <TableRow >
+                    <TableCell ><h2>Name</h2></TableCell>
+                    <TableCell align="center"><h2>Total Questions</h2></TableCell>
+                    <TableCell align="center"><h2>Time Limit</h2></TableCell>
+                    <TableCell align="center"><h2>Time Attempt</h2></TableCell>
+                    <TableCell align="center"><h2>Highest Score</h2></TableCell>
+                    <TableCell align="center"><h2>Start Exams</h2></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {findExams.map(each => (
-                    <TableRow >
-                      <TableCell component="th" scope="row">
-                        {each.name}
-                      </TableCell>
-                      <TableCell>{each.questions.length}</TableCell>
-                      <TableCell align="right"></TableCell>
-                      <TableCell align="right">
-                        {/* {Math.round(historyRow.amount * row.price * 100) / 100} */}
-                      </TableCell>
 
+                    < TableRow key={each._id} >
+                      <TableCell component="th" scope="row">
+                        <h3>{each.name}</h3>
+                      </TableCell>
+                      <TableCell align="center"> <h3>{each.questions.length}</h3></TableCell>
+                      <TableCell align="center"><h3>1:30</h3></TableCell>
+                      <TableCell align="center"><h3>0/2</h3></TableCell>
+
+                      <TableCell align="center"><h3>%</h3></TableCell>
+
+                      <TableCell align="center"  >
+                        <PlayCircleOutlineOutlinedIcon
+                          sx={{
+                            fontSize: "40px",
+                            color: "Green"
+                          }}
+                          onClick={() => { startExam(each._id) }}
+                        />
+                      </TableCell>
                     </TableRow>
+
                   ))}
                 </TableBody>
               </Table>
@@ -93,28 +138,30 @@ function Row({ item }) {
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </React.Fragment >
   );
 }
 
 
 export default function CollapsibleTable() {
-  const data = useCourses()
 
+  const { exams } = useContext(LoginContext)
+  const data = useCourses()
+  // const { exams } = useExams()
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Course name</TableCell>
-            <TableCell align="right">Create Date</TableCell>
+            <TableCell align="center"><h1>Course name</h1></TableCell>
+            <TableCell align="center"><h1>Create Date</h1></TableCell>
 
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody >
           {data.map(item => (
-            <Row key={item._id} item={item} />
+            <Row key={item._id} item={item} exams={exams} />
           ))}
         </TableBody>
       </Table>

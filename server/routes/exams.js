@@ -10,6 +10,8 @@ const ObjectId = require("mongodb").ObjectId;
 router.post("/new", (req, res) => {
   const exam = new Exams({
     name: req.body.name,
+    attempt: req.body.attempt,
+    time: req.body.time
   });
   exam
     .save()

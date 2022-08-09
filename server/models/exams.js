@@ -1,18 +1,26 @@
 const mongoose = require('mongoose')
 
 const ExamScheama = new mongoose.Schema({
-  name:{
-    type:String,
-    required:true
+  name: {
+    type: String,
+    required: true
   },
-  questions:[
+  attempt: {
+    type: Number,
+    required: true
+  },
+  time: {
+    type: Number,
+    required: true
+  },
+  questions: [
     {
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"Question"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Question"
     }
   ],
-  created:{
-    type:Date,
+  created: {
+    type: Date,
     default: Date.now
   }
 })
