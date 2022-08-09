@@ -61,13 +61,13 @@ function useTeacherCourses() {
   const data =
     courses &&
     courses.filter((course) => {
-      const exist = course.teachers.find((id) => id === teacherId);
-      if (exist) {
-        return true;
-      }
-      return false;
+      return true;
+      // const exist = course.teachers.find((id) => id === teacherId);
+      // if (exist) {
+      //   return true;
+      // }
+      // return false;
     });
-
   return { data, removeCourse, addCourse, editCourse };
 }
 

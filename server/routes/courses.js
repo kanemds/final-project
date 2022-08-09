@@ -108,7 +108,7 @@ router.put("/teacher/courses/:id", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.get("/", (req, res) => {
+router.get("/teacher/course/:id", (req, res) => {
   Course.find()
     .then((data) => {
       res.send(data);

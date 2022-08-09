@@ -26,6 +26,7 @@ const Students = () => {
   const { data } = useTeacherCourses();
 
   const getCourseName = (currentCourseId) => {
+    console.log("???", data);
     let currentCourseName = "";
     if (currentCourseId) {
       // if there is a course id then we'll loop through the data to get the course name using courseId
