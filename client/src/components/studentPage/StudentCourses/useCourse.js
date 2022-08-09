@@ -18,7 +18,6 @@ function useCourses(props) {
       setCourses(await res.json());
     }
     fetchCourses();
-
   }, []);
 
   if (courses === null) {
@@ -26,7 +25,6 @@ function useCourses(props) {
   }
 
   const data = courses && courses.filter((course) => {
-
     const exist = course.students.find((id) => id === userId)
 
     if (exist) {

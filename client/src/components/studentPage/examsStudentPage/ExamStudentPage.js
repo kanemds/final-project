@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import StudentExams from './StudentExams'
-
 import { LoginContext } from 'Contexts/LoginContext'
 import useCourses from '../StudentCourses/useCourse'
 import Card from '@mui/material/Card';
@@ -74,7 +73,6 @@ const ExamStudentPage = () => {
         ))
 
       }
-
     </>
   )
 

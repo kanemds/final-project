@@ -15,14 +15,12 @@ export const SidebarData = [
 
     link: "/teacher/home",
 
-
   },
   {
     title: "Courses",
     icon: <CoursesIcon />,
 
     link: "/teacher/courses",
-
 
   },
   {

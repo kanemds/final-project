@@ -4,7 +4,8 @@ import "./App.css";
 import Home from "components/page/home/Home";
 import Exams from "components/page/Exams/Exams";
 import Students from "components/page/students/components/Students";
-import Courses from "components/page/courses/TeacherCourses"
+import Courses from "components/page/courses/TeacherCourses";
+import NewAccount from "components/page/account/AddAccount";
 import Account from "components/page/account/Account";
 import Logout from "components/page/Logout";
 import Billing from "components/page/account/billing/Billing";
@@ -22,6 +23,19 @@ import NotFound from "components/NotFound";
 import AddStudent from "components/page/students/components/AddStudent";
 import Teacher from "components/page/home/teacher/Teacher";
 import StudentRoot from "components/studentPage/StudentRoot";
+import EditStudent from "components/page/students/components/EditStudent";
+import StudentHomePage from "components/studentPage/home/StudentHomePage";
+import ExamStudentPage from "components/studentPage/examsStudentPage/ExamStudentPage";
+import StudentCourses from "components/studentPage/StudentCourses/StudentCourses";
+import { useContext } from "react";
+import { LoginContext } from "Contexts/LoginContext";
+import { useState } from "react";
+import useTeacherCourses from "components/page/courses/useTeacherCourses";
+import EditCourse from "components/page/courses/EditCourse";
+import CoursesContainer from "./components/page/courses/CoursesContainer";
+import AddExamsToCourse from "components/page/courses/AddExamsToCourse";
+import AddStudentsToCourse from "components/page/courses/AddStudentsToCourse";
+import EditAccount from "components/page/account/editAccount";
 import StudentHomePage from "components/studentPage/home/StudentHomePage";
 import ExamStudentPage from "components/studentPage/examsStudentPage/ExamStudentPage";
 
@@ -29,19 +43,18 @@ import { useContext } from "react";
 import { LoginContext } from "Contexts/LoginContext";
 import { useState } from "react";
 import EditCourse from "components/page/courses/EditCourse";
-
-import CoursesContainer from "./components/page/courses/CoursesContainer"
-import AddExamsToCourse from "components/page/courses/AddExamsToCourse";
-import AddStudentsToCourse from "components/page/courses/AddStudentsToCourse";
 import StudentExams from "./components/studentPage/examsStudentPage/StudentExams"
 import TakingExams from "components/studentPage/TakingExams.js/TakingExams";
 import DoneExams from "components/studentPage/TakingExams.js/DoneExams";
-
-
 function App() {
+  const clients = useContext(LoginContext);
 
-  const clients = useContext(LoginContext)
-  // const [userId, setUserId] = useState("")
+  const courses = useTeacherCourses();
+
+
+
+
+
 
   return (
 
@@ -52,7 +65,6 @@ function App() {
         <Route path="/" element={<Home clients={clients} />} />
 
         <Route path="*" element={<NotFound />} />
-
 
         {/* teacher routes */}
         <Route element={<Root />}>
@@ -77,6 +89,9 @@ function App() {
             />
           </Route>
           <Route path="/teacher/students" element={<Students />} />
+          <Route path="/teacher/userlist" element={<UserList />} />
+          <Route path="/teacher/students/new" element={<AddStudent />} />
+          <Route path="/teacher/students/edit" element={<EditStudent />} />
           {/* courses page */}
           <Route path="/teacher/courses" element={<Courses />} />
           <Route element={<CoursesContainer />}>
@@ -99,7 +114,8 @@ function App() {
           />
           <Route path="/teacher/home" element={<Teacher />} />
         </Route>
-
+<Route path="/teacher/account/new" element={<NewAccount />} />
+          <Route path="/teacher/account/edit" element={<EditAccount />} />
 
           {/* <Route path="/reports" element={<Reports />} /> */}
           <Route path="/teacher/account" element={<Account />} />
@@ -109,6 +125,11 @@ function App() {
             path="/teacher/checkout-success"
             element={<CheckoutSuccess />}
           />
+          <Route
+              path="/student/exams"
+              element={<ExamStudentPage clients={clients} />}
+            />
+            <Route>
           <Route path="/teacher/home" element={<Teacher />} />
         </Route>
 

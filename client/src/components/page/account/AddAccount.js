@@ -5,16 +5,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserList } from "./userlist";
 import { api_base } from "config";
-import Student from "./Students";
-import { CropSquareSharp, Email, GolfCourseSharp } from "@mui/icons-material";
-import { MenuItem, FormControl, Select, InputLabel } from "@mui/material";
-import useStudent from "./useStudent";
-import TeacherCoursesShow from "components/page/courses/TeacherCoursesShow";
-import TeacherCourses from "components/page/courses/TeacherCourses";
-import useTeacherCourses from "components/page/courses/useTeacherCourses";
+import { Email } from "@mui/icons-material";
+import useAccount from "./useAccount";
 
 const style = {
   position: "absolute",
@@ -22,34 +17,22 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "background.paper",
+  bgcolor: "white",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
-export default function BasicModal({ courses }) {
+export default function BasicModal() {
   const [open, setOpen] = React.useState(false);
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const location = useLocation();
-  const [id, setId] = useState("");
-  const [course, setCourse] = useState("");
-  const { data } = useTeacherCourses();
+  const [user, setUser] = useState("");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
-  useEffect(() => {
-    if (location.state) {
-      setFirstName(location.state.firstname);
-      setLastName(location.state.lastname);
-      setEmail(location.state.email);
-      setId(location.state._id);
-      // setCourse(location.state.course);
-    }
-  }, [location.state]);
   return (
     <div>
       <Box sx={style}>
@@ -80,49 +63,32 @@ export default function BasicModal({ courses }) {
             cols="30"
           ></textarea>
         </Typography>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Courses</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={course}
-            label="Course"
-          >
-            {data.map((course) => (
-              <MenuItem
-                id={course.id}
-                key={course.id}
-                value={course.name}
-                onClick={() =>
-                  axios
-                    .put(`${api_base}/teacher/student/${id}`, {
-                      course,
-                    })
-                    .then((response) => {
-                      navigate(`/teacher/students`);
-                    })
-                }
-              >
-                {course.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          User{" "}
+          <textarea
+            value={user}
+            onChange={(event) => setUser((_prev) => event.target.value)}
+            rows="1"
+            cols="30"
+          ></textarea>
+        </Typography>
         <Button
           onClick={() =>
             axios
-              .put(`${api_base}/teacher/student/${id}`, {
+              .post(`${api_base}/account/teacher/account/new`, {
                 firstname,
                 lastname,
                 email,
+                user,
               })
               .then((response) => {
-                navigate(`/teacher/students`);
+                navigate(`/teacher/account`);
               })
           }
         >
-          Edit Student Account
+          Add Account
         </Button>
+        <Button> Password Reset</Button>
       </Box>
     </div>
   );

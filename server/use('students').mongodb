@@ -1,5 +1,5 @@
 use('students')
 
-db.documents.insertOne(
+db.documents.deleteOne(
   { _id : 1, "name" : "Homer Simpson", "tests completed" : 10, "average score" : 100, "date" : new Date("2014-03-01")}
 );

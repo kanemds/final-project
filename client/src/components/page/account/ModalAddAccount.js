@@ -27,22 +27,20 @@ export default function BasicModel() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
-  const navigateNewStudent = () => {
-    navigate("/teacher/students/new");
+  const navigateNewAccount = () => {
+    navigate("/teacher/account/new");
   };
   return (
     <div>
-      <Button onClick={navigateNewStudent}>Add Student</Button>
+      <Button onClick={navigateNewAccount}>Add Account</Button>
 
       <Button
         onClick={() =>
-          axios.post(`${api_base}/students`, { name }).then((student) => {
-            navigate(`/teacher/students/${student.data._id}`);
+          axios.post(`${api_base}/accounts`, { name }).then((account) => {
+            navigate(`/teacher/account/${account.data._id}`);
           })
         }
-      >
-        This Button does Nothing!
-      </Button>
+      ></Button>
     </div>
   );
 }
