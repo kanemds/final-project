@@ -79,6 +79,7 @@ router.get("/:id", (req, res) => {
         pipeline: [],
       },
     },
+    ,
   ])
     .exec()
     .then((result) => {

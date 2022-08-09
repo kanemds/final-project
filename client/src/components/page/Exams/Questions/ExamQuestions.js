@@ -22,7 +22,7 @@ const ExamQuestions = () => {
       return (
         <ListItem key={a._id}>
           <ListItemButton>
-            <ListItemText primary={a.content} secondary={correctAnswer}/>
+            <ListItemText primary={a.content} secondary={correctAnswer} />
           </ListItemButton>
         </ListItem>
       )
@@ -33,20 +33,20 @@ const ExamQuestions = () => {
           <ListItemText primary={q.content} />
         </ListItemButton>
       </ListItem>
-        <List sx={{ pl: 4 }}>
-        { answers }
+      <List sx={{ pl: 4 }}>
+        {answers}
       </List></>
     )
   })
 
   return (
     <>
-        <BasicModal />
-        Exam Questions List
+      <BasicModal />
+      Exam Questions List
 
-        <List>
-          { questions}
-        </List>
+      <List>
+        {questions}
+      </List>
     </>
   )
 }

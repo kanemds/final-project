@@ -56,6 +56,11 @@ router.post("/:id/edit", (req, res) => {
       $push: {
         teacher: req.body.teacher,
       },
+    },
+    {
+      // return doc after update is applied
+      new: true,
+      upsert: true,
     }
   )
     .exec()

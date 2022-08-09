@@ -64,6 +64,34 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  console.log(req.session);
+  next();
+});
+
+app.post("/student/login", async (req, res) => {
+  const { user } = req.body;
+
+  let student = await StudentModel.findOne({ user });
+  if (!student) {
+    return res.redirect("/");
+  }
+  req.session.user = student._id;
+  res.json(student);
+});
+
+app.post("/teacher/login", async (req, res) => {
+  const { user } = req.body;
+
+  let teacher = await TeacherModel.findOne({ user });
+  if (!teacher) {
+    return res.redirect("/");
+  }
+  req.session.teacherId = teacher._id;
+  res.json(teacher);
+});
+
+const routes = require("./routes/routes");
 app.use("/", routes);
 
 app.use((req, res, next) => {

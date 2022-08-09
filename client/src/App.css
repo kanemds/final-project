@@ -166,9 +166,8 @@ li a {
   .SidebarList .row:last-child {
     position: absolute;
     bottom: 50px;
+
     bottom: 0;
-
-
   }
 }
 

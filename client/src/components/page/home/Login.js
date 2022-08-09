@@ -105,7 +105,6 @@ export default function Login({ open, handleClose }) {
               axios.post(`${api_base}/teacher/login`, { user: loginName }, { withCredentials: true })
                 .then((data) => {
                   sessionStorage.setItem('teacherId', data.data._id)
-                  console.log(data.data._id)
                   setTeacherId(data.data._id)
                   navigate(`/teacher/home`)
                 })

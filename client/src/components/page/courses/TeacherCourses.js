@@ -1,16 +1,15 @@
-import React, { useContext } from "react";
-import useExams from "components/page/Exams/useExams";
-import { LoginContext } from "Contexts/LoginContext";
-import TeacherCoursesShow from "./TeacherCoursesShow";
-import useTeacherCourses from "./useTeacherCourses";
+import React, { useContext } from 'react'
+import useExams from 'components/page/Exams/useExams'
+import { LoginContext } from 'Contexts/LoginContext'
+import TeacherCoursesShow from './TeacherCoursesShow'
 
 const TeacherCourses = () => {
-  const exams = useExams();
-  const { teacherId, teachers } = useContext(LoginContext);
-  const teacher = teachers.find((item) => item._id === teacherId);
+  const { exams } = useExams()
+  const { teacherId, teachers } = useContext(LoginContext)
+  const teacher = teachers.find((item) => item._id === teacherId)
 
   if (!teacher || !exams) {
-    return "";
+    return 'loading...'
   }
 
   return (
@@ -21,7 +20,9 @@ const TeacherCourses = () => {
         <TeacherCoursesShow />
       </div>
     </>
-  );
-};
+  )
 
-export default TeacherCourses;
+}
+
+
+export default TeacherCourses

@@ -15,4 +15,4 @@ function useStudent(props) {
   }
   return student ? student : "";
 }
-export default useStudent;
+export default useStudent

@@ -31,6 +31,7 @@ router.post("/:id/edit", (req, res) => {
     {
       _id: req.params.id,
     },
+
     newDoc,
     {
       // return doc after update is applied

@@ -8,17 +8,22 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 
+
 const ExamStudentPage = () => {
 
+  // cours.exam id === exams print
+
   const data = useCourses()
-
-  const { userId, students } = useContext(LoginContext)
   console.log(data)
-
+  const { userId, students } = useContext(LoginContext)
+  
   const exams = data.map(item => item.exams)
   console.log(exams)
 
-  if (!data) {
+
+
+
+  if (!exams) {
     return ''
   }
 

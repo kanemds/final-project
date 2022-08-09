@@ -1,10 +1,9 @@
-import React from 'react'
-
-import useTeacher from './useTeacher';
+import React, { useContext } from 'react'
 import CountdownTimer from './countdown/CountdonwTimer';
+import { LoginContext } from 'Contexts/LoginContext';
 
 const Teacher = () => {
-  const teacher = useTeacher()
+  const { teachers: teacher } = useContext(LoginContext)
   const Thirty_DAYS_IN_MS = 30 * 24 * 60 * 60 * 1000;
   const NOW_IN_MS = new Date().getTime();
   const dateTimeAfterThreeDays = NOW_IN_MS + Thirty_DAYS_IN_MS;

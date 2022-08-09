@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> b85f32f8f2998c512dc860db6f6dd0e656f68f60
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,6 +11,10 @@ import React, { useState, useEffect } from 'react'
 import { shadows } from '@mui/system';
 import { styled } from "@mui/material/styles";
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b85f32f8f2998c512dc860db6f6dd0e656f68f60
 import BasicModal from './ModalAddExam';
 import { Link } from 'react-router-dom'
 import { api_base } from 'config'
@@ -22,7 +30,10 @@ const Exams = () => {
   const { exams, removeExam } = useExams();
   const navigate = useNavigate()
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b85f32f8f2998c512dc860db6f6dd0e656f68f60
   return (
     <>
       <h1>Exam Manager</h1>
@@ -36,8 +47,15 @@ const Exams = () => {
             margin: 1,
             "&:hover": {
               boxShadow: "0 2px 5px 1px",
+<<<<<<< HEAD
               cursor: "pointer"
             }
+=======
+
+              cursor: "pointer"
+            }
+
+>>>>>>> b85f32f8f2998c512dc860db6f6dd0e656f68f60
           }}
         >
           <CardContent >
@@ -47,7 +65,13 @@ const Exams = () => {
                 style={{
                   textDecoration: 'none',
                   color: "black",
+<<<<<<< HEAD
                   fontWeight: 'bold'
+=======
+
+                  fontWeight: 'bold'
+
+>>>>>>> b85f32f8f2998c512dc860db6f6dd0e656f68f60
                 }}
               >
                 Exam: {exam.name}
@@ -61,7 +85,13 @@ const Exams = () => {
             </Typography>
             <Typography sx={{ fontSize: 14 }} gutterBottom>
 
+<<<<<<< HEAD
               Last Edit: {new Date(exam.created).toLocaleDateString('en-US')}
+=======
+
+              Last Edit: {new Date(exam.created).toLocaleDateString('en-US')}
+
+>>>>>>> b85f32f8f2998c512dc860db6f6dd0e656f68f60
             </Typography>
             <HighlightOffIcon fontSize="large" sx={{ color: pink[500] }}
               onClick={() => { removeExam(exam._id) }} />
@@ -74,6 +104,7 @@ const Exams = () => {
           </CardActions>
         </Card>
       ))}
+
     </>
   )
 }

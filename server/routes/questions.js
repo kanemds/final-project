@@ -5,7 +5,7 @@ const Question = require("../models/question");
 const Answer = require("../models/answer");
 
 router.get("/", (req, res) => {
-  Questioins.find()
+  Question.find()
     .then((data) => {
       res.send(data);
     })

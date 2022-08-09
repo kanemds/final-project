@@ -1,4 +1,64 @@
 .title .name {
   display: flex;
   display: inline;
+
+}
+
+.checkedBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 15px;
+}
+
+.checkedBox .box {
+  margin: 0;
+  border: 2px solid black;
+  width: 30%;
+  display: flex;
+  display: block;
+}
+
+.header {
+  height: 60px;
+  border: #3e5a78;
+  margin: 0;
+  padding-top: 15px;
+  padding-left: 10%;
+  background-color: #3e5a78;
+  color: white;
+}
+
+.body {
+  overflow-y: scroll;
+  margin: auto;
+  height: 650px;
+  width: 100%;
+}
+
+
+
+.footer {
+  border-top: 1px solid black;
+  padding-top: 20px;
+  padding-left: 10%;
+  max-height: 40px;
+}
+
+@media only screen and (max-width: 800px) and (min-width:375px) {
+  .checkedBox {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+    display: block;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
 }
