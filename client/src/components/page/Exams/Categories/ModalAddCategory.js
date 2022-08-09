@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({setCategories}) {
+export default function BasicModal({setCategories, activate}) {
   const [open, setOpen] = React.useState(false);
   const [content, setContent] = useState("");
   const handleOpen = () => setOpen(true);
@@ -30,7 +30,7 @@ export default function BasicModal({setCategories}) {
   let {id} = useParams();
   return (
     <div>
-      <Button onClick={handleOpen}>Add Category</Button>
+      <Button variant="contained" onClick={handleOpen} disabled={activate}>Add Category</Button>
       <Modal
         open={open}
         onClose={handleClose}

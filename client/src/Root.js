@@ -7,7 +7,7 @@ const Root = () => {
     <>
       <Sidebar />
       <div className="exam" style={{height: "100%"}}>
-        <div style={{display: "flex", flexDirection: "column"}}>
+        <div style={{display: "flex", flexDirection: "column", justifyContent: 'center', paddingRight: '2%'}}>
             <Outlet />
         </div>
       </div>

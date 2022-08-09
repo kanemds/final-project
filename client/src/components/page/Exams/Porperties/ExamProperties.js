@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import ReactDOM from "react-dom";
 import { useParams, Link, useNavigate, useOutletContext } from "react-router-dom";
 import axios from 'axios';
@@ -16,6 +18,7 @@ const ExamProperties = () => {
   const [info, setInfo] = useState({name: "", instructions: "", passScore: ""});
   const [postInfo, setPostInfo] = useState({passFeedback: "", failFeedback: ""});
   const [trigger, setTrigger] = useState(false);
+  const {activate} = useOutletContext();
   const cancelLink = `/exams/${id}/questions`;
   useEffect(() => {
     const getExam = async () => {
@@ -38,14 +41,14 @@ const ExamProperties = () => {
   };
   return (
     <>
-      {trigger && <h2 color={blue}>Successful!</h2>}
-      <h3>Exam Properties</h3>
-      <Information info={info} setInfo={setInfo}/>
+      {trigger && <Typography variant="h3">Successful!</Typography>}
+      <Information info={info} setInfo={setInfo} activate={activate} />
       <br/>
-      <h3>Post Exam</h3>
-      <PostExam postInfo={postInfo} setPostInfo={setPostInfo} />
-      <Button component={Link} to={cancelLink}>Cancel</Button>
-      <Button onClick={async () => await updateFunc()}>Update</Button>
+      <PostExam postInfo={postInfo} setPostInfo={setPostInfo} activate={activate} />
+      <Box style={{display: 'flex', justifyContent: 'center'}}>
+        <Button variant="contained" component={Link} to={cancelLink} disabled={activate}>Cancel</Button>
+        <Button variant="contained" onClick={async () => await updateFunc()} disabled={activate}>Update</Button>
+      </Box>
     </>
   )
 }

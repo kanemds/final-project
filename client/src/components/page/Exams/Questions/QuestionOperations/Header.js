@@ -4,8 +4,9 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { grey } from '@mui/material/colors';
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -15,6 +16,7 @@ import { api_base } from 'config'
 const Header = ({questions}) => {
     let navigate = useNavigate();
     const {id, questionOrder, categoryId, questionId} = useParams();
+    const {activate} = useOutletContext();
     const deleteFunc = async () => {
       await axios.post(`${api_base}/exams/${id}/deleteQuestion`, {questionId});
       await axios.post(`${api_base}/categories/deleteQuestion`, {categoryId, questionId});
@@ -24,8 +26,8 @@ const Header = ({questions}) => {
       }
     };
   return (
-    <div style={{display:"flex", justifyContent:"space-around"}}>
-      <div>
+    <div style={{display:"flex", justifyContent:"space-between"}}>
+      <ButtonGroup variant="contained" aria-label="medium secondary button group" disabled={activate}>
         <Button onClick={() => {
           navigate(`/exams/${id}/categories/${questions.current.category._id}/questions/${questions.current._id}/edit/${questionOrder}`);
         }}>Edit</Button>
@@ -39,7 +41,7 @@ const Header = ({questions}) => {
           await deleteFunc();
           navigate(`/exams/${id}/questions`);
         }}>Delete</Button>
-      </div>
+      </ButtonGroup>
       <ButtonGroup variant="contained" aria-label="outlined primary button group">
         <Button disabled={!questions.prev} onClick={() => {
           navigate(`/exams/${id}/questions/${questions.prev._id}/${Number(questionOrder) - 1}`);

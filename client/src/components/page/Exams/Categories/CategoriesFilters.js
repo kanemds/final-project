@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Link from '@mui/material/Link';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { pink } from '@mui/material/colors';
 import { blue } from '@mui/material/colors';
@@ -11,12 +12,10 @@ import axios from 'axios';
 import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import { api_base } from 'config'
 
-export default function CategoriesFilters({categories, setCategories}) {
-  const {setQuestionsFilterState} = useOutletContext();
+export default function CategoriesFilters({categories, setCategories, setQuestionsFilterState, activate}) {
   let {id} = useParams();
   const navigate = useNavigate();
   const remove = async (catRow) => {
-    console.log(catRow, 'catRowhererererere')
     if (Number(catRow.questions) > 0) {
       alert('move questions to another category');
       return;
@@ -39,37 +38,46 @@ export default function CategoriesFilters({categories, setCategories}) {
     {field: 'used', headerName: 'Using', flex: 1},
     {field: 'viewQuestions', headerName: 'View Questions', flex: 1, renderCell: (rowData) => {
       const quesRow = rowData.row;
-      return <RemoveRedEyeIcon fontSize="large" sx={{ color: pink[500] }}
-      onClick={() => {
-        setQuestionsFilterState(_prev => {
-          return {
-            filterModel: {
-              items: [
-                {
-                  columnField: 'category',
-                  operatorValue: 'contains',
-                  value: quesRow.name
-                }
-              ],
-              linkOperator: "and"
-            }
-          };
-        })
-        navigate(`/exams/${id}/questions`)
-      }} />
-      }},
+      return (
+        <IconButton aria-label="View" onClick={() => {
+          setQuestionsFilterState(_prev => {
+            return {
+              filterModel: {
+                items: [
+                  {
+                    columnField: 'category',
+                    operatorValue: 'contains',
+                    value: quesRow.name
+                  }
+                ],
+                linkOperator: "and"
+              }
+            };
+          })
+          navigate(`/exams/${id}/questions`)
+        }} disabled={activate}>
+          <RemoveRedEyeIcon />
+      </IconButton>
+      )}
+    },
     {field: 'edit', headerName: 'Edit', flex: 1, renderCell: (rowData) => {
       const catRow = rowData.row;
       if (catRow.name !== 'No Category Assigned') {
-        return <BorderColorIcon fontSize="large" sx={{ color: blue[500] }} 
-        onClick={() => navigate(`/exams/${id}/categories/${rowData.row.id}/edit`)} />}
+        return (
+          <IconButton aria-label="Edit" onClick={() => navigate(`/exams/${id}/categories/${rowData.row.id}/edit`)} disabled={activate}>
+            <EditIcon />
+          </IconButton>
+        )}
       }
     },
     {field: 'delete', headerName: 'Delete', flex: 1, renderCell: (rowData) => {
       const catRow = rowData.row;
       if (catRow.name !== 'No Category Assigned') {
-        return <HighlightOffIcon fontSize="large" sx={{ color: pink[500] }}
-        onClick={async () => await remove(catRow)} />}
+        return (
+          <IconButton aria-label="delete" onClick={async () => await remove(catRow)} disabled={activate}>
+            <DeleteIcon />
+          </IconButton>
+        )}
       }
     },
     {field: 'created', headerName: 'Created', flex: 2.5}

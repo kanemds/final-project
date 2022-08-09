@@ -18,7 +18,7 @@ import QuestionsFilters from './QuestionsFilters';
 const ExamQuestions = () => {
   let {id} = useParams();
   const [questions, setQuestions] = useState([]);
-  const {questionsFilterState} = useOutletContext();
+  const {questionsFilterState, activate} = useOutletContext();
   const [load, setLoad] = useState(true);
   useEffect(() => {
     const getQuestions = async () => {
@@ -30,14 +30,16 @@ const ExamQuestions = () => {
   }, []);
   return (
     <>
-      <BasicModal questionOrder={questions.length + 1} />
+      <BasicModal questionOrder={questions.length + 1} activate={activate} />
       <Box>
         {load && <h1>Loading</h1>}
       </Box>
       <Box>
         {!load && questions.length === 0 && <img src={EmptyQuestion} />}
       </Box>
+      <Box>
       {!load && questions.length > 0 && <QuestionsFilters questions={questions} questionsFilterState={questionsFilterState} />}
+      </Box>
     </>
   )
 }

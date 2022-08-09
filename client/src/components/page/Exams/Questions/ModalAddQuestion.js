@@ -22,7 +22,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({questionOrder}) {
+export default function BasicModal({questionOrder, activate}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -30,7 +30,7 @@ export default function BasicModal({questionOrder}) {
   let {id} = useParams();
   return (
     <div>
-      <Button onClick={handleOpen}>Add Question</Button>
+      <Button variant="contained" onClick={handleOpen} disabled={activate}>Add Question</Button>
       <Modal
         open={open}
         onClose={handleClose}

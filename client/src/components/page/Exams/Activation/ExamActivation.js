@@ -58,25 +58,12 @@ const ExamActivation = () => {
 		setQuestions(_prev => newQuestions);
 	};
   return (
-    <List>
-			<Container dragHandleSelector=".drag-handle" lockAxis="y" onDrop={onDrop}>
-				{questions.map(({ _id, content }, index) => (
-					<Draggable key={_id}>
-					<ListItem>
-							<ListItemText primary={`${index + 1}) ${content}`} />
-							<ListItemSecondaryAction>
-							<ListItemIcon className="drag-handle">
-									<DragHandleIcon />
-							</ListItemIcon>
-							</ListItemSecondaryAction>
-					</ListItem>
-					</Draggable>
-				))}
-			</Container>
-			<Button variant="outlined" onClick={() => onRandom(questions)}>Randomize</Button>
+		<>
+			<div style={{display: 'flex'}}>
+			<Button variant="contained" onClick={() => onRandom(questions)} disabled={activate}>Randomize</Button>
 			<FormControlLabel
-          value="start"
-          control={
+					value="start"
+					control={
 					<Switch
 						checked={activate}
 						onChange={async() => {
@@ -94,10 +81,31 @@ const ExamActivation = () => {
 					}
 						inputProps={{ 'aria-label': 'controlled' }}
 					/>}
-          label='Activate'
-          labelPlacement="start"
-        />
-		</List>
+					label='Activate'
+					labelPlacement="start"
+				/>
+			</div>
+			<br/>
+			<List>
+				<Container dragHandleSelector=".drag-handle" lockAxis="y" onDrop={onDrop}>
+					{questions.map(({ _id, content }, index) => (
+						<Draggable key={_id}>
+						<ListItem>
+								<ListItemText primary={`${index + 1}) ${content}`} />
+								{
+									!activate &&
+									<ListItemSecondaryAction>
+										<ListItemIcon className="drag-handle">
+												<DragHandleIcon />
+										</ListItemIcon>
+									</ListItemSecondaryAction>
+								}
+						</ListItem>
+						</Draggable>
+					))}
+				</Container>
+			</List>
+		</>
   )
 }
 

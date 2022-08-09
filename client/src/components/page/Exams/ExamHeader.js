@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import Container from '@mui/material/Container';
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useParams } from 'react-router-dom';
@@ -15,23 +17,30 @@ const ExamHeader = ({examName}) => {
   return (
     <>
       <Typography variant="h4">{examName}</Typography>
-      <ButtonGroup variant="contained" aria-label="outlined primary button group">
-        <Button onClick={() => {
+      <Box
+      sx={{
+        display: 'flex',
+        '& > *': {
+          m: 2,
+        },
+      }}
+      >
+        <Button size="large" variant="outlined" onClick={() => {
           navigate(`/exams/${id}/questions`);
         }}>Questions</Button>
-        <Button onClick={() => {
+        <Button size="large" variant="outlined" onClick={() => {
           navigate(`/exams/${id}/categories`);
         }}>Categories</Button>
-        <Button onClick={() => {
+        <Button size="large" variant="outlined" onClick={() => {
           navigate(`/exams/${id}/properties`);
         }}>Properties</Button>
-        <Button onClick={() => {
+        <Button size="large" variant="outlined" onClick={() => {
           navigate(`/exams/${id}/matrix`);
         }}>Matrix</Button>
-        <Button onClick={() => {
+        <Button size="large" variant="outlined" onClick={() => {
           navigate(`/exams/${id}/activation`);
         }}>Activation</Button>
-      </ButtonGroup>
+      </Box>
 	</>
   )
 }

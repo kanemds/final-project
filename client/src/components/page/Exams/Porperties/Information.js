@@ -6,45 +6,49 @@ import { useParams } from 'react-router-dom';
 
 import TextField from "@mui/material/TextField";
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 
 import { api_base } from 'config'
-import { Info } from '@mui/icons-material';
 
-const Information = ({info, setInfo}) => {
-//   const {id} = useParams();
-//   const [mode, modeState] = useState("Show Questions");
+
+const Information = ({info, setInfo, activate}) => {
   return (
-	  // card
-    <>
-			<div style={{display: "flex", flexDirection: "row"}}>
+		<Box pb={1}>
+			<Paper variant="outlined">
+				<Box p={2}>
+				<Typography variant="h6">Exam Properties</Typography>
+				<Box style={{display: 'flex'}}>
+					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+						Exam Name
+					</Typography>
+					<TextField disabled={activate} value={info.name} onChange={(event) => setInfo(prev => ({...prev, name: event.target.value}))}/>
+					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+						Passing Score
+					</Typography>
+					<TextField disabled={activate} type="number" inputProps={{ inputMode: 'numeric', min: 0, max: 100}} value={info.passScore} 
+						onChange={(event) => setInfo(prev => {
+							const val = event.target.value;				
+							const score = val === "" ? val : Number(val);
+							if (score > 100) {
+								return {...prev, passScore: 100};
+							}
+							if (score < 0) {
+								return {...prev, passScore: 0};
+							}
+							return {...prev, passScore: score};
+					})}/>
+					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+						%
+					</Typography>
+				</Box>
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					Exam Name
-				</Typography>
-				<TextField value={info.name} onChange={(event) => setInfo(prev => ({...prev, name: event.target.value}))}/>
-				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					Passing Score
-				</Typography>
-				<TextField type="number" inputProps={{ inputMode: 'numeric', min: 0, max: 100}} value={info.passScore} 
-					onChange={(event) => setInfo(prev => {
-						const val = event.target.value;				
-						const score = val === "" ? val : Number(val);
-						if (score > 100) {
-							return {...prev, passScore: 100};
-						}
-						if (score < 0) {
-							return {...prev, passScore: 0};
-						}
-						return {...prev, passScore: score};
-				})}/>
-				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					%
-				</Typography>
-			</div>
-			<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					General Exam Instructions ({1750 - info.instructions.length} characters remaining)
-			</Typography>
-			<TextField   inputProps={{ maxLength: 1750 }} value={info.instructions} onChange={(event) => setInfo(prev => ({...prev, instructions: event.target.value}))}/>
-    </>
+				</Typography>
+				<TextField disabled={activate} inputProps={{ maxLength: 1750 }} value={info.instructions} onChange={(event) => setInfo(prev => ({...prev, instructions: event.target.value}))}/>
+				</Box>
+			</Paper>
+		</Box>
   )
 }
 

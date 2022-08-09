@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import Button from '@mui/material/Button';
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useParams } from 'react-router-dom';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import axios from 'axios';
 
 import { api_base } from 'config';
@@ -36,13 +36,20 @@ const QuestionOperations = () => {
         questionsState.current && 
         <>
           <Header questions={questionsState} setQuestions={setQuestionsState} />
-          <div style={{display:'flex', flexDirection:'column'}}>
-            <span>Points: {questionsState.current.points} Category: {questionsState.current.category.content}</span>
-            <span>Question {questionOrder}: {questionsState.current.content}?</span>
-          </div>
-          {questionsState.current.answers?.map((ans, i) => {
-            return <span key={i + 1}>{letters[i]}. {ans.content}</span>
-          })}
+          <Card sx={{ minWidth: 50, margin: 1}}>
+            <CardContent>
+              <Typography variant="h6">
+                Category: {questionsState.current.category.content} Points: {questionsState.current.points}
+              </Typography>
+              <Typography sx={{ fontSize: 20 }}>
+                Question {questionOrder}: {questionsState.current.content}?
+              </Typography>
+              <br/>
+              {questionsState.current.answers?.map((ans, i) => {
+                return <Typography sx={{ fontSize: 20 }} key={i + 1}>{letters[i]}. {ans.content}</Typography>
+              })}
+            </CardContent>
+          </Card>
         </>
       }
 		</>

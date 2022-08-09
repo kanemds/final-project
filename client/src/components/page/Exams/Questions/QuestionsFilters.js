@@ -42,7 +42,6 @@ export default function QuestionsFilters({questions, questionsFilterState}) {
         sx={{ mb: 2 }}
         onClick={() => setCheckboxSelection(!checkboxSelection)}
       >
-        Use In Exam
       </Button>
       <div style={{ height: 400 }}>
         <DataGrid
