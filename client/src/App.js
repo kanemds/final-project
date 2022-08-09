@@ -22,7 +22,6 @@ import Teacher from "components/page/home/teacher/Teacher";
 import StudentRoot from "components/studentPage/StudentRoot";
 import StudentHomePage from "components/studentPage/home/StudentHomePage";
 import ExamStudentPage from "components/studentPage/examsStudentPage/ExamStudentPage";
-import StudentCourses from "components/studentPage/StudentCourses/StudentCourses";
 import { useContext } from "react";
 import { LoginContext } from "Contexts/LoginContext";
 import { useState } from "react";
@@ -96,11 +95,11 @@ function App() {
         <Route>
           <Route element={<StudentRoot />}>
             <Route path="/student/home" element={<StudentHomePage />} />
-            {/* <Route path="/student/exams/comment out" element={<ExamStudentPage />} /> */}
+
             <Route path="/student/courses" element={<StudentExams />} />
             <Route path="/student/courses/:id/exam" element={<TakingExams />} />
             <Route path="/student/courses/:id/exam/done" element={<DoneExams />} />
-            {/* <Route path="/student/courses/comment out" element={<StudentCourses />} /> */}
+
           </Route>
         </Route>
       </Routes>
