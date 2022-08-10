@@ -27,8 +27,6 @@ function Row({ item, exams }) {
   const { newScore, editScore, scores, getScoreByExamId } = useScore()
   const { userId, lastIncomplete, saveLastIncomplete } = useContext(LoginContext)
   const course = item
-  console.log({ scores })
-
   const [open, setOpen] = React.useState(false);
 
   const findExams = exams && exams.filter((item) => {
@@ -41,6 +39,7 @@ function Row({ item, exams }) {
     return currentExamIds.includes(item._id.toString())
   })
 
+
   const getTime = (time) => {
     const second = 1000
     const minute = second * 60
@@ -50,6 +49,7 @@ function Row({ item, exams }) {
     const textSecond = Math.floor((time % minute) / second)
     return `${texthour} : ${textMinute}`
   }
+
 
   if (!exams) {
     return ""

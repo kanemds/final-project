@@ -12,7 +12,6 @@ router.post("/new", (req, res) => {
     name: req.body.name,
     attempt: req.body.attempt,
     time: req.body.time
-
   });
   exam
     .save()
