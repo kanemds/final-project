@@ -13,10 +13,38 @@ const ExamScheama = new mongoose.Schema({
     type: Number,
     required: true
   },
+  passScore: {
+    type: Number
+  },
+  instructions: {
+    type: String
+  },
+  passFeedback: {
+    type: String
+  },
+  failFeedback: {
+    type: String
+  },
+  activate: {
+    type: Boolean,
+    default: false
+  },
+  activateQuestionsArray: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Question"
+    }
+  ],
   questions: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Question"
+    }
+  ],
+  categories: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category"
     }
   ],
   created: {

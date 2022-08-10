@@ -1,24 +1,34 @@
 const express = require("express");
-const Exam = require("../models/exams");
+const Exam = require("../models/exam")
 const router = express.Router();
 const Score = require("../models/score")
 
 const ObjectId = require("mongodb").ObjectId;
 
 router.post("/new", (req, res) => {
-  const score = new Score({
-    score: req.body.score,
-    answers: req.body.answers,
+  Score.find({
     student: req.body.student,
-    exam: req.body.exam,
-    submitted: false,
-  });
-  score
-    .save()
-    .then((data) => res.json(data))
-    .catch((error) => {
-      res.json(error);
-    });
+    exam: req.body.exam
+  }).exec().then((existing) => {
+    if (Array.isArray && existing.length < 20) {
+      const score = new Score({
+        score: req.body.score,
+        answers: req.body.answers,
+        student: req.body.student,
+        exam: req.body.exam,
+        submitted: false,
+      });
+      return score
+        .save()
+        .then((data) => res.json(data))
+        .catch((error) => {
+          res.json(error);
+        });
+    } else {
+      res.json({})
+    }
+  })
+
 });
 
 
@@ -98,8 +108,6 @@ router.post('/:id/edit', (req, res) => {
     .catch((err) => console.log(err))
 })
 
-
-
 router.get("/:id", (req, res) => {
   const doc = Score.aggregate([
     { $match: { _id: ObjectId(req.params.id) } },
@@ -140,7 +148,10 @@ router.get('/', (req, res) => {
     }
   }
 
-  Score.find(findQuery)
+
+  Score.find(findQuery).sort({
+    created: -1
+  })
     .then(data => {
       res.send(data);
     }).catch(error => {

@@ -25,10 +25,8 @@ import useScore from 'components/hooks/useScore';
 function Row({ item, exams }) {
   const navigate = useNavigate()
   const { newScore, editScore, scores, getScoreByExamId } = useScore()
-
+  const { userId, lastIncomplete, saveLastIncomplete } = useContext(LoginContext)
   const course = item
-
-
   const [open, setOpen] = React.useState(false);
 
   const findExams = exams && exams.filter((item) => {
@@ -42,32 +40,43 @@ function Row({ item, exams }) {
   })
 
 
+  const getTime = (time) => {
+    const second = 1000
+    const minute = second * 60
+    const hour = minute * 60
+    const texthour = Math.floor(time / hour)
+    const textMinute = Math.floor((time % hour) / minute)
+    const textSecond = Math.floor((time % minute) / second)
+    return `${texthour} : ${textMinute}`
+  }
+
+
   if (!exams) {
     return ""
   }
 
-  const startExam = (examId) => {
-    const score = getScoreByExamId(examId)
-    if (score) {
+  const startExam = (examId, score, maxAttempt, time) => {
+    const incompleteScore = score.filter((item) => {
+      const min = 30
+      const endTime = new Date(new Date(item.created).getTime() + min * 60000);
+      return !item.submitted && item.created < endTime
+    })
+    const lastScore = incompleteScore && incompleteScore[0]
+
+    if (lastScore) {
+      saveLastIncomplete(lastScore)
+    } else {
       newScore({
         score: 0,
+        student: userId,
+        exam: examId,
         submitted: false
-      }).then(navigate(`/student/courses/${examId}/exam`))
-    } else {
-      editScore(examId).then(navigate(`/student/courses/${examId}/exam`))
+      }).then((scoreDoc) => {
+        saveLastIncomplete(scoreDoc)
+        navigate(`/student/courses/${examId}/exam`)
+      })
     }
   }
-
-
-  // create new score if last known score has passed submission time
-  // get all scores that has a created date
-  // if any score Created date is within last X minutes
-  // then the play button will reuse that "existing" score id
-  // then navigate to new exam
-
-
-
-
 
   return (
     <React.Fragment>
@@ -99,36 +108,46 @@ function Row({ item, exams }) {
                     <TableCell ><h2>Name</h2></TableCell>
                     <TableCell align="center"><h2>Total Questions</h2></TableCell>
                     <TableCell align="center"><h2>Time Limit</h2></TableCell>
-                    <TableCell align="center"><h2>Time Attempt</h2></TableCell>
+                    <TableCell align="center"><h2>No. of Attempts</h2></TableCell>
                     <TableCell align="center"><h2>Highest Score</h2></TableCell>
                     <TableCell align="center"><h2>Start Exams</h2></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {findExams.map(each => (
+                  {findExams.map(each => {
+                    const score = scores.filter((item) => item.exam === each._id)
+                    const maxAttempt = 20
+                    const attempts = score.length
+                    const examScores = attempts > 1 && score && score.map((item) => item.score)
+                    const highestScore = attempts > 1 && Math.max(...examScores)
+                    const scorePercentage = attempts > 1 ?
+                      `${Math.trunc(((highestScore / each.questions.length) * 100))}%` : 'N/A'
 
-                    < TableRow key={each._id} >
-                      <TableCell component="th" scope="row">
-                        <h3>{each.name}</h3>
-                      </TableCell>
-                      <TableCell align="center"> <h3>{each.questions.length}</h3></TableCell>
-                      <TableCell align="center"><h3>1:30</h3></TableCell>
-                      <TableCell align="center"><h3>0/2</h3></TableCell>
+                    return (
+                      < TableRow key={each._id} >
+                        <TableCell component="th" scope="row">
+                          <h3>{each.name}</h3>
+                        </TableCell>
+                        <TableCell align="center"> <h3>{each.questions.length}</h3></TableCell>
+                        <TableCell align="center"><h3>{getTime(each.time)}</h3></TableCell>
+                        <TableCell align="center"><h3>{attempts}/2</h3></TableCell>
 
-                      <TableCell align="center"><h3>%</h3></TableCell>
+                        <TableCell align="center"><h3>{scorePercentage}</h3></TableCell>
 
-                      <TableCell align="center"  >
-                        <PlayCircleOutlineOutlinedIcon
-                          sx={{
-                            fontSize: "40px",
-                            color: "Green"
-                          }}
-                          onClick={() => { startExam(each._id) }}
-                        />
-                      </TableCell>
-                    </TableRow>
+                        <TableCell align="center"  >
+                          {attempts < maxAttempt ? (<PlayCircleOutlineOutlinedIcon
+                            sx={{
+                              fontSize: "40px",
+                              color: "Green"
+                            }}
+                            onClick={() => { startExam(each._id, score, maxAttempt, each.time) }}
+                          />) : 'Completed'}
 
-                  ))}
+                        </TableCell>
+                      </TableRow>
+                    )
+                  }
+                  )}
                 </TableBody>
               </Table>
             </Box>
