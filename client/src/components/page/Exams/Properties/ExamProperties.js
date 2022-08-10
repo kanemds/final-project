@@ -24,26 +24,18 @@ const ExamProperties = () => {
     const getExam = async () => {
       const examData = await axios.get(`${api_base}/exams/${id}/properties`);
       const exam = examData.data;
-      setInfo(_prev => ({name: exam.name, timeLimit: exam.timeLimit || '', attemptsLimit: exam.attemptsLimit || '', 
+      setInfo(_prev => ({name: exam.name, timeLimit: exam.timeLimit / 60000 || '', attemptsLimit: exam.attemptsLimit || '', 
         instructions: exam.instructions, passScore: exam.passScore}));
       setPostInfo(_prev => ({passFeedback: exam.passFeedback, failFeedback: exam.failFeedback}));
     }
     getExam();
   }, []);
   const updateFunc = async () => {
-    let attemptsLimit = undefined;
-    let timeLimit = undefined;
-    if (info.attemptsLimit !== '') {
-      attemptsLimit = info.attemptsLimit;
-    }
-    if (info.timeLimit !== '') {
-      timeLimit = info.timeLimit;
-    } 
     await axios.post(`${api_base}/exams/${id}/properties`, 
       {
         name: info.name, 
         attemptsLimit: info.attemptsLimit, 
-        timeLimit: info.timeLimit, 
+        timeLimit: info.timeLimit * 60000, 
         instructions: info.instructions, 
         passScore: info.passScore, 
         passFeedback: postInfo.passFeedback, 

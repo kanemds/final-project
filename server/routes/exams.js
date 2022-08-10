@@ -47,7 +47,6 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/properties', async (req, res) => {
   const doc = await Exam.findById(req.params.id);
-  console.log(doc, 'doc############################')
   res.send(doc);
 });
 
