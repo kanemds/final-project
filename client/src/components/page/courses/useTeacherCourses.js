@@ -64,8 +64,8 @@ function useTeacherCourses() {
     }
     return false
   })
-
   return { data, removeCourse, addCourse, editCourse }
+
 }
 
 
