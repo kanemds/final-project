@@ -1,7 +1,8 @@
 const express = require("express");
-const Exam = require("../models/exam");
+const Exam = require("../models/exams");
 const router = express.Router();
-const Score = require("../models/score");
+const Score = require("../models/score")
+
 const ObjectId = require("mongodb").ObjectId;
 
 router.post("/new", (req, res) => {
@@ -20,84 +21,84 @@ router.post("/new", (req, res) => {
     });
 });
 
-router.post("/:id/edit", (req, res) => {
-  const newDoc = req.body;
-  const { answers } = newDoc;
+
+router.post('/:id/edit', (req, res) => {
+  const newDoc = req.body
+  const { answers } = newDoc
   for (let prop in newDoc) {
     if (!newDoc[prop]) {
       delete newDoc[prop];
-      //it will remove fields who are undefined or null
+      //it will remove fields who are undefined or null 
+
     }
   }
   Score.findOneAndUpdate(
     {
-      _id: req.params.id,
+
+      _id: req.params.id
+
     },
     newDoc,
     {
       // return doc after update is applied
       new: true,
-      upsert: true,
+
+      upsert: true
     }
-  )
-    .exec()
-    .then(async (data) => {
-      const examId = data.exam;
-      const exam = await Exam.aggregate([
-        { $match: { _id: ObjectId(examId) } },
-        { $limit: 1 },
-        {
-          $lookup: {
-            from: "questions",
-            localField: "questions",
-            foreignField: "_id",
-            as: "questions",
-            pipeline: [
-              {
-                $lookup: {
-                  from: "answer",
-                  localField: "answers",
-                  foreignField: "_id",
-                  as: "answers",
-                },
+  ).exec().then(async (data) => {
+    const examId = data.exam
+    const exam = await Exam.aggregate([
+      { $match: { _id: ObjectId(examId) } },
+      { $limit: 1 },
+      {
+        $lookup: {
+          from: "questions",
+          localField: "questions",
+          foreignField: "_id",
+          as: "questions",
+          pipeline: [
+            {
+              $lookup: {
+                from: "answer",
+                localField: "answers",
+                foreignField: "_id",
+                as: "answers",
               },
-            ],
-          },
+            },
+          ],
         },
-      ]).exec();
+      },
+    ]).exec()
 
-      const correctAnswers =
-        exam &&
-        exam[0].questions.map((question) => {
-          return question.correctAnswer && question.correctAnswer.toString();
-        });
+    const correctAnswers = exam && exam[0].questions.map((question) => {
+      return question.correctAnswer && question.correctAnswer.toString()
+    })
 
-      let score = 0;
-      for (const answer of answers) {
-        console.log({ answer, correctAnswers });
-        if (correctAnswers && correctAnswers.includes(answer)) {
-          score += 1;
-        }
+    let score = 0
+    for (const answer of answers) {
+      console.log({ answer, correctAnswers })
+      if (correctAnswers && correctAnswers.includes(answer)) {
+        score += 1
       }
+    }
 
-      const scoreDoc = await Score.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        { score },
-        {
-          // return doc after update is applied
-          new: true,
-          upsert: true,
-        }
-      ).exec();
-      return scoreDoc;
-    })
-    .then((finalScore) => {
-      res.json(finalScore);
-    })
-    .catch((err) => console.log(err));
-});
+    const scoreDoc = await Score.findOneAndUpdate({
+      _id: req.params.id
+    },
+      { score },
+      {
+        // return doc after update is applied
+        new: true,
+        upsert: true
+      }).exec()
+    return scoreDoc
+  }).then((finalScore) => {
+    res.json(finalScore)
+  })
+    .catch((err) => console.log(err))
+})
+
+
 
 router.get("/:id", (req, res) => {
   const doc = Score.aggregate([
@@ -129,32 +130,34 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.get("/", (req, res) => {
-  const user = req.session.user;
-  let findQuery = null;
+router.get('/', (req, res) => {
+  const user = req.session.user
+  let findQuery = null
 
   if (user) {
     findQuery = {
-      student: user,
-    };
+      student: user
+    }
   }
 
   Score.find(findQuery)
-    .then((data) => {
+    .then(data => {
       res.send(data);
-    })
-    .catch((error) => {
+    }).catch(error => {
       res.json(error);
     });
-});
+})
 
-router.delete("/:id", (req, res) => {
+
+
+router.delete('/:id', (req, res) => {
   Score.findByIdAndDelete(req.params.id, (err) => {
     if (err) {
-      return res.json({ err: "Score not found" });
+      return res.json({ err: "Score not found" })
     }
-    return res.status(202).send();
-  });
-});
+    return res.status(202).send()
+  })
+})
+
 
 module.exports = router;

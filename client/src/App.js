@@ -22,10 +22,9 @@ import NotFound from "components/NotFound";
 import AddStudent from "components/page/students/components/AddStudent";
 import Teacher from "components/page/home/teacher/Teacher";
 import StudentRoot from "components/studentPage/StudentRoot";
-import EditStudent from "components/page/students/components/EditStudent";
+// import EditStudent from "components/page/students/components/EditStudent";
 import StudentHomePage from "components/studentPage/home/StudentHomePage";
 import ExamStudentPage from "components/studentPage/examsStudentPage/ExamStudentPage";
-import StudentCourses from "components/studentPage/StudentCourses/StudentCourses";
 import { useContext } from "react";
 import { LoginContext } from "Contexts/LoginContext";
 import { useState } from "react";
@@ -34,19 +33,19 @@ import EditCourse from "components/page/courses/EditCourse";
 import CoursesContainer from "./components/page/courses/CoursesContainer";
 import AddExamsToCourse from "components/page/courses/AddExamsToCourse";
 import AddStudentsToCourse from "components/page/courses/AddStudentsToCourse";
-import EditAccount from "components/page/account/editAccount";
-import StudentExams from "./components/studentPage/examsStudentPage/StudentExams";
+import StudentExams from "./components/studentPage/examsStudentPage/StudentExams"
 import TakingExams from "components/studentPage/TakingExams.js/TakingExams";
 import DoneExams from "components/studentPage/TakingExams.js/DoneExams";
-function App() {
-  const clients = useContext(LoginContext);
+import EditAccount from "components/page/account/editAccount";
+import EditStudent from "components/page/students/components/EditStudent";
 
-  const courses = useTeacherCourses();
+function App() {
+
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home clients={clients} />} />
+        <Route path="/" element={<Home />} />
 
         <Route path="*" element={<NotFound />} />
 
@@ -112,7 +111,7 @@ function App() {
         <Route path="/teacher/checkout-success" element={<CheckoutSuccess />} />
         <Route
           path="/student/exams"
-          element={<ExamStudentPage clients={clients} />}
+          element={<ExamStudentPage />}
         />
         <Route>
           <Route path="/teacher/home" element={<Teacher />} />
@@ -126,10 +125,10 @@ function App() {
 
             <Route path="/student/courses" element={<StudentExams />} />
             <Route path="/student/courses/:id/exam" element={<TakingExams />} />
-            <Route
-              path="/student/courses/:id/exam/done"
-              element={<DoneExams />}
-            />
+
+            <Route path="/student/courses/:id/exam/done" element={<DoneExams />} />
+
+
           </Route>
         </Route>
       </Routes>

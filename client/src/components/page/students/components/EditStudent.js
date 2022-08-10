@@ -28,7 +28,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ courses }) {
+export const EditStudent = ({ courses }) => {
   const [open, setOpen] = React.useState(false);
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -127,3 +127,5 @@ export default function BasicModal({ courses }) {
     </div>
   );
 }
+
+export default EditStudent

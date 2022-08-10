@@ -20,6 +20,7 @@ const AddStudentsToCourse = () => {
   const { id } = useParams()
   const { students } = useContext(LoginContext)
   const { data, editCourse } = useTeacherCourses()
+
   const selectedHandle = (e) => {
     const id = e.target.value
     const toggle = selected && selected[id] ? false : true

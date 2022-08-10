@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Exams = require("../models/exam");
 const Question = require("../models/question");
-const Answer = require("../models/answer");
 
-router.get("/", (req, res) => {
+
+
+router.get('/', (req, res) => {
   Question.find()
-    .then((data) => {
+    .then(data => {
       res.send(data);
     })
     .catch((error) => {
@@ -23,13 +23,14 @@ router.post("/new", (req, res) => {
   const question = new Question({
     content: req.body.content,
     answers: req.body.answers,
-    correctAnswer: req.body.correctAnswer,
-  });
-  question
-    .save()
-    .then((q) => res.json(q))
-    .catch((e) => res.json(e));
-});
+    correctAnswer: req.body.correctAnswer
+  })
+  question.save()
+    .then(q => res.json(q))
+    .catch(e => res.json(e))
+
+})
+
 
 // router.post('/addanswers', (req, res) => {
 //   let exam = await Exams.findOneAndUpdate(req.body.examId,

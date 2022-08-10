@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Exams = require("../models/exam");
+const Exams = require("../models/exams")
 const Question = require("../models/question");
 const Answer = require("../models/answer");
 const student = require("../models/extra/student");
@@ -11,7 +11,9 @@ router.post("/new", (req, res) => {
   const exam = new Exams({
     name: req.body.name,
     attempt: req.body.attempt,
-    time: req.body.time,
+
+    time: req.body.time
+
   });
   exam
     .save()
