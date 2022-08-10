@@ -55,7 +55,7 @@ export default function CategoriesFilters({categories, setCategories, setQuestio
             };
           })
           navigate(`/teacher/exams/${id}/questions`)
-        }} disabled={activate}>
+        }}>
           <RemoveRedEyeIcon />
       </IconButton>
       )}
