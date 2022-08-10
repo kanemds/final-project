@@ -20,9 +20,10 @@ function useScore() {
 
   const newScore = async (doc) => {
     try {
-      await axios.post(`${api_base}/score/new`, doc, { withCredentials: true })
+      const newDoc = await axios.post(`${api_base}/score/new`, doc, { withCredentials: true })
       console.log('Item successfully added.')
       await fetchScores()
+      return newDoc
     } catch (error) {
       console.log(error)
     }
