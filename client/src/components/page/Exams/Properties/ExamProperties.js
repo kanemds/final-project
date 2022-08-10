@@ -15,25 +15,39 @@ const ExamProperties = () => {
   const {id} = useParams();
   const navigate = useNavigate();
   const {setExamName} = useOutletContext();
-  const [info, setInfo] = useState({name: "", instructions: "", passScore: ""});
+  const [info, setInfo] = useState({name: "", timeLimit: "", attemptsLimit: "", instructions: "", passScore: ""});
   const [postInfo, setPostInfo] = useState({passFeedback: "", failFeedback: ""});
   const [trigger, setTrigger] = useState(false);
   const {activate} = useOutletContext();
-  const cancelLink = `/exams/${id}/questions`;
+  const cancelLink = `/teacher/exams/${id}/questions`;
   useEffect(() => {
     const getExam = async () => {
       const examData = await axios.get(`${api_base}/exams/${id}/properties`);
       const exam = examData.data;
-      setInfo(_prev => ({name: exam.name, instructions: exam.instructions, passScore: exam.passScore}));
+      setInfo(_prev => ({name: exam.name, timeLimit: exam.timeLimit || '', attemptsLimit: exam.attemptsLimit || '', 
+        instructions: exam.instructions, passScore: exam.passScore}));
       setPostInfo(_prev => ({passFeedback: exam.passFeedback, failFeedback: exam.failFeedback}));
     }
     getExam();
   }, []);
   const updateFunc = async () => {
+    let attemptsLimit = undefined;
+    let timeLimit = undefined;
+    if (info.attemptsLimit !== '') {
+      attemptsLimit = info.attemptsLimit;
+    }
+    if (info.timeLimit !== '') {
+      timeLimit = info.timeLimit;
+    } 
     await axios.post(`${api_base}/exams/${id}/properties`, 
       {
-        name: info.name, instructions: info.instructions, passScore: info.passScore, 
-        passFeedback: postInfo.passFeedback, failFeedback: postInfo.failFeedback
+        name: info.name, 
+        attemptsLimit: info.attemptsLimit, 
+        timeLimit: info.timeLimit, 
+        instructions: info.instructions, 
+        passScore: info.passScore, 
+        passFeedback: postInfo.passFeedback, 
+        failFeedback: postInfo.failFeedback
       }
     );
     setExamName(_prev => info.name);
@@ -47,7 +61,7 @@ const ExamProperties = () => {
       <PostExam postInfo={postInfo} setPostInfo={setPostInfo} activate={activate} />
       <Box style={{display: 'flex', justifyContent: 'center'}}>
         <Button variant="contained" component={Link} to={cancelLink} disabled={activate}>Cancel</Button>
-        <Button variant="contained" onClick={async () => await updateFunc()} disabled={activate}>Update</Button>
+        <Button variant="contained" onClick={updateFunc} disabled={activate}>Update</Button>
       </Box>
     </>
   )

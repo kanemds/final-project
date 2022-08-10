@@ -36,7 +36,7 @@ const QuestionForm = () => {
     }
     getCategories();
   }, []);
-  const cancelLink = `/exams/${id}/questions`;
+  const cancelLink = `/teacher/exams/${id}/questions`;
   const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
   const handleChange = (answerId) => {
     setSelected(answerId);
@@ -59,7 +59,7 @@ const QuestionForm = () => {
     const questionData = await axios.post(`${api_base}/questions/new`, {content: question, points ,answers: ansArr, correctAnswer: corAns, category: categoryId, used: usedState});
     await axios.post(`${api_base}/categories/question/push`, {categoryId, questionId: questionData.data._id});
     await axios.post(`${api_base}/exams/${id}/question/push`, {question: questionData.data});
-    navigate(`/exams/${id}/questions/${questionData.data._id}/${questionOrder}`);
+    navigate(`/teacher/exams/${id}/questions/${questionData.data._id}/${questionOrder}`);
   };
   return (
     <>

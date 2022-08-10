@@ -11,8 +11,6 @@ import Typography from '@mui/material/Typography';
 import { api_base } from 'config'
 
 const PostExam = ({postInfo, setPostInfo, activate}) => {
-//   const {id} = useParams();
-//   const [mode, modeState] = useState("Show Questions");
   return (
 		<Box pb={1}>
 			<Paper variant="outlined">

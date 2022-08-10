@@ -92,7 +92,7 @@ const QuestionEditForm = () => {
     for (const answer of oldQuestion.answers) {
       await axios.post(`${api_base}/answers/delete`, {answerId: answer._id});
     }
-    navigate(`/exams/${id}/questions/${questionData.data._id}/${questionOrder}`);
+    navigate(`/teacher/exams/${id}/questions/${questionData.data._id}/${questionOrder}`);
   };
   return (
     <>
@@ -144,7 +144,7 @@ const QuestionEditForm = () => {
         <AllAbove letter={letters[answers.length - 1]} checkedAllAbove={checkedAllAbove} setCheckedAllAbove={setCheckedAllAbove} aboveSelected={aboveSelected} setAboveSelected={setAboveSelected} setAnswers={setAnswers} />
         <IncludeinCat catsOptions={catsOptions} setCatsOptions={setCatsOptions} checkedCat={checkedCat} setCheckedCat={setCheckedCat} catSelected={catSelected} setCatSelected={setCatSelected} />
         <Used usedState={usedState} setUsedState={setUsedState} />
-        <Button component={Link} to={`/exams/${id}/questions/${oldQuestion._id}/${questionOrder}`}>Cancel</Button>
+        <Button component={Link} to={`/teacher/exams/${id}/questions/${oldQuestion._id}/${questionOrder}`}>Cancel</Button>
         <Button onClick={async () => await save()}>
           Update
         </Button>

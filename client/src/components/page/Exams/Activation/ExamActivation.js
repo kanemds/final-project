@@ -69,12 +69,11 @@ const ExamActivation = () => {
 						onChange={async() => {
 							let activated;
 							if (activate) {
+								await axios.post(`${api_base}/exams/${id}/deactivate`);
 								activated = false;
-								await axios.post(`${api_base}/exams/${id}/activate`, {activate: false});
 							} else {
+								await axios.post(`${api_base}/exams/${id}/activate`, {questions});
 								activated = true;
-								await axios.post(`${api_base}/exams/${id}/activate`, {activate: true});
-								await axios.post(`${api_base}/exams/${id}/activateQuestionsArray`, {questions});
 							}
 							setActivate(_prev => activated);
 						}

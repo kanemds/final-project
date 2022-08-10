@@ -51,7 +51,7 @@ export default function BasicModal({setExamsState}) {
                 newPrev.push(exam);
                 return newPrev;
               })
-              navigate(`/exams/${exam.data._id}/questions`);
+              navigate(`/teacher/exams/${exam.data._id}/questions`);
             }
           }>Create</Button>
         </Box>

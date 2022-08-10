@@ -29,27 +29,27 @@ const Header = ({questions}) => {
     <div style={{display:"flex", justifyContent:"space-between"}}>
       <ButtonGroup variant="contained" aria-label="medium secondary button group" disabled={activate}>
         <Button onClick={() => {
-          navigate(`/exams/${id}/categories/${questions.current.category._id}/questions/${questions.current._id}/edit/${questionOrder}`);
+          navigate(`/teacher/exams/${id}/categories/${questions.current.category._id}/questions/${questions.current._id}/edit/${questionOrder}`);
         }}>Edit</Button>
         {/* <Button onClick={() => {
           // navigate(`/exams/${id}/categories`);
         }}>Copy Question</Button> */}
         <Button onClick={() => {
-          navigate(`/exams/${id}/questions/new/${Number(questions.questionsCt) + 1}`);
+          navigate(`/teacher/exams/${id}/questions/new/${Number(questions.questionsCt) + 1}`);
         }}>Add Question</Button>
         <Button onClick={async() => {
           await deleteFunc();
-          navigate(`/exams/${id}/questions`);
+          navigate(`/teacher/exams/${id}/questions`);
         }}>Delete</Button>
       </ButtonGroup>
       <ButtonGroup variant="contained" aria-label="outlined primary button group">
         <Button disabled={!questions.prev} onClick={() => {
-          navigate(`/exams/${id}/questions/${questions.prev._id}/${Number(questionOrder) - 1}`);
+          navigate(`/teacher/exams/${id}/questions/${questions.prev._id}/${Number(questionOrder) - 1}`);
         }}>
           <ArrowBackIosIcon />
         </Button>
         <Button disabled={!questions.next} onClick={() => {
-          navigate(`/exams/${id}/questions/${questions.next._id}/${Number(questionOrder) + 1}`);
+          navigate(`/teacher/exams/${id}/questions/${questions.next._id}/${Number(questionOrder) + 1}`);
         }}>
           <ArrowForwardIosIcon />
         </Button>

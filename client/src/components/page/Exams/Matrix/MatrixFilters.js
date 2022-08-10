@@ -99,7 +99,7 @@ const MatrixFilters = () => {
             }
           };
         })
-        navigate(`/exams/${id}/questions`)
+        navigate(`/teacher/exams/${id}/questions`)
       }} />
       }}
   ];

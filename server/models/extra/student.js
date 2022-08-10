@@ -13,11 +13,14 @@ const studentsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  password: {
+  user: {
     type: String,
     required: true,
   },
-  quizzes: [
+  course: {
+    type: String,
+  },
+  exam: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Exam",

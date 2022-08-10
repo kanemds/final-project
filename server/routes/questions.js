@@ -1,27 +1,22 @@
-const express = require('express')
-const router = express.Router()
-const Exam = require('../models/exam')
-const Category = require('../models/category')
-const Question = require('../models/question')
-const Answer = require('../models/answer')
-
-const ObjectId = require('mongodb').ObjectId;
+const express = require("express");
+const router = express.Router();
+const Question = require("../models/question");
 
 router.get('/', (req, res) => {
   Question.find()
     .then(data => {
       res.send(data);
-    }).catch(error => {
+    })
+    .catch((error) => {
       res.json(error);
     });
-})
+});
 
-router.post('/new', async (req, res) => {
+router.post("/new", async (req, res) => {
   if (req.body.answers.length < 0) {
-    res.status(400)
-    return
+    res.status(400);
+    return;
   }
-
   const question = new Question({
     content: req.body.content,
     points: req.body.points,
@@ -82,4 +77,4 @@ router.post('/:questionId/edit', async (req, res) => {
   res.send(doc);
 })
 
-module.exports = router
+module.exports = router;

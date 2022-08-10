@@ -1,8 +1,10 @@
+import React, { useState, useEffect } from 'react'
+import { useParams, Outlet } from "react-router-dom";
+import Box from '@mui/material/Box';
+import axios from 'axios';
+
 import ExamHeader from 'components/page/Exams/ExamHeader';
 import Sidebar from 'components/Sidebar';
-import React, { useState, useEffect } from 'react'
-import { useParams, Outlet } from 'react-router-dom';
-import axios from 'axios';
 
 import { api_base } from 'config'
 
@@ -21,14 +23,15 @@ const ExamContainer = () => {
   }, []);
   return (
     <>
-      <br/>
       <ExamHeader examName={examName} />
-      <br/>
-      <Outlet context={{
-        questionsFilterState, setQuestionsFilterState,
-        activate, setActivate,
-        setExamName
-        }} />
+      <Box sx={{ bgcolor: 'white', p: 3 }}>
+        <Outlet context={{
+          questionsFilterState, setQuestionsFilterState,
+          activate, setActivate,
+          setExamName
+          }} 
+        />
+      </Box>
     </>
   )
 }

@@ -31,17 +31,7 @@ const Exam = ({exam}) => {
   >
     <CardContent >
       <Typography sx={{ fontSize: 24 }} gutterBottom>
-      <Link href={`/exams/${exam._id}/questions`}>{exam.name}</Link>
-        {/* <Link to={`/teacher/exams/${exam._id}/questions`}
-          key={exam.name}
-          style={{
-            textDecoration: 'none',
-            color: "black",
-            fontWeight: 'bold'
-          }}
-        >
-          Exam: {exam.name}
-        </Link> */}
+      <Link href={`/teacher/exams/${exam._id}/questions`}>{exam.name}</Link>
       </Typography>
       <Typography sx={{ fontSize: 20 }} gutterBottom>
         Questions: {exam.questions.length}
@@ -50,17 +40,14 @@ const Exam = ({exam}) => {
         Passing Score: {exam.passScore}
       </Typography>
       <Typography sx={{ fontSize: 14 }} gutterBottom>
-
-
         Last Edited: {new Date(exam.created).toLocaleDateString('en-US')}
-
       </Typography>
       <HighlightOffIcon fontSize="large" sx={{ color: pink[500] }}
         // onClick={() => { removeExam(exam._id) }} 
         />
       <BorderColorIcon fontSize="large" sx={{ color: blue[500] }}
         onClick={() => {
-          navigate(`/exams/${exam._id}/questions`)
+          navigate(`/teacher/exams/${exam._id}/questions`)
         }} />
     </CardContent>
     <CardActions>
@@ -68,5 +55,4 @@ const Exam = ({exam}) => {
   </Card>
   )
 }
-
 export default Exam;

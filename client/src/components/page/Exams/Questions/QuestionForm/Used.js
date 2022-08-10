@@ -6,7 +6,6 @@ import axios from 'axios';
 
 import { api_base } from 'config'
 
-
 const Used = ({usedState, setUsedState}) => {
 	// let {id} = useParams();
     return (

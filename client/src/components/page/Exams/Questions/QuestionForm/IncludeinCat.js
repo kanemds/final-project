@@ -8,7 +8,6 @@ import { api_base } from 'config'
 import CategorySelect from './CategorySelect';
 
 const IncludeinCat = ({catsOptions, checkedCat, setCheckedCat, catSelected, setCatSelected}) => {
-	// let {id} = useParams();
     return (
 			<div>
 			  <FormControlLabel
@@ -16,7 +15,7 @@ const IncludeinCat = ({catsOptions, checkedCat, setCheckedCat, catSelected, setC
           control={
 					<Switch
 						checked={checkedCat}
-						onChange={async() => setCheckedCat(prev => prev ? false : true)}
+						onChange={() => setCheckedCat(prev => prev ? false : true)}
 						inputProps={{ 'aria-label': 'controlled' }}
 					/>}
           label='Include This Question In A Category'

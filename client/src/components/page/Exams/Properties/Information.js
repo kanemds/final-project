@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
-import { api_base } from 'config'
+import { api_base } from 'config';
 
 
 const Information = ({info, setInfo, activate}) => {
@@ -40,6 +40,35 @@ const Information = ({info, setInfo, activate}) => {
 					})}/>
 					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 						%
+					</Typography>
+				</Box>
+				<Box style={{display: 'flex'}}>
+					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+						Attempts Limit
+					</Typography>
+					<TextField disabled={activate} type="number" inputProps={{ inputMode: 'numeric', min: 0}} value={info.attemptsLimit} 
+						onChange={(event) => setInfo(prev => {
+							const val = event.target.value;			
+							const attempts = val === "" ? "" : Number(val);
+							if (attempts < 0) {
+								return {...prev, attemptsLimit: 0};
+							}
+							return {...prev, attemptsLimit: attempts};
+					})}/>
+					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+						Time Limit
+					</Typography>
+					<TextField disabled={activate} type="number" inputProps={{ inputMode: 'numeric', min: 0}} value={info.timeLimit} 
+						onChange={(event) => setInfo(prev => {
+							const val = event.target.value;		
+							const time = val === "" ? "" : Number(val);
+							if (time < 0) {
+								return {...prev, timeLimit: 0};
+							}
+							return {...prev, timeLimit: time};
+					})}/>
+					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+						Minutes
 					</Typography>
 				</Box>
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-const QuestionScheama =  new mongoose.Schema({
-  content:{
+const QuestionScheama = new mongoose.Schema({
+  content: {
     type: String,
     required: true
   },
@@ -9,16 +9,15 @@ const QuestionScheama =  new mongoose.Schema({
     type: Number,
     required: true
   },
-  answers:[
+  answers: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Answer"
     }
   ],
-  correctAnswer:{
+  correctAnswer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Answer",
-    required: true
+    ref: "Answer"
   },
   category:{
     type: mongoose.Schema.Types.ObjectId,
@@ -29,7 +28,7 @@ const QuestionScheama =  new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  created:{
+  created: {
     type: Date,
     default: Date.now
   }

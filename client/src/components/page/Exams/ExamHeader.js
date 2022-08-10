@@ -26,19 +26,19 @@ const ExamHeader = ({examName}) => {
       }}
       >
         <Button size="large" variant="outlined" onClick={() => {
-          navigate(`/exams/${id}/questions`);
+          navigate(`/teacher/exams/${id}/questions`);
         }}>Questions</Button>
         <Button size="large" variant="outlined" onClick={() => {
-          navigate(`/exams/${id}/categories`);
+          navigate(`/teacher/exams/${id}/categories`);
         }}>Categories</Button>
         <Button size="large" variant="outlined" onClick={() => {
-          navigate(`/exams/${id}/properties`);
+          navigate(`/teacher/exams/${id}/properties`);
         }}>Properties</Button>
         <Button size="large" variant="outlined" onClick={() => {
-          navigate(`/exams/${id}/matrix`);
+          navigate(`/teacher/exams/${id}/matrix`);
         }}>Matrix</Button>
         <Button size="large" variant="outlined" onClick={() => {
-          navigate(`/exams/${id}/activation`);
+          navigate(`/teacher/exams/${id}/activation`);
         }}>Activation</Button>
       </Box>
 	</>

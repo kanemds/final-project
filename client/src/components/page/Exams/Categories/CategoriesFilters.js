@@ -9,7 +9,7 @@ import { pink } from '@mui/material/colors';
 import { blue } from '@mui/material/colors';
 import axios from 'axios';
 
-import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { api_base } from 'config'
 
 export default function CategoriesFilters({categories, setCategories, setQuestionsFilterState, activate}) {
@@ -30,7 +30,7 @@ export default function CategoriesFilters({categories, setCategories, setQuestio
       return newPrev;
     });
     await axios.post(`${api_base}/categories/${catRow.id}/delete`);
-    navigate(`/exams/${id}/categories`);
+    navigate(`/teacher/exams/${id}/categories`);
   };
   const columns = [
     {field: 'name', headerName: 'Name', flex: 3},
@@ -54,7 +54,7 @@ export default function CategoriesFilters({categories, setCategories, setQuestio
               }
             };
           })
-          navigate(`/exams/${id}/questions`)
+          navigate(`/teacher/exams/${id}/questions`)
         }} disabled={activate}>
           <RemoveRedEyeIcon />
       </IconButton>
@@ -64,7 +64,7 @@ export default function CategoriesFilters({categories, setCategories, setQuestio
       const catRow = rowData.row;
       if (catRow.name !== 'No Category Assigned') {
         return (
-          <IconButton aria-label="Edit" onClick={() => navigate(`/exams/${id}/categories/${rowData.row.id}/edit`)} disabled={activate}>
+          <IconButton aria-label="Edit" onClick={() => navigate(`/teacher/exams/${id}/categories/${rowData.row.id}/edit`)} disabled={activate}>
             <EditIcon />
           </IconButton>
         )}

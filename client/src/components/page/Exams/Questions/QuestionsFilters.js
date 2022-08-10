@@ -19,7 +19,7 @@ export default function QuestionsFilters({questions, questionsFilterState}) {
     {field: 'order', headerName: 'Order', flex: 1},
     {field: 'question', headerName: 'Question', flex: 5, renderCell: (rowData) => {
       const que = rowData.row;
-      return <Link href={`${api_base}/exams/${id}/questions/${que.id}/${que.order}`}>{que.question}</Link>
+      return <Link href={`${api_base}/teacher/exams/${id}/questions/${que.id}/${que.order}`}>{que.question}</Link>
     }},
     {field: 'category', headerName: 'Category', flex: 3},
     {field: 'points', headerName: 'Points', flex: 1},

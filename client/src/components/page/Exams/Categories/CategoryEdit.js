@@ -23,7 +23,7 @@ const CategoryEdit = () => {
   }, []);
   const save = async () => {
     await axios.post(`${api_base}/categories/${categoryId}`, {content: category.content});
-    navigate(`/exams/${id}/categories`);
+    navigate(`/teacher/exams/${id}/categories`);
   };
   return (
     <>
@@ -34,7 +34,7 @@ const CategoryEdit = () => {
 			</Typography>
 			<TextField value={category.content} 
 					onChange={(event) => setCategory(prev => ({...prev, content: event.target.value}))}/>
-      <Button component={Link} to={`/exams/${id}/categories`}>Cancel</Button>
+      <Button component={Link} to={`/teacher/exams/${id}/categories`}>Cancel</Button>
         <Button onClick={async () => await save()}>
           Update
         </Button>

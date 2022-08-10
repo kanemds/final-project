@@ -1,49 +1,60 @@
-import React from 'react'
-import HomeIcon from '@mui/icons-material/HomeRounded';
-import QuizIcon from '@mui/icons-material/QuizRounded';
-import StudentIcon from '@mui/icons-material/PersonRounded';
-import GrouopsIcon from '@mui/icons-material/PeopleAltRounded';
-import ReportsIcon from '@mui/icons-material/EqualizerSharp';
-import AccountIcon from '@mui/icons-material/ManageAccountsSharp';
-import LogoutIcon from '@mui/icons-material/ExitToAppRounded';
+import React from "react";
+import HomeIcon from "@mui/icons-material/HomeRounded";
+import QuizIcon from "@mui/icons-material/QuizRounded";
+import StudentIcon from "@mui/icons-material/PersonRounded";
+import GrouopsIcon from "@mui/icons-material/PeopleAltRounded";
+import ReportsIcon from "@mui/icons-material/EqualizerSharp";
+import AccountIcon from "@mui/icons-material/ManageAccountsSharp";
+import LogoutIcon from "@mui/icons-material/ExitToAppRounded";
+import CoursesIcon from '@mui/icons-material/AutoStories';
 
-
-
-export const SidebarData = [ 
+export const SidebarData = [
   {
-    title:"Home",
+    title: "Home",
     icon: <HomeIcon />,
-    link: "/home"
+
+    link: "/teacher/home",
+
   },
   {
-    title:"Exams",
+    title: "Courses",
+    icon: <CoursesIcon />,
+
+    link: "/teacher/courses",
+
+  },
+  {
+    title: "Exams",
     icon: <QuizIcon />,
-    link: "/exams"
+
+    link: "/teacher/exams",
+
   },
   {
-    title:"Students",
+    title: "Students",
     icon: <StudentIcon />,
-    link: "/students"
-  },
-  {
-    title:"Groups",
-    icon: <GrouopsIcon />,
-    link: "/groups"
-  },
-  {
-    title:"Reports",
-    icon: <ReportsIcon />,
-    link: "/reports"
-  },
-  {
-    title:"Account",
-    icon: <AccountIcon />,
-    link: "/account"
-  },
-  {
-    title:"Logout",
-    icon: <LogoutIcon />,
-    link: "/logout"
+
+    link: "/teacher/students",
+
   },
 
-]
+  // {
+  //   title:"Reports",
+  //   icon: <ReportsIcon />,
+  //   link: "/reports"
+  // },
+  {
+    title: "Account",
+    icon: <AccountIcon />,
+
+    link: "/teacher/account",
+
+  },
+  {
+    title: "Logout",
+    icon: <LogoutIcon />,
+
+    link: "/",
+
+  },
+];
