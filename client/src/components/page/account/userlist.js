@@ -1,10 +1,39 @@
-import React, { useContext } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import React, { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "./GlobalState";
 import { Link } from "react-router-dom";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
+import axios from "axios";
+import { api_base } from "config";
+import useAccount from "./useAccount";
+
+const Accounts = () => {
+  const account = useAccount();
+  return (
+    <>
+      {account.map((item) => {
+        return (
+          <div key={account._id}>
+            <h1>
+              {" "}
+              {item.firstname}, {item.lastname}
+            </h1>
+          </div>
+        );
+      })}
+    </>
+  );
+};
 
 export const UserList = () => {
-  const { users, removeUser } = useContext(GlobalContext);
+  const { removeUser } = useContext(GlobalContext);
+  async function getUsers() {
+    const response = await axios.get(`${api_base}/account/userlist`);
+    setUsers(response.data);
+  }
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <ListGroup className="mt-4">

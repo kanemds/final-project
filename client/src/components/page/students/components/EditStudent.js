@@ -8,9 +8,13 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UserList } from "./userlist";
 import { api_base } from "config";
-import Account from "./Account";
-import { Email } from "@mui/icons-material";
-import useAccount from "./useAccount";
+import Student from "./Students";
+import { CropSquareSharp, Email, GolfCourseSharp } from "@mui/icons-material";
+import { MenuItem, FormControl, Select, InputLabel } from "@mui/material";
+import useStudent from "./useStudent";
+import TeacherCoursesShow from "components/page/courses/TeacherCoursesShow";
+import TeacherCourses from "components/page/courses/TeacherCourses";
+import useTeacherCourses from "components/page/courses/useTeacherCourses";
 
 const style = {
   position: "absolute",
@@ -24,13 +28,15 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export const EditStudent = ({ courses }) => {
   const [open, setOpen] = React.useState(false);
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const location = useLocation();
   const [id, setId] = useState("");
+  const [course, setCourse] = useState("");
+  const { data } = useTeacherCourses();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -41,6 +47,7 @@ export default function BasicModal() {
       setLastName(location.state.lastname);
       setEmail(location.state.email);
       setId(location.state._id);
+      // setCourse(location.state.course);
     }
   }, [location.state]);
   return (
@@ -73,23 +80,52 @@ export default function BasicModal() {
             cols="30"
           ></textarea>
         </Typography>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Courses</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={course}
+            label="Course"
+          >
+            {data.map((course) => (
+              <MenuItem
+                id={course.id}
+                key={course.id}
+                value={course.name}
+                onClick={() =>
+                  axios
+                    .put(`${api_base}/teacher/student/${id}`, {
+                      course,
+                    })
+                    .then((response) => {
+                      navigate(`/teacher/students`);
+                    })
+                }
+              >
+                {course.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <Button
-          onClick={() => {
-            console.log("Abc");
+          onClick={() =>
             axios
-              .put(`${api_base}/account/account/${id}`, {
+              .put(`${api_base}/teacher/student/${id}`, {
                 firstname,
                 lastname,
                 email,
               })
               .then((response) => {
-                navigate(`/teacher/account`);
-              });
-          }}
+                navigate(`/teacher/students`);
+              })
+          }
         >
-          Edit account
+          Edit Student Account
         </Button>
       </Box>
     </div>
   );
 }
+
+export default EditStudent

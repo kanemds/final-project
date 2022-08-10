@@ -6,10 +6,11 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { UserList } from "./userlist";
 import { api_base } from "config";
 import Student from "./Students";
 import { Email } from "@mui/icons-material";
+import useStudent from "./useStudent";
 
 const style = {
   position: "absolute",
@@ -25,10 +26,10 @@ const style = {
 
 export default function BasicModal() {
   const [open, setOpen] = React.useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
-
+  const [user, setUser] = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function BasicModal() {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           First Name{" "}
           <textarea
-            value={firstName}
+            value={firstname}
             onChange={(event) => setFirstName((_prev) => event.target.value)}
             rows="1"
             cols="30"
@@ -47,7 +48,7 @@ export default function BasicModal() {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Last Name{" "}
           <textarea
-            value={lastName}
+            value={lastname}
             onChange={(event) => setLastName((_prev) => event.target.value)}
             rows="1"
             cols="30"
@@ -62,12 +63,26 @@ export default function BasicModal() {
             cols="30"
           ></textarea>
         </Typography>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          User{" "}
+          <textarea
+            value={user}
+            onChange={(event) => setUser((_prev) => event.target.value)}
+            rows="1"
+            cols="30"
+          ></textarea>
+        </Typography>
         <Button
           onClick={() =>
             axios
-              .post(`${api_base}/students/new`, { firstName, lastName, email })
+              .post(`${api_base}/student/new`, {
+                firstname,
+                lastname,
+                email,
+                user,
+              })
               .then((response) => {
-                navigate(`/userlist`);
+                navigate(`/teacher/students`);
               })
           }
         >

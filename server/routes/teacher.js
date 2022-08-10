@@ -1,44 +1,76 @@
-const express = require('express')
-const router = express.Router()
-const ObjectId = require('mongodb').ObjectId;
-const Teacher = require('../models/teacher')
+const express = require("express");
+const student = require("../models/extra/student");
+const router = express.Router();
+const ObjectId = require("mongodb").ObjectId;
+const Teacher = require("../models/teacher");
 
-router.post('/new', (req, res) => {
+router.post("/new", (req, res) => {
   const teacher = new Teacher({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    email: req.body.email
-  })
-  teacher.save()
-    .then(data =>
-      res.json(data))
-    .catch(error => {
-      res.json(error)
+    email: req.body.email,
+  });
+  teacher
+    .save()
+    .then((data) => res.json(data))
+    .catch((error) => {
+      res.json(error);
+    });
+});
+// this route is working
+router.put("/student/:id", (req, res) => {
+  student
+    .updateOne(
+      {
+        _id: req.params.id,
+      },
+      {
+        $set: req.body,
+      }
+    )
+    .exec()
+    .then((data) => {
+      res.json(data);
     })
-}
-)
+    .catch((err) => console.log(err));
+});
+// route working well
+router.delete("/teacher/student/:id", (req, res) => {
+  student
+    .findOneAndDelete({
+      _id: req.params.id,
+    })
+    .exec()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => console.log(err));
+});
 
-router.post('/:id/edit', (req, res) => {
+router.post("/:id/edit", (req, res) => {
   Teacher.findOneAndUpdate(
     {
-      _id: req.params.id
+      _id: req.params.id,
     },
     {
       $push: {
-        "teacher": req.body.teacher
-      }
-    }, {
-    // return doc after update is applied
-    new: true,
-    upsert: true
-  }
-  ).exec().then((data) => {
-    res.json(data)
-  }).catch((err) => console.log(err))
-})
+        teacher: req.body.teacher,
+      },
+    },
+    {
+      // return doc after update is applied
+      new: true,
+      upsert: true,
+    }
+  )
+    .exec()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => console.log(err));
+});
 
-
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
   const doc = Teacher.aggregate([
     { $match: { _id: ObjectId(req.params.id) } },
     { $limit: 1 },
@@ -54,25 +86,40 @@ router.get('/:id', (req, res) => {
               from: "students",
               localField: "students",
               foreignField: "_id",
-              as: "students"
-            }
-          }
-        ]
-      }
-    }
-  ]).exec().then((result) => {
-    console.log(result)
-    res.json(result[0])
-  })
-})
+              as: "students",
+            },
+          },
+        ],
+      },
+    },
+  ])
+    .exec()
+    .then((result) => {
+      // console.log(result);
+      res.json(result[0]);
+    });
+});
 
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   Teacher.find()
-    .then(data => {
+    .then((data) => {
       res.send(data);
-    }).catch(error => {
+    })
+    .catch((error) => {
       res.json(error);
     });
-})
+});
 
-module.exports = router
+// router.put("/courses/:id", (req, res) => {
+//   student
+//     .updateOne({
+//       _id: req.params.id,
+//     })
+//     .exec()
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => console.log(err));
+// });
+
+module.exports = router;

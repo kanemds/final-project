@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Exams = require("../models/exams");
+const Exams = require("../models/exams")
 const Question = require("../models/question");
 const Answer = require("../models/answer");
 const student = require("../models/extra/student");
@@ -11,7 +11,9 @@ router.post("/new", (req, res) => {
   const exam = new Exams({
     name: req.body.name,
     attempt: req.body.attempt,
+
     time: req.body.time
+
   });
   exam
     .save()
@@ -74,14 +76,15 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   Exams.find()
-    .then(data => {
+    .then((data) => {
       res.send(data);
-    }).catch(error => {
+    })
+    .catch((error) => {
       res.json(error);
     });
-})
+});
 
 router.get("/students/id", (req, res) => {
   student
@@ -94,13 +97,13 @@ router.get("/students/id", (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete("/:id", (req, res) => {
   Exams.findByIdAndDelete(req.params.id, (err) => {
     if (err) {
-      return res.json({ err: "Exam not found" })
+      return res.json({ err: "Exam not found" });
     }
-    return res.status(202).send()
-  })
-})
+    return res.status(202).send();
+  });
+});
 
 module.exports = router;

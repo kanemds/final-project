@@ -2,6 +2,7 @@ const express = require("express");
 const Exam = require("../models/exams");
 const router = express.Router();
 const Score = require("../models/score")
+
 const ObjectId = require("mongodb").ObjectId;
 
 router.post("/new", (req, res) => {
@@ -20,6 +21,7 @@ router.post("/new", (req, res) => {
     });
 });
 
+
 router.post('/:id/edit', (req, res) => {
   const newDoc = req.body
   const { answers } = newDoc
@@ -27,16 +29,20 @@ router.post('/:id/edit', (req, res) => {
     if (!newDoc[prop]) {
       delete newDoc[prop];
       //it will remove fields who are undefined or null 
+
     }
   }
   Score.findOneAndUpdate(
     {
+
       _id: req.params.id
+
     },
     newDoc,
     {
       // return doc after update is applied
       new: true,
+
       upsert: true
     }
   ).exec().then(async (data) => {
@@ -91,6 +97,8 @@ router.post('/:id/edit', (req, res) => {
   })
     .catch((err) => console.log(err))
 })
+
+
 
 router.get("/:id", (req, res) => {
   const doc = Score.aggregate([
@@ -150,5 +158,6 @@ router.delete('/:id', (req, res) => {
     return res.status(202).send()
   })
 })
+
 
 module.exports = router;

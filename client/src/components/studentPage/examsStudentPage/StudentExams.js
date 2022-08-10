@@ -20,12 +20,14 @@ import { LoginContext } from 'Contexts/LoginContext';
 import { useContext } from 'react';
 import useScore from 'components/hooks/useScore';
 
+
+
 function Row({ item, exams }) {
   const navigate = useNavigate()
   const { newScore, editScore, scores, getScoreByExamId } = useScore()
 
-
   const course = item
+
 
   const [open, setOpen] = React.useState(false);
 
@@ -38,6 +40,7 @@ function Row({ item, exams }) {
     const currentExamIds = course.exams
     return currentExamIds.includes(item._id.toString())
   })
+
 
   if (!exams) {
     return ""

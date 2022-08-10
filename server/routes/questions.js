@@ -1,23 +1,23 @@
-const express = require('express')
-const router = express.Router()
-const Exams = require('../models/exams')
-const Question = require('../models/question')
-const Answer = require('../models/answer')
+const express = require("express");
+const router = express.Router();
+const Question = require("../models/question");
+
 
 
 router.get('/', (req, res) => {
   Question.find()
     .then(data => {
       res.send(data);
-    }).catch(error => {
+    })
+    .catch((error) => {
       res.json(error);
     });
-})
+});
 
-router.post('/new', (req, res) => {
+router.post("/new", (req, res) => {
   if (req.body.answers.length < 0) {
-    res.status(400)
-    return
+    res.status(400);
+    return;
   }
 
   const question = new Question({
@@ -31,11 +31,12 @@ router.post('/new', (req, res) => {
 
 })
 
+
 // router.post('/addanswers', (req, res) => {
-//   let exam = await Exams.findOneAndUpdate(req.body.examId, 
+//   let exam = await Exams.findOneAndUpdate(req.body.examId,
 //     {answers: req.body.ansArr, correctAnswer: req.body.corAns});
 //   exam.save()
-//     .then(data =>     
+//     .then(data =>
 //       res.json(data))
 //     .catch(error => {
 //       res.json(error)
@@ -43,4 +44,4 @@ router.post('/new', (req, res) => {
 //   }
 // )
 
-module.exports = router
+module.exports = router;

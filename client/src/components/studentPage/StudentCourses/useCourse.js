@@ -9,14 +9,15 @@ function useCourses(props) {
 
   useEffect(() => {
     const fetchCourses = async () => {
+
       const url = `${api_base}/course/`;
+
       const res = await fetch(url, {
         credentials: 'include'
       });
       setCourses(await res.json());
     }
     fetchCourses();
-    console.log(fetchCourses())
   }, []);
 
   if (courses === null) {

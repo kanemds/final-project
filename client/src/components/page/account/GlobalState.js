@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
-
+import axios from "axios";
 // Initial State
 const initialState = {
   users: [],
@@ -15,8 +15,10 @@ export const GlobalProvider = ({ children }) => {
 
   // Actions
   const removeUser = (id) => {
+    axios.delete(`/account/account/${id}`).then(() => window.location.reload());
+
     dispatch({
-      type: "REMOVE_STUDENT",
+      type: "REMOVE_ACCOUNT",
       payload: id,
     });
   };
@@ -28,9 +30,18 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
-  const editUser = (user) => {
+  const editUser = (id) => {
+    axios.put(`/account/${id}`).then(() => window.location.reload());
+
     dispatch({
       type: "EDIT_USER",
+      payload: id,
+    });
+  };
+
+  const getUser = (user) => {
+    dispatch({
+      type: "GET_USER",
       payload: user,
     });
   };
@@ -41,6 +52,7 @@ export const GlobalProvider = ({ children }) => {
         users: state.users,
         removeUser,
         addUser,
+        getUser,
         editUser,
       }}
     >
