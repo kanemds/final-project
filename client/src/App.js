@@ -56,15 +56,15 @@ function App() {
         <Route element={<Root />}>
           <Route path="/teacher/exams" element={<Exams />} />
           <Route element={<ExamContainer />}>
-          <Route path="/teacher/exams/:id/questions" element={<ExamQuestions />} />
-          <Route path="/teacher/exams/:id/questions/new/:questionOrder" element={<ExamQuestionsNew />} />
-          <Route path="/teacher/exams/:id/categories/:categoryId/questions/:questionId/edit/:questionOrder" element={<QuestionEdit />} />
-          <Route path="/teacher/exams/:id/questions/:questionId/:questionOrder" element={<QuestionOperations />} />
-          <Route path="/teacher/exams/:id/categories" element={<ExamCategories />} />
-          <Route path="/teacher/exams/:id/properties" element={<ExamProperties />} />
-          <Route path="/teacher/exams/:id/matrix" element={<ExamMatrix />} />
-          <Route path="/teacher/exams/:id/activation" element={<ExamActivation />} />
-        </Route>
+            <Route path="/teacher/exams/:id/questions" element={<ExamQuestions />} />
+            <Route path="/teacher/exams/:id/questions/new/:questionOrder" element={<ExamQuestionsNew />} />
+            <Route path="/teacher/exams/:id/categories/:categoryId/questions/:questionId/edit/:questionOrder" element={<QuestionEdit />} />
+            <Route path="/teacher/exams/:id/questions/:questionId/:questionOrder" element={<QuestionOperations />} />
+            <Route path="/teacher/exams/:id/categories" element={<ExamCategories />} />
+            <Route path="/teacher/exams/:id/properties" element={<ExamProperties />} />
+            <Route path="/teacher/exams/:id/matrix" element={<ExamMatrix />} />
+            <Route path="/teacher/exams/:id/activation" element={<ExamActivation />} />
+          </Route>
           <Route path="/teacher/students" element={<Students />} />
           <Route path="/teacher/userlist" element={<UserList />} />
           <Route path="/teacher/students/new" element={<AddStudent />} />

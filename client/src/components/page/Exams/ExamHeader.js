@@ -53,9 +53,10 @@ const ExamHeader = () => {
   const [value, setValue] = React.useState(0);
   const links = [
     `/teacher/exams/${id}/questions`,
-    `/teacher/exams/${id}/pools`,
+    `/teacher/exams/${id}/categories`,
     `/teacher/exams/${id}/properties`,
-    `/teacher/exams/${id}/scheduler`
+    `/teacher/exams/${id}/matrix`,
+    `/teacher/exams/${id}/activation`
   ]
 
   const handleChange = (event, newValue) => {
@@ -83,9 +84,10 @@ const ExamHeader = () => {
         aria-label="full width tabs example"
       >
         <Tab label="Questions" {...a11yProps(0)} />
-        <Tab label="Pools" {...a11yProps(1)} />
+        <Tab label="Categories" {...a11yProps(1)} />
         <Tab label="Properties" {...a11yProps(2)} />
-        <Tab label="Scheduler" {...a11yProps(3)} />
+        <Tab label="Matrix" {...a11yProps(3)} />
+        <Tab label="Activation" {...a11yProps(4)} />
       </Tabs>
     </div>
 
