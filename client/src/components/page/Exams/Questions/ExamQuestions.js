@@ -17,7 +17,6 @@ import BasicModal from './ModalAddQuestion';
 import QuestionsFilters from './QuestionsFilters';
 
 const ExamQuestions = () => {
-<<<<<<< HEAD
   let {id} = useParams();
   const [questions, setQuestions] = useState([]);
   const {questionsFilterState, activate} = useOutletContext();
@@ -42,40 +41,6 @@ const ExamQuestions = () => {
       <Box>
       {!load && questions.length > 0 && <QuestionsFilters questions={questions} questionsFilterState={questionsFilterState} />}
       </Box>
-=======
-  const { exam } = useExam()
-  const questions = exam.questions && exam.questions.map((q) => {
-    const answers = q.answers && q.answers.map((a) => {
-      const correctAnswer = q.correctAnswer === a._id ? "Correct answer." : ""
-      return (
-        <ListItem key={a._id}>
-          <ListItemButton>
-            <ListItemText primary={a.content} secondary={correctAnswer} />
-          </ListItemButton>
-        </ListItem>
-      )
-    })
-    return (<>
-      <ListItem key={q._id}>
-        <ListItemButton>
-          <ListItemText primary={q.content} />
-        </ListItemButton>
-      </ListItem>
-      <List sx={{ pl: 4 }}>
-        {answers}
-      </List></>
-    )
-  })
-
-  return (
-    <>
-      <BasicModal />
-      Exam Questions List
-
-      <List>
-        {questions}
-      </List>
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
     </>
   )
 }

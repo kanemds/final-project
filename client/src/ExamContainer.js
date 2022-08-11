@@ -5,14 +5,8 @@ import axios from 'axios';
 
 import ExamHeader from 'components/page/Exams/ExamHeader';
 import Sidebar from 'components/Sidebar';
-<<<<<<< HEAD
 
 import { api_base } from 'config'
-=======
-import React, { useState, useEffect } from 'react'
-import { Outlet } from "react-router-dom";
-import Box from '@mui/material/Box';
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
 
 const ExamContainer = () => {
   const {id} = useParams();
@@ -29,7 +23,6 @@ const ExamContainer = () => {
   }, []);
   return (
     <>
-<<<<<<< HEAD
       <ExamHeader examName={examName} />
       <Box sx={{ bgcolor: 'white', p: 3 }}>
         <Outlet context={{
@@ -38,11 +31,6 @@ const ExamContainer = () => {
           setExamName
           }} 
         />
-=======
-      <ExamHeader />
-      <Box sx={{ bgcolor: 'white', p: 3 }}>
-        <Outlet />
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
       </Box>
     </>
   )

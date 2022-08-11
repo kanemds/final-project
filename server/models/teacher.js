@@ -21,11 +21,7 @@ const TeacherSchema = new mongoose.Schema({
   exams: [
     {
       type: mongoose.Schema.Types.ObjectId,
-<<<<<<< HEAD
       ref: "Exam"
-=======
-      ref: "Quiz"
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
     }
   ],
   students: [

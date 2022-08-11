@@ -1,40 +1,23 @@
 const express = require("express");
 const router = express.Router();
-<<<<<<< HEAD
 const Exam = require("../models/exam");
 const Category = require('../models/category')
-=======
-const Exams = require("../models/exam")
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
 const Question = require("../models/question");
 const Answer = require("../models/answer");
 const student = require("../models/extra/student");
 
 const ObjectId = require("mongodb").ObjectId;
 
-<<<<<<< HEAD
 router.get("/", (req, res) => {
   Exam.find()
     .then((data) => {
       res.send(data);
     })
-=======
-router.post("/new", (req, res) => {
-  const exam = new Exams({
-    name: req.body.name,
-    attempt: req.body.attempt,
-    time: req.body.time
-  });
-  exam
-    .save()
-    .then((data) => res.json(data))
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
     .catch((error) => {
       res.json(error);
     });
 });
 
-<<<<<<< HEAD
 router.get('/:id', (req, res) => {
   const doc = Exam.aggregate([
     { $match: { _id: ObjectId(req.params.id) }},
@@ -70,34 +53,6 @@ router.get('/:id/properties', async (req, res) => {
 router.get('/:id/questions', async (req, res) => {
   const questionsData = await Exam.aggregate([
     { $match: { _id: ObjectId(req.params.id) }},
-=======
-router.post("/:id/edit", (req, res) => {
-  Exams.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    {
-      $push: {
-        questions: req.body.questions,
-      },
-    },
-    {
-      // return doc after update is applied
-      new: true,
-      upsert: true,
-    }
-  )
-    .exec()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => console.log(err));
-});
-
-router.get("/:id", (req, res) => {
-  const doc = Exams.aggregate([
-    { $match: { _id: ObjectId(req.params.id) } },
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
     { $limit: 1 },
     {
       $lookup: {
@@ -111,7 +66,6 @@ router.get("/:id", (req, res) => {
               from: "answers",
               localField: "answers",
               foreignField: "_id",
-<<<<<<< HEAD
               as: "answers"
             }
           }
@@ -334,50 +288,4 @@ router.delete("/:id", (req, res) => {
   });
 });
 
-=======
-              as: "answers",
-            },
-          },
-        ],
-      },
-    },
-  ])
-    .exec()
-    .then((result) => {
-      console.log(result);
-      res.json(result[0]);
-    });
-});
-
-router.get("/", (req, res) => {
-  Exams.find()
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((error) => {
-      res.json(error);
-    });
-});
-
-router.get("/students/id", (req, res) => {
-  student
-    .find()
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((error) => {
-      res.json(error);
-    });
-});
-
-router.delete("/:id", (req, res) => {
-  Exams.findByIdAndDelete(req.params.id, (err) => {
-    if (err) {
-      return res.json({ err: "Exam not found" });
-    }
-    return res.status(202).send();
-  });
-});
-
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
 module.exports = router;

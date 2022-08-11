@@ -43,7 +43,6 @@ export default function BasicModal({setExamsState}) {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Categories
           </Typography>
-<<<<<<< HEAD
           <Button 
             onClick={async() => {
               const exam = await axios.post(`${api_base}/exams/new`, {name});
@@ -55,14 +54,6 @@ export default function BasicModal({setExamsState}) {
               navigate(`/teacher/exams/${exam.data._id}/questions`);
             }
           }>Create</Button>
-=======
-          <Button onClick={() =>
-            axios.post(`${api_base}/exams/new`, { name })
-              .then(exam => {
-                navigate(`/teacher/exams/${exam.data._id}/questions`);
-              }
-              )}>Create</Button>
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
         </Box>
       </Modal>
     </div>
