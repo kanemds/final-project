@@ -70,6 +70,10 @@ function App() {
           <Route path="/teacher/students/new" element={<AddStudent />} />
           <Route path="/teacher/students/edit" element={<EditStudent />} />
 
+          {/* {reports page} */}
+          {/* <Route element={<ReportContainer />}>
+          <Route path="/teacher/reports" element={<Courses />} /> */}
+
           {/* courses page */}
           <Route path="/teacher/courses" element={<Courses />} />
           <Route element={<CoursesContainer />}>
@@ -86,7 +90,7 @@ function App() {
           <Route path="/teacher/students" element={<Students />} />
           <Route path="/teacher/courses/:id/edit" element={<EditCourse />} />
           <Route path="/teacher/courses" element={<Courses />} />
-          {/* <Route path="/reports" element={<Reports />} /> */}
+          {/* <Route path="/teacher/reports" element={<Reports />} /> */}
           <Route path="/teacher/account" element={<Account />} />
           <Route path="/teacher/logout" element={<Logout />} />
           <Route path="/teacher/account/billing" element={<Billing />} />

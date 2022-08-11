@@ -37,12 +37,12 @@ export const SidebarData = [
     link: "/teacher/students",
 
   },
+  {
+    title:"Reports",
+    icon: <ReportsIcon />,
 
-  // {
-  //   title:"Reports",
-  //   icon: <ReportsIcon />,
-  //   link: "/reports"
-  // },
+    link: "/teacher/reports"
+  },
   {
     title: "Account",
     icon: <AccountIcon />,
