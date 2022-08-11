@@ -1,29 +1,31 @@
 const mongoose = require('mongoose')
 
-const ExamScheama = new mongoose.Schema({
+const ExamSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
   },
-  attempt: {
-    type: Number,
-    required: true
-  },
-  time: {
-    type: Number,
-    required: true
-  },
-  passScore: {
+  attemptsLimit: {
     type: Number
   },
+  timeLimit: {
+    type: Number
+  },
+  passScore: {
+    type: Number,
+    default: 50
+  },
   instructions: {
-    type: String
+    type: String,
+    default: ''
   },
   passFeedback: {
-    type: String
+    type: String,
+    default: 'Unfortunately, you did not pass.'
   },
   failFeedback: {
-    type: String
+    type: String,
+    default: 'Congratulations! You passed!'
   },
   activate: {
     type: Boolean,
@@ -53,4 +55,4 @@ const ExamScheama = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Exams', ExamScheama)
+module.exports = mongoose.model('Exam', ExamSchema)

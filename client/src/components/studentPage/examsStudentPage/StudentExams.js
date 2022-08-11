@@ -13,7 +13,6 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import useCourses from '../StudentCourses/useCourse';
-import useExams from 'components/page/Exams/useExams';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import { useNavigate } from 'react-router-dom';
 import { LoginContext } from 'Contexts/LoginContext';
@@ -30,26 +29,12 @@ function Row({ item, exams }) {
   const [open, setOpen] = React.useState(false);
 
   const findExams = exams && exams.filter((item) => {
-
     if (!course) {
       return false
     }
-
     const currentExamIds = course.exams
     return currentExamIds.includes(item._id.toString())
   })
-
-
-  const getTime = (time) => {
-    const second = 1000
-    const minute = second * 60
-    const hour = minute * 60
-    const texthour = Math.floor(time / hour)
-    const textMinute = Math.floor((time % hour) / minute)
-    const textSecond = Math.floor((time % minute) / second)
-    return `${texthour} : ${textMinute}`
-  }
-
 
   if (!exams) {
     return ""
@@ -57,14 +42,17 @@ function Row({ item, exams }) {
 
   const startExam = (examId, score, maxAttempt, time) => {
     const incompleteScore = score.filter((item) => {
-      const min = 30
-      const endTime = new Date(new Date(item.created).getTime() + min * 60000);
-      return !item.submitted && item.created < endTime
+      const oneMinute = time * 1000 * 60
+      const endTime = new Date(item.created).getTime() + oneMinute
+      const currentTime = new Date().getTime()
+      return !item.submitted && currentTime < endTime
     })
     const lastScore = incompleteScore && incompleteScore[0]
+    console.log(lastScore)
 
     if (lastScore) {
       saveLastIncomplete(lastScore)
+      navigate(`/student/courses/${examId}/exam`)
     } else {
       newScore({
         score: 0,
@@ -72,7 +60,7 @@ function Row({ item, exams }) {
         exam: examId,
         submitted: false
       }).then((scoreDoc) => {
-        saveLastIncomplete(scoreDoc)
+        saveLastIncomplete(scoreDoc.data)
         navigate(`/student/courses/${examId}/exam`)
       })
     }
@@ -115,13 +103,26 @@ function Row({ item, exams }) {
                 </TableHead>
                 <TableBody>
                   {findExams.map(each => {
+                    console.log(each)
                     const score = scores.filter((item) => item.exam === each._id)
-                    const maxAttempt = 20
                     const attempts = score.length
+                    const submitted = score.filter((item) => item.submitted).length
                     const examScores = attempts > 1 && score && score.map((item) => item.score)
                     const highestScore = attempts > 1 && Math.max(...examScores)
                     const scorePercentage = attempts > 1 ?
                       `${Math.trunc(((highestScore / each.questions.length) * 100))}%` : 'N/A'
+                    let canStartExam = true
+
+                    if (submitted >= each.attemptsLimit) {
+                      canStartExam = false
+                    } else {
+                      if (score && score[0] && new Date().getTime() > new Date(new Date(score[0].created).getTime() + each.timeLimit * 60 * 1000).getTime()
+                        && submitted >= each.attemptsLimit
+                      ) {
+                        canStartExam = false
+                      }
+                    }
+
 
                     return (
                       < TableRow key={each._id} >
@@ -129,18 +130,18 @@ function Row({ item, exams }) {
                           <h3>{each.name}</h3>
                         </TableCell>
                         <TableCell align="center"> <h3>{each.questions.length}</h3></TableCell>
-                        <TableCell align="center"><h3>{getTime(each.time)}</h3></TableCell>
-                        <TableCell align="center"><h3>{attempts}/2</h3></TableCell>
+                        <TableCell align="center"><h3>{each.timeLimit} Minutes</h3></TableCell>
+                        <TableCell align="center"><h3>{attempts}/{each.attemptsLimit}</h3></TableCell>
 
                         <TableCell align="center"><h3>{scorePercentage}</h3></TableCell>
 
                         <TableCell align="center"  >
-                          {attempts < maxAttempt ? (<PlayCircleOutlineOutlinedIcon
+                          {canStartExam ? (<PlayCircleOutlineOutlinedIcon
                             sx={{
                               fontSize: "40px",
                               color: "Green"
                             }}
-                            onClick={() => { startExam(each._id, score, maxAttempt, each.time) }}
+                            onClick={() => { startExam(each._id, score, each.attemptsLimit, each.timeLimit) }}
                           />) : 'Completed'}
 
                         </TableCell>
@@ -163,7 +164,6 @@ export default function CollapsibleTable() {
 
   const { exams } = useContext(LoginContext)
   const data = useCourses()
-  // const { exams } = useExams()
   return (
     <TableContainer component={Paper}
       sx={{
