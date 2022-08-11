@@ -11,11 +11,6 @@ router.get('/', (req, res) => {
     });
 })
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
 router.post('/new', (req, res) => {
   const answer = new Answer({
     content: req.body.content

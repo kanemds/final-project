@@ -1,23 +1,7 @@
 import { LoginContext } from 'Contexts/LoginContext'
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-<<<<<<< HEAD
-import Checkbox from '@mui/material/Checkbox';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import { Box, Button, Table, TableCell, TableRow } from '@mui/material';
-import ListItemText from '@mui/material/ListItemText';
-import useExam from 'components/page/Exams/useExam';
-import { Check } from '@mui/icons-material';
-import AlarmIcon from '@mui/icons-material/Alarm';
-import { List } from 'reactstrap';
-import { useNavigate } from 'react-router-dom';
-import useScore from 'components/hooks/useScore';
-=======
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ListItem from '@mui/material/ListItem';
@@ -26,39 +10,28 @@ import useExam from 'components/page/Exams/useExam';
 import { useNavigate } from 'react-router-dom';
 import useScore from 'components/hooks/useScore';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
 
 
 const TakingExams = () => {
   const navigate = useNavigate()
-<<<<<<< HEAD
-  const { userId, lastIncomplete, countDown } = useContext(LoginContext)
-  const { getScoreByExamId, editScore, newScore } = useScore()
 
-  const { id } = useParams()
-  const { exam } = useExam()
-  console.log(exam)
-=======
   const { userId, lastIncomplete } = useContext(LoginContext)
   const { getScoreByExamId, editScore, newScore } = useScore()
   const { id } = useParams()
   const { exam } = useExam()
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
   const questions = exam.questions
   const [selected, setSelected] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState([])
-<<<<<<< HEAD
-  const tags = ["A", "B", "C", "D", "E", "F", "G", "H"]
-  const currentScore = lastIncomplete || getScoreByExamId(id)
-  console.log(currentScore)
-=======
+
   const [remaining, setRemaining] = useState(0)
   const tags = ["A", "B", "C", "D", "E", "F", "G", "H"]
   const currentScore = lastIncomplete || getScoreByExamId(id)
 
 
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
   const selectedHandle = (answerId, currentQuestion) => {
     const newAnswers = answers
     newAnswers[currentQuestion] = answerId
@@ -66,36 +39,20 @@ const TakingExams = () => {
     setAnswers(newAnswers)
   }
 
-<<<<<<< HEAD
 
-=======
   const children = ({ remainingTime }) => {
     // const hours = Math.floor(remainingTime / 3600)
     const minutes = Math.floor((remainingTime % 3600) / 60)
     const seconds = remainingTime % 60
     return <p>{minutes}mins</p>
   }
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
 
   useEffect(() => {
     if (answers.length === 0 && currentScore && currentScore.answers && currentScore.answers.length > 0) {
       setAnswers(currentScore.answers)
     }
-<<<<<<< HEAD
-  }, [answers, currentScore])
 
-  const remain = (time) => {
-    const endTime = new Date().getTime() - new Date(currentScore.created).getTime();
-    if (endTime < time) {
-      editScore(currentScore._id, {
-        submitted: true
-      }).then(
-        navigate(`/student/courses/${id}/exam/done`))
-    } else {
-      countDown(time)
-    }
-  }
-=======
 
     if (remaining === 0 && exam && currentScore) {
       const remainingTime = (new Date(currentScore.created).getTime() + exam.timeLimit * 60 * 1000) - new Date().getTime()
@@ -104,7 +61,7 @@ const TakingExams = () => {
       }
     }
   }, [answers, currentScore, exam, remaining, setRemaining])
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
 
 
   const nextQuestion = () => {
@@ -136,13 +93,10 @@ const TakingExams = () => {
     return ""
   }
 
-<<<<<<< HEAD
-  const nextButtonText = currentQuestion === questions.length - 1 ? 'Submit' : 'Next'
 
-=======
   const nextButtonText = currentQuestion === questions.length - 1 ? 'Submit' : 'Save and Continue'
   const color = exam.timeLimit * 60
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
   return (
     <>
       <Box
@@ -161,15 +115,7 @@ const TakingExams = () => {
         >
 
           <CardContent >
-<<<<<<< HEAD
-            <ListItem sx={{ fontSize: "50px" }}>{exam.name}</ListItem>
-            {console.log(exam.time)}
-            <ListItem><AlarmIcon />
-              {/* {setInterval(countDown(exam.time), 1000)} */}
-            </ListItem>
-            <ListItem sx={{ fontSize: "30px" }} >
-              {currentQuestion + 1}. {questions[currentQuestion].content}
-=======
+
 
             <ListItem
               sx={{
@@ -204,7 +150,7 @@ const TakingExams = () => {
             <ListItem sx={{ fontSize: "30px" }} >
               {currentQuestion + 1}. {questions[currentQuestion].content}
 
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
             </ListItem>
             <Table>
               {questions[currentQuestion].answers.map((answer, i) => {

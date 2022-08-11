@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import React, { useState, useEffect } from 'react'
 import Button from '@mui/material/Button';
 
@@ -8,48 +8,44 @@ import { api_base } from 'config'
 import useExams from './useExams'
 import Exam from './Exam'
 import axios from 'axios';
-=======
+
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import React, { useState, useEffect } from "react";
-import { shadows } from "@mui/system";
-import { styled } from "@mui/material/styles";
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
 
-import BasicModal from "./ModalAddExam";
-import { Link } from "react-router-dom";
-import { api_base } from "config";
-import useExams from "./useExams";
+import Typography from "@mui/material/Typography";
+
+
+import { styled } from "@mui/material/styles";
+
+
 import { useNavigate } from "react-router-dom";
 import { pink } from "@mui/material/colors";
 import { blue } from "@mui/material/colors";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import axios from "axios";
+
 const Exams = () => {
-<<<<<<< HEAD
-  // const exams = useExams();
-  const [examsState, setExamsState] = useState([]);
-  useEffect(() => {
-    const getExams = async () => {
-      const exams = await axios.get(`${api_base}/exams`);
-      setExamsState(_prev => exams.data);
-    }
-    getExams();
-  }, []);
-  return (
-    <>
-      <h1>Exam Manager</h1>
-      <BasicModal setExamsState={setExamsState}/>
-      <div>
-        {examsState.length > 0 && examsState.map((exam, i) => {
-          return <Exam key={i + 1} exam={exam} />
-        })}
-      </div>
-=======
+  // <<<<<<< HEAD
+  //   // const exams = useExams();
+  //   const [examsState, setExamsState] = useState([]);
+  //   useEffect(() => {
+  //     const getExams = async () => {
+  //       const exams = await axios.get(`${api_base}/exams`);
+  //       setExamsState(_prev => exams.data);
+  //     }
+  //     getExams();
+  //   }, []);
+  //   return (
+  //     <>
+  //       <h1>Exam Manager</h1>
+  //       <BasicModal setExamsState={setExamsState}/>
+  //       <div>
+  //         {examsState.length > 0 && examsState.map((exam, i) => {
+  //           return <Exam key={i + 1} exam={exam} />
+  //         })}
+  //       </div>
+  // =======
   const { exams, removeExam } = useExams();
   const navigate = useNavigate();
 
@@ -111,7 +107,7 @@ const Exams = () => {
           <CardActions></CardActions>
         </Card>
       ))}
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
     </>
   );
 };
