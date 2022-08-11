@@ -3,15 +3,31 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import NativeSelect from '@mui/material/NativeSelect';
 
-const AllAbove = ({letter, checked, setChecked, setAboveSelected}) => {
+const AllAbove = ({letter, checkedAllAbove, setCheckedAllAbove, aboveSelected, setAboveSelected, setAnswers}) => {
     return (
 			<div>
 			  <FormControlLabel
           value="start"
           control={
 					<Switch
-						checked={checked}
-						onChange={() => setChecked(prev => prev ? false : true)}
+						checked={checkedAllAbove}
+						onChange={() => setCheckedAllAbove(prev => {
+							if (prev) {
+								setAnswers(prev => {
+									const newPrev = [...prev];
+									newPrev[newPrev.length - 1] = '';
+									return newPrev;
+								})
+								return false;
+							} else {
+								setAnswers(prev => {
+									const newPrev = [...prev];
+									newPrev[newPrev.length - 1] = aboveSelected;
+									return newPrev;
+								});
+								return true;
+							}
+						})}
 						inputProps={{ 'aria-label': 'controlled' }}
 					/>}
           label={letter}

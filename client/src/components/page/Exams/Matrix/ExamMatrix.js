@@ -4,19 +4,15 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 
-import BasicModal from '../Questions/ModalAddQuestion';
+import { api_base } from 'config';
+import MatrixFilters from './MatrixFilters';
 
-
-import { api_base } from 'config'
-
-const ExamPools = () => {
-//   const {id} = useParams();
-//   const [mode, modeState] = useState("Show Questions");
+const ExamMatrix = () => {
   return (
     <>
-      Exam Pools
+      <MatrixFilters />
     </>
   )
-}
+};
 
-export default ExamPools;
+export default ExamMatrix;

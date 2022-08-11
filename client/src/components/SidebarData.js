@@ -37,6 +37,12 @@ export const SidebarData = [
     link: "/teacher/students",
 
   },
+  {
+    title:"Reports",
+    icon: <ReportsIcon />,
+
+    link: "/teacher/reports"
+  },
 
   // {
   //   title:"Reports",

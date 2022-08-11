@@ -4,18 +4,17 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 
-import BasicModal from '../Questions/ModalAddQuestion';
-
 import { api_base } from 'config'
+import QuestionEditForm from '../QuestionForm/QuestionEditForm';
 
-const ExamScheduler = () => {
-//   const {id} = useParams();
+const QuestionEdit = () => {
+  // const {id, questionId} = useParams();
 //   const [mode, modeState] = useState("Show Questions");
   return (
-    <div>
-        Exam Scheduler
-	</div>
+    <>
+      <QuestionEditForm />
+    </>
   )
 }
 
-export default ExamScheduler;
+export default QuestionEdit;
