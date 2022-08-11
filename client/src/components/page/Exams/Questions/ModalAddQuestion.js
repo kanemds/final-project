@@ -40,7 +40,11 @@ export default function BasicModal({questionOrder, activate}) {
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             <Button onClick={() => {
+<<<<<<< HEAD
                 navigate(`/teacher/exams/${id}/questions/new/${questionOrder}`);
+=======
+                navigate(`/teacher/exams/${id}/questions/new`);
+>>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
             }}>Multiple Choice
             </Button>
           </Typography>
