@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function BasicModal({setExamsState}) {
   const [open, setOpen] = React.useState(false);
   const [name, nameState] = useState("");
 
@@ -43,12 +43,26 @@ export default function BasicModal() {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Categories
           </Typography>
+<<<<<<< HEAD
+          <Button 
+            onClick={async() => {
+              const exam = await axios.post(`${api_base}/exams/new`, {name});
+              setExamsState(prev => {
+                const newPrev = [...prev];
+                newPrev.push(exam);
+                return newPrev;
+              })
+              navigate(`/teacher/exams/${exam.data._id}/questions`);
+            }
+          }>Create</Button>
+=======
           <Button onClick={() =>
             axios.post(`${api_base}/exams/new`, { name })
               .then(exam => {
                 navigate(`/teacher/exams/${exam.data._id}/questions`);
               }
               )}>Create</Button>
+>>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
         </Box>
       </Modal>
     </div>

@@ -10,9 +10,13 @@ import Logout from "components/page/Logout";
 import Billing from "components/page/account/billing/Billing";
 import ExamQuestions from "components/page/Exams/Questions/ExamQuestions";
 import ExamQuestionsNew from "components/page/Exams/Questions/ExamQuestionsNew";
-import ExamPools from "components/page/Exams/Pools/ExamPools";
-import ExamProperties from "components/page/Exams/Porperties/ExamProperties";
-import ExamScheduler from "components/page/Exams/Scheduler/ExamScheduler";
+import QuestionOperations from "components/page/Exams/Questions/QuestionOperations/QuestionOperations";
+import QuestionEdit from "components/page/Exams/Questions/QuestionOperations/QuestionEdit";
+import ExamCategories from "components/page/Exams/Categories/ExamCategories";
+import CategoryEdit from "components/page/Exams/Categories/CategoryEdit";
+import ExamProperties from "components/page/Exams/Properties/ExamProperties";
+import ExamMatrix from "components/page/Exams/Matrix/ExamMatrix";
+import ExamActivation from "components/page/Exams/Activation/ExamActivation";
 import Root from "Root";
 import ExamContainer from "ExamContainer";
 import { UserList } from "components/page/students/components/userlist";
@@ -41,7 +45,6 @@ import EditStudent from "components/page/students/components/EditStudent";
 
 function App() {
 
-
   return (
     <Router>
       <Routes>
@@ -53,28 +56,24 @@ function App() {
         <Route element={<Root />}>
           <Route path="/teacher/exams" element={<Exams />} />
           <Route element={<ExamContainer />}>
-            <Route
-              path="/teacher/exams/:id/questions/new"
-              element={<ExamQuestionsNew />}
-            />
-            <Route
-              path="/teacher/exams/:id/questions"
-              element={<ExamQuestions />}
-            />
-            <Route path="/teacher/exams/:id/pools" element={<ExamPools />} />
-            <Route
-              path="/teacher/exams/:id/properties"
-              element={<ExamProperties />}
-            />
-            <Route
-              path="/teacher/exams/:id/scheduler"
-              element={<ExamScheduler />}
-            />
-          </Route>
+          <Route path="/teacher/exams/:id/questions" element={<ExamQuestions />} />
+          <Route path="/teacher/exams/:id/questions/new/:questionOrder" element={<ExamQuestionsNew />} />
+          <Route path="/teacher/exams/:id/categories/:categoryId/questions/:questionId/edit/:questionOrder" element={<QuestionEdit />} />
+          <Route path="/teacher/exams/:id/questions/:questionId/:questionOrder" element={<QuestionOperations />} />
+          <Route path="/teacher/exams/:id/categories" element={<ExamCategories />} />
+          <Route path="/teacher/exams/:id/properties" element={<ExamProperties />} />
+          <Route path="/teacher/exams/:id/matrix" element={<ExamMatrix />} />
+          <Route path="/teacher/exams/:id/activation" element={<ExamActivation />} />
+        </Route>
           <Route path="/teacher/students" element={<Students />} />
           <Route path="/teacher/userlist" element={<UserList />} />
           <Route path="/teacher/students/new" element={<AddStudent />} />
           <Route path="/teacher/students/edit" element={<EditStudent />} />
+
+          {/* {reports page} */}
+          {/* <Route element={<ReportContainer />}>
+          <Route path="/teacher/reports" element={<Courses />} /> */}
+
           {/* courses page */}
           <Route path="/teacher/courses" element={<Courses />} />
           <Route element={<CoursesContainer />}>
@@ -91,7 +90,7 @@ function App() {
           <Route path="/teacher/students" element={<Students />} />
           <Route path="/teacher/courses/:id/edit" element={<EditCourse />} />
           <Route path="/teacher/courses" element={<Courses />} />
-          {/* <Route path="/reports" element={<Reports />} /> */}
+          {/* <Route path="/teacher/reports" element={<Reports />} /> */}
           <Route path="/teacher/account" element={<Account />} />
           <Route path="/teacher/logout" element={<Logout />} />
           <Route path="/teacher/account/billing" element={<Billing />} />

@@ -3,6 +3,10 @@ const router = express.Router();
 const exams = require("./exams");
 const questions = require("./questions");
 const answers = require("./answers");
+<<<<<<< HEAD
+const categories = require('./categories')
+=======
+>>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
 const plan = require("./account");
 const stripe = require("./stripe");
 
@@ -15,9 +19,15 @@ const account = require("./account");
 
 const score = require("./score");
 
+<<<<<<< HEAD
+router.use("/exams", exams);
+router.use("/questions", questions);
+router.use('/categories', categories)
+=======
 router.use("/questions", questions);
 router.use("/exams", exams);
 
+>>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
 router.use("/answers", answers);
 // router.use("/account", plan);
 router.use("/stripe", stripe);

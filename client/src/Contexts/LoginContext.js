@@ -1,6 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 import useStudentHomePage from "components/studentPage/home/useStudentHomePage";
 import useTeacher from "components/page/home/teacher/useTeacher";
+<<<<<<< HEAD
+import countDown from "components/hooks/useCountDown";
+=======
+>>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
 import useTeacherCourses from "components/page/courses/useTeacherCourses";
 import useExams from 'components/page/Exams/useExams';
 import useCourses from "components/studentPage/StudentCourses/useCourse";
@@ -27,6 +31,10 @@ export const LoginProvider = ({ children }) => {
       exams, removeExam,
       data, removeCourse, addCourse, editCourse,
       lastIncomplete,
+<<<<<<< HEAD
+      countDown,
+=======
+>>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
       saveLastIncomplete
     }}>
 
