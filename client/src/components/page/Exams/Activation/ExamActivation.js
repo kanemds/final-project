@@ -16,17 +16,17 @@ import axios from 'axios';
 import { api_base } from 'config'
 
 const ExamActivation = () => {
-  const {id} = useParams();
-  const [questions, setQuestions] = useState([]);
-	const {activate, setActivate} = useOutletContext();
-  useEffect(() => {
-    const getQuestions = async () => {
-      const questionsData = await axios.get(`${api_base}/exams/${id}/questions/used`);
-      setQuestions(_prev => questionsData.data);
-    }
-    getQuestions();
-  }, []);
-  const onDrop = ({ removedIndex, addedIndex }) => {
+	const { id } = useParams();
+	const [questions, setQuestions] = useState([]);
+	const { activate, setActivate } = useOutletContext();
+	useEffect(() => {
+		const getQuestions = async () => {
+			const questionsData = await axios.get(`${api_base}/exams/${id}/questions/used`);
+			setQuestions(_prev => questionsData.data);
+		}
+		getQuestions();
+	}, []);
+	const onDrop = ({ removedIndex, addedIndex }) => {
 		const removed = questions[removedIndex];
 		const newQuestions = [];
 		for (let i = 0; i < questions.length; i++) {
@@ -42,7 +42,7 @@ const ExamActivation = () => {
 				}
 				newQuestions.push(second);
 			}
-  	}
+		}
 		setQuestions(_prev => newQuestions);
 	};
 	const onRandom = (questions) => {
@@ -57,55 +57,55 @@ const ExamActivation = () => {
 		}
 		setQuestions(_prev => newQuestions);
 	};
-  return (
+	return (
 		<>
-			<div style={{display: 'flex'}}>
-			<Button variant="contained" onClick={() => onRandom(questions)} disabled={activate}>Randomize</Button>
-			<FormControlLabel
+			<div style={{ display: 'flex' }}>
+				<Button variant="contained" onClick={() => onRandom(questions)} disabled={activate}>Randomize</Button>
+				<FormControlLabel
 					value="start"
 					control={
-					<Switch
-						checked={activate}
-						onChange={async() => {
-							let activated;
-							if (activate) {
-								await axios.post(`${api_base}/exams/${id}/deactivate`);
-								activated = false;
-							} else {
-								await axios.post(`${api_base}/exams/${id}/activate`, {questions});
-								activated = true;
+						<Switch
+							checked={activate}
+							onChange={async () => {
+								let activated;
+								if (activate) {
+									await axios.post(`${api_base}/exams/${id}/deactivate`);
+									activated = false;
+								} else {
+									await axios.post(`${api_base}/exams/${id}/activate`, { questions });
+									activated = true;
+								}
+								setActivate(_prev => activated);
 							}
-							setActivate(_prev => activated);
-						}
-					}
-						inputProps={{ 'aria-label': 'controlled' }}
-					/>}
+							}
+							inputProps={{ 'aria-label': 'controlled' }}
+						/>}
 					label='Activate'
 					labelPlacement="start"
 				/>
 			</div>
-			<br/>
+			<br />
 			<List>
 				<Container dragHandleSelector=".drag-handle" lockAxis="y" onDrop={onDrop}>
 					{questions.map(({ _id, content }, index) => (
 						<Draggable key={_id}>
-						<ListItem>
+							<ListItem>
 								<ListItemText primary={`${index + 1}) ${content}`} />
 								{
 									!activate &&
 									<ListItemSecondaryAction>
 										<ListItemIcon className="drag-handle">
-												<DragHandleIcon />
+											<DragHandleIcon />
 										</ListItemIcon>
 									</ListItemSecondaryAction>
 								}
-						</ListItem>
+							</ListItem>
 						</Draggable>
 					))}
 				</Container>
 			</List>
 		</>
-  )
+	)
 }
 
 export default ExamActivation;

@@ -14,48 +14,49 @@ import Tab from '@mui/material/Tab';
 import App from 'App.css';
 import { api_base } from 'config'
 
-<<<<<<< HEAD
-const ExamHeader = ({examName}) => {
-    let navigate = useNavigate();
-    const {id} = useParams();
-  return (
-    <>
-      <Typography variant="h4">{examName}</Typography>
-      <Box
-      sx={{
-        display: 'flex',
-        '& > *': {
-          m: 2,
-        },
-      }}
-      >
-        <Button size="large" variant="outlined" onClick={() => {
-          navigate(`/teacher/exams/${id}/questions`);
-        }}>Questions</Button>
-        <Button size="large" variant="outlined" onClick={() => {
-          navigate(`/teacher/exams/${id}/categories`);
-        }}>Categories</Button>
-        <Button size="large" variant="outlined" onClick={() => {
-          navigate(`/teacher/exams/${id}/properties`);
-        }}>Properties</Button>
-        <Button size="large" variant="outlined" onClick={() => {
-          navigate(`/teacher/exams/${id}/matrix`);
-        }}>Matrix</Button>
-        <Button size="large" variant="outlined" onClick={() => {
-          navigate(`/teacher/exams/${id}/activation`);
-        }}>Activation</Button>
-      </Box>
-	</>
-=======
+// <<<<<<< HEAD
+// const ExamHeader = ({examName}) => {
+//     let navigate = useNavigate();
+//     const {id} = useParams();
+//   return (
+//     <>
+//       <Typography variant="h4">{examName}</Typography>
+//       <Box
+//       sx={{
+//         display: 'flex',
+//         '& > *': {
+//           m: 2,
+//         },
+//       }}
+//       >
+//         <Button size="large" variant="outlined" onClick={() => {
+//           navigate(`/teacher/exams/${id}/questions`);
+//         }}>Questions</Button>
+//         <Button size="large" variant="outlined" onClick={() => {
+//           navigate(`/teacher/exams/${id}/categories`);
+//         }}>Categories</Button>
+//         <Button size="large" variant="outlined" onClick={() => {
+//           navigate(`/teacher/exams/${id}/properties`);
+//         }}>Properties</Button>
+//         <Button size="large" variant="outlined" onClick={() => {
+//           navigate(`/teacher/exams/${id}/matrix`);
+//         }}>Matrix</Button>
+//         <Button size="large" variant="outlined" onClick={() => {
+//           navigate(`/teacher/exams/${id}/activation`);
+//         }}>Activation</Button>
+//       </Box>
+// 	</>
+// =======
 const ExamHeader = () => {
   let navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
   const [value, setValue] = React.useState(0);
   const links = [
     `/teacher/exams/${id}/questions`,
-    `/teacher/exams/${id}/pools`,
+    `/teacher/exams/${id}/categories`,
     `/teacher/exams/${id}/properties`,
-    `/teacher/exams/${id}/scheduler`
+    `/teacher/exams/${id}/matrix`,
+    `/teacher/exams/${id}/activation`
   ]
 
   const handleChange = (event, newValue) => {
@@ -70,7 +71,7 @@ const ExamHeader = () => {
       'aria-controls': `full-width-tabpanel-${index}`,
     };
   }
-    
+
   return (
     <div className='selector'>
       <h1>Exam Id {id}</h1>
@@ -83,12 +84,13 @@ const ExamHeader = () => {
         aria-label="full width tabs example"
       >
         <Tab label="Questions" {...a11yProps(0)} />
-        <Tab label="Pools" {...a11yProps(1)} />
+        <Tab label="Categories" {...a11yProps(1)} />
         <Tab label="Properties" {...a11yProps(2)} />
-        <Tab label="Scheduler" {...a11yProps(3)} />
+        <Tab label="Matrix" {...a11yProps(3)} />
+        <Tab label="Activation" {...a11yProps(4)} />
       </Tabs>
-	</div>
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+    </div>
+
   )
 }
 

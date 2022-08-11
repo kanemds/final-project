@@ -5,14 +5,6 @@ const Score = require("../models/score")
 
 const ObjectId = require("mongodb").ObjectId;
 
-<<<<<<< HEAD
-router.post("/new", (req, res) => {
-  Score.find({
-    student: req.body.student,
-    exam: req.body.exam
-  }).exec().then((existing) => {
-    if (Array.isArray && existing.length < 20) {
-=======
 const canWriteExam = async (studentId, examId, scoreId) => {
   let currentExamId = examId
   if (!examId && scoreId) {
@@ -44,7 +36,6 @@ const canWriteExam = async (studentId, examId, scoreId) => {
 router.post("/new", (req, res) => {
   canWriteExam(req.body.student, req.body.exam).then(async (canWriteExam) => {
     if (canWriteExam) {
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
       const score = new Score({
         score: req.body.score,
         answers: req.body.answers,
@@ -52,19 +43,6 @@ router.post("/new", (req, res) => {
         exam: req.body.exam,
         submitted: false,
       });
-<<<<<<< HEAD
-      return score
-        .save()
-        .then((data) => res.json(data))
-        .catch((error) => {
-          res.json(error);
-        });
-    } else {
-      res.json({})
-    }
-  })
-
-=======
       const savedScore = await score
         .save()
         .catch((error) => {
@@ -78,36 +56,12 @@ router.post("/new", (req, res) => {
   }).catch((error) => {
     res.json(error);
   });
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
 });
 
 
 router.post('/:id/edit', (req, res) => {
-<<<<<<< HEAD
-  const newDoc = req.body
-  const { answers } = newDoc
-  for (let prop in newDoc) {
-    if (!newDoc[prop]) {
-      delete newDoc[prop];
-      //it will remove fields who are undefined or null 
 
-    }
-  }
-  Score.findOneAndUpdate(
-    {
-
-      _id: req.params.id
-
-    },
-    newDoc,
-    {
-      // return doc after update is applied
-      new: true,
-
-      upsert: true
-    }
-  ).exec().then(async (data) => {
-=======
   const studentId = req.session.user
   canWriteExam(studentId, null, req.params.id).then(async (canWriteExam) => {
     if (!canWriteExam) {
@@ -137,7 +91,7 @@ router.post('/:id/edit', (req, res) => {
       }
     ).exec()
 
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
     const examId = data.exam
     const exam = await Exam.aggregate([
       { $match: { _id: ObjectId(examId) } },
@@ -168,10 +122,7 @@ router.post('/:id/edit', (req, res) => {
 
     let score = 0
     for (const answer of answers) {
-<<<<<<< HEAD
-      console.log({ answer, correctAnswers })
-=======
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
       if (correctAnswers && correctAnswers.includes(answer)) {
         score += 1
       }
@@ -186,19 +137,13 @@ router.post('/:id/edit', (req, res) => {
         new: true,
         upsert: true
       }).exec()
-<<<<<<< HEAD
-    return scoreDoc
-  }).then((finalScore) => {
-    res.json(finalScore)
-  })
-    .catch((err) => console.log(err))
-=======
+
 
     res.json(scoreDoc)
   }).catch((err) => {
     res.json(err)
   })
->>>>>>> 163b7eb4cc37fb53b12fb92c580f39fa4f346cf9
+
 })
 
 router.get("/:id", (req, res) => {
