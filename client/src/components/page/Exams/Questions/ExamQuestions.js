@@ -17,9 +17,10 @@ import BasicModal from './ModalAddQuestion';
 import QuestionsFilters from './QuestionsFilters';
 
 const ExamQuestions = () => {
-  let {id} = useParams();
+
+  let { id } = useParams();
   const [questions, setQuestions] = useState([]);
-  const {questionsFilterState, activate} = useOutletContext();
+  const { questionsFilterState, activate } = useOutletContext();
   const [load, setLoad] = useState(true);
   useEffect(() => {
     const getQuestions = async () => {
@@ -39,8 +40,9 @@ const ExamQuestions = () => {
         {!load && questions.length === 0 && <img src={EmptyQuestion} />}
       </Box>
       <Box>
-      {!load && questions.length > 0 && <QuestionsFilters questions={questions} questionsFilterState={questionsFilterState} />}
+        {!load && questions.length > 0 && <QuestionsFilters questions={questions} questionsFilterState={questionsFilterState} />}
       </Box>
+
     </>
   )
 }

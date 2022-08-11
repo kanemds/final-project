@@ -16,9 +16,11 @@ const account = require("./account");
 
 const score = require("./score");
 
+
 router.use("/exams", exams);
 router.use("/questions", questions);
 router.use('/categories', categories)
+
 router.use("/answers", answers);
 // router.use("/account", plan);
 router.use("/stripe", stripe);

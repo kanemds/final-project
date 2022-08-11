@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Question = require("../models/question");
 
+
 router.get('/', (req, res) => {
   Question.find()
     .then(data => {
@@ -12,7 +13,9 @@ router.get('/', (req, res) => {
     });
 });
 
+
 router.post("/new", async (req, res) => {
+
   if (req.body.answers.length < 0) {
     res.status(400);
     return;
@@ -25,9 +28,11 @@ router.post("/new", async (req, res) => {
     category: req.body.category,
     used: req.body.used
   })
+
   const questionDoc = await question.save();
   res.send(questionDoc);
 })
+
 
 router.post('/delete', async (req, res) => {
   const doc = await Question.findOneAndDelete(
@@ -37,6 +42,7 @@ router.post('/delete', async (req, res) => {
   );
   res.send(doc);
 })
+
 
 router.post('/:questionId/used', async (req, res) => {
   const doc = await Question.findOneAndUpdate(
@@ -49,7 +55,7 @@ router.post('/:questionId/used', async (req, res) => {
     {
       // return doc after update is applied
       new: true,
-      upsert: true 
+      upsert: true
     }
   );
   res.send(doc);
@@ -71,10 +77,24 @@ router.post('/:questionId/edit', async (req, res) => {
     {
       // return doc after update is applied
       new: true,
-      upsert: true 
+      upsert: true
     }
   );
   res.send(doc);
 })
+
+
+// router.post('/addanswers', (req, res) => {
+//   let exam = await Exams.findOneAndUpdate(req.body.examId,
+//     {answers: req.body.ansArr, correctAnswer: req.body.corAns});
+//   exam.save()
+//     .then(data =>
+//       res.json(data))
+//     .catch(error => {
+//       res.json(error)
+//     })
+//   }
+// )
+
 
 module.exports = router;

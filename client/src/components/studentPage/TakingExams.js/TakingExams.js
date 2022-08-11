@@ -1,6 +1,7 @@
 import { LoginContext } from 'Contexts/LoginContext'
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ListItem from '@mui/material/ListItem';
@@ -11,19 +12,24 @@ import useScore from 'components/hooks/useScore';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 
+
 const TakingExams = () => {
   const navigate = useNavigate()
+
   const { userId, lastIncomplete } = useContext(LoginContext)
   const { getScoreByExamId, editScore, newScore } = useScore()
   const { id } = useParams()
   const { exam } = useExam()
+
   const questions = exam.questions
   const [selected, setSelected] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState([])
+
   const [remaining, setRemaining] = useState(0)
   const tags = ["A", "B", "C", "D", "E", "F", "G", "H"]
   const currentScore = lastIncomplete || getScoreByExamId(id)
+
 
 
   const selectedHandle = (answerId, currentQuestion) => {
@@ -33,6 +39,7 @@ const TakingExams = () => {
     setAnswers(newAnswers)
   }
 
+
   const children = ({ remainingTime }) => {
     // const hours = Math.floor(remainingTime / 3600)
     const minutes = Math.floor((remainingTime % 3600) / 60)
@@ -40,10 +47,12 @@ const TakingExams = () => {
     return <p>{minutes}mins</p>
   }
 
+
   useEffect(() => {
     if (answers.length === 0 && currentScore && currentScore.answers && currentScore.answers.length > 0) {
       setAnswers(currentScore.answers)
     }
+
 
     if (remaining === 0 && exam && currentScore) {
       const remainingTime = (new Date(currentScore.created).getTime() + exam.timeLimit * 60 * 1000) - new Date().getTime()
@@ -52,6 +61,7 @@ const TakingExams = () => {
       }
     }
   }, [answers, currentScore, exam, remaining, setRemaining])
+
 
 
   const nextQuestion = () => {
@@ -83,8 +93,10 @@ const TakingExams = () => {
     return ""
   }
 
+
   const nextButtonText = currentQuestion === questions.length - 1 ? 'Submit' : 'Save and Continue'
   const color = exam.timeLimit * 60
+
   return (
     <>
       <Box
@@ -103,6 +115,7 @@ const TakingExams = () => {
         >
 
           <CardContent >
+
 
             <ListItem
               sx={{
@@ -136,6 +149,7 @@ const TakingExams = () => {
             </ListItem>
             <ListItem sx={{ fontSize: "30px" }} >
               {currentQuestion + 1}. {questions[currentQuestion].content}
+
 
             </ListItem>
             <Table>

@@ -5,10 +5,11 @@ const QuestionScheama = new mongoose.Schema({
     type: String,
     required: true
   },
-  points:{
+  points: {
     type: Number,
     required: true
   },
+
   answers: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -19,15 +20,16 @@ const QuestionScheama = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Answer"
   },
-  category:{
+  category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
     required: true
   },
-  used:{
+  used: {
     type: Boolean,
     default: true
   },
+
   created: {
     type: Date,
     default: Date.now

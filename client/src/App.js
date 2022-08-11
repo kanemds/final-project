@@ -19,6 +19,7 @@ import ExamMatrix from "components/page/Exams/Matrix/ExamMatrix";
 import ExamActivation from "components/page/Exams/Activation/ExamActivation";
 import Root from "Root";
 import ExamContainer from "ExamContainer";
+import ReportContainer from "ReportContainer";
 import { UserList } from "components/page/students/components/userlist";
 import CheckoutSuccess from "components/page/account/billing/CheckoutSuccess";
 import NotFound from "components/NotFound";
@@ -41,7 +42,10 @@ import StudentExams from "./components/studentPage/examsStudentPage/StudentExams
 import TakingExams from "components/studentPage/TakingExams.js/TakingExams";
 import DoneExams from "components/studentPage/TakingExams.js/DoneExams";
 import EditAccount from "components/page/account/editAccount";
-import EditStudent from "components/page/students/components/EditStudent";
+import EditStudent from "components/page/students/components/Editstudent";
+import Records from "components/page/reports/Records";
+import Statistics from "components/page/reports/Statistics";
+import Reports from "components/page/Reports";
 
 function App() {
 
@@ -56,23 +60,26 @@ function App() {
         <Route element={<Root />}>
           <Route path="/teacher/exams" element={<Exams />} />
           <Route element={<ExamContainer />}>
-          <Route path="/teacher/exams/:id/questions" element={<ExamQuestions />} />
-          <Route path="/teacher/exams/:id/questions/new/:questionOrder" element={<ExamQuestionsNew />} />
-          <Route path="/teacher/exams/:id/categories/:categoryId/questions/:questionId/edit/:questionOrder" element={<QuestionEdit />} />
-          <Route path="/teacher/exams/:id/questions/:questionId/:questionOrder" element={<QuestionOperations />} />
-          <Route path="/teacher/exams/:id/categories" element={<ExamCategories />} />
-          <Route path="/teacher/exams/:id/properties" element={<ExamProperties />} />
-          <Route path="/teacher/exams/:id/matrix" element={<ExamMatrix />} />
-          <Route path="/teacher/exams/:id/activation" element={<ExamActivation />} />
-        </Route>
+            <Route path="/teacher/exams/:id/questions" element={<ExamQuestions />} />
+            <Route path="/teacher/exams/:id/questions/new/:questionOrder" element={<ExamQuestionsNew />} />
+            <Route path="/teacher/exams/:id/categories/:categoryId/questions/:questionId/edit/:questionOrder" element={<QuestionEdit />} />
+            <Route path="/teacher/exams/:id/questions/:questionId/:questionOrder" element={<QuestionOperations />} />
+            <Route path="/teacher/exams/:id/categories" element={<ExamCategories />} />
+            <Route path="/teacher/exams/:id/properties" element={<ExamProperties />} />
+            <Route path="/teacher/exams/:id/matrix" element={<ExamMatrix />} />
+            <Route path="/teacher/exams/:id/activation" element={<ExamActivation />} />
+          </Route>
           <Route path="/teacher/students" element={<Students />} />
           <Route path="/teacher/userlist" element={<UserList />} />
           <Route path="/teacher/students/new" element={<AddStudent />} />
           <Route path="/teacher/students/edit" element={<EditStudent />} />
 
           {/* {reports page} */}
-          {/* <Route element={<ReportContainer />}>
-          <Route path="/teacher/reports" element={<Courses />} /> */}
+          <Route path="/teacher/reports" element={<Reports />} />
+          <Route element={<ReportContainer />}>
+            <Route path="/teacher/:teacherId/reports/records" element={<Records />} />
+            <Route path="/teacher/:teacherId/reports/statistics" element={<Statistics />} />
+          </Route>
 
           {/* courses page */}
           <Route path="/teacher/courses" element={<Courses />} />

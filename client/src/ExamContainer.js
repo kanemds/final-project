@@ -4,12 +4,13 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 
 import ExamHeader from 'components/page/Exams/ExamHeader';
-import Sidebar from 'components/Sidebar';
-
 import { api_base } from 'config'
 
+
+
+
 const ExamContainer = () => {
-  const {id} = useParams();
+  const { id } = useParams();
   const [questionsFilterState, setQuestionsFilterState] = useState({});
   const [activate, setActivate] = useState(false);
   const [examName, setExamName] = useState('');
@@ -24,13 +25,14 @@ const ExamContainer = () => {
   return (
     <>
       <ExamHeader examName={examName} />
-      <Box sx={{ bgcolor: 'white', p: 3 }}>
+      <Box>
         <Outlet context={{
           questionsFilterState, setQuestionsFilterState,
           activate, setActivate,
           setExamName
-          }} 
+        }}
         />
+
       </Box>
     </>
   )
