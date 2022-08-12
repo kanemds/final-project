@@ -7,10 +7,12 @@ import { api_base } from 'config'
 import { LoginContext } from 'Contexts/LoginContext';
 
 const Records = () => {
+  const [scoresState, setScoresState] = useState([]);
+  const [rowsState, setRowsState] = useState([]);
   const { teacherId } = useContext(LoginContext);
   useEffect(() => {
     const getScores = async () => {
-      const scores = await axios.get(`${api_base}/courses/${teacherId}`);
+      const scores = await axios.get(`${api_base}/teacher/${teacherId}/reports/records`);
       console.log(scores.data, 'score.data######')
       // setScoresState(_prev => scores.data);
     }
@@ -18,7 +20,7 @@ const Records = () => {
   }, []);
   return (
     <>
-        Reports
+    Scores Filters Table
     </>
   )
 }

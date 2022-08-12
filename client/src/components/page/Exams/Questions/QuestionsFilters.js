@@ -3,7 +3,6 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 
-// const VISIBLE_FIELDS = ['order', 'quesiton', 'category', 'points', 'created'];
 import { useParams } from 'react-router-dom';
 import { api_base } from 'config'
 import axios from 'axios';
@@ -21,9 +20,9 @@ export default function QuestionsFilters({questions, questionsFilterState}) {
       const que = rowData.row;
       return <Link href={`${api_base}/teacher/exams/${id}/questions/${que.id}/${que.order}`}>{que.question}</Link>
     }},
-    {field: 'category', headerName: 'Category', flex: 3},
+    {field: 'category', headerName: 'Category', flex: 2.8},
     {field: 'points', headerName: 'Points', flex: 1},
-    {field: 'created', headerName: 'Created', flex: 4}
+    {field: 'edited', headerName: 'Last Edited', flex: 1.5}
   ];
   const rows = questions.map((ques, i) => {
     return {
@@ -32,7 +31,7 @@ export default function QuestionsFilters({questions, questionsFilterState}) {
       question: ques.content,
       category: ques.category.content,
       points: ques.points,
-      created: ques.created
+      edited: new Date(ques.lastEdited).toLocaleDateString('en-US')
     }
   });
   
