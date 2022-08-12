@@ -4,8 +4,8 @@ import { GlobalContext } from "../context/GlobalState";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import axios from "axios";
-import { api_base } from "config";
-import { shadows } from "@mui/system";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import { blue } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -17,6 +17,7 @@ import Box from "@mui/material/Box";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import useTeacherCourses from "components/page/courses/useTeacherCourses";
+import "./Students.css";
 
 const Students = () => {
   const { removeUser } = useContext(GlobalContext);
@@ -49,9 +50,8 @@ box-shadow: ${theme.shadows[12]};`
   );
   return (
     <>
-      <h1>Add Students</h1>
+      <h1 sx={{ color: blue }}>Add Students</h1>
       <BasicModal />
-
       {student.map((item) => (
         <Card
           key={item._id}
@@ -72,7 +72,7 @@ box-shadow: ${theme.shadows[12]};`
                 style={{
                   textDecoration: "none",
                   color: "black",
-                  fontWeight: "bold",
+                  fontWeight: "bolder",
                 }}
               >
                 {item.firstname} {item.lastname} {item.email}
@@ -81,6 +81,7 @@ box-shadow: ${theme.shadows[12]};`
             <Divider variant="middle" />
             <Box sx={{ m: 2 }}></Box>
             <Button
+              variant="outlined"
               onClick={() =>
                 navigate("/teacher/students/edit", { state: item })
               }
@@ -90,6 +91,7 @@ box-shadow: ${theme.shadows[12]};`
               Edit Student Account
             </Button>
             <Button
+              variant="outlined"
               onClick={() => removeUser(item._id)}
               sx={{ fontSize: 20 }}
               gutterBottom
@@ -99,7 +101,9 @@ box-shadow: ${theme.shadows[12]};`
 
             <Divider variant="middle" />
             <Box sx={{ m: 2 }}></Box>
-            <ListItemButton component="a" href="/teacher/courses">
+            <ListItemButton component="enrolledcourse" href="/teacher/courses">
+              <BorderColorIcon fontSize="large" sx={{ color: blue[500] }} />
+
               <ListItemText primary={getCourseName(item.course)} />
             </ListItemButton>
           </CardContent>
