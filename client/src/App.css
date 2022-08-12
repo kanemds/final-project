@@ -89,10 +89,10 @@ div .form {
 
 .dropdown-menu {
   background-color: white;
-  border-color:  hsl(211, 23%, 42%);
+  border-color: hsl(211, 23%, 42%);
   color: blue;
   opacity: 1;
-  position:relative
+  position: relative
 }
 
 
@@ -130,6 +130,11 @@ div .form {
 
 
 li a {
+  text-decoration: none;
+}
+
+a {
+  color: black;
   text-decoration: none;
 }
 

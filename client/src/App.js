@@ -42,6 +42,8 @@ import TakingExams from "components/studentPage/TakingExams.js/TakingExams";
 import DoneExams from "components/studentPage/TakingExams.js/DoneExams";
 import EditAccount from "components/page/account/editAccount";
 import EditStudent from "components/page/students/components/EditStudent";
+import StudentAccount from "components/studentPage/account/StudentAccount";
+import TeacherAccount from "components/page/account/TeacherAccount";
 
 function App() {
 
@@ -91,7 +93,7 @@ function App() {
           <Route path="/teacher/courses/:id/edit" element={<EditCourse />} />
           <Route path="/teacher/courses" element={<Courses />} />
           {/* <Route path="/teacher/reports" element={<Reports />} /> */}
-          <Route path="/teacher/account" element={<Account />} />
+          <Route path="/teacher/account" element={<TeacherAccount />} />
           <Route path="/teacher/logout" element={<Logout />} />
           <Route path="/teacher/account/billing" element={<Billing />} />
           <Route
@@ -104,7 +106,6 @@ function App() {
         <Route path="/teacher/account/edit" element={<EditAccount />} />
 
         {/* <Route path="/reports" element={<Reports />} /> */}
-        <Route path="/teacher/account" element={<Account />} />
         <Route path="/teacher/logout" element={<Logout />} />
         <Route path="/teacher/account/billing" element={<Billing />} />
         <Route path="/teacher/checkout-success" element={<CheckoutSuccess />} />
@@ -124,8 +125,8 @@ function App() {
 
             <Route path="/student/courses" element={<StudentExams />} />
             <Route path="/student/courses/:id/exam" element={<TakingExams />} />
-
             <Route path="/student/courses/:id/exam/done" element={<DoneExams />} />
+            <Route path="/student/account" element={<StudentAccount />} />
 
 
           </Route>

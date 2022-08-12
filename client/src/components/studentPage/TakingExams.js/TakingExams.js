@@ -149,8 +149,6 @@ const TakingExams = () => {
             </ListItem>
             <ListItem sx={{ fontSize: "30px" }} >
               {currentQuestion + 1}. {questions[currentQuestion].content}
-
-
             </ListItem>
             <Table>
               {questions[currentQuestion].answers.map((answer, i) => {
