@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { api_base } from 'config'
 
@@ -21,15 +21,16 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function BasicModal({setCategories, activate}) {
   const [open, setOpen] = React.useState(false);
-  const [name, nameState] = useState("");
+  const [content, setContent] = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let navigate = useNavigate();
+  let {id} = useParams();
   return (
     <div>
-      <Button onClick={handleOpen}>Add Exam</Button>
+      <Button variant="contained" onClick={handleOpen} disabled={activate}>Add Category</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -38,18 +39,24 @@ export default function BasicModal() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-          Pool Name <textarea value={name} onChange={(event) => nameState(_prev => event.target.value)} rows="1" cols="30"></textarea>
+          Category Name <textarea value={content} onChange={(event) => setContent(_prev => event.target.value)} rows="1" cols="30"></textarea>
           </Typography>
-          <Button onClick={() => 
-          axios.post(`${api_base}/exams/new`, {name})
-          .then(exam => {
-            navigate(`/exams/${exam.data._id}/questions`);
-              }
-            )}>Create</Button>
+          <Button 
+            onClick={async() => {
+              const categoryDoc = await axios.post(`${api_base}/categories/new`, {content});
+              const category = categoryDoc.data;
+              await axios.post(`${api_base}/exams/${id}/categories/push`, {category});
+              setCategories(prev => {
+                const newPrev = [...prev];
+                newPrev.push(category);
+                return newPrev;
+              });
+              handleClose();
+              setContent(_prev => "");
+            }
+          }>Create</Button>
         </Box>
       </Modal>
     </div>
   );
 }
-
-// talk to kanem about questions and pools tables

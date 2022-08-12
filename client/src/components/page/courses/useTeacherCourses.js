@@ -59,6 +59,16 @@ function useTeacherCourses() {
     return "Loading...";
   }
 
+  // const data =
+  //   courses &&
+  //   courses.filter((course) => {
+  //     const exist = course.teachers.find((id) => id === teacherId);
+  //     if (exist) {
+  //       return true;
+  //     }
+  //     return false;
+  //   });
+
   const data =
     courses &&
     courses.filter((course) => {
@@ -68,8 +78,6 @@ function useTeacherCourses() {
       }
       return false;
     });
-  console.log("Kanem this is for you", data);
-
   return { data, removeCourse, addCourse, editCourse };
 }
 

@@ -21,7 +21,7 @@ const TeacherSchema = new mongoose.Schema({
   exams: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Quiz"
+      ref: "Exam"
     }
   ],
   students: [

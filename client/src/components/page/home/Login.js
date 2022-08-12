@@ -50,11 +50,39 @@ export default function Login({ open, handleClose }) {
     setLoginName(e.target.value)
   }
 
+  const handleSubmit = (e) => {
+    if (e.keyCode === 13) {
+      // login()
+      handleLogin()
+    }
+  }
+
   const login = () => {
+    console.log('????')
     setLoginName(loginName)
     setUserId(loginName)
     // navigate(`/student/${loginName}/home`)
   }
+
+  const handleLogin = () => {
+    if (role === teacher && loginName) {
+      axios.post(`${api_base}/teacher/login`, { user: loginName }, { withCredentials: true })
+        .then((data) => {
+          sessionStorage.setItem('teacherId', data.data._id)
+          setTeacherId(data.data._id)
+          navigate(`/teacher/home`)
+        })
+    }
+    if (role === student && loginName) {
+      axios.post(`${api_base}/student/login`, { user: loginName }, { withCredentials: true })
+        .then((data) => {
+          sessionStorage.setItem('user', data.data._id)
+          setUserId(data.data._id)
+          navigate(`/student/home`)
+        })
+    }
+  }
+
   if (!student) {
     return ""
   }
@@ -97,28 +125,13 @@ export default function Login({ open, handleClose }) {
             label="User name"
             variant="standard"
             onChange={handleChange}
+            onKeyDown={handleSubmit}
             onSubmit={login}
+            autoComplete="off"
+            autoCapitalize="off"
           />
           <br />
-          <Button onClick={() => {
-            if (role === teacher && loginName) {
-              axios.post(`${api_base}/teacher/login`, { user: loginName }, { withCredentials: true })
-                .then((data) => {
-                  sessionStorage.setItem('teacherId', data.data._id)
-                  setTeacherId(data.data._id)
-                  navigate(`/teacher/home`)
-                })
-            }
-            if (role === student && loginName) {
-              axios.post(`${api_base}/student/login`, { user: loginName }, { withCredentials: true })
-                .then((data) => {
-                  sessionStorage.setItem('user', data.data._id)
-                  setUserId(data.data._id)
-                  navigate(`/student/home`)
-                })
-            }
-          }
-          }>
+          <Button onClick={handleLogin}>
             Log in
           </Button>
         </Box>

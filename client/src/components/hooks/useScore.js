@@ -20,9 +20,10 @@ function useScore() {
 
   const newScore = async (doc) => {
     try {
-      await axios.post(`${api_base}/score/new`, doc, { withCredentials: true })
+      const newDoc = await axios.post(`${api_base}/score/new`, doc, { withCredentials: true })
       console.log('Item successfully added.')
       await fetchScores()
+      return newDoc
     } catch (error) {
       console.log(error)
     }
@@ -42,16 +43,20 @@ function useScore() {
     }
   }
 
-  console.log(scores)
+
   if (scores === null || !userId) {
     return 'Loading...';
+  }
+
+  const getAllScoreByExamId = (examId) => {
+    return scores && scores.filter((score) => score.exam === examId)
   }
 
   const getScoreByExamId = (examId) => {
     return scores && scores.find((score) => score.exam === examId)
   }
 
-  return { newScore, editScore, scores, getScoreByExamId }
+  return { newScore, editScore, scores, getScoreByExamId, getAllScoreByExamId }
 }
 
 export default useScore
