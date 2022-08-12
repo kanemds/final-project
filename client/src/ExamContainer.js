@@ -25,6 +25,7 @@ const ExamContainer = () => {
   return (
     <>
       <ExamHeader examName={examName} />
+      <br/>
       <Box>
         <Outlet context={{
           questionsFilterState, setQuestionsFilterState,
