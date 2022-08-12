@@ -1,0 +1,11 @@
+
+body {
+    background-image: url(earth.jpeg);
+    background-repeat: inherit;
+    z-index: -1;
+  }
+
+.button {
+  color: red;
+}
+

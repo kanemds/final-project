@@ -62,13 +62,13 @@ function useTeacherCourses() {
   const data =
     courses &&
     courses.filter((course) => {
-      // const exist = course.teachers.find((id) => id === teacherId)
-      // if (exist) {
-      //   return true
-      // }
-      // return false
-      return true;
+      const exist = course.teachers.find((id) => id === teacherId);
+      if (exist) {
+        return true;
+      }
+      return false;
     });
+  console.log("Kanem this is for you", data);
 
   return { data, removeCourse, addCourse, editCourse };
 }
