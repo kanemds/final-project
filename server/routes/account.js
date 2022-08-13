@@ -32,7 +32,6 @@ router.post("/billing", (req, res) => {
 });
 
 router.post("/teacher/account/new", (req, res) => {
-  console.log("Nosa did we get here?");
   const account = Account({
     firstname: req.body.firstname,
     lastname: req.body.lastname,

@@ -13,6 +13,7 @@ import logo from "./logo.png";
 import "./Home.css";
 import { display, flexbox, positions } from "@mui/system";
 import { black } from "@mui/material/colors";
+import { DonutLarge } from "@mui/icons-material";
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
@@ -55,12 +56,12 @@ const Home = () => {
         mb={0}
         marginTop={10}
         height={700}
-        width={900}
+        width={850}
         display={"flex"}
         justifyContent={"center"}
         alignItems={"center"}
         position={"absolute"}
-        zIndex={1}
+        zIndex={2}
       >
         <div>
           <Typography
@@ -115,8 +116,9 @@ const Home = () => {
                 href="/"
                 style={{
                   position: "absolute",
-                  right: 0,
-                  top: 180,
+                  right: 950,
+                  top: 300,
+                  fontSize: "large",
                 }}
               >
                 Apply Now
@@ -127,8 +129,9 @@ const Home = () => {
                 onClick={handleOpen}
                 style={{
                   position: "absolute",
-                  right: 0,
-                  top: 130,
+                  right: 950,
+                  top: 350,
+                  fontSize: "Large",
                 }}
               >
                 Log in
@@ -145,7 +148,7 @@ const Home = () => {
             // justifyContent: "right",
           }}
         >
-          <Grid container>
+          {/* <Grid container>
             <Grid item>
               <ButtonBase
                 sx={{
@@ -160,7 +163,7 @@ const Home = () => {
             </Grid>
 
             <div></div>
-          </Grid>
+          </Grid> */}
         </div>
       </div>
     </React.Fragment>
