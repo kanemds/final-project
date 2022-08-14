@@ -20,7 +20,6 @@ const TakingExams = () => {
   const { getScoreByExamId, editScore, newScore } = useScore()
   const { id } = useParams()
   const { exam } = useExam()
-
   const questions = exam.questions
   const [selected, setSelected] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)

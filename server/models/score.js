@@ -5,6 +5,10 @@ const ScoreScheama = new mongoose.Schema({
     type: Number,
     required: true
   },
+  totalScore: {
+    type: Number,
+    required: true
+  },
   answers: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Answer"
@@ -12,6 +16,11 @@ const ScoreScheama = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Student",
+    required: true
+  },
+  course: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Course",
     required: true
   },
   exam: {

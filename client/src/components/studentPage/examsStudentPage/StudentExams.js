@@ -26,6 +26,7 @@ function Row({ item, exams }) {
   const { newScore, editScore, scores, getScoreByExamId } = useScore()
   const { userId, lastIncomplete, saveLastIncomplete } = useContext(LoginContext)
   const course = item
+  console.log(course)
   const [open, setOpen] = React.useState(false);
 
   const findExams = exams && exams.filter((item) => {
@@ -36,11 +37,13 @@ function Row({ item, exams }) {
     return currentExamIds.includes(item._id.toString())
   })
 
+
+
   if (!exams) {
     return ""
   }
 
-  const startExam = (examId, score, maxAttempt, time) => {
+  const startExam = (courseId, examId, score, maxAttempt, time) => {
     const incompleteScore = score.filter((item) => {
       const oneMinute = time * 1000 * 60
       const endTime = new Date(item.created).getTime() + oneMinute
@@ -56,6 +59,7 @@ function Row({ item, exams }) {
       newScore({
         score: 0,
         student: userId,
+        course: courseId,
         exam: examId,
         submitted: false
       }).then((scoreDoc) => {
@@ -105,18 +109,20 @@ function Row({ item, exams }) {
                 </TableHead>
                 <TableBody>
                   {findExams.map(each => {
+
                     if (!each.activate) {
                       return ""
                     }
-                    const score = scores.filter((item) => item.exam === each._id)
+                    const score = scores.filter((item) => item.exam === each._id && item.course === course._id)
                     const attempts = score.length
                     const submitted = score.filter((item) => item.submitted).length
                     const examScores = attempts > 1 && score && score.map((item) => item.score)
+                    const totalScores = attempts > 1 && score && score.map((item) => item.totalScore)
                     const highestScore = attempts > 1 && Math.max(...examScores)
                     const scorePercentage = attempts > 1 ?
-                      `${Math.trunc(((highestScore / each.questions.length) * 100))}%` : 'N/A'
+                      `${Math.trunc(((highestScore / totalScores[0]) * 100))}%` : 'N/A'
                     let canStartExam = true
-                    if (submitted >= each.attemptsLimit) {
+                    if (submitted >= each.attemptsLimit && each.attemptsLimit != null) {
                       canStartExam = false
 
                       if (score && score[0] && new Date().getTime() > new Date(new Date(score[0].created).getTime() + each.timeLimit * 60 * 1000).getTime()
@@ -133,7 +139,8 @@ function Row({ item, exams }) {
                         </TableCell>
                         <TableCell align="center"> <h3>{each.questions.length}</h3></TableCell>
                         <TableCell align="center"><h3>{each.timeLimit} Minutes</h3></TableCell>
-                        <TableCell align="center"><h3>{attempts}/{each.attemptsLimit}</h3></TableCell>
+                        {!each.attemptsLimit ? <TableCell align="center"><h3>Practice</h3></TableCell> :
+                          <TableCell align="center"><h3>{attempts}/{each.attemptsLimit}</h3></TableCell>}
                         <TableCell align="center"><h3>{scorePercentage}</h3></TableCell>
                         <TableCell align="center"  >
 
@@ -142,7 +149,7 @@ function Row({ item, exams }) {
                               fontSize: "40px",
                               color: "Green"
                             }}
-                            onClick={() => { startExam(each._id, score, each.attemptsLimit, each.timeLimit) }}
+                            onClick={() => { startExam(course, each._id, score, each.attemptsLimit, each.timeLimit) }}
                           />) : 'Completed'}
 
                         </TableCell>

@@ -13,7 +13,7 @@ const ExamStudentPage = () => {
   const { exams } = useExams()
   const { courses } = useCourses()
   const { userId } = useContext(LoginContext)
-  console.log(userId)
+
   const student = students.find((item) => item._id === userId)
 
   if (!student || !exams) {
