@@ -25,7 +25,12 @@ router.put("/student/:id", (req, res) => {
         _id: req.params.id,
       },
       {
-        $set: req.body,
+        $set: {
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          email: req.body.email,
+        },
+        $addToSet: { course: req.body.course },
       }
     )
     .exec()

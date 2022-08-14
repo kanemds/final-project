@@ -14,8 +14,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
-import ListItemButton from "@mui/material/ListItemButton";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import ListItemText from "@mui/material/ListItemText";
+import { ListItemButton } from "@mui/material";
 import useTeacherCourses from "components/page/courses/useTeacherCourses";
 import "./Students.css";
 
@@ -25,6 +26,7 @@ const Students = () => {
   const navigate = useNavigate();
   const student = useStudent();
   const { data } = useTeacherCourses();
+
   const getCourseName = (currentCourseId) => {
     let currentCourseName = "";
     if (currentCourseId) {
@@ -39,6 +41,9 @@ const Students = () => {
       return "loading...";
     }
     return currentCourseName;
+  };
+  const getAllCourseNames = (arrayOfCourseIds) => {
+    return arrayOfCourseIds.map(getCourseName);
   };
 
   const BoxShadowDiv = styled("div")(
@@ -75,9 +80,21 @@ box-shadow: ${theme.shadows[12]};`
                   fontWeight: "bolder",
                 }}
               >
-                {item.firstname} {item.lastname} {item.email}
+                {item.firstname} {item.lastname}
+                <Divider variant="middle" />
+                {item.email}
               </Link>
             </Typography>
+
+            <Divider variant="middle" />
+            <Box sx={{ m: 2 }}></Box>
+            <ListItemButton component="enrolledcourse" href="/teacher/courses">
+              <AutoStoriesIcon fontSize="large" sx={{ color: blue[500] }} />
+
+              <ListItemText
+                primary={getAllCourseNames(item.course).join(", ")}
+              />
+            </ListItemButton>
             <Divider variant="middle" />
             <Box sx={{ m: 2 }}></Box>
             <Button
@@ -85,7 +102,7 @@ box-shadow: ${theme.shadows[12]};`
               onClick={() =>
                 navigate("/teacher/students/edit", { state: item })
               }
-              sx={{ fontSize: 20 }}
+              sx={{ fontSize: 15 }}
               gutterBottom
             >
               Edit Student Account
@@ -93,19 +110,11 @@ box-shadow: ${theme.shadows[12]};`
             <Button
               variant="outlined"
               onClick={() => removeUser(item._id)}
-              sx={{ fontSize: 20 }}
+              sx={{ fontSize: 15 }}
               gutterBottom
             >
               Delete
             </Button>
-
-            <Divider variant="middle" />
-            <Box sx={{ m: 2 }}></Box>
-            <ListItemButton component="enrolledcourse" href="/teacher/courses">
-              <BorderColorIcon fontSize="large" sx={{ color: blue[500] }} />
-
-              <ListItemText primary={getCourseName(item.course)} />
-            </ListItemButton>
           </CardContent>
         </Card>
       ))}

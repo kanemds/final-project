@@ -67,19 +67,23 @@ const Home = () => {
           <Typography
             variant="h4"
             component="h4"
-            color={"black"}
-            bgcolor={"white"}
-            border={5}
-            borderColor={"black"}
-            marginTop={10}
-            fontSize={30}
+            sx={{
+              color: "white",
+              bgcolor: "black",
+              opacity: 0.6,
+              borderColor: "black",
+              marginTop: 13,
+              fontSize: 35,
+              marginLeft: 10,
+            }}
           >
-            Examinator is the perfect tool for instructors to deliver
-            examinations to their students at any education level and at
-            anytime. State of the art customized exams, classes and courses with
-            the click of a button!
+            The most powerful tool to deliver exams
           </Typography>
-          ;
+          <div>
+            <Typography sx={{ fontSize: 25, marginLeft: 10 }}>
+              Click the apply now button to start your journey
+            </Typography>
+          </div>
         </div>
       </Box>
 
@@ -98,9 +102,8 @@ const Home = () => {
               backgroundImage: `url(${logo})`,
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
-              palette: {
-                primary: "f5f5f5",
-              },
+              bgcolor: "gray",
+              opacity: 0.9,
               border: 1,
               borderColor: "white",
               width: "100%",
@@ -119,6 +122,8 @@ const Home = () => {
                   right: 950,
                   top: 300,
                   fontSize: "large",
+                  opacity: 1,
+                  backgroundColor: "darkblue",
                 }}
               >
                 Apply Now
@@ -132,6 +137,8 @@ const Home = () => {
                   right: 950,
                   top: 350,
                   fontSize: "Large",
+                  opacity: 1,
+                  backgroundColor: "darkblue",
                 }}
               >
                 Log in
