@@ -97,6 +97,30 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/reports/scores", async (req, res) => {
+  const doc = await Course.aggregate([
+    {
+      $lookup: {
+        from: "exams",
+        localField: "exams",
+        foreignField: "_id",
+        as: "exams",
+        pipeline: [
+          {
+            $lookup: {
+              from: "scores",
+              localField: "_id",
+              foreignField: "exam",
+              as: "scores",
+            },
+          },
+        ],
+      },
+    },
+  ])
+  res.send(doc);
+});
+
 router.put("/teacher/courses/:id", (req, res) => {
   student
     .updateOne({

@@ -26,23 +26,26 @@ router.post("/new", (req, res) => {
 });
 
 router.post("/:id/edit", (req, res) => {
-  student
-    .findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      {
-        $push: {
-          student: req.body.firstname,
-          student: req.body.lastname,
-          student: req.body.email,
-        },
-      },
-      {
-        new: true,
-        upsert: true,
-      }
-    )
+  const newDoc = req.body;
+  for (let prop in newDoc) {
+    if (!newDoc[prop]) {
+      delete newDoc[prop];
+      //it will remove fields who are undefined or null
+    }
+  }
+
+  Student.findOneAndUpdate(
+    {
+      _id: req.params.id,
+    },
+
+    newDoc,
+    {
+      // return doc after update is applied
+      new: true,
+      upsert: true,
+    }
+  )
     .exec()
     .then((data) => {
       res.json(data);
@@ -59,6 +62,7 @@ router.get("/students/new", (req, res) => {
       res.json(error);
     });
 });
+
 router.get("/:id", (req, res) => {
   const doc = Student.aggregate([
     { $match: { _id: ObjectId(req.params.id) } },
@@ -86,6 +90,17 @@ router.get("/:id", (req, res) => {
       res.json(result[0]);
     });
 });
+
+router.get("/", (req, res) => {
+  Student.find()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+});
+
 module.exports = router;
 
 // const { request } = require("express");

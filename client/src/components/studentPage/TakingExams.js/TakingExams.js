@@ -20,7 +20,6 @@ const TakingExams = () => {
   const { getScoreByExamId, editScore, newScore } = useScore()
   const { id } = useParams()
   const { exam } = useExam()
-
   const questions = exam.questions
   const [selected, setSelected] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -149,8 +148,6 @@ const TakingExams = () => {
             </ListItem>
             <ListItem sx={{ fontSize: "30px" }} >
               {currentQuestion + 1}. {questions[currentQuestion].content}
-
-
             </ListItem>
             <Table>
               {questions[currentQuestion].answers.map((answer, i) => {

@@ -11,10 +11,6 @@ const CategorySchema = new mongoose.Schema({
       ref:"Question"
     }
   ],
-  lastEdited:{
-    type:Date,
-    default: Date.now
-  },
   created:{
     type:Date,
     default: Date.now

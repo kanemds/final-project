@@ -8,7 +8,7 @@ function useStudentHomePage(props) {
 
   useEffect(() => {
     const fetchstudents = async () => {
-      const url = `${api_base}/student/students/new`;
+      const url = `${api_base}/student`;
       const res = await fetch(url, {
         credentials: 'include'
       });

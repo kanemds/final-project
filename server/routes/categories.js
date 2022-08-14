@@ -56,8 +56,7 @@ router.post('/:categoryId', async (req, res) => {
       _id: req.params.categoryId
     }, 
     { 
-      content: req.body.content,
-      lastEdited: Date.now()
+      content: req.body.content
     }, {
       // return doc after update is applied
       new: true,

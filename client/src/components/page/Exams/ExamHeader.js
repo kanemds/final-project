@@ -14,7 +14,6 @@ import Tab from '@mui/material/Tab';
 import App from 'App.css';
 import { api_base } from 'config'
 
-// <<<<<<< HEAD
 const ExamHeader = ({examName}) => {
     let navigate = useNavigate();
     const {id} = useParams();

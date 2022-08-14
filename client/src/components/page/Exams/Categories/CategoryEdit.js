@@ -35,7 +35,7 @@ const CategoryEdit = () => {
 			<TextField value={category.content} 
 					onChange={(event) => setCategory(prev => ({...prev, content: event.target.value}))}/>
       <Button component={Link} to={`/teacher/exams/${id}/categories`}>Cancel</Button>
-        <Button onClick={save}>
+        <Button onClick={async () => await save()}>
           Update
         </Button>
       </div>

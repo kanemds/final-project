@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Box from '@mui/material/Box';
 import Switch from '@mui/material/Switch';
 import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
@@ -10,9 +9,9 @@ import CategorySelect from './CategorySelect';
 
 const IncludeinCat = ({catsOptions, checkedCat, setCheckedCat, catSelected, setCatSelected}) => {
     return (
-			<Box>
+			<div>
 			  <FormControlLabel
-					sx={{ mt: 1 }}
+          value="start"
           control={
 					<Switch
 						checked={checkedCat}
@@ -23,7 +22,7 @@ const IncludeinCat = ({catsOptions, checkedCat, setCheckedCat, catSelected, setC
           labelPlacement="start"
         />
 				{checkedCat && catsOptions.length > 1 && <CategorySelect catSelected={catSelected} setCatSelected={setCatSelected} catsOptions={catsOptions} />}
-			</Box>
+			</div>
     );
 };
 

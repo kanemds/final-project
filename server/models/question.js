@@ -29,10 +29,7 @@ const QuestionScheama = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  lastEdited: {
-    type: Date,
-    default: Date.now
-  },
+
   created: {
     type: Date,
     default: Date.now

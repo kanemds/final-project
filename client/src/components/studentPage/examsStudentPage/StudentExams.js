@@ -13,9 +13,7 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import useCourses from '../StudentCourses/useCourse';
-
 import useExams from 'components/page/Exams/useExams';
-
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import { useNavigate } from 'react-router-dom';
 import { LoginContext } from 'Contexts/LoginContext';
@@ -23,36 +21,21 @@ import { useContext } from 'react';
 import useScore from 'components/hooks/useScore';
 
 
-
 function Row({ item, exams }) {
   const navigate = useNavigate()
   const { newScore, editScore, scores, getScoreByExamId } = useScore()
   const { userId, lastIncomplete, saveLastIncomplete } = useContext(LoginContext)
   const course = item
+  console.log(course)
   const [open, setOpen] = React.useState(false);
 
   const findExams = exams && exams.filter((item) => {
-
-
     if (!course) {
       return false
     }
-
     const currentExamIds = course.exams
     return currentExamIds.includes(item._id.toString())
   })
-
-
-
-  const getTime = (time) => {
-    const second = 1000
-    const minute = second * 60
-    const hour = minute * 60
-    const texthour = Math.floor(time / hour)
-    const textMinute = Math.floor((time % hour) / minute)
-    const textSecond = Math.floor((time % minute) / second)
-    return `${texthour} : ${textMinute}`
-  }
 
 
 
@@ -60,17 +43,14 @@ function Row({ item, exams }) {
     return ""
   }
 
-  const startExam = (examId, score, maxAttempt, time) => {
+  const startExam = (courseId, examId, score, maxAttempt, time) => {
     const incompleteScore = score.filter((item) => {
-
       const oneMinute = time * 1000 * 60
       const endTime = new Date(item.created).getTime() + oneMinute
       const currentTime = new Date().getTime()
       return !item.submitted && currentTime < endTime
     })
     const lastScore = incompleteScore && incompleteScore[0]
-    console.log(lastScore)
-
     if (lastScore) {
       saveLastIncomplete(lastScore)
       navigate(`/student/courses/${examId}/exam`)
@@ -79,6 +59,7 @@ function Row({ item, exams }) {
       newScore({
         score: 0,
         student: userId,
+        course: courseId,
         exam: examId,
         submitted: false
       }).then((scoreDoc) => {
@@ -107,7 +88,10 @@ function Row({ item, exams }) {
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+
           <Collapse in={open} timeout="auto" unmountOnExit>
+
+
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
                 <h2 >Exams</h2>
@@ -126,54 +110,46 @@ function Row({ item, exams }) {
                 <TableBody>
                   {findExams.map(each => {
 
-                    console.log(each)
-                    const score = scores.filter((item) => item.exam === each._id)
+                    if (!each.activate) {
+                      return ""
+                    }
+                    const score = scores.filter((item) => item.exam === each._id && item.course === course._id)
                     const attempts = score.length
                     const submitted = score.filter((item) => item.submitted).length
-
                     const examScores = attempts > 1 && score && score.map((item) => item.score)
+                    const totalScores = attempts > 1 && score && score.map((item) => item.totalScore)
                     const highestScore = attempts > 1 && Math.max(...examScores)
                     const scorePercentage = attempts > 1 ?
-                      `${Math.trunc(((highestScore / each.questions.length) * 100))}%` : 'N/A'
-
+                      `${Math.trunc(((highestScore / totalScores[0]) * 100))}%` : 'N/A'
                     let canStartExam = true
-
-                    if (submitted >= each.attemptsLimit) {
+                    if (submitted >= each.attemptsLimit && each.attemptsLimit != null) {
                       canStartExam = false
-                    } else {
+
                       if (score && score[0] && new Date().getTime() > new Date(new Date(score[0].created).getTime() + each.timeLimit * 60 * 1000).getTime()
                         && submitted >= each.attemptsLimit
                       ) {
                         canStartExam = false
                       }
                     }
-
-
-
                     return (
                       < TableRow key={each._id} >
+
                         <TableCell component="th" scope="row">
                           <h3>{each.name}</h3>
                         </TableCell>
                         <TableCell align="center"> <h3>{each.questions.length}</h3></TableCell>
-
                         <TableCell align="center"><h3>{each.timeLimit} Minutes</h3></TableCell>
-                        <TableCell align="center"><h3>{attempts}/{each.attemptsLimit}</h3></TableCell>
-
-
+                        {!each.attemptsLimit ? <TableCell align="center"><h3>Practice</h3></TableCell> :
+                          <TableCell align="center"><h3>{attempts}/{each.attemptsLimit}</h3></TableCell>}
                         <TableCell align="center"><h3>{scorePercentage}</h3></TableCell>
-
                         <TableCell align="center"  >
 
                           {canStartExam ? (<PlayCircleOutlineOutlinedIcon
-
                             sx={{
                               fontSize: "40px",
                               color: "Green"
                             }}
-
-                            onClick={() => { startExam(each._id, score, each.attemptsLimit, each.timeLimit) }}
-
+                            onClick={() => { startExam(course, each._id, score, each.attemptsLimit, each.timeLimit) }}
                           />) : 'Completed'}
 
                         </TableCell>
@@ -184,6 +160,7 @@ function Row({ item, exams }) {
                 </TableBody>
               </Table>
             </Box>
+
           </Collapse>
         </TableCell>
       </TableRow>
@@ -196,7 +173,8 @@ export default function CollapsibleTable() {
 
   const { exams } = useContext(LoginContext)
   const data = useCourses()
-
+  console.log(data)
+  console.log(exams)
 
   return (
     <TableContainer component={Paper}
@@ -215,7 +193,7 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody >
           {data.map(item => (
-            <Row key={item._id} item={item} exams={exams} />
+            < Row key={item._id} item={item} exams={exams} />
           ))}
         </TableBody>
       </Table>

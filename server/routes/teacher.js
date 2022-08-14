@@ -48,15 +48,19 @@ router.delete("/teacher/student/:id", (req, res) => {
 });
 
 router.post("/:id/edit", (req, res) => {
+  const newDoc = req.body;
+  for (let prop in newDoc) {
+    if (!newDoc[prop]) {
+      delete newDoc[prop];
+      //it will remove fields who are undefined or null
+    }
+  }
+
   Teacher.findOneAndUpdate(
     {
       _id: req.params.id,
     },
-    {
-      $push: {
-        teacher: req.body.teacher,
-      },
-    },
+    newDoc,
     {
       // return doc after update is applied
       new: true,
@@ -107,36 +111,6 @@ router.get("/", (req, res) => {
     })
     .catch((error) => {
       res.json(error);
-    });
-});
-
-router.get("/:teacherId/reports/records", (req, res) => {
-  const doc = Teacher.aggregate([
-    { $match: { _id: ObjectId(req.params.teacherId) } },
-    { $limit: 1 },
-    {
-      $lookup: {
-        from: "exams",
-        localField: "exams",
-        foreignField: "_id",
-        as: "exams",
-        pipeline: [
-          {
-            $lookup: {
-              from: "scores",
-              localField: "scores",
-              foreignField: "_id",
-              as: "scores",
-            },
-          },
-        ],
-      },
-    },
-  ])
-    .exec()
-    .then((result) => {
-      // console.log(result);
-      res.json(result[0]);
     });
 });
 

@@ -6,9 +6,6 @@ import axios from 'axios';
 import ExamHeader from 'components/page/Exams/ExamHeader';
 import { api_base } from 'config'
 
-
-
-
 const ExamContainer = () => {
   const { id } = useParams();
   const [questionsFilterState, setQuestionsFilterState] = useState({});
@@ -33,7 +30,6 @@ const ExamContainer = () => {
           setExamName
         }}
         />
-
       </Box>
     </>
   )
