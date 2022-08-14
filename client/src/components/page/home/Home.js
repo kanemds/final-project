@@ -37,10 +37,8 @@ const Home = () => {
         component="form"
         sx={{
           "& .MuiTextField-root": {
-            position: "fixed",
-            marginRight: 0,
-            marginBottom: 0,
-            marginTop: 0,
+            position: "absolute",
+            marginLeft: 50,
             height: 200,
             width: 200,
             flexDirection: "row-reverse",
@@ -54,7 +52,8 @@ const Home = () => {
         autoComplete="off"
         mr={0}
         mb={0}
-        marginTop={10}
+        marginTop={15}
+        marginLeft={55}
         height={700}
         width={850}
         display={"flex"}
@@ -120,7 +119,7 @@ const Home = () => {
                 style={{
                   position: "absolute",
                   right: 950,
-                  top: 300,
+                  top: 350,
                   fontSize: "large",
                   opacity: 1,
                   backgroundColor: "darkblue",
@@ -134,8 +133,8 @@ const Home = () => {
                 onClick={handleOpen}
                 style={{
                   position: "absolute",
-                  right: 950,
-                  top: 350,
+                  right: 970,
+                  top: 400,
                   fontSize: "Large",
                   opacity: 1,
                   backgroundColor: "darkblue",
