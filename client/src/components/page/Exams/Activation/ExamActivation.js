@@ -69,7 +69,7 @@ const ExamActivation = () => {
 							onChange={async () => {
 								let activated;
 								if (activate) {
-									// await axios.post(`${api_base}/exams/${id}/deactivate`);
+									await axios.post(`${api_base}/exams/${id}/deactivate`);
 									activated = false;
 								} else {
 									await axios.post(`${api_base}/exams/${id}/activate`, { questions });

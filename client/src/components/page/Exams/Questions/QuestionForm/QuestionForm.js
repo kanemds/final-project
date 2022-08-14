@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Button from '@mui/material/Button';
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useParams, Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import AcUnitRoundedIcon from '@mui/icons-material/AcUnitRounded';
+import { red } from '@mui/material/colors';
 import axios from 'axios';
 
 import { api_base } from 'config'
@@ -62,60 +64,71 @@ const QuestionForm = () => {
     navigate(`/teacher/exams/${id}/questions/${questionData.data._id}/${questionOrder}`);
   };
   return (
-    <>
-      <div style={{display: "flex", flexDirection: "column"}}>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					Points
-				</Typography>
-				<TextField type="number" inputProps={{ inputMode: 'numeric', min: 0 }} value={points} 
-					onChange={(event) => setPoints(_prev => {
-						const val = event.target.value;				
-						const points = val === "" ? val : Number(val);
-						if (points < 0) {
-							return 0;
-						}
-						return points;
-				})}/>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					Enter Your Question ({4000 - question.length} characters remaining)
-				</Typography>
-        <TextField
-          id="qustion-id"
-          value={question}
-          onChange={(event) => setQuestion(event.target.value)}
-          fullWidth
-        />
-        {answers.map((answer, index) => {
-          if (index === answers.length - 1 && checkedAllAbove) {
-            answer = aboveSelected;
-          }
-          return (
-            <div key={index + 1} style={{display: "flex", flexDirection: "row"}}>
-              <h4>{letters[index]}</h4>
-              <Answer setSelected={setSelected} handleChange={handleChange} selected={selected} answerId={index} answer={answer} answers={answers} setAnswers={setAnswers} checkedAllAbove={checkedAllAbove} setCheckedAllAbove={setCheckedAllAbove} />
-            </div>
-          )})}
-        <Button onClick={() => {
-          setAnswers(prev => {
-            const newPrev = [...prev];
-            if (checkedAllAbove) {
-              newPrev[newPrev.length - 1] = "";
-              newPrev.push(aboveSelected);
-            } else {
-              newPrev.push("");
-            }
-            return newPrev;
-          })
-        }} disabled={answers.length >= 6}>Add Choice</Button>
-        <AllAbove letter={letters[answers.length - 1]} checkedAllAbove={checkedAllAbove} setCheckedAllAbove={setCheckedAllAbove} aboveSelected={aboveSelected} setAboveSelected={setAboveSelected} setAnswers={setAnswers} />
-        <IncludeinCat catsOptions={catsOptions} setCatsOptions={setCatsOptions} checkedCat={checkedCat} setCheckedCat={setCheckedCat} catSelected={catSelected} setCatSelected={setCatSelected} />
-        <Used usedState={usedState} setUsedState={setUsedState} />
-        <Button component={Link} to={cancelLink}>Cancel</Button>
-         <Button onClick={async () => await save()}>
-          Save
-        </Button>
-      </div>
-	  </>
+      <Box style={{display: "flex", flexDirection: "column"}} pt={1.5}>
+        <Box style={{display: 'flex', gap: "1.5vw"}} pb={1.5}>
+          <Typography id="modal-modal-description" sx={{ mt: 1 }}>
+            <AcUnitRoundedIcon sx={{ color: red[500] }}/> Points
+          </Typography>
+          <TextField type="number" value={points} onWheel={e => { e.target.blur()}}
+            onChange={(event) => setPoints(_prev => {
+              const val = event.target.value;				
+              const points = val === "" ? val : Number(val);
+              if (points < 0) {
+                return 0;
+              }
+              return points;
+			  	})}/>
+			  </Box>
+        <Paper>
+          <Box p={3}>
+            <Typography id="modal-modal-description">
+              <AcUnitRoundedIcon sx={{ color: red[500] }}/> Enter Your Question ({4000 - question.length} characters remaining)
+            </Typography>
+            <TextField
+              style={{marginTop: '1.3vw'}}
+              id="qustion-id"
+              value={question}
+              onChange={(event) => setQuestion(event.target.value)}
+              fullWidth
+              multiline rows={2} 
+            />
+            {answers.map((answer, index) => {
+              if (index === answers.length - 1 && checkedAllAbove) {
+                answer = aboveSelected;
+              }
+              return (
+                <div key={index + 1} style={{display: "flex"}}>
+                  <h4>{letters[index]}</h4>
+                  <Answer setSelected={setSelected} handleChange={handleChange} selected={selected} answerId={index} answer={answer} answers={answers} setAnswers={setAnswers} checkedAllAbove={checkedAllAbove} setCheckedAllAbove={setCheckedAllAbove} />
+                </div>
+              )})}
+          </Box>
+        </Paper>
+        <Box style={{display: 'flex', flexDirection: 'column', gap: '1vw'}} pt={3}>
+          <Box style={{display: 'flex', gap: '3vw'}}>
+            <Button variant="outlined" onClick={() => {
+              setAnswers(prev => {
+                const newPrev = [...prev];
+                if (checkedAllAbove) {
+                  newPrev[newPrev.length - 1] = "";
+                  newPrev.push(aboveSelected);
+                } else {
+                  newPrev.push("");
+                }
+                return newPrev;
+              })
+            }} disabled={answers.length >= 6}>Add Choice
+            </Button>
+            <AllAbove letter={letters[answers.length - 1]} checkedAllAbove={checkedAllAbove} setCheckedAllAbove={setCheckedAllAbove} aboveSelected={aboveSelected} setAboveSelected={setAboveSelected} setAnswers={setAnswers} />
+          </Box>
+          <IncludeinCat catsOptions={catsOptions} setCatsOptions={setCatsOptions} checkedCat={checkedCat} setCheckedCat={setCheckedCat} catSelected={catSelected} setCatSelected={setCatSelected} />
+          <Used usedState={usedState} setUsedState={setUsedState} />
+        </Box>
+        <Box style={{display: 'flex', justifyContent: 'center'}}>
+          <Button variant="contained" component={Link} to={cancelLink}>Cancel</Button>
+          <Button variant="contained" onClick={save}>Save</Button>
+        </Box>
+      </Box>
   )
 }
 

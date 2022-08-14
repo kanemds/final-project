@@ -295,7 +295,7 @@ router.post('/:id/deactivate', (req, res) => {
     },
     {
       activate: false,
-      activateQuestionsArray: []
+      // activateQuestionsArray: []
     }, {
     // return doc after update is applied
     new: true,

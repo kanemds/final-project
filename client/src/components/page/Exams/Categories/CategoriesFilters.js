@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { pink } from '@mui/material/colors';
 import { blue } from '@mui/material/colors';
@@ -35,7 +36,7 @@ export default function CategoriesFilters({categories, setCategories, setQuestio
     {field: 'name', headerName: 'Name', flex: 3},
     {field: 'questions', headerName: 'Questions', flex: 1},
     {field: 'used', headerName: 'Using', flex: 1},
-    {field: 'viewQuestions', headerName: 'View Questions', flex: 1, renderCell: (rowData) => {
+    {field: 'viewQuestions', headerName: 'View', flex: 1, renderCell: (rowData) => {
       const quesRow = rowData.row;
       return (
         <IconButton aria-label="View" onClick={() => {
@@ -73,13 +74,17 @@ export default function CategoriesFilters({categories, setCategories, setQuestio
       const catRow = rowData.row;
       if (catRow.name !== 'No Category Assigned') {
         return (
-          <IconButton aria-label="delete" onClick={async () => await remove(catRow)} disabled={activate}>
+          <IconButton aria-label="delete" onClick={() => remove(catRow)} disabled={activate}>
             <DeleteIcon />
           </IconButton>
         )}
       }
     },
-    {field: 'created', headerName: 'Created', flex: 2.5}
+    {field: 'edited', headerName: 'Last Edited', flex: 2.5, renderCell: (rowData) => {
+      const catRow = rowData.row;
+      if (catRow.name === 'No Category Assigned') {
+        return ''}
+      }}
   ];
   const rows = categories.map(cat => {
     const used = (questions) => {
@@ -99,7 +104,7 @@ export default function CategoriesFilters({categories, setCategories, setQuestio
       view: '',
       edit: '',
       delete: '',
-      created: cat.created
+      edited: new Date(cat.lastEdited).toLocaleDateString('en-US')
     }
   });
   return (

@@ -67,6 +67,7 @@ function App() {
             <Route path="/teacher/exams/:id/categories/:categoryId/questions/:questionId/edit/:questionOrder" element={<QuestionEdit />} />
             <Route path="/teacher/exams/:id/questions/:questionId/:questionOrder" element={<QuestionOperations />} />
             <Route path="/teacher/exams/:id/categories" element={<ExamCategories />} />
+            <Route path="/teacher/exams/:id/categories/:categoryId/edit" element={<CategoryEdit />} />
             <Route path="/teacher/exams/:id/properties" element={<ExamProperties />} />
             <Route path="/teacher/exams/:id/matrix" element={<ExamMatrix />} />
             <Route path="/teacher/exams/:id/activation" element={<ExamActivation />} />
