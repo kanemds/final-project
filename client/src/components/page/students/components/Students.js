@@ -4,8 +4,8 @@ import { GlobalContext } from "../context/GlobalState";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import axios from "axios";
-import { api_base } from "config";
-import { shadows } from "@mui/system";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import { blue } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -14,9 +14,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
-import ListItemButton from "@mui/material/ListItemButton";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import ListItemText from "@mui/material/ListItemText";
+import { ListItemButton } from "@mui/material";
 import useTeacherCourses from "components/page/courses/useTeacherCourses";
+import "./Students.css";
 
 const Students = () => {
   const { removeUser } = useContext(GlobalContext);
@@ -26,7 +28,6 @@ const Students = () => {
   const { data } = useTeacherCourses();
 
   const getCourseName = (currentCourseId) => {
-    console.log("???", data);
     let currentCourseName = "";
     if (currentCourseId) {
       // if there is a course id then we'll loop through the data to get the course name using courseId
@@ -36,7 +37,13 @@ const Students = () => {
         }
       }
     }
+    if (!data) {
+      return "loading...";
+    }
     return currentCourseName;
+  };
+  const getAllCourseNames = (arrayOfCourseIds) => {
+    return arrayOfCourseIds.map(getCourseName);
   };
 
   const BoxShadowDiv = styled("div")(
@@ -48,9 +55,8 @@ box-shadow: ${theme.shadows[12]};`
   );
   return (
     <>
-      <h1>Add Students</h1>
+      <h1 sx={{ color: blue }}>Add Students</h1>
       <BasicModal />
-
       {student.map((item) => (
         <Card
           key={item._id}
@@ -71,36 +77,44 @@ box-shadow: ${theme.shadows[12]};`
                 style={{
                   textDecoration: "none",
                   color: "black",
-                  fontWeight: "bold",
+                  fontWeight: "bolder",
                 }}
               >
-                {item.firstname} {item.lastname} {item.email}
+                {item.firstname} {item.lastname}
+                <Divider variant="middle" />
+                {item.email}
               </Link>
             </Typography>
+
+            <Divider variant="middle" />
+            <Box sx={{ m: 2 }}></Box>
+            <ListItemButton component="enrolledcourse" href="/teacher/courses">
+              <AutoStoriesIcon fontSize="large" sx={{ color: blue[500] }} />
+
+              <ListItemText
+                primary={getAllCourseNames(item.course).join(", ")}
+              />
+            </ListItemButton>
             <Divider variant="middle" />
             <Box sx={{ m: 2 }}></Box>
             <Button
+              variant="outlined"
               onClick={() =>
                 navigate("/teacher/students/edit", { state: item })
               }
-              sx={{ fontSize: 20 }}
+              sx={{ fontSize: 15 }}
               gutterBottom
             >
               Edit Student Account
             </Button>
             <Button
+              variant="outlined"
               onClick={() => removeUser(item._id)}
-              sx={{ fontSize: 20 }}
+              sx={{ fontSize: 15 }}
               gutterBottom
             >
               Delete
             </Button>
-
-            <Divider variant="middle" />
-            <Box sx={{ m: 2 }}></Box>
-            <ListItemButton component="a" href="/teacher/courses">
-              <ListItemText primary={getCourseName(item.course)} />
-            </ListItemButton>
           </CardContent>
         </Card>
       ))}

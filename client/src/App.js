@@ -19,6 +19,7 @@ import ExamMatrix from "components/page/Exams/Matrix/ExamMatrix";
 import ExamActivation from "components/page/Exams/Activation/ExamActivation";
 import Root from "Root";
 import ExamContainer from "ExamContainer";
+import ReportContainer from "ReportContainer";
 import { UserList } from "components/page/students/components/userlist";
 import CheckoutSuccess from "components/page/account/billing/CheckoutSuccess";
 import NotFound from "components/NotFound";
@@ -37,16 +38,18 @@ import EditCourse from "components/page/courses/EditCourse";
 import CoursesContainer from "./components/page/courses/CoursesContainer";
 import AddExamsToCourse from "components/page/courses/AddExamsToCourse";
 import AddStudentsToCourse from "components/page/courses/AddStudentsToCourse";
-import StudentExams from "./components/studentPage/examsStudentPage/StudentExams"
+import StudentExams from "./components/studentPage/examsStudentPage/StudentExams";
 import TakingExams from "components/studentPage/TakingExams.js/TakingExams";
 import DoneExams from "components/studentPage/TakingExams.js/DoneExams";
 import EditAccount from "components/page/account/editAccount";
-import EditStudent from "components/page/students/components/EditStudent";
+import EditStudent from "components/page/students/components/editstudent";
 import StudentAccount from "components/studentPage/account/StudentAccount";
 import TeacherAccount from "components/page/account/TeacherAccount";
+import Records from "components/page/reports/Records";
+import Statistics from "components/page/reports/Statistics";
+import Reports from "components/page/Reports";
 
 function App() {
-
   return (
     <Router>
       <Routes>
@@ -58,14 +61,39 @@ function App() {
         <Route element={<Root />}>
           <Route path="/teacher/exams" element={<Exams />} />
           <Route element={<ExamContainer />}>
-            <Route path="/teacher/exams/:id/questions" element={<ExamQuestions />} />
-            <Route path="/teacher/exams/:id/questions/new/:questionOrder" element={<ExamQuestionsNew />} />
-            <Route path="/teacher/exams/:id/categories/:categoryId/questions/:questionId/edit/:questionOrder" element={<QuestionEdit />} />
-            <Route path="/teacher/exams/:id/questions/:questionId/:questionOrder" element={<QuestionOperations />} />
-            <Route path="/teacher/exams/:id/categories" element={<ExamCategories />} />
-            <Route path="/teacher/exams/:id/properties" element={<ExamProperties />} />
+            <Route
+              path="/teacher/exams/:id/questions"
+              element={<ExamQuestions />}
+            />
+            <Route
+              path="/teacher/exams/:id/questions/new/:questionOrder"
+              element={<ExamQuestionsNew />}
+            />
+            <Route
+              path="/teacher/exams/:id/categories/:categoryId/questions/:questionId/edit/:questionOrder"
+              element={<QuestionEdit />}
+            />
+            <Route
+              path="/teacher/exams/:id/questions/:questionId/:questionOrder"
+              element={<QuestionOperations />}
+            />
+            <Route
+              path="/teacher/exams/:id/categories"
+              element={<ExamCategories />}
+            />
+            <Route
+              path="/teacher/exams/:id/categories/:categoryId/edit"
+              element={<CategoryEdit />}
+            />
+            <Route
+              path="/teacher/exams/:id/properties"
+              element={<ExamProperties />}
+            />
             <Route path="/teacher/exams/:id/matrix" element={<ExamMatrix />} />
-            <Route path="/teacher/exams/:id/activation" element={<ExamActivation />} />
+            <Route
+              path="/teacher/exams/:id/activation"
+              element={<ExamActivation />}
+            />
           </Route>
           <Route path="/teacher/students" element={<Students />} />
           <Route path="/teacher/userlist" element={<UserList />} />
@@ -73,8 +101,17 @@ function App() {
           <Route path="/teacher/students/edit" element={<EditStudent />} />
 
           {/* {reports page} */}
-          {/* <Route element={<ReportContainer />}>
-          <Route path="/teacher/reports" element={<Courses />} /> */}
+          <Route path="/teacher/reports" element={<Reports />} />
+          <Route element={<ReportContainer />}>
+            <Route
+              path="/teacher/:teacherId/reports/records"
+              element={<Records />}
+            />
+            <Route
+              path="/teacher/:teacherId/reports/statistics"
+              element={<Statistics />}
+            />
+          </Route>
 
           {/* courses page */}
           <Route path="/teacher/courses" element={<Courses />} />
@@ -109,10 +146,7 @@ function App() {
         <Route path="/teacher/logout" element={<Logout />} />
         <Route path="/teacher/account/billing" element={<Billing />} />
         <Route path="/teacher/checkout-success" element={<CheckoutSuccess />} />
-        <Route
-          path="/student/exams"
-          element={<ExamStudentPage />}
-        />
+        <Route path="/student/exams" element={<ExamStudentPage />} />
         <Route>
           <Route path="/teacher/home" element={<Teacher />} />
         </Route>
@@ -125,10 +159,11 @@ function App() {
 
             <Route path="/student/courses" element={<StudentExams />} />
             <Route path="/student/courses/:id/exam" element={<TakingExams />} />
-            <Route path="/student/courses/:id/exam/done" element={<DoneExams />} />
+            <Route
+              path="/student/courses/:id/exam/done"
+              element={<DoneExams />}
+            />
             <Route path="/student/account" element={<StudentAccount />} />
-
-
           </Route>
         </Route>
       </Routes>

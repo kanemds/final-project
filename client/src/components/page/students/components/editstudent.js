@@ -10,22 +10,33 @@ import { UserList } from "./userlist";
 import { api_base } from "config";
 import Student from "./Students";
 import { CropSquareSharp, Email, GolfCourseSharp } from "@mui/icons-material";
-import { MenuItem, FormControl, Select, InputLabel } from "@mui/material";
+import {
+  MenuItem,
+  FormControl,
+  Select,
+  InputLabel,
+  TextField,
+} from "@mui/material";
 import useStudent from "./useStudent";
 import TeacherCoursesShow from "components/page/courses/TeacherCoursesShow";
 import TeacherCourses from "components/page/courses/TeacherCourses";
 import useTeacherCourses from "components/page/courses/useTeacherCourses";
+import { flexbox } from "@mui/system";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 900,
+  height: 600,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  display: "flexbox",
+  alignItems: "center",
+  justifyContent: "center",
 };
 
 export const EditStudent = ({ courses }) => {
@@ -53,54 +64,99 @@ export const EditStudent = ({ courses }) => {
   return (
     <div>
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography
+          id="modal-modal-title"
+          variant="h5"
+          component="h2"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "stretch",
+            marginTop: 20,
+          }}
+        >
           First Name{" "}
-          <textarea
+          <TextField
             value={firstname}
             onChange={(event) => setFirstName((_prev) => event.target.value)}
             rows="1"
-            cols="30"
-          ></textarea>
+            cols="70"
+          ></TextField>
         </Typography>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography
+          id="modal-modal-title"
+          variant="h5"
+          component="h2"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "stretch",
+          }}
+        >
           Last Name{" "}
-          <textarea
+          <TextField
             value={lastname}
             onChange={(event) => setLastName((_prev) => event.target.value)}
             rows="1"
-            cols="30"
-          ></textarea>
+            cols="70"
+          ></TextField>
         </Typography>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography
+          id="modal-modal-title"
+          variant="h5"
+          component="h2"
+          sx={{
+            display: "flex",
+            marginLeft: 44,
+            alignItems: "stretch",
+          }}
+        >
           Email{" "}
-          <textarea
+          <TextField
             value={email}
             onChange={(event) => setEmail((_prev) => event.target.value)}
             rows="1"
-            cols="30"
-          ></textarea>
+            cols="70"
+          ></TextField>
         </Typography>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Courses</InputLabel>
+        <FormControl style={{ minWidth: 195, paddingLeft: 411 }}>
+          <InputLabel
+            variant="h5"
+            id="demo-simple-select-label"
+            sx={{ paddingLeft: 60 }}
+          >
+            Courses
+          </InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            labelId="demo-multiple-select-label"
+            id="demo-multiple-select"
+            // native={true}
+            // multiple
             value={course}
             label="Course"
+            open={open}
+            onClick={handleOpen}
+            renderValue={(selected) => course.name}
+            // style={{ width: 200 }}
           >
             {data.map((course) => (
               <MenuItem
                 id={course.id}
                 key={course.id}
-                value={course.name}
-                onClick={() =>
-                  axios
-                    .put(`${api_base}/teacher/student/${id}`, {
-                      course,
-                    })
-                    .then((response) => {
-                      navigate(`/teacher/students`);
-                    })
+                value={course.id}
+                onClick={
+                  (event) => {
+                    event.stopPropagation();
+                    handleClose();
+                    setCourse(course._id);
+                  }
+                  //   axios
+                  //     .put(`${api_base}/teacher/student/${id}`, {
+                  //       course,
+                  //     })
+                  //     .then((response) => {
+                  //       navigate(`/teacher/students`);
+                  //     })
                 }
               >
                 {course.name}
@@ -115,6 +171,7 @@ export const EditStudent = ({ courses }) => {
                 firstname,
                 lastname,
                 email,
+                course,
               })
               .then((response) => {
                 navigate(`/teacher/students`);
@@ -126,6 +183,6 @@ export const EditStudent = ({ courses }) => {
       </Box>
     </div>
   );
-}
+};
 
-export default EditStudent
+export default EditStudent;

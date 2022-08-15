@@ -72,7 +72,8 @@ router.post('/:questionId/edit', async (req, res) => {
       answers: req.body.answers,
       correctAnswer: req.body.correctAnswer,
       category: req.body.category,
-      used: req.body.used
+      used: req.body.used,
+      lastEdited: Date.now()
     },
     {
       // return doc after update is applied

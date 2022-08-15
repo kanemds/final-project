@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { api_base } from "config";
 function useAccount(props) {
   const [account, setAccount] = useState([]);
-  console.log(account);
   useEffect(() => {
     const fetchaccount = async () => {
       const url = `${api_base}/account`;
