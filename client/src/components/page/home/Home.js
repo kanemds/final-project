@@ -104,10 +104,8 @@ const Home = () => {
               bgcolor: "gray",
               opacity: 0.9,
               border: 1,
-              borderColor: "white",
               width: "100%",
               height: "35vh",
-              backgroundPosition: "center",
             }}
           >
             <div className="banner-text">
@@ -136,7 +134,6 @@ const Home = () => {
                   right: 970,
                   top: 400,
                   fontSize: "Large",
-                  opacity: 1,
                   backgroundColor: "darkblue",
                 }}
               >
