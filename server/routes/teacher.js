@@ -53,15 +53,19 @@ router.delete("/teacher/student/:id", (req, res) => {
 });
 
 router.post("/:id/edit", (req, res) => {
+  const newDoc = req.body;
+  for (let prop in newDoc) {
+    if (!newDoc[prop]) {
+      delete newDoc[prop];
+      //it will remove fields who are undefined or null
+    }
+  }
+
   Teacher.findOneAndUpdate(
     {
       _id: req.params.id,
     },
-    {
-      $push: {
-        teacher: req.body.teacher,
-      },
-    },
+    newDoc,
     {
       // return doc after update is applied
       new: true,

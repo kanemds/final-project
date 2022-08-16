@@ -37,8 +37,10 @@ const StudentAccount = () => {
     setEdit(true)
   }
 
+  console.log({ students, currentStudent })
+
   if (!students || !currentStudent) {
-    return ""
+    return "loading..."
   }
 
   return (

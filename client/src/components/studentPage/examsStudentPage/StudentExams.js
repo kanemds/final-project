@@ -1,26 +1,28 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import useCourses from "../StudentCourses/useCourse";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import useCourses from '../StudentCourses/useCourse';
+import useExams from 'components/page/Exams/useExams';
+import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
+import { useNavigate } from 'react-router-dom';
+import { LoginContext } from 'Contexts/LoginContext';
+import { useContext } from 'react';
+import useScore from 'components/hooks/useScore';
+import FindInPageSharpIcon from '@mui/icons-material/FindInPageSharp';
+import ReviewExam from '../TakingExams/ReviewExam';
+import { Button } from '@mui/material';
 
-import useExams from "components/page/Exams/useExams";
-
-import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined";
-import { useNavigate } from "react-router-dom";
-import { LoginContext } from "Contexts/LoginContext";
-import { useContext } from "react";
-import useScore from "components/hooks/useScore";
 
 function Row({ item, exams }) {
   const navigate = useNavigate();
@@ -55,7 +57,7 @@ function Row({ item, exams }) {
     return "";
   }
 
-  const startExam = (examId, score, maxAttempt, time) => {
+  const startExam = (course, examId, score, maxAttempt, time) => {
     const incompleteScore = score.filter((item) => {
       const oneMinute = time * 1000 * 60;
       const endTime = new Date(item.created).getTime() + oneMinute;
@@ -70,6 +72,7 @@ function Row({ item, exams }) {
       newScore({
         score: 0,
         student: userId,
+        course: course,
         exam: examId,
         submitted: false,
       }).then((scoreDoc) => {
@@ -107,60 +110,42 @@ function Row({ item, exams }) {
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <h2>Name</h2>
-                    </TableCell>
-                    <TableCell align="center">
-                      <h2>Total Questions</h2>
-                    </TableCell>
-                    <TableCell align="center">
-                      <h2>Time Limit</h2>
-                    </TableCell>
-                    <TableCell align="center">
-                      <h2>No. of Attempts</h2>
-                    </TableCell>
-                    <TableCell align="center">
-                      <h2>Highest Score</h2>
-                    </TableCell>
-                    <TableCell align="center">
-                      <h2>Start Exams</h2>
-                    </TableCell>
+
+                  <TableRow >
+                    <TableCell ><h2>Name</h2></TableCell>
+                    <TableCell align="center"><h2>Total Questions</h2></TableCell>
+                    <TableCell align="center"><h2>Time Limit</h2></TableCell>
+                    <TableCell align="center"><h2>No. of Attempts</h2></TableCell>
+                    <TableCell align="center"><h2>Highest Score</h2></TableCell>
+                    <TableCell align="center"><h2>Exams</h2></TableCell>
                   </TableRow>
-                </TableHead>
+                </TableHead >
                 <TableBody>
-                  {findExams.map((each) => {
-                    console.log(each);
-                    const score = scores.filter(
-                      (item) => item.exam === each._id
-                    );
-                    const attempts = score.length;
-                    const submitted = score.filter(
-                      (item) => item.submitted
-                    ).length;
+                  {findExams.map(each => {
 
-                    const examScores =
-                      attempts > 1 && score && score.map((item) => item.score);
-                    const highestScore =
-                      attempts > 1 && Math.max(...examScores);
-                    const scorePercentage =
-                      attempts > 1
-                        ? `${Math.trunc(
-                            (highestScore / each.questions.length) * 100
-                          )}%`
-                        : "N/A";
-                    let canStartExam = true;
-                    if (submitted >= each.attemptsLimit) {
-                      canStartExam = false;
-
+                    if (!each.activate) {
+                      return ""
+                    }
+                    const score = scores && scores.filter((item) => item.exam === each._id && item.course === course._id)
+                    const attempts = score.length
+                    const submitted = score.filter((item) => item.submitted).length
+                    const examScores = attempts >= 1 && score && score.map((item) => item.score)
+                    const totalScores = attempts >= 1 && score && score.map((item) => item.totalScore)
+                    const highestScore = attempts >= 1 && Math.max(...examScores)
+                    const highestResult = score.find(highest => highest.score === highestScore)
+                    const scorePercentage = attempts >= 1 ?
+                      `${Math.trunc(((highestScore / totalScores[0]) * 100))}%` : 'N/A'
+                    let canStartExam = true
+                    if (submitted >= each.attemptsLimit && each.attemptsLimit != null) {
+                      canStartExam = false
                       if (
                         score &&
                         score[0] &&
                         new Date().getTime() >
-                          new Date(
-                            new Date(score[0].created).getTime() +
-                              each.timeLimit * 60 * 1000
-                          ).getTime() &&
+                        new Date(
+                          new Date(score[0].created).getTime() +
+                          each.timeLimit * 60 * 1000
+                        ).getTime() &&
                         submitted >= each.attemptsLimit
                       ) {
                         canStartExam = false;
@@ -172,59 +157,44 @@ function Row({ item, exams }) {
                         <TableCell component="th" scope="row">
                           <h3>{each.name}</h3>
                         </TableCell>
-                        <TableCell align="center">
-                          {" "}
-                          <h3>{each.questions.length}</h3>
-                        </TableCell>
+                        <TableCell align="center"> <h3>{each.questions.length}</h3></TableCell>
+                        <TableCell align="center"><h3>{each.timeLimit} Minutes</h3></TableCell>
+                        {
+                          !each.attemptsLimit ? <TableCell align="center"><h3>Practice</h3></TableCell> :
+                            <TableCell align="center"><h3>{attempts}/{each.attemptsLimit}</h3></TableCell>
+                        }
+                        <TableCell align="center"><h3>{scorePercentage}</h3></TableCell>
+                        <TableCell align="center"  >
 
-                        <TableCell align="center">
-                          <h3>{each.timeLimit} Minutes</h3>
+                          {canStartExam ? (<PlayCircleOutlineOutlinedIcon
+                            sx={{
+                              fontSize: "40px",
+                              color: "Green"
+                            }}
+                            onClick={() => { startExam(course, each._id, score, each.attemptsLimit, each.timeLimit) }}
+                          />)
+                            :
+                            <Button onClick={() => navigate(`/student/score/${highestResult._id}/review`)}>
+                              Review
+                            </Button>
+                          }
                         </TableCell>
-                        <TableCell align="center">
-                          <h3>
-                            {attempts}/{each.attemptsLimit}
-                          </h3>
-                        </TableCell>
-
-                        <TableCell align="center">
-                          <h3>{scorePercentage}</h3>
-                        </TableCell>
-                        <TableCell align="center">
-                          {canStartExam ? (
-                            <PlayCircleOutlineOutlinedIcon
-                              sx={{
-                                fontSize: "40px",
-                                color: "Green",
-                              }}
-                              onClick={() => {
-                                startExam(
-                                  each._id,
-                                  score,
-                                  each.attemptsLimit,
-                                  each.timeLimit
-                                );
-                              }}
-                            />
-                          ) : (
-                            "Completed"
-                          )}
-                        </TableCell>
-                      </TableRow>
+                      </TableRow >
                     );
                   })}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
+                </TableBody >
+              </Table >
+            </Box >
+          </Collapse >
+        </TableCell >
+      </TableRow >
+    </React.Fragment >
   );
 }
 
 export default function CollapsibleTable() {
-  const { exams } = useContext(LoginContext);
-  const data = useCourses();
+  const { exams } = useContext(LoginContext)
+  const data = useCourses()
 
   return (
     <TableContainer

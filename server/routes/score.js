@@ -2,7 +2,7 @@ const express = require("express");
 const Exam = require("../models/exam")
 const router = express.Router();
 const Score = require("../models/score")
-
+const Question = require("../models/question")
 const ObjectId = require("mongodb").ObjectId;
 
 const canWriteExam = async (studentId, examId, scoreId) => {
@@ -38,8 +38,10 @@ router.post("/new", (req, res) => {
     if (canWriteExam) {
       const score = new Score({
         score: req.body.score,
+        totalScore: 0,
         answers: req.body.answers,
         student: req.body.student,
+        course: req.body.course,
         exam: req.body.exam,
         submitted: false,
       });
@@ -116,22 +118,29 @@ router.post('/:id/edit', (req, res) => {
       },
     ]).exec()
 
-    const correctAnswers = exam && exam[0].questions.map((question) => {
-      return question.correctAnswer && question.correctAnswer.toString()
+    const correctAnswers = {}
+    let totalScore = 0
+    exam[0].questions.forEach((question) => {
+      console.log(question)
+      if (question.correctAnswer) {
+        correctAnswers[question.correctAnswer.toString()] = question.points
+        totalScore += question.points
+      }
     })
 
     let score = 0
-    for (const answer of answers) {
 
-      if (correctAnswers && correctAnswers.includes(answer)) {
-        score += 1
+    for (const answerId of answers) {
+      if (correctAnswers && correctAnswers[answerId]) {
+        console.log(answerId)
+        score += correctAnswers[answerId]
       }
     }
 
     const scoreDoc = await Score.findOneAndUpdate({
       _id: req.params.id
     },
-      { score },
+      { score, totalScore },
       {
         // return doc after update is applied
         new: true,
@@ -150,6 +159,14 @@ router.get("/:id", (req, res) => {
   const doc = Score.aggregate([
     { $match: { _id: ObjectId(req.params.id) } },
     { $limit: 1 },
+    {
+      $lookup: {
+        from: "course",
+        localField: "course",
+        foreignField: "_id",
+        as: "course",
+      }
+    },
     {
       $lookup: {
         from: "student",

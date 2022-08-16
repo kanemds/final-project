@@ -7,6 +7,7 @@ import ReportsIcon from "@mui/icons-material/EqualizerSharp";
 import AccountIcon from "@mui/icons-material/ManageAccountsSharp";
 import LogoutIcon from "@mui/icons-material/ExitToAppRounded";
 import CoursesIcon from '@mui/icons-material/AutoStories';
+import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 
 export const SidebarData = [
   {
@@ -25,7 +26,7 @@ export const SidebarData = [
   },
   {
     title: "Exams",
-    icon: <QuizIcon />,
+    icon: <NoteAltOutlinedIcon />,
 
     link: "/teacher/exams",
 
@@ -38,7 +39,7 @@ export const SidebarData = [
 
   },
   {
-    title:"Reports",
+    title: "Reports",
     icon: <ReportsIcon />,
 
     link: "/teacher/reports"

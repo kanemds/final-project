@@ -1,55 +1,42 @@
-import { LoginContext } from "Contexts/LoginContext";
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import ListItem from "@mui/material/ListItem";
-import { Box, Button, Table, TableCell, TableRow } from "@mui/material";
-import useExam from "components/page/Exams/useExam";
-import { useNavigate } from "react-router-dom";
-import useScore from "components/hooks/useScore";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { LoginContext } from 'Contexts/LoginContext'
+import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import ListItem from '@mui/material/ListItem';
+import { Box, Button, Table, TableCell, TableRow } from '@mui/material';
+import useExam from 'components/page/Exams/useExam';
+import { useNavigate } from 'react-router-dom';
+import useScore from 'components/hooks/useScore';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 const TakingExams = () => {
   const navigate = useNavigate();
 
-  const { userId, lastIncomplete } = useContext(LoginContext);
-  const { getScoreByExamId, editScore, newScore } = useScore();
-  const { id } = useParams();
-  const { exam } = useExam();
-
-  const questions = exam.questions;
-  const [selected, setSelected] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState([]);
-
-  const [remaining, setRemaining] = useState(0);
-  const tags = ["A", "B", "C", "D", "E", "F", "G", "H"];
-  const currentScore = lastIncomplete || getScoreByExamId(id);
-
-  const selectedHandle = (answerId, currentQuestion) => {
-    const newAnswers = answers;
-    newAnswers[currentQuestion] = answerId;
-    setSelected(answerId);
-    setAnswers(newAnswers);
-  };
-
-  const children = ({ remainingTime }) => {
-    // const hours = Math.floor(remainingTime / 3600)
-    const minutes = Math.floor((remainingTime % 3600) / 60);
-    const seconds = remainingTime % 60;
-    return <p>{minutes}mins</p>;
-  };
+  const { userId, lastIncomplete } = useContext(LoginContext)
+  const { getScoreByExamId, editScore, newScore } = useScore()
+  const { id } = useParams()
+  const { exam, getExam } = useExam()
+  const questions = exam.questions
+  const [selected, setSelected] = useState(false)
+  const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [answers, setAnswers] = useState([])
+  const [examId, setExamId] = useState()
+  const [remaining, setRemaining] = useState(0)
+  const tags = ["A", "B", "C", "D", "E", "F", "G", "H"]
+  const currentScore = lastIncomplete || getScoreByExamId(id)
+  const [newExam, setNewExam] = useState()
 
   useEffect(() => {
-    if (
-      answers.length === 0 &&
-      currentScore &&
-      currentScore.answers &&
-      currentScore.answers.length > 0
-    ) {
-      setAnswers(currentScore.answers);
+    console.log({ exam, questions, currentScore })
+    // if (!exam) {
+    //   examId && getExam(examId).then((data) => {
+    //     setNewExam(data)
+    //   })
+    // }
+
+    if (answers.length === 0 && currentScore && currentScore.answers && currentScore.answers.length > 0) {
+      setAnswers(currentScore.answers)
     }
 
     if (remaining === 0 && exam && currentScore) {
@@ -61,7 +48,21 @@ const TakingExams = () => {
         setRemaining(remainingTime);
       }
     }
-  }, [answers, currentScore, exam, remaining, setRemaining]);
+  }, [answers, currentScore, getExam, remaining, setRemaining])
+
+  const children = ({ remainingTime }) => {
+    // const hours = Math.floor(remainingTime / 3600)
+    const minutes = Math.floor((remainingTime % 3600) / 60)
+    const seconds = remainingTime % 60
+    return <p>{minutes}mins</p>
+  }
+
+  const selectedHandle = (answerId, currentQuestion) => {
+    const newAnswers = answers
+    newAnswers[currentQuestion] = answerId
+    setSelected(answerId)
+    setAnswers(newAnswers)
+  }
 
   const nextQuestion = () => {
     let answerId = questions[currentQuestion].answers._id;
@@ -84,8 +85,8 @@ const TakingExams = () => {
     setCurrentQuestion(currentQuestion - 1);
   };
 
-  if (!exam || !questions) {
-    return "";
+  if (!exam || !questions || !currentScore) {
+    return "loading"
   }
 
   const nextButtonText =
