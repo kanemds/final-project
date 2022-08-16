@@ -28,7 +28,7 @@ const TakingExams = () => {
   const [newExam, setNewExam] = useState()
 
   useEffect(() => {
-    console.log({ exam, questions, currentScore })
+
     // if (!exam) {
     //   examId && getExam(examId).then((data) => {
     //     setNewExam(data)
@@ -40,10 +40,11 @@ const TakingExams = () => {
     }
 
     if (remaining === 0 && exam && currentScore) {
-      const remainingTime =
-        new Date(currentScore.created).getTime() +
-        exam.timeLimit * 60 * 1000 -
-        new Date().getTime();
+      const endTime = new Date(currentScore.created).getTime() + exam.timeLimit;
+      const currentTime = new Date().getTime();
+      const remainingTime = (endTime - currentTime) / 1000
+
+
       if (!isNaN(remainingTime)) {
         setRemaining(remainingTime);
       }
@@ -52,8 +53,12 @@ const TakingExams = () => {
 
   const children = ({ remainingTime }) => {
     // const hours = Math.floor(remainingTime / 3600)
-    const minutes = Math.floor((remainingTime % 3600) / 60)
+    const minutes = Math.floor((remainingTime) / 60)
     const seconds = remainingTime % 60
+    console.log({ remainingTime, remaining, minutes, exam })
+    if (minutes <= 0) {
+      return <p>{seconds}sec</p>
+    }
     return <p>{minutes}mins</p>
   }
 
@@ -91,7 +96,7 @@ const TakingExams = () => {
 
   const nextButtonText =
     currentQuestion === questions.length - 1 ? "Submit" : "Save and Continue";
-  const color = exam.timeLimit * 60;
+  const color = exam.timeLimit / 1000
 
   return (
     <>
@@ -129,8 +134,8 @@ const TakingExams = () => {
                     }
                   }}
                   isPlaying={true}
-                  duration={exam ? exam.timeLimit * 60 : 999999}
-                  initialRemainingTime={remaining / 1000}
+                  duration={exam ? exam.timeLimit / 1000 : 999999}
+                  initialRemainingTime={remaining}
                   size={80}
                   colors={[
                     "#093d9c",
@@ -141,7 +146,7 @@ const TakingExams = () => {
                     "#cf7f11",
                     "#db2a0b",
                   ]}
-                  updateInterval={1}
+                  updateInterval={10}
                   colorsTime={[
                     color,
                     color * 0.7,

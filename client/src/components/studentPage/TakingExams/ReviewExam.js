@@ -14,7 +14,6 @@ import CheckIcon from '@mui/icons-material/Check';
 
 const ReviewExam = () => {
 
-
   const navigate = useNavigate()
   const { scoreId } = useParams()
   const { getScoreByScoreId } = useScore()
@@ -26,11 +25,26 @@ const ReviewExam = () => {
   const tags = ["A", "B", "C", "D", "E", "F", "G", "H"]
   const [selected, setSelected] = useState([])
 
+  console.log({ scoreId, getScoreByScoreId, getExam, score })
 
+
+  useEffect(() => {
+    if (!exam) {
+      examId && getExam(examId).then((data) => {
+        setExam(data)
+      })
+    }
+  }, [examId, getExam, exam, getScoreByScoreId, score])
+
+
+  if (!scoreId || !score || !exam || !getScoreByScoreId) {
+    return 'loading...'
+  }
 
   const lastQuestion = (props) => {
     setCurrentQuestion(currentQuestion - 1)
   }
+
 
   const nextQuestion = () => {
     const next = currentQuestion + 1
@@ -40,21 +54,6 @@ const ReviewExam = () => {
       navigate('/student/courses')
     }
   }
-
-  useEffect(() => {
-    if (!exam) {
-      examId && getExam(examId).then((data) => {
-        setExam(data)
-      })
-    }
-  }, [examId, getExam, exam])
-
-
-  if (!scoreId || !score || !exam) {
-    return 'loading...'
-  }
-
-
 
   const questions = exam.questions
   const nextButtonText = currentQuestion === questions.length - 1 ? 'Exit' : 'Next'
@@ -96,34 +95,11 @@ const ReviewExam = () => {
                 let userSelected = ''
 
                 if (isSelected && isSelected === correct) {
-                  console.log({ isSelected, correct })
                   userSelected = 'correct'
                 }
                 if (isSelected && isSelected !== correct) {
                   userSelected = 'incorrect'
                 }
-
-                // if (correct === answer._id) {
-                //   return (
-                //     <TableRow
-                //       key={answer._id}
-                //       selected={correct}
-                //       sx={{
-                //         "&.Mui-selected, &.Mui-selected:hover": {
-                //           backgroundColor: "#c8e6c9"
-                //         }
-                //       }}
-                //     >
-                //       <TableCell
-                //         sx={{
-                //           fontSize: "20px",
-                //           backgroundColor: "#f48fb1"
-                //         }} >
-                //         {`${tags[i]}. ${answer.content}`}
-                //       </TableCell>
-                //     </TableRow>)
-                // }
-                // } else {
 
                 return (
                   <TableRow

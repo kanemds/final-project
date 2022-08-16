@@ -26,11 +26,13 @@ import { Button } from '@mui/material';
 
 function Row({ item, exams }) {
   const navigate = useNavigate();
-  const { newScore, editScore, scores, getScoreByExamId } = useScore();
+  const { newScore, seditScore, scores, getScoreByExamId } = useScore();
   const { userId, lastIncomplete, saveLastIncomplete } =
     useContext(LoginContext);
   const course = item;
   const [open, setOpen] = React.useState(false);
+
+
 
   const findExams =
     exams &&
@@ -43,24 +45,14 @@ function Row({ item, exams }) {
       return currentExamIds.includes(item._id.toString());
     });
 
-  const getTime = (time) => {
-    const second = 1000;
-    const minute = second * 60;
-    const hour = minute * 60;
-    const texthour = Math.floor(time / hour);
-    const textMinute = Math.floor((time % hour) / minute);
-    const textSecond = Math.floor((time % minute) / second);
-    return `${texthour} : ${textMinute}`;
-  };
-
   if (!exams) {
     return "";
   }
 
   const startExam = (course, examId, score, maxAttempt, time) => {
     const incompleteScore = score.filter((item) => {
-      const oneMinute = time * 1000 * 60;
-      const endTime = new Date(item.created).getTime() + oneMinute;
+      // const oneMinute = time 
+      const endTime = new Date(item.created).getTime() + time;
       const currentTime = new Date().getTime();
       return !item.submitted && currentTime < endTime;
     });
@@ -84,6 +76,7 @@ function Row({ item, exams }) {
 
   return (
     <React.Fragment>
+
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell>
           <IconButton
@@ -122,7 +115,7 @@ function Row({ item, exams }) {
                 </TableHead >
                 <TableBody>
                   {findExams.map(each => {
-
+                    console.log(each.timeLimit)
                     if (!each.activate) {
                       return ""
                     }
@@ -133,7 +126,9 @@ function Row({ item, exams }) {
                     const totalScores = attempts >= 1 && score && score.map((item) => item.totalScore)
                     const highestScore = attempts >= 1 && Math.max(...examScores)
                     const highestResult = score.find(highest => highest.score === highestScore)
-                    const scorePercentage = attempts >= 1 ?
+
+
+                    const scorePercentage = attempts >= 1 && totalScores[0] > 0 ?
                       `${Math.trunc(((highestScore / totalScores[0]) * 100))}%` : 'N/A'
                     let canStartExam = true
                     if (submitted >= each.attemptsLimit && each.attemptsLimit != null) {
@@ -144,8 +139,8 @@ function Row({ item, exams }) {
                         new Date().getTime() >
                         new Date(
                           new Date(score[0].created).getTime() +
-                          each.timeLimit * 60 * 1000
-                        ).getTime() &&
+                          each.timeLimit
+                        ) &&
                         submitted >= each.attemptsLimit
                       ) {
                         canStartExam = false;
@@ -158,7 +153,7 @@ function Row({ item, exams }) {
                           <h3>{each.name}</h3>
                         </TableCell>
                         <TableCell align="center"> <h3>{each.questions.length}</h3></TableCell>
-                        <TableCell align="center"><h3>{each.timeLimit} Minutes</h3></TableCell>
+                        <TableCell align="center"><h3>{each.timeLimit / 60 / 1000} Minutes</h3></TableCell>
                         {
                           !each.attemptsLimit ? <TableCell align="center"><h3>Practice</h3></TableCell> :
                             <TableCell align="center"><h3>{attempts}/{each.attemptsLimit}</h3></TableCell>
@@ -166,13 +161,10 @@ function Row({ item, exams }) {
                         <TableCell align="center"><h3>{scorePercentage}</h3></TableCell>
                         <TableCell align="center"  >
 
-                          {canStartExam ? (<PlayCircleOutlineOutlinedIcon
-                            sx={{
-                              fontSize: "40px",
-                              color: "Green"
-                            }}
-                            onClick={() => { startExam(course, each._id, score, each.attemptsLimit, each.timeLimit) }}
-                          />)
+                          {canStartExam ? (<Button
+                            onClick={() => { startExam(course, each._id, score, each.attemptsLimit, each.timeLimit) }}>
+                            Start
+                          </Button>)
                             :
                             <Button onClick={() => navigate(`/student/score/${highestResult._id}/review`)}>
                               Review
@@ -193,34 +185,48 @@ function Row({ item, exams }) {
 }
 
 export default function CollapsibleTable() {
-  const { exams } = useContext(LoginContext)
+  const { exams, userId, students } = useContext(LoginContext)
   const data = useCourses()
+  const currentStudent = students.find(id => id._id === userId)
+  console.log(currentStudent)
 
+
+  if (!exams || !userId || !students) {
+    return "loading";
+  }
   return (
-    <TableContainer
-      component={Paper}
-      sx={{
-        mt: 6,
-      }}
-    >
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell align="center">
-              <h1>Course name</h1>
-            </TableCell>
-            <TableCell align="center">
-              <h1>Create Date</h1>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((item) => (
-            <Row key={item._id} item={item} exams={exams} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <Box
+        sx={{
+          m: 10
+        }}
+      >
+        <h1>{currentStudent.firstname} {currentStudent.lastname}</h1>
+        <br />
+        <TableContainer
+          component={Paper}
+        >
+
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow>
+                <TableCell />
+                <TableCell align="center">
+                  <h1>Course name</h1>
+                </TableCell>
+                <TableCell align="center">
+                  <h1>Create Date</h1>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((item) => (
+                <Row key={item._id} item={item} exams={exams} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </>
   );
 }
