@@ -27,7 +27,7 @@ import NotFound from "components/NotFound";
 import AddStudent from "components/page/students/components/AddStudent";
 import Teacher from "components/page/home/teacher/Teacher";
 import StudentRoot from "components/studentPage/StudentRoot";
-// import EditStudent from "components/page/students/components/EditStudent";
+import EditStudent from "components/page/students/components/editstudent";
 import StudentHomePage from "components/studentPage/home/StudentHomePage";
 import ExamStudentPage from "components/studentPage/examsStudentPage/ExamStudentPage";
 import { useContext } from "react";
@@ -42,14 +42,12 @@ import StudentExams from "./components/studentPage/examsStudentPage/StudentExams
 import TakingExams from "components/studentPage/TakingExams/TakingExams";
 import DoneExams from "components/studentPage/TakingExams/DoneExams";
 import EditAccount from "components/page/account/editAccount";
-import EditStudent from "components/page/students/components/Editstudent";
 import StudentAccount from "components/studentPage/account/StudentAccount";
 import TeacherAccount from "components/page/account/TeacherAccount";
 import ReviewExam from "components/studentPage/TakingExams/ReviewExam";
 import Records from "components/page/reports/Records";
 import Statistics from "components/page/reports/Statistics";
 import Reports from "components/page/Reports";
-
 
 function App() {
   return (

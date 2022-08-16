@@ -58,7 +58,13 @@ export const LoginProvider = ({ children }) => {
         addCourse,
         editCourse,
         lastIncomplete,
+        currentTeacher,
         saveLastIncomplete,
+        currentStudent,
+        setCurrentStudent,
+        getScoreByExamId,
+        editScore,
+        newScore
       }}
     >
       {children}

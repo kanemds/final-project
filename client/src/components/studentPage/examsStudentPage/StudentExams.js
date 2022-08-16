@@ -22,10 +22,7 @@ import useScore from 'components/hooks/useScore';
 import FindInPageSharpIcon from '@mui/icons-material/FindInPageSharp';
 import ReviewExam from '../TakingExams/ReviewExam';
 import { Button } from '@mui/material';
-import { useNavigate } from "react-router-dom";
-import { LoginContext } from "Contexts/LoginContext";
-import { useContext } from "react";
-import useScore from "components/hooks/useScore";
+
 
 function Row({ item, exams }) {
   const navigate = useNavigate();
@@ -132,11 +129,11 @@ function Row({ item, exams }) {
                     const score = scores && scores.filter((item) => item.exam === each._id && item.course === course._id)
                     const attempts = score.length
                     const submitted = score.filter((item) => item.submitted).length
-                    const examScores = attempts > 1 && score && score.map((item) => item.score)
-                    const totalScores = attempts > 1 && score && score.map((item) => item.totalScore)
-                    const highestScore = attempts > 1 && Math.max(...examScores)
+                    const examScores = attempts >= 1 && score && score.map((item) => item.score)
+                    const totalScores = attempts >= 1 && score && score.map((item) => item.totalScore)
+                    const highestScore = attempts >= 1 && Math.max(...examScores)
                     const highestResult = score.find(highest => highest.score === highestScore)
-                    const scorePercentage = attempts > 1 ?
+                    const scorePercentage = attempts >= 1 ?
                       `${Math.trunc(((highestScore / totalScores[0]) * 100))}%` : 'N/A'
                     let canStartExam = true
                     if (submitted >= each.attemptsLimit && each.attemptsLimit != null) {

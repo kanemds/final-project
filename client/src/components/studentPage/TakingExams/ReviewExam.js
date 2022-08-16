@@ -93,8 +93,15 @@ const ReviewExam = () => {
               {questions[currentQuestion].answers.map((answer, i) => {
                 const correct = questions[currentQuestion].correctAnswer === answer._id
                 const isSelected = score.answers[currentQuestion] === answer._id
-                console.log(isSelected)
-                console.log(answer._id)
+                let userSelected = ''
+
+                if (isSelected && isSelected === correct) {
+                  console.log({ isSelected, correct })
+                  userSelected = 'correct'
+                }
+                if (isSelected && isSelected !== correct) {
+                  userSelected = 'incorrect'
+                }
 
                 // if (correct === answer._id) {
                 //   return (
@@ -122,6 +129,7 @@ const ReviewExam = () => {
                   <TableRow
                     key={answer._id}
                     selected={correct}
+                    data-selected={userSelected}
                     sx={{
                       "&.Mui-selected, &.Mui-selected:hover": {
                         backgroundColor: "#c8e6c9"
@@ -137,6 +145,8 @@ const ReviewExam = () => {
 
                     >
                       {`${tags[i]}. ${answer.content}`}
+                      {userSelected === 'correct' && <CheckIcon />}
+                      {userSelected === 'incorrect' && <ClearIcon />}
                     </TableCell>
                   </TableRow>
                 )

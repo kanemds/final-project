@@ -8,12 +8,13 @@ function useExam() {
   const params = useParams()
 
   useEffect(() => {
-    if (!exam && params.id) {
+    if (exam.length <= 0 && params.id) {
       getExam(params.id).then((exam) => {
+        console.log('????')
         setExam(exam)
       })
     }
-  }, [exam, params.id])
+  }, [exam, params])
 
   const getExam = async (examId) => {
     const exam = await axios.get(`${api_base}/exams/${examId}`)

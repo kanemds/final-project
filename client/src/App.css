@@ -182,12 +182,25 @@ a {
     height: 5%;
     width: 100%
   }
-
-
-
-
 }
 
+
+tr[data-selected="incorrect"] {
+  background-color: #f48fb1;
+}
+
+tr td {
+  position: relative;
+}
+
+tr td svg {
+  position: absolute;
+  right: 10px;
+}
+
+.home-img-container button {
+  z-index: 999;
+}
 
 /* @media screen and (min-height: 768px) {
   .SidebarList .row:last-child {
