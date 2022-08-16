@@ -25,7 +25,12 @@ router.put("/student/:id", (req, res) => {
         _id: req.params.id,
       },
       {
-        $set: req.body,
+        $set: {
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          email: req.body.email,
+        },
+        $addToSet: { course: req.body.course },
       }
     )
     .exec()
@@ -111,6 +116,36 @@ router.get("/", (req, res) => {
     })
     .catch((error) => {
       res.json(error);
+    });
+});
+
+router.get("/:teacherId/reports/records", (req, res) => {
+  const doc = Teacher.aggregate([
+    { $match: { _id: ObjectId(req.params.teacherId) } },
+    { $limit: 1 },
+    {
+      $lookup: {
+        from: "exams",
+        localField: "exams",
+        foreignField: "_id",
+        as: "exams",
+        pipeline: [
+          {
+            $lookup: {
+              from: "scores",
+              localField: "scores",
+              foreignField: "_id",
+              as: "scores",
+            },
+          },
+        ],
+      },
+    },
+  ])
+    .exec()
+    .then((result) => {
+      // console.log(result);
+      res.json(result[0]);
     });
 });
 

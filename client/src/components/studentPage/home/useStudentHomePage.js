@@ -1,7 +1,5 @@
-
-import React, { useState, useEffect } from 'react';
-import { api_base } from 'config'
-
+import React, { useState, useEffect } from "react";
+import { api_base } from "config";
 
 function useStudentHomePage(props) {
   const [students, setStudents] = useState([]);
@@ -10,17 +8,17 @@ function useStudentHomePage(props) {
     const fetchstudents = async () => {
       const url = `${api_base}/student`;
       const res = await fetch(url, {
-        credentials: 'include'
+        credentials: "include",
       });
       setStudents(await res.json());
-    }
+    };
     fetchstudents();
   }, []);
 
   if (students === null) {
-    return 'Loading...';
+    return "Loading...";
   }
-  return students ? students : ''
+  return students ? students : "";
 }
 
-export default useStudentHomePage
+export default useStudentHomePage;

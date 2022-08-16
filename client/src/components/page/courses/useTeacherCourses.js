@@ -16,9 +16,7 @@ function useTeacherCourses() {
   };
 
   useEffect(() => {
-
-    fetchCourses()
-
+    fetchCourses();
   }, []);
 
   const addCourse = async (name) => {
@@ -61,17 +59,26 @@ function useTeacherCourses() {
     return "Loading...";
   }
 
+  // const data =
+  //   courses &&
+  //   courses.filter((course) => {
+  //     const exist = course.teachers.find((id) => id === teacherId);
+  //     if (exist) {
+  //       return true;
+  //     }
+  //     return false;
+  //   });
 
-  const data = courses && courses.filter((course) => {
-    const exist = course.teachers.find((id) => id === teacherId)
-    if (exist) {
-      return true
-    }
-    return false
-  })
-  return { data, removeCourse, addCourse, editCourse }
-
-
+  const data =
+    courses &&
+    courses.filter((course) => {
+      // const exist = course.teachers.find((id) => id === teacherId);
+      // if (exist) {
+      return true;
+    });
+  // return false;
+  // });
+  return { data, removeCourse, addCourse, editCourse };
 }
 
 export default useTeacherCourses;

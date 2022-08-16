@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "muicss": "^0.10.3",
-    "react-countdown-circle-timer": "^3.0.9",
-    "slugify": "^1.6.5"
-  }
-}

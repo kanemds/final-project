@@ -10,10 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import useScore from 'components/hooks/useScore';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
-
-
 const TakingExams = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { userId, lastIncomplete } = useContext(LoginContext)
   const { getScoreByExamId, editScore, newScore } = useScore()
@@ -42,14 +40,15 @@ const TakingExams = () => {
     }
 
     if (remaining === 0 && exam && currentScore) {
-      const remainingTime = (new Date(currentScore.created).getTime() + exam.timeLimit * 60 * 1000) - new Date().getTime()
+      const remainingTime =
+        new Date(currentScore.created).getTime() +
+        exam.timeLimit * 60 * 1000 -
+        new Date().getTime();
       if (!isNaN(remainingTime)) {
-        setRemaining(remainingTime)
+        setRemaining(remainingTime);
       }
     }
   }, [answers, currentScore, getExam, remaining, setRemaining])
-
-
 
   const children = ({ remainingTime }) => {
     // const hours = Math.floor(remainingTime / 3600)
@@ -66,63 +65,57 @@ const TakingExams = () => {
   }
 
   const nextQuestion = () => {
-    let answerId = questions[currentQuestion].answers._id
-    let correctId = answerId = questions[currentQuestion].correctAnswer
-    const next = currentQuestion + 1
-    editScore(currentScore._id,
-      {
-        answers: answers
-      })
+    let answerId = questions[currentQuestion].answers._id;
+    let correctId = (answerId = questions[currentQuestion].correctAnswer);
+    const next = currentQuestion + 1;
+    editScore(currentScore._id, {
+      answers: answers,
+    });
 
     if (next < questions.length) {
-      setCurrentQuestion(next)
+      setCurrentQuestion(next);
     } else {
       editScore(currentScore._id, {
-        submitted: true
-      }).then(
-        navigate(`/student/courses/${id}/exam/done`))
+        submitted: true,
+      }).then(navigate(`/student/courses/${id}/exam/done`));
     }
-  }
+  };
 
   const lastQuestion = () => {
-    setCurrentQuestion(currentQuestion - 1)
-  }
-
-
+    setCurrentQuestion(currentQuestion - 1);
+  };
 
   if (!exam || !questions || !currentScore) {
     return "loading"
   }
 
-
-  const nextButtonText = currentQuestion === questions.length - 1 ? 'Submit' : 'Save and Continue'
-  const color = exam.timeLimit * 60
+  const nextButtonText =
+    currentQuestion === questions.length - 1 ? "Submit" : "Save and Continue";
+  const color = exam.timeLimit * 60;
 
   return (
     <>
       <Box
         sx={{
           display: "flex",
-          justifyContent: "center"
-        }}>
+          justifyContent: "center",
+        }}
+      >
         <Card
           sx={{
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
             width: "800px",
-            mt: 28
+            mt: 28,
           }}
         >
-
-          <CardContent >
-
-
+          <CardContent>
             <ListItem
               sx={{
-                display: 'flex',
+                display: "flex",
                 justifyContent: "space-between",
-                pr: 6
+                pr: 6,
               }}
             >
               <h1>{exam.name}</h1>
@@ -131,66 +124,88 @@ const TakingExams = () => {
                   onComplete={() => {
                     if (currentScore) {
                       return editScore(currentScore._id, {
-                        submitted: true
-                      }).then(
-                        navigate(`/student/courses/${id}/exam/done`))
+                        submitted: true,
+                      }).then(navigate(`/student/courses/${id}/exam/done`));
                     }
                   }}
                   isPlaying={true}
                   duration={exam ? exam.timeLimit * 60 : 999999}
                   initialRemainingTime={remaining / 1000}
                   size={80}
-                  colors={['#093d9c', '#0794b0', '#07b067', '#07b029', '#decc0d', '#cf7f11', '#db2a0b']}
+                  colors={[
+                    "#093d9c",
+                    "#0794b0",
+                    "#07b067",
+                    "#07b029",
+                    "#decc0d",
+                    "#cf7f11",
+                    "#db2a0b",
+                  ]}
                   updateInterval={1}
-                  colorsTime={[color, color * .7, color * .5, color * .3, color * .15, color * .1, 0]}
+                  colorsTime={[
+                    color,
+                    color * 0.7,
+                    color * 0.5,
+                    color * 0.3,
+                    color * 0.15,
+                    color * 0.1,
+                    0,
+                  ]}
                 >
                   {children}
                 </CountdownCircleTimer>
               )}
             </ListItem>
-            <ListItem sx={{ fontSize: "30px" }} >
+            <ListItem sx={{ fontSize: "30px" }}>
               {currentQuestion + 1}. {questions[currentQuestion].content}
             </ListItem>
             <Table>
               {questions[currentQuestion].answers.map((answer, i) => {
-                const isSelected = selected === answer._id ||
-                  answers[currentQuestion] === answer._id
+                const isSelected =
+                  selected === answer._id ||
+                  answers[currentQuestion] === answer._id;
                 return (
                   <TableRow
                     key={answer._id}
                     selected={isSelected}
-                    onClick={() => { selectedHandle(answer._id, currentQuestion) }}
+                    onClick={() => {
+                      selectedHandle(answer._id, currentQuestion);
+                    }}
                   >
-                    <TableCell sx={{ fontSize: "20px" }} >
+                    <TableCell sx={{ fontSize: "20px" }}>
                       {`${tags[i]}. ${answer.content}`}
                     </TableCell>
-
                   </TableRow>
-                )
+                );
               })}
             </Table>
           </CardContent>
-
 
           <Box
             sx={{
               p: 1,
               m: 1,
-              bgcolor: 'background.paper',
+              bgcolor: "background.paper",
               borderRadius: 1,
             }}
           >
-            {currentQuestion <= 0 ? <Button variant="contained" disabled={true} >Previous</Button>
-              : (
-                <Button variant="contained" onClick={lastQuestion}>Previous</Button>
-              )
-            }
-            <Button variant="contained" onClick={nextQuestion} sx={{ ml: 3 }}>{nextButtonText}</Button>
+            {currentQuestion <= 0 ? (
+              <Button variant="contained" disabled={true}>
+                Previous
+              </Button>
+            ) : (
+              <Button variant="contained" onClick={lastQuestion}>
+                Previous
+              </Button>
+            )}
+            <Button variant="contained" onClick={nextQuestion} sx={{ ml: 3 }}>
+              {nextButtonText}
+            </Button>
           </Box>
         </Card>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default TakingExams
+export default TakingExams;
