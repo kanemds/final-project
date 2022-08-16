@@ -19,6 +19,8 @@ const DoneExams = () => {
   const score = getScoreByExamId(id)
   const examInfo = exams && score && exams.find(info => info._id === score.exam)
   const currentExam = score && Math.trunc(((score.score / score.totalScore) * 100))
+  console.log(score)
+  console.log(examInfo)
 
 
   if (!exams || !score || !examInfo || !scores) {
@@ -66,9 +68,9 @@ const DoneExams = () => {
         }} >
           {/* <h2>Last Score: {lastExam}%</h2> */}
           {currentExam < examInfo.passScore ?
+            <h3> {examInfo.failFeedback}</h3> :
+            <h3>{examInfo.passFeedback} </h3>
 
-            <h3>{examInfo.passFeedback} </h3> :
-            <h3> {examInfo.failFeedback}</h3>
           }
         </Paper>
         <h1>Score:  </h1>
@@ -110,8 +112,11 @@ const DoneExams = () => {
         <h3>Passing Score Require: {examInfo.passScore}%</h3>
         <Box>
           <Button variant="contained" onClick={() => {
-            navigate('/student/home')
+            navigate('/student/courses')
           }}>Back to Home</Button>
+          {examInfo.attemptsLimit === null ?
+            <Button sx={{ ml: 2 }} variant="contained" onClick={() => navigate(`/student/score/${score._id}/review`)}>Review</Button>
+            : ""}
         </Box>
 
       </Paper>

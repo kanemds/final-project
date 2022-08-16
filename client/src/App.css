@@ -71,6 +71,14 @@ li {
   display: flex;
 }
 
+.homecontainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
 div .form {
   background-color: var(--main-bg-color);
 }
@@ -163,6 +171,22 @@ a {
   color: white;
 }
 
+@media screen and (min-width: 1730px) {
+  .homeimage {
+    background-size: cover;
+    height: 50vh !important;
+  }
+}
+
+@media screen and (max-width: 1219px) {
+  .homeimage {
+    background-size: contain !important;
+    height: 35vh !important;
+  }
+}
+
+
+
 @media screen and (max-width: 800px) {
 
   #root {
@@ -170,6 +194,11 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .homeimage {
+    background-size: contain !important;
+    height: 25vh !important;
   }
 
   .SidebarList {
@@ -183,6 +212,8 @@ a {
     width: 100%
   }
 }
+
+
 
 
 tr[data-selected="incorrect"] {

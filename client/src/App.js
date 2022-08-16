@@ -23,7 +23,7 @@ import ReportContainer from "ReportContainer";
 import { UserList } from "components/page/students/components/userlist";
 import CheckoutSuccess from "components/page/account/billing/CheckoutSuccess";
 import NotFound from "components/NotFound";
-
+import NewHome from "components/page/home/NewHome";
 import AddStudent from "components/page/students/components/AddStudent";
 import Teacher from "components/page/home/teacher/Teacher";
 import StudentRoot from "components/studentPage/StudentRoot";
@@ -53,7 +53,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<NewHome />} />
 
         <Route path="*" element={<NotFound />} />
 

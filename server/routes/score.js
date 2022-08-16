@@ -26,7 +26,7 @@ const canWriteExam = async (studentId, examId, scoreId) => {
     doExam = false
   }
 
-  if (existingScores && existingScores[0] && new Date().getTime() > new Date(new Date(existingScores[0].created).getTime() + timeLimit * 60 * 1000).getTime()) {
+  if (existingScores && existingScores[0] && new Date().getTime() > new Date(new Date(existingScores[0].created).getTime() + timeLimit).getTime()) {
     doExam = false
   }
 
