@@ -6,9 +6,13 @@ import Box from '@mui/material/Box';
 const CoursesContainer = () => {
   return (
     <>
-      <CourseHeader />
-      <Box sx={{ bgcolor: 'white', p: 3 }}>
-        <Outlet />
+      <Box
+        sx={{ m: 3 }}
+      >
+        <CourseHeader />
+        <Box sx={{ bgcolor: 'white', p: 3 }}>
+          <Outlet sx={{ mt: 16 }} />
+        </Box>
       </Box>
     </>
   )
