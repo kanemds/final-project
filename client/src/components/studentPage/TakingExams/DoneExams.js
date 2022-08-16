@@ -17,10 +17,8 @@ const DoneExams = () => {
   const navigate = useNavigate()
   const scores = getAllScoreByExamId(id)
   const score = getScoreByExamId(id)
-  console.log(score)
   const examInfo = exams && score && exams.find(info => info._id === score.exam)
   const currentExam = score && Math.trunc(((score.score / score.totalScore) * 100))
-
 
 
   if (!exams || !score || !examInfo || !scores) {
@@ -33,8 +31,7 @@ const DoneExams = () => {
   ];
   const COLORS = ["#00C49F", "#ebe8e8"];
 
-  console.log(score)
-  console.log(examInfo)
+
 
   return (
     <Box

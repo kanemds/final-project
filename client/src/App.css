@@ -152,7 +152,7 @@ a {
 .row #icon {
   flex: 30%;
   display: grid;
-  font-size: 6rem;
+  font-size: 5rem;
   place-items: center;
   color: white;
 }

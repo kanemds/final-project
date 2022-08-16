@@ -58,7 +58,6 @@ export default function Login({ open, handleClose }) {
   }
 
   const login = () => {
-    console.log('????')
     setLoginName(loginName)
     setUserId(loginName)
     // navigate(`/student/${loginName}/home`)
@@ -78,7 +77,7 @@ export default function Login({ open, handleClose }) {
         .then((data) => {
           sessionStorage.setItem('user', data.data._id)
           setUserId(data.data._id)
-          navigate(`/student/home`)
+          navigate(`/student/courses`)
         })
     }
   }

@@ -10,11 +10,11 @@ import LogoutIcon from '@mui/icons-material/ExitToAppRounded';
 
 
 export const StudentSidebarData = [
-  {
-    title: "Home",
-    icon: <HomeIcon />,
-    link: "/student/home"
-  },
+  // {
+  //   title: "Home",
+  //   icon: <HomeIcon />,
+  //   link: "/student/home"
+  // },
   {
     title: "Courses",
     icon: <CoursesIcon />,

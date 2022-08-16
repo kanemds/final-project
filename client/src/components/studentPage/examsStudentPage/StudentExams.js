@@ -19,6 +19,10 @@ import { useNavigate } from 'react-router-dom';
 import { LoginContext } from 'Contexts/LoginContext';
 import { useContext } from 'react';
 import useScore from 'components/hooks/useScore';
+import FindInPageSharpIcon from '@mui/icons-material/FindInPageSharp';
+import ReviewExam from '../TakingExams/ReviewExam';
+import { Button } from '@mui/material';
+
 
 
 function Row({ item, exams }) {
@@ -26,7 +30,6 @@ function Row({ item, exams }) {
   const { newScore, editScore, scores, getScoreByExamId } = useScore()
   const { userId, lastIncomplete, saveLastIncomplete } = useContext(LoginContext)
   const course = item
-  console.log(course)
   const [open, setOpen] = React.useState(false);
 
   const findExams = exams && exams.filter((item) => {
@@ -37,13 +40,11 @@ function Row({ item, exams }) {
     return currentExamIds.includes(item._id.toString())
   })
 
-
-
   if (!exams) {
     return ""
   }
 
-  const startExam = (courseId, examId, score, maxAttempt, time) => {
+  const startExam = (course, examId, score, maxAttempt, time) => {
     const incompleteScore = score.filter((item) => {
       const oneMinute = time * 1000 * 60
       const endTime = new Date(item.created).getTime() + oneMinute
@@ -59,7 +60,7 @@ function Row({ item, exams }) {
       newScore({
         score: 0,
         student: userId,
-        course: courseId,
+        course: course,
         exam: examId,
         submitted: false
       }).then((scoreDoc) => {
@@ -104,7 +105,7 @@ function Row({ item, exams }) {
                     <TableCell align="center"><h2>Time Limit</h2></TableCell>
                     <TableCell align="center"><h2>No. of Attempts</h2></TableCell>
                     <TableCell align="center"><h2>Highest Score</h2></TableCell>
-                    <TableCell align="center"><h2>Start Exams</h2></TableCell>
+                    <TableCell align="center"><h2>Exams</h2></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -113,12 +114,13 @@ function Row({ item, exams }) {
                     if (!each.activate) {
                       return ""
                     }
-                    const score = scores.filter((item) => item.exam === each._id && item.course === course._id)
+                    const score = scores && scores.filter((item) => item.exam === each._id && item.course === course._id)
                     const attempts = score.length
                     const submitted = score.filter((item) => item.submitted).length
                     const examScores = attempts > 1 && score && score.map((item) => item.score)
                     const totalScores = attempts > 1 && score && score.map((item) => item.totalScore)
                     const highestScore = attempts > 1 && Math.max(...examScores)
+                    const highestResult = score.find(highest => highest.score === highestScore)
                     const scorePercentage = attempts > 1 ?
                       `${Math.trunc(((highestScore / totalScores[0]) * 100))}%` : 'N/A'
                     let canStartExam = true
@@ -150,8 +152,12 @@ function Row({ item, exams }) {
                               color: "Green"
                             }}
                             onClick={() => { startExam(course, each._id, score, each.attemptsLimit, each.timeLimit) }}
-                          />) : 'Completed'}
-
+                          />)
+                            :
+                            <Button onClick={() => navigate(`/student/score/${highestResult._id}/review`)}>
+                              Review
+                            </Button>
+                          }
                         </TableCell>
                       </TableRow>
                     )
@@ -173,8 +179,7 @@ export default function CollapsibleTable() {
 
   const { exams } = useContext(LoginContext)
   const data = useCourses()
-  console.log(data)
-  console.log(exams)
+
 
   return (
     <TableContainer component={Paper}

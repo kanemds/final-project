@@ -8,14 +8,17 @@ function useExam() {
   const params = useParams()
 
   useEffect(() => {
-    getExam(params.id).then(() => { })
-  }, [params.id])
+    if (!exam && params.id) {
+      getExam(params.id).then((exam) => {
+        setExam(exam)
+      })
+    }
+  }, [exam, params.id])
 
   const getExam = async (examId) => {
     const exam = await axios.get(`${api_base}/exams/${examId}`)
-    setExam(exam.data)
+    return exam.data
   }
-
 
   const saveExam = async (exam) => {
     // do save exam

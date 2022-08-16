@@ -1,7 +1,6 @@
 import { LoginContext } from 'Contexts/LoginContext'
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ListItem from '@mui/material/ListItem';
@@ -19,24 +18,37 @@ const TakingExams = () => {
   const { userId, lastIncomplete } = useContext(LoginContext)
   const { getScoreByExamId, editScore, newScore } = useScore()
   const { id } = useParams()
-  const { exam } = useExam()
+  const { exam, getExam } = useExam()
   const questions = exam.questions
   const [selected, setSelected] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState([])
-
+  const [examId, setExamId] = useState()
   const [remaining, setRemaining] = useState(0)
   const tags = ["A", "B", "C", "D", "E", "F", "G", "H"]
   const currentScore = lastIncomplete || getScoreByExamId(id)
+  const [newExam, setNewExam] = useState()
 
+  useEffect(() => {
+    console.log({ exam, questions, currentScore })
+    // if (!exam) {
+    //   examId && getExam(examId).then((data) => {
+    //     setNewExam(data)
+    //   })
+    // }
 
+    if (answers.length === 0 && currentScore && currentScore.answers && currentScore.answers.length > 0) {
+      setAnswers(currentScore.answers)
+    }
 
-  const selectedHandle = (answerId, currentQuestion) => {
-    const newAnswers = answers
-    newAnswers[currentQuestion] = answerId
-    setSelected(answerId)
-    setAnswers(newAnswers)
-  }
+    if (remaining === 0 && exam && currentScore) {
+      const remainingTime = (new Date(currentScore.created).getTime() + exam.timeLimit * 60 * 1000) - new Date().getTime()
+      if (!isNaN(remainingTime)) {
+        setRemaining(remainingTime)
+      }
+    }
+  }, [answers, currentScore, getExam, remaining, setRemaining])
+
 
 
   const children = ({ remainingTime }) => {
@@ -46,22 +58,12 @@ const TakingExams = () => {
     return <p>{minutes}mins</p>
   }
 
-
-  useEffect(() => {
-    if (answers.length === 0 && currentScore && currentScore.answers && currentScore.answers.length > 0) {
-      setAnswers(currentScore.answers)
-    }
-
-
-    if (remaining === 0 && exam && currentScore) {
-      const remainingTime = (new Date(currentScore.created).getTime() + exam.timeLimit * 60 * 1000) - new Date().getTime()
-      if (!isNaN(remainingTime)) {
-        setRemaining(remainingTime)
-      }
-    }
-  }, [answers, currentScore, exam, remaining, setRemaining])
-
-
+  const selectedHandle = (answerId, currentQuestion) => {
+    const newAnswers = answers
+    newAnswers[currentQuestion] = answerId
+    setSelected(answerId)
+    setAnswers(newAnswers)
+  }
 
   const nextQuestion = () => {
     let answerId = questions[currentQuestion].answers._id
@@ -88,8 +90,8 @@ const TakingExams = () => {
 
 
 
-  if (!exam || !questions) {
-    return ""
+  if (!exam || !questions || !currentScore) {
+    return "loading"
   }
 
 
@@ -172,7 +174,6 @@ const TakingExams = () => {
 
           <Box
             sx={{
-
               p: 1,
               m: 1,
               bgcolor: 'background.paper',

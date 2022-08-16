@@ -56,7 +56,11 @@ function useScore() {
     return scores && scores.find((score) => score.exam === examId)
   }
 
-  return { newScore, editScore, scores, getScoreByExamId, getAllScoreByExamId }
+  const getScoreByScoreId = (scoreId) => {
+    return scores && scores.find((score) => score._id === scoreId)
+  }
+
+  return { newScore, editScore, scores, getScoreByExamId, getAllScoreByExamId, getScoreByScoreId }
 }
 
 export default useScore

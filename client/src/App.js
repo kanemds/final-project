@@ -38,12 +38,13 @@ import CoursesContainer from "./components/page/courses/CoursesContainer";
 import AddExamsToCourse from "components/page/courses/AddExamsToCourse";
 import AddStudentsToCourse from "components/page/courses/AddStudentsToCourse";
 import StudentExams from "./components/studentPage/examsStudentPage/StudentExams"
-import TakingExams from "components/studentPage/TakingExams.js/TakingExams";
-import DoneExams from "components/studentPage/TakingExams.js/DoneExams";
+import TakingExams from "components/studentPage/TakingExams/TakingExams";
+import DoneExams from "components/studentPage/TakingExams/DoneExams";
 import EditAccount from "components/page/account/editAccount";
 import EditStudent from "components/page/students/components/EditStudent";
 import StudentAccount from "components/studentPage/account/StudentAccount";
 import TeacherAccount from "components/page/account/TeacherAccount";
+import ReviewExam from "components/studentPage/TakingExams/ReviewExam";
 
 function App() {
 
@@ -121,14 +122,12 @@ function App() {
 
         <Route>
           <Route element={<StudentRoot />}>
-            <Route path="/student/home" element={<StudentHomePage />} />
-
+            {/* <Route path="/student/home" element={<StudentHomePage />} /> */}
             <Route path="/student/courses" element={<StudentExams />} />
             <Route path="/student/courses/:id/exam" element={<TakingExams />} />
             <Route path="/student/courses/:id/exam/done" element={<DoneExams />} />
+            <Route path="/student/score/:scoreId/review" element={<ReviewExam />} />
             <Route path="/student/account" element={<StudentAccount />} />
-
-
           </Route>
         </Route>
       </Routes>
