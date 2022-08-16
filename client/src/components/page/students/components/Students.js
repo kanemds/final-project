@@ -55,69 +55,73 @@ box-shadow: ${theme.shadows[12]};`
   );
   return (
     <>
-      <h1 sx={{ color: blue }}>Add Students</h1>
-      <BasicModal />
-      {student.map((item) => (
-        <Card
-          key={item._id}
-          sx={{
-            minWidth: 50,
-            margin: 1,
-            "&:hover": {
-              boxShadow: "0 2px 5px 1px",
-              cursor: "pointer",
-            },
-          }}
-        >
-          <CardContent>
-            <Typography sx={{ fontSize: 24 }} gutterBottom>
-              <Link
-                to={`/teacher/students/${item._id}/`}
-                key={item._id}
-                style={{
-                  textDecoration: "none",
-                  color: "black",
-                  fontWeight: "bolder",
-                }}
+      <Box
+        sx={{ m: 6 }}
+      >
+        <h1 sx={{ color: blue }}>Add Students</h1>
+        <BasicModal />
+        {student.map((item) => (
+          <Card
+            key={item._id}
+            sx={{
+              minWidth: 50,
+              margin: 1,
+              "&:hover": {
+                boxShadow: "0 2px 5px 1px",
+                cursor: "pointer",
+              },
+            }}
+          >
+            <CardContent>
+              <Typography sx={{ fontSize: 24 }} gutterBottom>
+                <Link
+                  to={`/teacher/students/${item._id}/`}
+                  key={item._id}
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                    fontWeight: "bolder",
+                  }}
+                >
+                  {item.firstname} {item.lastname}
+                  <Divider variant="middle" />
+                  {item.email}
+                </Link>
+              </Typography>
+
+              <Divider variant="middle" />
+              <Box sx={{ m: 2 }}></Box>
+              <ListItemButton component="enrolledcourse" href="/teacher/courses">
+                <AutoStoriesIcon fontSize="large" sx={{ color: blue[500] }} />
+
+                <ListItemText
+                  primary={getAllCourseNames(item.course).join(", ")}
+                />
+              </ListItemButton>
+              <Divider variant="middle" />
+              <Box sx={{ m: 2 }}></Box>
+              <Button
+                variant="outlined"
+                onClick={() =>
+                  navigate("/teacher/students/edit", { state: item })
+                }
+                sx={{ fontSize: 15 }}
+                gutterBottom
               >
-                {item.firstname} {item.lastname}
-                <Divider variant="middle" />
-                {item.email}
-              </Link>
-            </Typography>
-
-            <Divider variant="middle" />
-            <Box sx={{ m: 2 }}></Box>
-            <ListItemButton component="enrolledcourse" href="/teacher/courses">
-              <AutoStoriesIcon fontSize="large" sx={{ color: blue[500] }} />
-
-              <ListItemText
-                primary={getAllCourseNames(item.course).join(", ")}
-              />
-            </ListItemButton>
-            <Divider variant="middle" />
-            <Box sx={{ m: 2 }}></Box>
-            <Button
-              variant="outlined"
-              onClick={() =>
-                navigate("/teacher/students/edit", { state: item })
-              }
-              sx={{ fontSize: 15 }}
-              gutterBottom
-            >
-              Edit Student Account
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={() => removeUser(item._id)}
-              sx={{ fontSize: 15 }}
-              gutterBottom
-            >
-              Delete
-            </Button>
-          </CardContent>
-        </Card>
-      ))}
+                Edit Student Account
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => removeUser(item._id)}
+                sx={{ fontSize: 15 }}
+                gutterBottom
+              >
+                Delete
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
     </>
   );
 };

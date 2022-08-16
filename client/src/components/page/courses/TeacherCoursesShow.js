@@ -48,85 +48,93 @@ const TeacherCoursesShow = () => {
 
   return data && data.length > 0 && (
     <>
-      <Button onClick={handleOpen}>Open modal</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+      <Box
+        sx={{ m: 6 }}
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            New Course
-          </Typography>
-          <TextField fullWidth value={name}
-            onChange={(event) => nameState(_prev => event.target.value)}
-            label="Course Name" id="fullWidth" />
+        <Typography id="modal-modal-title" variant="h2" component="h2">
+          Courses
+        </Typography>
+        <Button variant="contained" onClick={handleOpen}>Add Course</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              New Course
+            </Typography>
+            <TextField fullWidth value={name}
+              onChange={(event) => nameState(_prev => event.target.value)}
+              label="Course Name" id="fullWidth" />
 
-          <Button
-            onClick={() => {
-              addCourse({ name })
-                .then(setOpen(false))
-            }}
-          >Create </Button>
-          <Button onClick={handleClose}>Cancel</Button>
-        </Box>
-      </Modal>
-      {
-        data.map((course) => (
-          <Card
-            key={course._id}
-            sx={{
-              minWidth: 50,
-              margin: 1,
-              "&:hover": {
-                boxShadow: "0 2px 5px 1px",
-                cursor: "pointer"
-              }
-            }}
-          >
-            <CardContent >
-              <Typography gutterBottom
-                key={course.name}
+            <Button
+              onClick={() => {
+                addCourse({ name })
+                  .then(setOpen(false))
+              }}
+            >Create </Button>
+            <Button onClick={handleClose}>Cancel</Button>
+          </Box>
+        </Modal>
+        {
+          data.map((course) => (
+            <Card
+              key={course._id}
+              sx={{
+                minWidth: 50,
+                margin: 1,
+                "&:hover": {
+                  boxShadow: "0 2px 5px 1px",
+                  cursor: "pointer"
+                }
+              }}
+            >
+              <CardContent >
+                <Typography gutterBottom
+                  key={course.name}
 
-                style={{
-                  margin: 0,
-                  fontSize: 30,
-                  textDecoration: 'none',
-                  color: "black",
-                  fontWeight: 'bold',
-                  ".css-46bh2p-MuiCardContent-root": {
-                    padding: "none"
-                  }
-                }}
-              >
-                <div className='title'>
-                  <div className='name'>
-                    {course.name}
+                  style={{
+                    margin: 0,
+                    fontSize: 30,
+                    textDecoration: 'none',
+                    color: "black",
+                    fontWeight: 'bold',
+                    ".css-46bh2p-MuiCardContent-root": {
+                      padding: "none"
+                    }
+                  }}
+                >
+                  <div className='title'>
+                    <div className='name'>
+                      {course.name}
+                    </div>
                   </div>
-                  <div className='name'>
-                    <BorderColorIcon fontSize="large" sx={{ color: blue[500] }}
-                      onClick={() => {
-                        navigate(`/teacher/courses/${course._id}/edit`)
-                      }}
-                    />
-                    <HighlightOffIcon fontSize="large" sx={{ color: pink[500] }}
-                      onClick={() => { removeCourse(course._id) }} />
-                  </div>
+                </Typography>
+                <Typography sx={{ fontSize: 20 }} >
+                  Exams: {course.exams.length}
+                </Typography>
+                <Typography sx={{ fontSize: 20 }} >
+                  Students: {course.students.length}
+                </Typography>
+                <div className='name'>
+                  <HighlightOffIcon fontSize="large" sx={{ color: pink[500] }}
+                    onClick={() => { removeCourse(course._id) }} />
+                  <BorderColorIcon fontSize="large" sx={{ color: blue[500] }}
+                    onClick={() => {
+                      navigate(`/teacher/courses/${course._id}/edit`)
+                    }}
+                  />
+
                 </div>
-              </Typography>
-              <Typography sx={{ fontSize: 20 }} >
-                Exams: {course.exams.length}
-              </Typography>
-              <Typography sx={{ fontSize: 20 }} >
-                Students: {course.students.length}
-              </Typography>
-            </CardContent>
-            <CardActions>
-            </CardActions>
-          </Card>
-        ))
-      }
+              </CardContent>
+              <CardActions>
+              </CardActions>
+            </Card>
+          ))
+        }
+      </Box>
     </>
   )
 }
