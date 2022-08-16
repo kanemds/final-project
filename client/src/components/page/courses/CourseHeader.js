@@ -36,6 +36,7 @@ const CourseHeader = () => {
   return (
     <div className='selector'>
       <Tabs
+        sx={{ mt: 5 }}
         value={value}
         onChange={handleChange}
         indicatorColor="secondary"

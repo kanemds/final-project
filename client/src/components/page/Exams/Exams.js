@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Exam from './Exam'
 import axios from 'axios';
 import ModalAddExam from './ModalAddExam';
+import Box from '@mui/material/Box';
 import { api_base } from 'config';
 
 const Exams = () => {
@@ -17,13 +18,15 @@ const Exams = () => {
   }, []);
   return (
     <>
+    <Box sx={{m: 6}}>
       <h1>Exam Manager</h1>
-      <ModalAddExam setExamsState={setExamsState}/>
-      <div>
-        {examsState.length > 0 && examsState.map((exam, i) => {
-          return <Exam key={i + 1} exam={exam} />
-        })}
-      </div>
+        <ModalAddExam setExamsState={setExamsState}/>
+        <div>
+          {examsState.length > 0 && examsState.map((exam, i) => {
+            return <Exam key={i + 1} exam={exam} />
+          })}
+        </div>
+    </Box>
     </>
   );
 };

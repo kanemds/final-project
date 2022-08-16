@@ -1,39 +1,42 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const QuestionScheama = new mongoose.Schema({
   content: {
     type: String,
-    required: true
+    required: true,
   },
   points: {
     type: Number,
-    required: true
+    required: true,
   },
 
   answers: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Answer"
-    }
+      ref: "Answer",
+    },
   ],
   correctAnswer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Answer"
+    ref: "Answer",
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
-    required: true
+    required: true,
   },
   used: {
     type: Boolean,
-    default: true
+    default: true,
   },
-
+  lastEdited: {
+    type: Date,
+    default: Date.now,
+  },
   created: {
     type: Date,
-    default: Date.now
-  }
-})
+    default: Date.now,
+  },
+});
 
-module.exports = mongoose.model('Question', QuestionScheama)
+module.exports = mongoose.model("Question", QuestionScheama);

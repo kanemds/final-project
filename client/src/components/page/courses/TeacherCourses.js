@@ -14,8 +14,6 @@ const TeacherCourses = () => {
 
   return (
     <>
-      <h1>Course Categories</h1>
-      <br />
       <div key={teacher._id}>
         <TeacherCoursesShow />
       </div>

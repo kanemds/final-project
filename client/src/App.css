@@ -71,6 +71,14 @@ li {
   display: flex;
 }
 
+.homecontainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
 div .form {
   background-color: var(--main-bg-color);
 }
@@ -152,7 +160,7 @@ a {
 .row #icon {
   flex: 30%;
   display: grid;
-  font-size: 6rem;
+  font-size: 5rem;
   place-items: center;
   color: white;
 }
@@ -163,6 +171,22 @@ a {
   color: white;
 }
 
+@media screen and (min-width: 1730px) {
+  .homeimage {
+    background-size: cover;
+    height: 50vh !important;
+  }
+}
+
+@media screen and (max-width: 1219px) {
+  .homeimage {
+    background-size: contain !important;
+    height: 35vh !important;
+  }
+}
+
+
+
 @media screen and (max-width: 800px) {
 
   #root {
@@ -170,6 +194,12 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .homeimage {
+    background-size: cover;
+    width: 100%;
+    height: 50vh !important;
   }
 
   .SidebarList {
@@ -182,12 +212,27 @@ a {
     height: 5%;
     width: 100%
   }
-
-
-
-
 }
 
+
+
+
+tr[data-selected="incorrect"] {
+  background-color: #f48fb1;
+}
+
+tr td {
+  position: relative;
+}
+
+tr td svg {
+  position: absolute;
+  right: 10px;
+}
+
+.home-img-container button {
+  z-index: 999;
+}
 
 /* @media screen and (min-height: 768px) {
   .SidebarList .row:last-child {

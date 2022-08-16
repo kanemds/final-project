@@ -31,6 +31,7 @@ router.use("/student", student);
 router.use('/course', course)
 router.use('/score', score)
 router.use("/account", account);
+router.use("/course", course);
 
 
 

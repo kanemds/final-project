@@ -3,13 +3,13 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import axios from 'axios';
-// import { Link } from 'react-router-dom'
 
 import { api_base } from 'config'
 import { LoginContext } from 'Contexts/LoginContext';
 import Scores from './Scores';
 
 const Reports = () => {
+  const { teachers: teacher } = useContext(LoginContext)
   const [rows, setRows] = useState([]);
   useEffect(() => {
     const getRows = async () => {
@@ -53,9 +53,18 @@ const Reports = () => {
     {field: 'time', headerName: 'Last Score Submitted Time', flex: 2}
   ];
   return (
-    <Box style={{ height: 400, width: '100%' }}>
-      {rows.length > 0 && <DataGrid columns={columns} rows={rows} components={{ Toolbar: GridToolbar }} />}
-    </Box>
+    <>
+      {teacher.map(item => {
+        return (
+          <div key={teacher._id}>
+            <h1> {item.firstname}, {item.lastname}</h1>
+          </div>
+        )
+      })}
+      <Box style={{ height: 400, width: '100%' }}>
+        {rows.length > 0 && <DataGrid columns={columns} rows={rows} components={{ Toolbar: GridToolbar }} />}
+      </Box>
+    </>
   )
 }
 

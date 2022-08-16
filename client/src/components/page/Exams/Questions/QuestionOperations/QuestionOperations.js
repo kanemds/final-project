@@ -3,9 +3,8 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 
@@ -38,12 +37,21 @@ const QuestionOperations = () => {
           <Header questions={questionsState} setQuestions={setQuestionsState} />
           <Card sx={{ minWidth: 50, margin: 1}}>
             <CardContent>
-              <Typography variant="h6">
-                Category: {questionsState.current.category.content} Points: {questionsState.current.points}
-              </Typography>
-              <Typography sx={{ fontSize: 20 }}>
-                Question {questionOrder}: {questionsState.current.content}?
-              </Typography>
+              <Box style={{display: 'flex', flexDirection: 'column', gap: '1vw'}}>
+                <Box style={{display: 'flex', gap: '2vw'}}>
+                  <Typography variant="h6">
+                    Points: {questionsState.current.points}
+                  </Typography>
+                  <Typography variant="h6">
+                    Category: {questionsState.current.category.content}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography sx={{ fontSize: 20 }}>
+                    Question {questionOrder}: {questionsState.current.content}?
+                  </Typography>
+                </Box>
+              </Box>
               <br/>
               {questionsState.current.answers?.map((ans, i) => {
                 return <Typography sx={{ fontSize: 20 }} key={i + 1}>{letters[i]}. {ans.content}</Typography>

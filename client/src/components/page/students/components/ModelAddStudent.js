@@ -32,7 +32,9 @@ export default function BasicModel() {
   };
   return (
     <div>
-      <Button onClick={navigateNewStudent}>Add Student</Button>
+      <Button variant="contained" onClick={navigateNewStudent}>
+        Add Student
+      </Button>
 
       <Button
         onClick={() =>
@@ -40,9 +42,7 @@ export default function BasicModel() {
             navigate(`/teacher/students/${student.data._id}`);
           })
         }
-      >
-        This Button does Nothing!
-      </Button>
+      ></Button>
     </div>
   );
 }

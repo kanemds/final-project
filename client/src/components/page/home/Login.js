@@ -45,6 +45,8 @@ export default function Login({ open, handleClose }) {
 
   const teacher = teachers.find((item) => item.user === userId) || teachers[0]
   const student = students.find((item) => item.user === userId) || students[0]
+  console.log(student)
+
 
   const handleChange = (e) => {
     setLoginName(e.target.value)
@@ -58,13 +60,16 @@ export default function Login({ open, handleClose }) {
   }
 
   const login = () => {
-    console.log('????')
     setLoginName(loginName)
     setUserId(loginName)
     // navigate(`/student/${loginName}/home`)
   }
 
   const handleLogin = () => {
+    if (!student) {
+      return ""
+    }
+
     if (role === teacher && loginName) {
       axios.post(`${api_base}/teacher/login`, { user: loginName }, { withCredentials: true })
         .then((data) => {
@@ -78,14 +83,12 @@ export default function Login({ open, handleClose }) {
         .then((data) => {
           sessionStorage.setItem('user', data.data._id)
           setUserId(data.data._id)
-          navigate(`/student/home`)
+          navigate(`/student/courses`)
         })
     }
   }
 
-  if (!student) {
-    return ""
-  }
+
   return (
     <div>
       <Modal
@@ -104,7 +107,7 @@ export default function Login({ open, handleClose }) {
         >
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Please select your role</InputLabel>
+              <InputLabel id="demo-simple-select-label" >Role</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"

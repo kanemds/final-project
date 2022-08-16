@@ -73,6 +73,7 @@ export default function BasicModal() {
           ></textarea>
         </Typography>
         <Button
+          variant="contained"
           onClick={() =>
             axios
               .post(`${api_base}/student/new`, {

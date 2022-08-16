@@ -21,11 +21,11 @@ const ExamSchema = new mongoose.Schema({
   },
   passFeedback: {
     type: String,
-    default: 'Unfortunately, you did not pass.'
+    default: 'Congratulations! You passed!'
   },
   failFeedback: {
     type: String,
-    default: 'Congratulations! You passed!'
+    default: 'Unfortunately, you did not pass.'
   },
   activate: {
     type: Boolean,

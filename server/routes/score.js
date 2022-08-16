@@ -26,7 +26,7 @@ const canWriteExam = async (studentId, examId, scoreId) => {
     doExam = false
   }
 
-  if (existingScores && existingScores[0] && new Date().getTime() > new Date(new Date(existingScores[0].created).getTime() + timeLimit * 60 * 1000).getTime()) {
+  if (existingScores && existingScores[0] && new Date().getTime() > new Date(new Date(existingScores[0].created).getTime() + timeLimit).getTime()) {
     doExam = false
   }
 
@@ -193,16 +193,6 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.get("/courses/:courseId/exams/:examId", async (req, res) => {
-  const doc = await Score.find(
-    {
-    course: req.params.courseId,
-    exam: req.params.examId
-    }
-  );
-  res.send(doc);
-});
-
 router.get('/', (req, res) => {
   const user = req.session.user
   let findQuery = null
@@ -224,7 +214,15 @@ router.get('/', (req, res) => {
     });
 })
 
-
+router.get("/courses/:courseId/exams/:examId", async (req, res) => {
+  const doc = await Score.find(
+    {
+    course: req.params.courseId,
+    exam: req.params.examId
+    }
+  );
+  res.send(doc);
+});
 
 router.delete('/:id', (req, res) => {
   Score.findByIdAndDelete(req.params.id, (err) => {
