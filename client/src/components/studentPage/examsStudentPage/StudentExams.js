@@ -191,11 +191,13 @@ export default function CollapsibleTable() {
   const data = useCourses()
   const currentStudent = students.find(id => id._id === userId)
 
+
   const [ready, setReady] = useState()
 
 
 
   if (!exams || !userId || !students || !currentStudent) {
+
     return "loading";
   }
   return (

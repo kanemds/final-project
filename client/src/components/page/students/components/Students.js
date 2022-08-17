@@ -71,6 +71,7 @@ const Students = () => {
 
               <Divider variant="middle" />
               <Box sx={{ m: 2 }}></Box>
+
               <Box
                 sx={{
                   display: "flex"
@@ -94,6 +95,7 @@ const Students = () => {
 
               <HighlightOffIcon variant="contained"
                 onClick={() => removeUser(item._id)}
+
                 fontSize="large" sx={{ color: pink[500], mr: 3 }}
                 gutterBottom />
 
