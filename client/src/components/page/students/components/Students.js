@@ -27,32 +27,9 @@ const Students = () => {
   const student = useStudent();
   const { data } = useTeacherCourses();
 
-  const getCourseName = (currentCourseId) => {
-    let currentCourseName = "";
-    if (currentCourseId) {
-      // if there is a course id then we'll loop through the data to get the course name using courseId
-      for (let course of data) {
-        if (currentCourseId == course._id) {
-          currentCourseName = course.name;
-        }
-      }
-    }
-    if (!data) {
-      return "loading...";
-    }
-    return currentCourseName;
-  };
-  const getAllCourseNames = (arrayOfCourseIds) => {
-    return arrayOfCourseIds.map(getCourseName);
-  };
-
-  const BoxShadowDiv = styled("div")(
-    ({ theme }) => `
-margin: ${theme.spacing(2)};
-padding: ${theme.spacing(2)};
-border: 1px solid black;
-box-shadow: ${theme.shadows[12]};`
-  );
+  if (!data) {
+    return "loading...";
+  }
   return (
     <>
       <Box
@@ -91,29 +68,39 @@ box-shadow: ${theme.shadows[12]};`
 
               <Divider variant="middle" />
               <Box sx={{ m: 2 }}></Box>
-              <ListItemButton component="enrolledcourse" href="/teacher/courses">
-                <AutoStoriesIcon fontSize="large" sx={{ color: blue[500] }} />
+              <Box
+                sx={{
+                  display: "flex"
+                }}>
+                <AutoStoriesIcon fontSize="large" sx={{ color: blue[500], mr: 1 }} />
 
-                <ListItemText
-                  primary={getAllCourseNames(item.course).join(", ")}
-                />
-              </ListItemButton>
+                {data.map(course => {
+                  if (course.students.includes(item._id)) {
+                    return (
+                      <Typography
+                        sx={{ ml: 1, mr: 1 }}
+                      >
+                        {course.name}
+                      </Typography>
+                    )
+                  }
+                })}
+              </Box>
               <Divider variant="middle" />
               <Box sx={{ m: 2 }}></Box>
               <Button
-                variant="outlined"
+                variant="contained"
                 onClick={() =>
                   navigate("/teacher/students/edit", { state: item })
                 }
-                sx={{ fontSize: 15 }}
+                sx={{ mr: 3 }}
                 gutterBottom
               >
-                Edit Student Account
+                Edit
               </Button>
               <Button
-                variant="outlined"
+                variant="contained"
                 onClick={() => removeUser(item._id)}
-                sx={{ fontSize: 15 }}
                 gutterBottom
               >
                 Delete

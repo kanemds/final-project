@@ -121,7 +121,7 @@ export const EditStudent = ({ courses }) => {
               })
           }
         >
-          Edit Student Account
+          Update Account
         </Button>
       </Box>
     </div>
