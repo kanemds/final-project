@@ -27,6 +27,7 @@ import { useEffect } from 'react';
 
 
 
+
 function Row({ item, exams }) {
   const navigate = useNavigate();
   const { newScore, seditScore, scores, getScoreByExamId } = useScore();
@@ -194,8 +195,6 @@ export default function CollapsibleTable() {
   const [ready, setReady] = useState()
 
 
-
-
   if (!exams || !userId || !students || !currentStudent) {
 
 
@@ -208,6 +207,11 @@ export default function CollapsibleTable() {
           m: 10
         }}
       >
+
+
+
+        <h1>{currentStudent.firstname} {currentStudent.lastname}</h1>
+
 
 
         <h1>{currentStudent.firstname} {currentStudent.lastname}</h1>
