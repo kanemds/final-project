@@ -44,7 +44,7 @@ const Exam = ({ exam }) => {
         <Typography sx={{ fontSize: 14 }} gutterBottom>
           Last Edited: {new Date(exam.created).toLocaleDateString('en-US')}
         </Typography>
-        <HighlightOffIcon fontSize="large" sx={{ color: pink[500] }}
+        <HighlightOffIcon fontSize="large" sx={{ color: pink[500], mr: 3 }}
         // onClick={() => { removeExam(exam._id) }} 
         />
         <BorderColorIcon fontSize="large" sx={{ color: blue[500] }}

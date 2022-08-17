@@ -19,6 +19,9 @@ import ListItemText from "@mui/material/ListItemText";
 import { ListItemButton } from "@mui/material";
 import useTeacherCourses from "components/page/courses/useTeacherCourses";
 import "./Students.css";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { pink } from "@mui/material/colors";
+
 
 const Students = () => {
   const { removeUser } = useContext(GlobalContext);
@@ -88,23 +91,18 @@ const Students = () => {
               </Box>
               <Divider variant="middle" />
               <Box sx={{ m: 2 }}></Box>
-              <Button
-                variant="contained"
-                onClick={() =>
-                  navigate("/teacher/students/edit", { state: item })
-                }
-                sx={{ mr: 3 }}
-                gutterBottom
-              >
-                Edit
-              </Button>
-              <Button
-                variant="contained"
+
+              <HighlightOffIcon variant="contained"
                 onClick={() => removeUser(item._id)}
-                gutterBottom
-              >
-                Delete
-              </Button>
+                fontSize="large" sx={{ color: pink[500], mr: 3 }}
+                gutterBottom />
+
+              <BorderColorIcon
+                fontSize="large" sx={{ color: blue[500] }}
+                onClick={() =>
+                  navigate("/teacher/students/edit", { state: item })}
+                gutterBottom />
+
             </CardContent>
           </Card>
         ))}
