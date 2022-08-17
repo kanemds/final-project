@@ -68,6 +68,7 @@ const Students = () => {
 
               <Divider variant="middle" />
               <Box sx={{ m: 2 }}></Box>
+
               <Box
                 sx={{
                   display: "flex"
@@ -101,6 +102,7 @@ const Students = () => {
               <Button
                 variant="contained"
                 onClick={() => removeUser(item._id)}
+
                 gutterBottom
               >
                 Delete
