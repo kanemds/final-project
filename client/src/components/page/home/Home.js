@@ -99,13 +99,13 @@ const Home = () => {
             style={{
               display: "flex",
               backgroundImage: `url(${logo})`,
-              backgroundSize: "cover",
+              backgroundSize: "contain",
               backgroundRepeat: "no-repeat",
               bgcolor: "gray",
               opacity: 0.9,
               border: 1,
-              width: "100%",
-              height: "35vh",
+              // width: "100%",
+              height: "80vh",
             }}
           >
             <div className="banner-text">
