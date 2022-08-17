@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import { AgChartsReact } from 'ag-charts-react';
 
 import { api_base } from 'config'
 
-const Distribution = ({scores}) => {
-  const navigate = useNavigate();
-  const  options = {
+const Distribution = ({ scores }) => {
+
+  const options = {
     title: {
       text: 'Scores',
     },

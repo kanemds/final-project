@@ -119,11 +119,8 @@ const TeacherCoursesShow = () => {
                   Students: {course.students.length}
                 </Typography>
                 <div className='name'>
-<<<<<<< HEAD
+
                   <HighlightOffIcon fontSize="large" sx={{ color: pink[500], mr: 3 }}
-=======
-                  <HighlightOffIcon fontSize="large" sx={{ color: pink[500] }}
->>>>>>> c04adabd6a0011cb8744d028f482f74c9ac6d48b
                     onClick={() => { removeCourse(course._id) }} />
                   <BorderColorIcon fontSize="large" sx={{ color: blue[500] }}
                     onClick={() => {

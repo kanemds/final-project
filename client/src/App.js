@@ -44,9 +44,7 @@ import EditAccount from "components/page/account/editAccount";
 import StudentAccount from "components/studentPage/account/StudentAccount";
 import TeacherAccount from "components/page/account/TeacherAccount";
 import ReviewExam from "components/studentPage/TakingExams/ReviewExam";
-import Records from "components/page/reports/Records";
-import Statistics from "components/page/reports/Statistics";
-import Reports from "components/page/Reports";
+import Reports from "components/page/reports/Reports";
 import ReportContainer from "components/page/reports/ReportContainer";
 import Scores from "components/page/reports/Scores";
 import Questions from "components/page/reports/Questions";
@@ -106,16 +104,6 @@ function App() {
           {/* {reports page} */}
           <Route path="/teacher/reports" element={<Reports />} />
           <Route element={<ReportContainer />}>
-
-            <Route
-              path="/teacher/:teacherId/reports/records"
-              element={<Records />}
-            />
-            <Route
-              path="/teacher/:teacherId/reports/statistics"
-              element={<Statistics />}
-            />
-
             <Route path="/teacher/reports/:courseId/:examId/scores" element={<Scores />} />
             <Route path="/teacher/reports/:courseId/:examId/questions" element={<Questions />} />
 
