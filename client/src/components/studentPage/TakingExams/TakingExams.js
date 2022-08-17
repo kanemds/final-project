@@ -146,7 +146,7 @@ const TakingExams = () => {
                     "#cf7f11",
                     "#db2a0b",
                   ]}
-                  updateInterval={10}
+                  updateInterval={1}
                   colorsTime={[
                     color,
                     color * 0.7,

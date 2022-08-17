@@ -22,6 +22,8 @@ import useScore from 'components/hooks/useScore';
 import FindInPageSharpIcon from '@mui/icons-material/FindInPageSharp';
 import ReviewExam from '../TakingExams/ReviewExam';
 import { Button } from '@mui/material';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 
 function Row({ item, exams }) {
@@ -188,10 +190,12 @@ export default function CollapsibleTable() {
   const { exams, userId, students } = useContext(LoginContext)
   const data = useCourses()
   const currentStudent = students.find(id => id._id === userId)
-  console.log(currentStudent)
+
+  const [ready, setReady] = useState()
 
 
-  if (!exams || !userId || !students) {
+
+  if (!exams || !userId || !students || !currentStudent) {
     return "loading";
   }
   return (
@@ -201,6 +205,7 @@ export default function CollapsibleTable() {
           m: 10
         }}
       >
+
         <h1>{currentStudent.firstname} {currentStudent.lastname}</h1>
         <br />
         <TableContainer
