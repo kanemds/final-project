@@ -10,13 +10,13 @@ import CoursesIcon from '@mui/icons-material/AutoStories';
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 
 export const SidebarData = [
-  {
-    title: "Home",
-    icon: <HomeIcon />,
+  // {
+  //   title: "Home",
+  //   icon: <HomeIcon />,
 
-    link: "/teacher/home",
+  //   link: "/teacher/home",
 
-  },
+  // },
   {
     title: "Courses",
     icon: <CoursesIcon />,

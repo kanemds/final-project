@@ -144,7 +144,7 @@ function App() {
         <Route path="/teacher/checkout-success" element={<CheckoutSuccess />} />
         <Route path="/student/exams" element={<ExamStudentPage />} />
         <Route>
-          <Route path="/teacher/home" element={<Teacher />} />
+          {/* <Route path="/teacher/home" element={<Teacher />} /> */}
         </Route>
 
         {/* student route */}
