@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -144,9 +146,11 @@ const MatrixFilters = () => {
     }
   };
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      {rowsState.length > 0 && <DataGrid onCellEditCommit={handleCommit} columns={columns} rows={rowsState} components={{ Toolbar: GridToolbar }} />}
-    </div>
+    <Paper>
+      <Box style={{ height: 400, width: '100%' }}>
+        {rowsState.length > 0 && <DataGrid onCellEditCommit={handleCommit} columns={columns} rows={rowsState} components={{ Toolbar: GridToolbar }} />}
+      </Box>
+    </Paper>
   );
 };
 export default MatrixFilters;

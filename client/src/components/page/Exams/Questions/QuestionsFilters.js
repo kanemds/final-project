@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Link from '@mui/material/Link';
-import Button from '@mui/material/Button';
 
 import { useParams } from 'react-router-dom';
 import { api_base } from 'config'
 import axios from 'axios';
 
-export default function QuestionsFilters({questions, questionsFilterState}) {
+export default function QuestionsFilters({questions, questionsFilterState, activate}) {
   let {id} = useParams();
   const [checkboxSelection, setCheckboxSelection] = useState(true);
   const [selectionModel, setSelectionModel] = useState(() => {
@@ -37,14 +36,15 @@ export default function QuestionsFilters({questions, questionsFilterState}) {
   
   return (
     <div style={{ width: '100%' }}>
-      <Button
+      {/* <Button
         sx={{ mb: 2 }}
         onClick={() => setCheckboxSelection(!checkboxSelection)}
       >
-      </Button>
+      </Button> */}
       <div style={{ height: 400 }}>
         <DataGrid
           disableSelectionOnClick
+          isRowSelectable={() => !activate}
           checkboxSelection={checkboxSelection}
           selectionModel={selectionModel}
           onSelectionModelChange={async (ids) => {            

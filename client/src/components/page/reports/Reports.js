@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import axios from 'axios';
 
@@ -53,7 +54,7 @@ const Reports = () => {
     {field: 'time', headerName: 'Last Score Submitted Time', flex: 2}
   ];
   return (
-    <>
+    <Box sx={{m: 6}}>
       {teacher.map(item => {
         return (
           <div key={teacher._id}>
@@ -64,7 +65,7 @@ const Reports = () => {
       <Box style={{ height: 400, width: '100%' }}>
         {rows.length > 0 && <DataGrid columns={columns} rows={rows} components={{ Toolbar: GridToolbar }} />}
       </Box>
-    </>
+    </Box>
   )
 }
 

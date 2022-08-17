@@ -109,6 +109,7 @@ div .form {
   top: 0%;
   height: 100vh;
   position: relative;
+  /* position: fixed; */
 }
 
 .SidebarList {

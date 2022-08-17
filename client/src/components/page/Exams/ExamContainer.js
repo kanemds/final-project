@@ -4,6 +4,9 @@ import Box from "@mui/material/Box";
 import axios from "axios";
 import ExamHeader from "components/page/Exams/ExamHeader";
 import { api_base } from "config";
+import Paper from '@mui/material/Paper';
+
+
 
 
 const ExamContainer = () => {
@@ -21,18 +24,20 @@ const ExamContainer = () => {
   }, []);
   return (
     <>
-      <ExamHeader examName={examName} />
-      <br />
-      <Box>
-        <Outlet
-          context={{
-            questionsFilterState,
-            setQuestionsFilterState,
-            activate,
-            setActivate,
-            setExamName,
-          }}
-        />
+      <Box sx={{ m: 6 }}>
+        <ExamHeader examName={examName} />
+        <br />
+        <Box>
+          <Outlet
+            context={{
+              questionsFilterState,
+              setQuestionsFilterState,
+              activate,
+              setActivate,
+              setExamName,
+            }}
+          />
+        </Box>
       </Box>
     </>
   );

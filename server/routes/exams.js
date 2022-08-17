@@ -19,6 +19,7 @@ router.get("/", (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
+  console.log(req.params.id, 'req.params.id########################')
   const doc = Exam.aggregate([
     { $match: { _id: ObjectId(req.params.id) } },
     { $limit: 1 },

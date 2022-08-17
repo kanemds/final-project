@@ -75,7 +75,7 @@ export default function Login({ open, handleClose }) {
         .then((data) => {
           sessionStorage.setItem('teacherId', data.data._id)
           setTeacherId(data.data._id)
-          navigate(`/teacher/home`)
+          navigate(`/teacher/courses`)
         })
     }
     if (role === student && loginName) {

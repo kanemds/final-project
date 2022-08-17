@@ -21,6 +21,7 @@ const ReviewExam = () => {
   const score = getScoreByScoreId(scoreId)
   const examId = score && score.exam
   const [exam, setExam] = useState()
+
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const tags = ["A", "B", "C", "D", "E", "F", "G", "H"]
   const [selected, setSelected] = useState([])
@@ -58,7 +59,9 @@ const ReviewExam = () => {
   }
 
   const questions = exam.questions
+  console.log(exam)
   const nextButtonText = currentQuestion === questions.length - 1 ? 'Exit' : 'Next'
+  // console.log(questions)
 
   return (
     <>

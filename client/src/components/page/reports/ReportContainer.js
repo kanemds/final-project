@@ -6,12 +6,12 @@ import ReportHeader from 'components/page/reports/ReportHeader';
 
 const ReportContainer = () => {
   return (
-    <>
+    <Box sx={{m: 6}}>
       <ReportHeader />
       <Box sx={{ bgcolor: 'white', p: 3 }}>
         <Outlet />
       </Box>
-    </>
+    </Box>
   )
 }
 
