@@ -85,6 +85,7 @@ const QuestionForm = () => {
               <AcUnitRoundedIcon sx={{ color: red[500] }}/> Enter Your Question ({4000 - question.length} characters remaining)
             </Typography>
             <TextField
+              style={{marginTop: '1.3vw'}}
               id="qustion-id"
               value={question}
               onChange={(event) => setQuestion(event.target.value)}

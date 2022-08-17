@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Typography from '@mui/material/Typography';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import Link from '@mui/material/Link';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import IconButton from '@mui/material/IconButton';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { pink } from '@mui/material/colors';
 import { blue } from '@mui/material/colors';
@@ -59,49 +56,52 @@ const MatrixFilters = () => {
     getCategories();
   }, [trigger]);
   const columns = [
-    {field: 'name', headerName: 'Name', flex: 3},
+    {field: 'name', headerName: 'Name', flex: 2},
     {field: 'questions', headerName: 'Questions', flex: 1},
-    {field: 'used', headerName: 'Used', flex: 1, editable: true},
+    {field: 'used', headerName: 'Using', flex: 1, editable: true},
+    {field: 'viewQuestions', headerName: 'View', flex: 1, renderCell: (rowData) => {
+      const quesRow = rowData.row;
+      return (
+        <IconButton onClick={() => {
+          setQuestionsFilterState(_prev => {
+            return {
+              filterModel: {
+                items: [
+                  {
+                    columnField: 'category',
+                    operatorValue: 'contains',
+                    value: quesRow.name
+                  }
+                ],
+                linkOperator: "and"
+              }
+            };
+          })
+          navigate(`/teacher/exams/${id}/questions`)
+        }}>
+          <RemoveRedEyeIcon />
+        </IconButton>
+      )
+    }},
+    {field: 'empty', headerName: '', flex: 1},
     {field: 'counts', headerName: 'Counts', flex: 1, renderCell: (rowData) => {
       const quesRow = rowData.row;
         return (
-          <Typography sx={{ color: pink[500] }}>
+          <Typography sx={{ color: blue[700] }}>
             {quesRow.used} / {quesRow.counts}
           </Typography>
         )
       }
     },
-    {field: 'usedPoints', headerName: 'Used Points', flex: 1},
     {field: 'points', headerName: 'Points', flex: 1, renderCell: (rowData) => {
       const quesRow = rowData.row;
         return (
-          <Typography sx={{ color: pink[500] }}>
+          <Typography sx={{ color: blue[700] }}>
             {quesRow.usedPoints} / {quesRow.points}
           </Typography>
         )
       }
-    },
-    {field: 'viewQuestions', headerName: 'View Questions', flex: 1, renderCell: (rowData) => {
-      const quesRow = rowData.row;
-      return <RemoveRedEyeIcon fontSize="large" sx={{ color: pink[500] }}
-      onClick={() => {
-        setQuestionsFilterState(_prev => {
-          return {
-            filterModel: {
-              items: [
-                {
-                  columnField: 'category',
-                  operatorValue: 'contains',
-                  value: quesRow.name
-                }
-              ],
-              linkOperator: "and"
-            }
-          };
-        })
-        navigate(`/teacher/exams/${id}/questions`)
-      }} />
-      }}
+    }
   ];
   const handleCommit = async(e) => {
     const eValue = Number(e.value)

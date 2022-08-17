@@ -214,7 +214,15 @@ router.get('/', (req, res) => {
     });
 })
 
-
+router.get("/courses/:courseId/exams/:examId", async (req, res) => {
+  const doc = await Score.find(
+    {
+    course: req.params.courseId,
+    exam: req.params.examId
+    }
+  );
+  res.send(doc);
+});
 
 router.delete('/:id', (req, res) => {
   Score.findByIdAndDelete(req.params.id, (err) => {

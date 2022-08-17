@@ -193,9 +193,7 @@ export const EditStudent = ({ courses }) => {
                   })
               }
             >
-
               Update
-
             </Button>
           </Box>
         </Paper>

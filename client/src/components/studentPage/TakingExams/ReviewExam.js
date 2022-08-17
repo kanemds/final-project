@@ -28,6 +28,7 @@ const ReviewExam = () => {
   console.log({ scoreId, getScoreByScoreId, getExam, score })
 
 
+
   useEffect(() => {
     if (!exam) {
       examId && getExam(examId).then((data) => {
@@ -35,6 +36,7 @@ const ReviewExam = () => {
       })
     }
   }, [examId, getExam, exam, getScoreByScoreId, score])
+
 
 
   if (!scoreId || !score || !exam || !getScoreByScoreId) {

@@ -19,8 +19,10 @@ import ListItemText from "@mui/material/ListItemText";
 import { ListItemButton } from "@mui/material";
 import useTeacherCourses from "components/page/courses/useTeacherCourses";
 import "./Students.css";
+
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { pink } from "@mui/material/colors";
+
 
 
 const Students = () => {
@@ -30,9 +32,11 @@ const Students = () => {
   const student = useStudent();
   const { data } = useTeacherCourses();
 
+
   if (!data) {
     return "loading...";
   }
+
   return (
     <>
       <Box
@@ -105,10 +109,11 @@ const Students = () => {
                   navigate("/teacher/students/edit", { state: item })}
                 gutterBottom />
 
-            </CardContent>
-          </Card>
+
+            </CardContent >
+          </Card >
         ))}
-      </Box>
+      </Box >
     </>
   );
 };

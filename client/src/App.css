@@ -197,8 +197,11 @@ a {
   }
 
   .homeimage {
-    background-size: contain !important;
-    height: 25vh !important;
+
+    background-size: cover;
+    width: 100%;
+    height: 50vh !important;
+
   }
 
   .SidebarList {

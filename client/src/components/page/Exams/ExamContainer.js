@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams, Outlet } from "react-router-dom";
 import Box from "@mui/material/Box";
 import axios from "axios";
-
 import ExamHeader from "components/page/Exams/ExamHeader";
 import { api_base } from "config";
+
 
 const ExamContainer = () => {
   const { id } = useParams();

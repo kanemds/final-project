@@ -45,6 +45,33 @@ router.get('/:id', (req, res) => {
   })
 });
 
+router.get('/:id/reports', (req, res) => {
+  const doc = Exam.aggregate([
+    { $match: { _id: ObjectId(req.params.id) } },
+    { $limit: 1 },
+    {
+      $lookup: {
+        from: "questions",
+        localField: "activateQuestionsArray",
+        foreignField: "_id",
+        as: "questionsUsed",
+        pipeline: [
+          {
+            $lookup: {
+              from: "answers",
+              localField: "answers",
+              foreignField: "_id",
+              as: "answers"
+            }
+          }
+        ]
+      }
+    }
+  ]).exec().then((result) => {
+    res.json(result[0])
+  })
+});
+
 router.get('/:id/properties', async (req, res) => {
   const doc = await Exam.findById(req.params.id);
   res.send(doc);
