@@ -20,6 +20,11 @@ import { ListItemButton } from "@mui/material";
 import useTeacherCourses from "components/page/courses/useTeacherCourses";
 import "./Students.css";
 
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { pink } from "@mui/material/colors";
+
+
+
 const Students = () => {
   const { removeUser } = useContext(GlobalContext);
   const { editUser } = useContext(GlobalContext);
@@ -27,32 +32,11 @@ const Students = () => {
   const student = useStudent();
   const { data } = useTeacherCourses();
 
-  const getCourseName = (currentCourseId) => {
-    let currentCourseName = "";
-    if (currentCourseId) {
-      // if there is a course id then we'll loop through the data to get the course name using courseId
-      for (let course of data) {
-        if (currentCourseId == course._id) {
-          currentCourseName = course.name;
-        }
-      }
-    }
-    if (!data) {
-      return "loading...";
-    }
-    return currentCourseName;
-  };
-  const getAllCourseNames = (arrayOfCourseIds) => {
-    return arrayOfCourseIds.map(getCourseName);
-  };
 
-  const BoxShadowDiv = styled("div")(
-    ({ theme }) => `
-margin: ${theme.spacing(2)};
-padding: ${theme.spacing(2)};
-border: 1px solid black;
-box-shadow: ${theme.shadows[12]};`
-  );
+  if (!data) {
+    return "loading...";
+  }
+
   return (
     <>
       <Box
@@ -91,37 +75,45 @@ box-shadow: ${theme.shadows[12]};`
 
               <Divider variant="middle" />
               <Box sx={{ m: 2 }}></Box>
-              <ListItemButton component="enrolledcourse" href="/teacher/courses">
-                <AutoStoriesIcon fontSize="large" sx={{ color: blue[500] }} />
 
-                <ListItemText
-                  primary={getAllCourseNames(item.course).join(", ")}
-                />
-              </ListItemButton>
+              <Box
+                sx={{
+                  display: "flex"
+                }}>
+                <AutoStoriesIcon fontSize="large" sx={{ color: blue[500], mr: 1 }} />
+
+                {data.map(course => {
+                  if (course.students.includes(item._id)) {
+                    return (
+                      <Typography
+                        sx={{ ml: 1, mr: 1 }}
+                      >
+                        {course.name}
+                      </Typography>
+                    )
+                  }
+                })}
+              </Box>
               <Divider variant="middle" />
               <Box sx={{ m: 2 }}></Box>
-              <Button
-                variant="outlined"
-                onClick={() =>
-                  navigate("/teacher/students/edit", { state: item })
-                }
-                sx={{ fontSize: 15 }}
-                gutterBottom
-              >
-                Edit Student Account
-              </Button>
-              <Button
-                variant="outlined"
+
+              <HighlightOffIcon variant="contained"
                 onClick={() => removeUser(item._id)}
-                sx={{ fontSize: 15 }}
-                gutterBottom
-              >
-                Delete
-              </Button>
-            </CardContent>
-          </Card>
+
+                fontSize="large" sx={{ color: pink[500], mr: 3 }}
+                gutterBottom />
+
+              <BorderColorIcon
+                fontSize="large" sx={{ color: blue[500] }}
+                onClick={() =>
+                  navigate("/teacher/students/edit", { state: item })}
+                gutterBottom />
+
+
+            </CardContent >
+          </Card >
         ))}
-      </Box>
+      </Box >
     </>
   );
 };

@@ -193,7 +193,7 @@ export const EditStudent = ({ courses }) => {
                   })
               }
             >
-              Edit Student Account
+              Update
             </Button>
           </Box>
         </Paper>

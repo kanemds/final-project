@@ -28,13 +28,15 @@ const ReviewExam = () => {
   console.log({ scoreId, getScoreByScoreId, getExam, score })
 
 
-  // useEffect(() => {
-  //   if (!exam) {
-  //     examId && getExam(examId).then((data) => {
-  //       setExam(data)
-  //     })
-  //   }
-  // }, [examId, getExam, exam, getScoreByScoreId, score])
+
+  useEffect(() => {
+    if (!exam) {
+      examId && getExam(examId).then((data) => {
+        setExam(data)
+      })
+    }
+  }, [examId, getExam, exam, getScoreByScoreId, score])
+
 
 
   if (!scoreId || !score || !exam || !getScoreByScoreId) {

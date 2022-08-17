@@ -22,6 +22,11 @@ import useScore from 'components/hooks/useScore';
 import FindInPageSharpIcon from '@mui/icons-material/FindInPageSharp';
 import ReviewExam from '../TakingExams/ReviewExam';
 import { Button } from '@mui/material';
+<<<<<<< HEAD
+import { useState } from 'react';
+import { useEffect } from 'react';
+=======
+>>>>>>> c04adabd6a0011cb8744d028f482f74c9ac6d48b
 
 
 function Row({ item, exams }) {
@@ -32,8 +37,13 @@ function Row({ item, exams }) {
   const course = item;
   const [open, setOpen] = React.useState(false);
 
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> c04adabd6a0011cb8744d028f482f74c9ac6d48b
   const findExams =
     exams &&
     exams.filter((item) => {
@@ -188,10 +198,22 @@ export default function CollapsibleTable() {
   const { exams, userId, students } = useContext(LoginContext)
   const data = useCourses()
   const currentStudent = students.find(id => id._id === userId)
+<<<<<<< HEAD
+
+=======
   console.log(currentStudent)
+>>>>>>> c04adabd6a0011cb8744d028f482f74c9ac6d48b
+
+  const [ready, setReady] = useState()
+
+<<<<<<< HEAD
 
 
+  if (!exams || !userId || !students || !currentStudent) {
+
+=======
   if (!exams || !userId || !students) {
+>>>>>>> c04adabd6a0011cb8744d028f482f74c9ac6d48b
     return "loading";
   }
   return (
@@ -201,7 +223,12 @@ export default function CollapsibleTable() {
           m: 10
         }}
       >
+<<<<<<< HEAD
+
+        <h1>{currentStudent.firstname} {currentStudent.lastname}</h1>
+=======
         {/* <h1>{currentStudent.firstname} {currentStudent.lastname}</h1> */}
+>>>>>>> c04adabd6a0011cb8744d028f482f74c9ac6d48b
         <br />
         <TableContainer
           component={Paper}

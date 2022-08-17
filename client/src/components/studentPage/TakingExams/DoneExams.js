@@ -43,7 +43,7 @@ const DoneExams = () => {
         mt: 10,
         '& > :not(style)': {
           width: 600,
-          height: 700,
+          height: "80hv",
         },
       }}
     >
