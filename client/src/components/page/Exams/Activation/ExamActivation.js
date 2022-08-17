@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
 import ReactDOM from "react-dom";
 import { Container, Draggable } from "react-smooth-dnd";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -59,7 +61,7 @@ const ExamActivation = () => {
 	};
 	return (
 		<>
-			<div style={{ display: 'flex' }}>
+			<Box style={{ display: 'flex' }}>
 				<Button variant="contained" onClick={() => onRandom(questions)} disabled={activate}>Randomize</Button>
 				<FormControlLabel
 					value="start"
@@ -83,27 +85,29 @@ const ExamActivation = () => {
 					label='Activate'
 					labelPlacement="start"
 				/>
-			</div>
+			</Box>
 			<br />
-			<List>
-				<Container dragHandleSelector=".drag-handle" lockAxis="y" onDrop={onDrop}>
-					{questions.map(({ _id, content }, index) => (
-						<Draggable key={_id}>
-							<ListItem>
-								<ListItemText primary={`${index + 1}) ${content}`} />
-								{
-									!activate &&
-									<ListItemSecondaryAction>
-										<ListItemIcon className="drag-handle">
-											<DragHandleIcon />
-										</ListItemIcon>
-									</ListItemSecondaryAction>
-								}
-							</ListItem>
-						</Draggable>
-					))}
-				</Container>
-			</List>
+			<Paper>
+				<List>
+					<Container dragHandleSelector=".drag-handle" lockAxis="y" onDrop={onDrop}>
+						{questions.map(({ _id, content }, index) => (
+							<Draggable key={_id}>
+								<ListItem>
+									<ListItemText primary={`${index + 1}) ${content}`} />
+									{
+										!activate &&
+										<ListItemSecondaryAction>
+											<ListItemIcon className="drag-handle">
+												<DragHandleIcon />
+											</ListItemIcon>
+										</ListItemSecondaryAction>
+									}
+								</ListItem>
+							</Draggable>
+						))}
+					</Container>
+				</List>
+			</Paper>
 		</>
 	)
 }

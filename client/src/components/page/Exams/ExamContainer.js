@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Outlet } from "react-router-dom";
 import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import axios from 'axios';
 
 import ExamHeader from 'components/page/Exams/ExamHeader';
@@ -21,6 +22,7 @@ const ExamContainer = () => {
   }, []);
   return (
     <>
+    <Box sx={{m: 6}}>
       <ExamHeader examName={examName} />
       <br/>
       <Box>
@@ -31,6 +33,7 @@ const ExamContainer = () => {
         }}
         />
       </Box>
+    </Box>
     </>
   )
 }

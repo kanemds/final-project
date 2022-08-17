@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
@@ -108,8 +109,10 @@ export default function CategoriesFilters({categories, setCategories, setQuestio
     }
   });
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid columns={columns} rows={rows} components={{ Toolbar: GridToolbar }} />
-    </div>
+    <Paper>
+      <Box style={{ height: 400, width: '100%' }}>
+        <DataGrid columns={columns} rows={rows} components={{ Toolbar: GridToolbar }} />
+     </Box>
+    </Paper>
   );
 }

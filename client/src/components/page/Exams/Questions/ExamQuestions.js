@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useParams, useOutletContext } from 'react-router-dom';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
 import EmptyQuestion from '../img/EmptyQuestion.jpg';
 import axios from 'axios';
@@ -15,6 +8,7 @@ import axios from 'axios';
 import { api_base } from 'config';
 import BasicModal from './ModalAddQuestion';
 import QuestionsFilters from './QuestionsFilters';
+import { Paper } from '@mui/material';
 
 const ExamQuestions = () => {
 
@@ -39,10 +33,13 @@ const ExamQuestions = () => {
       <Box>
         {!load && questions.length === 0 && <img src={EmptyQuestion} />}
       </Box>
-      <Box>
-        {!load && questions.length > 0 && <QuestionsFilters questions={questions} questionsFilterState={questionsFilterState} />}
+      <Box pt={2}>
+        <Paper>
+          <Box style={{ height: 400, width: '100%' }}>
+              {!load && questions.length > 0 && <QuestionsFilters questions={questions} questionsFilterState={questionsFilterState} activate={activate} />}
+          </Box>
+        </Paper>
       </Box>
-
     </>
   )
 }
