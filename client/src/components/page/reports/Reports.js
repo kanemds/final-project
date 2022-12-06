@@ -54,18 +54,20 @@ const Reports = () => {
     {field: 'time', headerName: 'Last Score Submitted Time', flex: 2}
   ];
   return (
-    <Box sx={{m: 6}}>
-      {teacher.map(item => {
-        return (
-          <div key={teacher._id}>
-            <h1> {item.firstname}, {item.lastname}</h1>
-          </div>
-        )
-      })}
-      <Box style={{ height: 400, width: '100%' }}>
-        {rows.length > 0 && <DataGrid columns={columns} rows={rows} components={{ Toolbar: GridToolbar }} />}
+      <Box sx={{m: 6}}>
+        {teacher.map(item => {
+          return (
+            <div key={teacher._id}>
+              <h1> {item.firstname}, {item.lastname}</h1>
+            </div>
+          )
+        })}
+        <Paper>
+          <Box style={{ height: 400, width: '100%' }}>
+            {rows.length > 0 && <DataGrid columns={columns} rows={rows} components={{ Toolbar: GridToolbar }} />}
+          </Box>
+        </Paper>
       </Box>
-    </Box>
   )
 }
 
