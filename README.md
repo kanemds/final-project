@@ -8,4 +8,5 @@ I was responsible for the front end and back end for the features of creating Ex
 
 # Reports Functionalities
 
-!["Screenshot of Scores"](https://raw.https://raw.githubusercontent.com/GraceLR/Examinator/master/screenshots/Screen%20Shot%202022-12-06%20at%206.17.40%20AM.png)
+!["Screenshot of Scores"](https://raw.githubusercontent.com/GraceLR/Examinator/master/screenshots/Screen%20Shot%202022-12-06%20at%206.17.40%20AM.png)
+!["Screenshot of Questions"](https://raw.githubusercontent.com/GraceLR/Examinator/master/screenshots/Screen%20Shot%202022-12-06%20at%206.17.53%20AM.png)
